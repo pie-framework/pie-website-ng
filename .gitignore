@@ -14,3 +14,11 @@ Thumbs.db
 
 # Temp directories
 /suggested/
+
+# Monorepo
+node_modules/
+**/node_modules/
+**/dist/
+**/build/
+**/.svelte-kit/
+bun.lockb

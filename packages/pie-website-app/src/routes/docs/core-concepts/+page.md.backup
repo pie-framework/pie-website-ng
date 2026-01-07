@@ -1,0 +1,354 @@
+# Core Concepts
+
+Understanding PIE's architecture helps you build better assessments. Let's explore the key concepts that make PIE powerful and flexible.
+
+## Architecture Overview
+
+PIE (Portable Interactions and Elements) is built on three core pillars:
+
+![Hand-drawn architectural diagram showing three main components: "Elements" (Web Components for question types), "Player" (orchestration layer), and "Controllers" (server-side logic). Simple boxes connected with arrows showing data flow. Excalidraw style with minimal colors]
+
+### 1. PIE Elements
+
+**Elements** are reusable Web Components that render specific question types. Each element is a Custom Element (Web Component) that follows web standards.
+
+```javascript
+// Elements are just HTML tags
+<multiple-choice-element></multiple-choice-element>
+<math-input-element></math-input-element>
+<graphing-element></graphing-element>
+```
+
+**Key characteristics:**
+- Self-contained and encapsulated
+- Framework-agnostic (works with React, Vue, Angular, or vanilla JS)
+- Composable and reusable
+- Follow standard web component APIs
+
+### 2. PIE Player
+
+The **Player** orchestrates loading and rendering PIE elements. Think of it as the conductor that coordinates everything.
+
+**What the Player does:**
+- Loads the correct element for each question type
+- Manages inter-element communication
+- Handles role-based access control
+- Coordinates session state
+- Provides consistent API across all elements
+
+### 3. PIE Controllers
+
+**Controllers** are server-side functions that handle the business logic:
+
+![Diagram: Hand-drawn flow showing Controller box receiving question and session, with two output arrows labeled "model()" and "outcome()", lock icons indicating secure server-side processing]
+
+#### The `model()` Function
+
+Builds the UI model for an element while respecting role and mode:
+
+```javascript
+model(question, session, env) {
+  // Returns what the UI should display
+  // Hides correct answers from students
+  // Shows feedback in evaluate mode
+  // Returns different views for instructors
+}
+```
+
+**Example:**
+- **Student in gather mode**: Sees question, no correct answer shown
+- **Student in evaluate mode**: Sees question, their answer, feedback, correct answer
+- **Instructor**: Sees everything including authoring metadata
+
+#### The `outcome()` Function
+
+Calculates scores and validates responses:
+
+```javascript
+outcome(question, session, env) {
+  // Analyzes student response
+  // Returns score (0.0 to 1.0)
+  // Returns completion status
+  // Determines correctness
+}
+```
+
+## The PIE Lifecycle
+
+Understanding how data flows through PIE helps you work with it effectively:
+
+![Large Flowchart: Hand-drawn circular flow diagram showing the complete lifecycle of a PIE question from authoring to scoring, with numbered steps and colorful arrows]
+
+### 1. Authoring Phase
+
+**Goal**: Create the question
+
+```javascript
+const question = {
+  id: 'q1',
+  element: 'multiple-choice',
+  prompt: 'What is 2 + 2?',
+  choices: [
+    { label: '3', value: 'a' },
+    { label: '4', value: 'b' },
+    { label: '5', value: 'c' }
+  ],
+  correctResponse: { value: 'b' }
+};
+```
+
+### 2. Rendering Phase (Gather Mode)
+
+**Goal**: Student answers the question
+
+```javascript
+// Server calls model() to build student view
+const studentModel = await model(question, session, {
+  mode: 'gather',
+  role: 'student'
+});
+
+// UI renders - correct answer NOT included
+player.model = studentModel;  // No correctResponse in here!
+```
+
+### 3. Response Collection
+
+**Goal**: Capture student's answer
+
+```javascript
+// Session automatically updates as student interacts
+player.addEventListener('session-changed', (e) => {
+  session.value = e.detail.value;
+  // Save to your database
+});
+```
+
+### 4. Scoring Phase
+
+**Goal**: Evaluate the response
+
+```javascript
+// Server calls outcome() to score
+const result = await outcome(question, session, {
+  mode: 'evaluate',
+  role: 'student'
+});
+
+// Returns: { score: 1.0, complete: true }
+```
+
+### 5. Feedback Phase (Evaluate Mode)
+
+**Goal**: Show results to student
+
+```javascript
+// Server calls model() again for evaluate view
+const feedbackModel = await model(question, session, {
+  mode: 'evaluate',
+  role: 'student'
+});
+
+// Now includes correct answer, feedback, and score
+player.model = feedbackModel;
+```
+
+## Security Model
+
+PIE's architecture ensures assessment security through **role-based controllers**.
+
+### How It Works
+
+1. **Controllers Run Server-Side**: Never expose `outcome()` or full question models to the client
+2. **Role-Based Filtering**: The `model()` function returns different data based on role
+3. **Mode-Based Display**: Students can't see answers in gather mode
+4. **Separation of Concerns**: UI (client) is separate from scoring (server)
+
+![MVVM Security Flow showing client-server separation with model() filtering sensitive data](/images/mvvm-security-flow.png)
+
+**What Students See:**
+```javascript
+{
+  prompt: "What is 2 + 2?",
+  choices: [...],
+  // NO correctResponse
+  // NO scoring logic
+}
+```
+
+**What's Kept Server-Side:**
+```javascript
+{
+  correctResponse: { value: 'b' },
+  scoringRules: { ... },
+  rubric: { ... }
+}
+```
+
+## Environment Modes
+
+PIE supports three distinct modes for different use cases:
+
+### Gather Mode
+
+**Purpose**: Collect student responses
+
+```javascript
+env = { mode: 'gather', role: 'student' }
+```
+
+- Interactive inputs enabled
+- No correct answers shown
+- No feedback displayed
+- Submit buttons active
+
+### View Mode
+
+**Purpose**: Read-only display
+
+```javascript
+env = { mode: 'view', role: 'student' }
+```
+
+- All inputs disabled
+- Shows previous responses
+- No interaction allowed
+- Good for review or printing
+
+### Evaluate Mode
+
+**Purpose**: Show results and feedback
+
+```javascript
+env = { mode: 'evaluate', role: 'student' }
+```
+
+- Inputs disabled
+- Correct answers shown
+- Feedback displayed
+- Scores visible
+- Color-coded correctness
+
+## Items vs Elements
+
+Understanding this distinction is crucial:
+
+### Elements
+
+**Elements** are the building blocks - individual question types:
+
+- `multiple-choice`
+- `text-entry`
+- `math-input`
+- `graphing`
+- `drag-and-drop`
+
+Think of elements like Lego bricks - individual pieces.
+
+### Items
+
+**Items** are complete assessment questions that may use one or more elements:
+
+```javascript
+const item = {
+  id: 'item-1',
+  stimulus: '<p>Read this passage...</p>',  // Shared context
+  elements: [
+    { id: 'q1', element: 'multiple-choice', ... },
+    { id: 'q2', element: 'text-entry', ... },
+    { id: 'q3', element: 'multiple-choice', ... }
+  ]
+};
+```
+
+Think of items like a complete Lego model - built from multiple bricks.
+
+![Items vs Elements diagram showing how Items are composed of multiple Elements with shared stimulus](/images/items-vs-elements.png)
+
+**Example Use Case:**
+
+A reading comprehension item might have:
+1. Shared reading passage (stimulus)
+2. Multiple-choice question about main idea
+3. Text-entry question for vocabulary
+4. Multiple-choice question about author's intent
+
+## Configuration vs Model
+
+Another important distinction:
+
+### Configuration
+
+**Client-level settings** that control behavior:
+
+```javascript
+configuration = {
+  maxSelections: 2,
+  partialScoring: true,
+  showFeedback: true,
+  shuffle: false
+}
+```
+
+### Model
+
+**Content definition** from the author:
+
+```javascript
+model = {
+  prompt: 'Select all prime numbers',
+  choices: [2, 3, 4, 5, 6],
+  correctResponse: [2, 3, 5]
+}
+```
+
+## Data Flow Summary
+
+Here's how everything connects:
+
+![Hand-drawn comprehensive flow diagram showing: Author → Question (stored on Server) → Controller.model() → Player (Client) → Student Interaction → Session → Submit → Controller.outcome() (Server) → Score → Controller.model() (evaluate) → Player displays feedback. Complete circular flow with all components labeled, excalidraw style]
+
+1. **Author creates** question with element type and content
+2. **Server stores** question with correct answers
+3. **Client requests** student view via controller's `model()`
+4. **Player renders** filtered model (no answers)
+5. **Student interacts**, session updates
+6. **Client submits** session to server
+7. **Server scores** via controller's `outcome()`
+8. **Server generates** feedback view via `model()` in evaluate mode
+9. **Client displays** results
+
+## Best Practices
+
+### ✅ Always Use Controllers
+
+Never expose correct answers to the client. Always call `model()` server-side.
+
+### ✅ Respect Modes and Roles
+
+Different users should see different things. Trust the controller to filter appropriately.
+
+### ✅ Persist Sessions
+
+Save session data after each interaction so students can resume.
+
+### ✅ Validate Server-Side
+
+Never trust client-side scores. Always compute scores on the server.
+
+### ✅ Use Appropriate Elements
+
+Choose the right element type for your question. Don't force a multiple-choice when you need text-entry.
+
+## Next Steps
+
+Now that you understand the core concepts, you're ready to:
+
+- **Build with PIE Player**: Learn advanced player features
+- **Explore Elements**: Try all 20+ question types
+- **Author Content**: Create rich assessment items
+- **Integrate PIE**: Add PIE to your application
+
+---
+
+**Questions?** Check out our [FAQ](/docs/faq) or join the [community discussions](https://github.com/pie-framework/discussions).

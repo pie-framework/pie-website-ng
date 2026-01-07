@@ -1,0 +1,188 @@
+# Building an Authoring Interface
+
+*Learn how to create a visual configuration UI for your PIE element.*
+
+## Overview
+
+The authoring interface (often called "configure") lets authors visually build questions using your element. While optional, a good authoring UI makes your element much more accessible.
+
+## Coming Soon
+
+This tutorial will cover:
+
+### 1. The Configure Component
+
+```javascript
+import React from 'react';
+
+export default class Configure extends React.Component {
+  render() {
+    const { model, configuration, onModelChanged, onConfigurationChanged } = this.props;
+
+    return (
+      <div>
+        {/* Your authoring UI here */}
+      </div>
+    );
+  }
+}
+```
+
+### 2. Core Authoring Patterns
+
+**Prompt Editor**:
+```javascript
+<EditableHtml
+  markup={model.prompt}
+  onChange={(prompt) => onModelChanged({ ...model, prompt })}
+  imageSupport={configuration.imageSupport}
+/>
+```
+
+**Choice Management**:
+```javascript
+<ChoiceEditor
+  choices={model.choices}
+  correctResponse={model.correctResponse}
+  onChoicesChanged={(choices) => onModelChanged({ ...model, choices })}
+  onCorrectResponseChanged={(correctResponse) =>
+    onModelChanged({ ...model, correctResponse })
+  }
+/>
+```
+
+**Settings Panel**:
+```javascript
+<Tabs>
+  <Tab label="Design">
+    {/* Main editing UI */}
+  </Tab>
+  <Tab label="Scoring">
+    {/* Scoring configuration */}
+  </Tab>
+  <Tab label="Settings">
+    {/* Advanced options */}
+  </Tab>
+</Tabs>
+```
+
+### 3. Using pie-lib Components
+
+PIE provides reusable authoring components:
+
+```javascript
+import {
+  EditableHtml,
+  Collapsible,
+  FeedbackConfig,
+  InputContainer
+} from '@pie-lib/pie-toolbox/config-ui';
+
+// Use in your configure component
+<FeedbackConfig
+  feedback={model.feedback}
+  onChange={(feedback) => onModelChanged({ ...model, feedback })}
+/>
+```
+
+### 4. Live Preview
+
+Show authors what students will see:
+
+```javascript
+import MyElement from '../element';
+
+<div className="preview">
+  <h3>Student View</h3>
+  <MyElement
+    model={studentModel}
+    session={{ value: null }}
+  />
+</div>
+```
+
+### 5. Validation & Feedback
+
+```javascript
+class Configure extends React.Component {
+  validate() {
+    const errors = [];
+
+    if (!this.props.model.prompt) {
+      errors.push('Prompt is required');
+    }
+
+    if (!this.props.model.correctResponse) {
+      errors.push('Must specify correct answer');
+    }
+
+    return errors;
+  }
+
+  render() {
+    const errors = this.validate();
+
+    return (
+      <div>
+        {errors.length > 0 && (
+          <Alert type="error">
+            <ul>
+              {errors.map(e => <li key={e}>{e}</li>)}
+            </ul>
+          </Alert>
+        )}
+        {/* Rest of UI */}
+      </div>
+    );
+  }
+}
+```
+
+### 6. Advanced Features
+
+**Drag & Drop**:
+```javascript
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+// Reorderable choices
+```
+
+**Rich Media Upload**:
+```javascript
+import { ImageUpload } from '@pie-lib/pie-toolbox/config-ui';
+
+<ImageUpload
+  onUpload={(url) => onModelChanged({ ...model, imageUrl: url })}
+/>
+```
+
+**Templates**:
+```javascript
+const templates = [
+  { name: 'Basic', model: { /* ... */ } },
+  { name: 'With Images', model: { /* ... */ } },
+];
+
+<TemplateSelector
+  templates={templates}
+  onSelect={(template) => onModelChanged(template.model)}
+/>
+```
+
+### 7. Package Configuration
+
+```json
+{
+  "name": "@pie-element/my-element",
+  "pie": {
+    "element": "@pie-element/my-element",
+    "configure": {
+      "tag": "my-element-configure"
+    }
+  }
+}
+```
+
+---
+
+**Check back soon** for the complete tutorial with working examples!

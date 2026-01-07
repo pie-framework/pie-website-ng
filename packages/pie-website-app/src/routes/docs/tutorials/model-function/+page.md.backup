@@ -1,0 +1,120 @@
+# Designing the Model Function
+
+*Learn how to build the model() function that powers student and instructor views.*
+
+## Overview
+
+The `model()` function is the heart of your PIE element's controller. It transforms your question definition into what students and instructors see, while respecting security boundaries.
+
+## Coming Soon
+
+This tutorial will cover:
+
+### 1. The Model Function Contract
+
+```javascript
+/**
+ * Build the UI model for an element
+ * @param {Object} question - The complete question definition
+ * @param {Object} session - Current student response
+ * @param {Object} env - Environment (mode, role)
+ * @returns {Promise<Object>} The filtered model for the UI
+ */
+export function model(question, session, env) {
+  // Your implementation here
+}
+```
+
+### 2. Role-Based Filtering
+
+**Student View (gather mode)**:
+- Show question prompt
+- Show answer choices
+- Hide correct answers
+- Hide feedback
+- Hide instructor notes
+
+**Student View (evaluate mode)**:
+- Show question prompt
+- Show their response
+- Show correct answer
+- Show feedback
+- Show score
+
+**Instructor View**:
+- Show everything
+- Include authoring metadata
+- Show configuration options
+
+### 3. Mode-Based Behavior
+
+- **gather**: Interactive, no answers
+- **view**: Read-only, no answers
+- **evaluate**: Read-only, with answers and feedback
+
+### 4. Common Patterns
+
+**Shuffling choices** (respecting student seed):
+```javascript
+if (question.shuffle && env.mode === 'gather') {
+  model.choices = shuffle(question.choices, session.seed);
+}
+```
+
+**Adding feedback**:
+```javascript
+if (env.mode === 'evaluate') {
+  model.feedback = question.feedbackEnabled
+    ? question.correctFeedback
+    : null;
+}
+```
+
+**Handling partial responses**:
+```javascript
+model.disabled = env.mode !== 'gather';
+model.responseCorrect = env.mode === 'evaluate'
+  ? checkCorrectness(question, session)
+  : undefined;
+```
+
+### 5. Security Considerations
+
+**Never expose**:
+- `correctResponse` in gather/view modes for students
+- Scoring algorithms or rubrics
+- Instructor notes
+- Configuration that reveals answers
+
+**Always validate**:
+- env.mode and env.role before returning sensitive data
+- Session data hasn't been tampered with
+- All filtering is server-side
+
+### 6. Testing Your Model Function
+
+```javascript
+describe('model()', () => {
+  it('hides correct answer from students in gather mode', async () => {
+    const model = await model(question, session, {
+      mode: 'gather',
+      role: 'student'
+    });
+
+    expect(model.correctResponse).toBeUndefined();
+  });
+
+  it('shows correct answer to students in evaluate mode', async () => {
+    const model = await model(question, session, {
+      mode: 'evaluate',
+      role: 'student'
+    });
+
+    expect(model.correctResponse).toBeDefined();
+  });
+});
+```
+
+---
+
+**Check back soon** for the complete tutorial with real-world examples!
