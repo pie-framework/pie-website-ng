@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 
 	const elementPropertiesExample = `// Using a PIE element
@@ -153,7 +154,7 @@ export function outcome(
 
 		<div class="my-8">
 			<img
-				src="/images/docs/element-structure/element-structure.jpg"
+				src="{base}/images/docs/element-structure/element-structure.jpg"
 				alt="Element Structure Diagram"
 				class="rounded-lg shadow-lg w-full max-w-3xl mx-auto"
 			/>
@@ -323,7 +324,7 @@ export function outcome(
 
 		<div class="my-8 flex justify-center">
 			<img
-				src="/images/docs/architecture/mvvm-security-flow.png"
+				src="{base}/images/docs/architecture/mvvm-security-flow.png"
 				alt="MVVM Security Flow"
 				class="rounded-lg shadow-lg max-w-2xl w-full"
 			/>
