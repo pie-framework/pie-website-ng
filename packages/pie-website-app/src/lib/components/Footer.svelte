@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { base } from '$app/paths';
+</script>
+
 <footer class="footer bg-secondary text-secondary-content p-10">
 	<div class="container mx-auto">
 		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 w-full">
@@ -13,9 +17,9 @@
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Documentation</h3>
 				<nav class="flex flex-col gap-2">
-					<a href="/docs/items-elements" class="link link-hover text-sm">Items & Elements</a>
-					<a href="/docs/element-structure" class="link link-hover text-sm">Element Structure</a>
-					<a href="/docs/players-toolkit" class="link link-hover text-sm">Players & Toolkit</a>
+					<a href="{base}/docs/items-elements" class="link link-hover text-sm">Items & Elements</a>
+					<a href="{base}/docs/element-structure" class="link link-hover text-sm">Element Structure</a>
+					<a href="{base}/docs/players-toolkit" class="link link-hover text-sm">Players & Toolkit</a>
 				</nav>
 			</div>
 
@@ -23,8 +27,8 @@
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Resources</h3>
 				<nav class="flex flex-col gap-2">
-					<a href="/about" class="link link-hover text-sm">About</a>
-					<a href="/elements" class="link link-hover text-sm">Elements</a>
+					<a href="{base}/about" class="link link-hover text-sm">About</a>
+					<a href="{base}/elements" class="link link-hover text-sm">Elements</a>
 					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">GitHub</a>
 					<a href="https://pieframework.slack.com" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">Slack Community</a>
 				</nav>

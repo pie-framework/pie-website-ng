@@ -16,7 +16,7 @@
 <nav class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
 	<div class="container mx-auto">
 		<div class="flex-1">
-			<a href="/" class="flex items-center gap-3 px-2 py-1">
+			<a href="{base}/" class="flex items-center gap-3 px-2 py-1">
 				<img src="{base}/pie-logo.svg" alt="PIE Framework Logo" class="h-10 w-10" />
 				<div class="flex flex-col">
 					<span class="text-xl font-bold text-primary">PIE Framework</span>
@@ -28,11 +28,11 @@
 		<!-- Desktop Navigation -->
 		<div class="flex-none hidden lg:flex items-center gap-4">
 			<ul class="menu menu-horizontal px-1 gap-2">
-				<li><a href="/about" class="font-medium">About</a></li>
-				<li><a href="/docs/items-elements" class="font-medium">Items & Elements</a></li>
-				<li><a href="/docs/element-structure" class="font-medium">Element Structure</a></li>
-				<li><a href="/docs/players-toolkit" class="font-medium">Players & Toolkit</a></li>
-				<li><a href="/elements" class="font-medium">Elements</a></li>
+				<li><a href="{base}/about" class="font-medium">About</a></li>
+				<li><a href="{base}/docs/items-elements" class="font-medium">Items & Elements</a></li>
+				<li><a href="{base}/docs/element-structure" class="font-medium">Element Structure</a></li>
+				<li><a href="{base}/docs/players-toolkit" class="font-medium">Players & Toolkit</a></li>
+				<li><a href="{base}/elements" class="font-medium">Elements</a></li>
 			</ul>
 			<ThemeSwitcher />
 			<a
@@ -87,11 +87,11 @@
 {#if mobileMenuOpen}
 	<div class="lg:hidden bg-base-100 shadow-lg">
 		<ul class="menu menu-vertical px-4 py-2">
-			<li><a href="/about">About</a></li>
-			<li><a href="/docs/items-elements">Items & Elements</a></li>
-			<li><a href="/docs/element-structure">Element Structure</a></li>
-			<li><a href="/docs/players-toolkit">Players & Toolkit</a></li>
-			<li><a href="/elements">Elements</a></li>
+			<li><a href="{base}/about">About</a></li>
+			<li><a href="{base}/docs/items-elements">Items & Elements</a></li>
+			<li><a href="{base}/docs/element-structure">Element Structure</a></li>
+			<li><a href="{base}/docs/players-toolkit">Players & Toolkit</a></li>
+			<li><a href="{base}/elements">Elements</a></li>
 			<li class="mt-2">
 				<div class="flex gap-2 items-center">
 					<ThemeSwitcher />
