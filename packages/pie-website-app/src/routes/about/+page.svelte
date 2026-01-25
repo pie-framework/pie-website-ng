@@ -14,7 +14,7 @@
 		},
 		{
 			title: 'PIE Players',
-			description: 'Open source runtimes for rendering PIE items, assessments and tools and accomodations',
+			description: 'Open source runtimes for rendering PIE items, assessments and tools and accommodations',
 			features: ['Framework agnostic', 'Element loading', 'Session management', 'Event handling']
 		},
 		{

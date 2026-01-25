@@ -111,7 +111,9 @@
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Build from Scratch</p>
-							<p class="text-sm text-base-content/70">Complete control but massive investment. Years of development for production quality across all question types.</p>
+							<p class="text-sm text-base-content/70">Complete control but significant investment. Frameworks like <a href="https://khan.github.io/perseus" target="_blank">Perseus</a>
+								from <a href="https://www.khanacademy.org" target="_blank">Khan Academy</a>&nbsp;can help you along, but PIE was created as an open source
+								project with extensibility and wide adoption from the get-go.</p>
 						</div>
 					</div>
 				</div>
@@ -155,6 +157,9 @@
 			<img
 				src="/images/landing/pie-primer-openvsprop.png"
 				alt="Open Source vs Proprietary Comparison"
+				width="845"
+				height="461"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-3xl mx-auto"
 			/>
 		</div>
@@ -241,10 +246,6 @@
 							<p class="font-semibold">Production-Ready Question Types</p>
 							<p class="text-sm text-base-content/70">Multiple choice, graphing, drag-and-drop, constructed response, and more</p>
 						</div>
-						<div>
-							<p class="font-semibold">A framework to build your own</p>
-							<p class="text-sm text-base-content/70">Contribute to or fork the project and build your own question types</p>
-						</div>
 					</li>
 					<li class="flex items-start gap-3">
 						<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -271,6 +272,15 @@
 						<div>
 							<p class="font-semibold">Assessment Toolkit</p>
 							<p class="text-sm text-base-content/70">Calculator, TTS, accommodations, and test delivery services</p>
+						</div>
+					</li>
+					<li class="flex items-start gap-3">
+						<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+						</svg>
+						<div>
+							<p class="font-semibold">A framework to build your own</p>
+							<p class="text-sm text-base-content/70">Contribute to or fork the project and build your own question types</p>
 						</div>
 					</li>
 				</ul>
@@ -323,6 +333,9 @@
 			<img
 				src="/images/landing/pie-overall-arch.png"
 				alt="PIE Overall Architecture"
+				width="845"
+				height="461"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
@@ -340,10 +353,11 @@
 	<div class="container mx-auto px-4 max-w-7xl">
 		<div class="text-center mb-8">
 			<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-3">
-				PIE Elements: 20+ Question Types
+				PIE Elements: assessment interaction components
 			</h2>
 			<p class="text-lg text-base-content/70 max-w-3xl mx-auto">
-				Comprehensive library covering simple to highly complex interactions. Every element includes delivery UI, authoring UI, and controllers.
+				Comprehensive library covering simple to highly complex interactions. Every element includes delivery UI, and controllers,
+				many include an authoring UI, and interfaces like print and list views are either partially supported or planned.
 			</p>
 		</div>
 
@@ -351,7 +365,10 @@
 			<img
 				src="/images/landing/pie-ecosystem-flow.jpg"
 				alt="PIE Ecosystem Flow"
-				class="rounded-lg shadow-lg w-full max-w-3xl mx-auto"
+				width="1408"
+				height="768"
+				loading="lazy"
+				class="rounded-lg shadow-lg w-full max-w-2xl mx-auto"
 			/>
 		</div>
 
@@ -412,6 +429,9 @@
 			<img
 				src="/images/landing/pie-question-type-example.png"
 				alt="PIE Question Type Examples"
+				width="2816"
+				height="1536"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
@@ -489,7 +509,7 @@
 						<p class="mb-4">
 							We're actively developing importers and exporters to seamlessly move between QTI (2.x and 3.x) and PIE formats.
 						</p>
-						<a href="https://pie-framework.github.io/pie-qti" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+						<a href="https://pie-framework.github.io/pie-qti" target="_blank" class="btn btn-primary btn-block">
 							Explore PIE-QTI Tools
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -524,7 +544,7 @@
 					<p class="opacity-90 mb-4 leading-relaxed">
 						PIE powers assessment delivery for millions of learners at Renaissance. Battle-tested at enterprise scale in K-12 education.
 					</p>
-					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+					<a href="https://www.renaissance.com" target="_blank" class="btn btn-accent btn-sm">
 						Learn More
 					</a>
 				</div>
@@ -539,7 +559,7 @@
 					<p class="opacity-90 mb-4 leading-relaxed">
 						Implementation partner since 2017. MCRO has been instrumental in developing PIE from concept to production-ready framework.
 					</p>
-					<a href="https://mcro.tech" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+					<a href="https://mcro.tech" target="_blank" class="btn btn-accent btn-sm">
 						Learn More
 					</a>
 				</div>

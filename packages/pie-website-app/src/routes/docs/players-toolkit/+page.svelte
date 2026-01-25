@@ -118,6 +118,9 @@ toolCoordinator.showTool('calculator');`;
 			<img
 				src="/images/docs/players/pie-item-players.png"
 				alt="PIE Item Players"
+				width="2816"
+				height="1536"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
@@ -187,6 +190,9 @@ toolCoordinator.showTool('calculator');`;
 			<img
 				src="/images/docs/players/pie-itemplayer-packaging-strategies.png"
 				alt="PIE Item Player Packaging Strategies"
+				width="2816"
+				height="1536"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
@@ -319,19 +325,11 @@ toolCoordinator.showTool('calculator');`;
 			<img
 				src="/images/docs/assessment-toolkit/pie-assessment-toolkit-arch.png"
 				alt="PIE Assessment Toolkit Architecture"
+				width="2816"
+				height="1536"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
-		</div>
-
-		<div class="alert alert-info mb-8">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
 		</div>
 
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -411,6 +409,9 @@ toolCoordinator.showTool('calculator');`;
 			<img
 				src="/images/docs/assessment-toolkit/pie-tool-tiers.png"
 				alt="PIE Tool Tiers"
+				width="2816"
+				height="1536"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
@@ -503,6 +504,9 @@ toolCoordinator.showTool('calculator');`;
 			<img
 				src="/images/docs/assessment-toolkit/pie-integration-flow.png"
 				alt="PIE Integration Flow"
+				width="2816"
+				height="1536"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
