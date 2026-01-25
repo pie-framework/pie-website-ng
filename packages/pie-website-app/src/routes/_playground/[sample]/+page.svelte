@@ -242,7 +242,7 @@
 									<div class="text-sm font-medium text-base-content/60 mb-1">{category.name}</div>
 									{#each category.samples as sample}
 										<a
-											href="/playground/{sample.id}"
+											href="{base}/playground/{sample.id}"
 											class="block px-3 py-2 rounded text-sm hover:bg-base-200 transition-colors"
 											class:bg-primary={sampleId === sample.id}
 											class:text-primary-content={sampleId === sample.id}
