@@ -267,7 +267,7 @@
 			<img
 				src="/images/docs/item-config-structure.jpg"
 				alt="PIE Item Configuration Structure - showing elements, models, and markup sections"
-				class="rounded-lg shadow-lg max-w-4xl w-full"
+				class="rounded-lg shadow-lg max-w-3xl w-full"
 			/>
 		</div>
 
