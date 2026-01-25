@@ -223,19 +223,6 @@ export function outcome(
 				</div>
 			</div>
 		</div>
-
-		<div class="alert alert-info mt-8">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-			<div>
-				<p class="font-semibold">Optional Components</p>
-				<p class="text-sm">
-					Elements may also include <strong>Print View</strong> (optimized for printing) and
-					<strong>List View</strong> (compact list preview, coming soon) and potentially other views.
-				</p>
-			</div>
-		</div>
 	</section>
 
 	<!-- Controller Architecture -->
@@ -506,24 +493,11 @@ export function outcome(
 				</div>
 			</div>
 		</div>
-
-		<div class="alert alert-info">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-			<div>
-				<p class="font-semibold">No Code Required</p>
-				<p class="text-sm">
-					Authors never see JSON or code. The authoring interface handles all configuration,
-					validation, and serialization automatically.
-				</p>
-			</div>
-		</div>
 	</section>
 
 	<!-- Code Examples -->
 	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">High-Level Code Examples</h2>
+		<h2 class="text-3xl font-bold text-secondary mb-6">High-Level Code Example</h2>
 
 		<div class="prose max-w-none mb-6">
 			<p class="text-lg">
@@ -538,18 +512,6 @@ export function outcome(
 
 		<CodeEditor value={detailedControllerExample} language="typescript" readonly={true} height="700px" />
 
-		<div class="alert alert-warning">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-			</svg>
-			<div>
-				<p class="font-semibold">Simplified for Clarity</p>
-				<p class="text-sm">
-					Production elements include error handling, validation, partial credit scoring, feedback
-					logic, and more. These examples focus on core concepts.
-				</p>
-			</div>
-		</div>
 	</section>
 
 	<!-- Next Steps -->
