@@ -121,22 +121,22 @@
 
 	/* Syntax highlighting for JSON */
 	:global(.tiptap-json-editor .hljs-attr) {
-		color: #82aaff;
+		color: var(--color-info);
 	}
 
 	:global(.tiptap-json-editor .hljs-string) {
-		color: #c3e88d;
+		color: var(--color-success);
 	}
 
 	:global(.tiptap-json-editor .hljs-number) {
-		color: #f78c6c;
+		color: var(--color-warning);
 	}
 
 	:global(.tiptap-json-editor .hljs-literal) {
-		color: #ff5370;
+		color: var(--color-error);
 	}
 
 	:global(.tiptap-json-editor .hljs-punctuation) {
-		color: #89ddff;
+		color: var(--color-accent);
 	}
 </style>

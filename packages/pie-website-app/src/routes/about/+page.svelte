@@ -9,25 +9,21 @@
 	const ecosystem = [
 		{
 			title: 'PIE Elements',
-			icon: '🧩',
 			description: 'A suite of open source question types and UI components',
 			features: ['Multiple choice', 'Text entry', 'Math expressions', 'Drag and drop', 'Graphing']
 		},
 		{
-			title: 'PIE Player',
-			icon: '▶️',
-			description: 'Open source runtime for rendering PIE-based assessments',
+			title: 'PIE Players',
+			description: 'Open source runtimes for rendering PIE items, assessments and tools and accomodations',
 			features: ['Framework agnostic', 'Element loading', 'Session management', 'Event handling']
 		},
 		{
 			title: 'PIE Author',
-			icon: '✏️',
 			description: 'Authoring components for creating and configuring PIE elements',
 			features: ['Visual editing', 'Configuration UI', 'Live preview', 'Reusable components']
 		},
 		{
 			title: 'PIE Tools',
-			icon: '🛠️',
 			description: 'Development and packaging tools',
 			features: ['CLI tooling', 'Module bundling', 'Development server', 'Package creation']
 		}
@@ -127,18 +123,13 @@
 			{#each ecosystem as component}
 				<div class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-all">
 					<div class="card-body">
-						<div class="flex items-center gap-4 mb-4">
-							<div class="text-5xl">{component.icon}</div>
-							<div>
-								<h3 class="card-title text-2xl text-secondary">{component.title}</h3>
-							</div>
-						</div>
+						<h3 class="card-title text-2xl text-secondary mb-4">{component.title}</h3>
 						<p class="text-base-content/70 mb-4">{component.description}</p>
 						<ul class="space-y-2">
 							{#each component.features as feature}
 								<li class="flex items-center gap-2 text-sm">
 									<svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
 									</svg>
 									<span>{feature}</span>
 								</li>
@@ -175,123 +166,46 @@
 		<h2 class="text-4xl font-bold text-secondary mb-8">Open Source License</h2>
 		<div class="card bg-base-100 shadow-xl border-2 border-primary/30">
 			<div class="card-body">
-				<div class="flex items-start gap-6">
-					<div class="text-6xl">🔓</div>
-					<div class="flex-1">
-						<h3 class="text-2xl font-bold text-primary mb-4">ISC License</h3>
-						<p class="text-base-content/70 mb-6">
-							PIE is licensed under the ISC License, one of the most permissive open-source licenses available. This means you can use, modify, and distribute PIE freely for any purpose, including commercial use, without fees or royalties.
-						</p>
+				<h3 class="text-2xl font-bold text-primary mb-4">Open Source: MIT & ISC Licenses</h3>
+				<p class="text-base-content/70 mb-6">
+					PIE projects are licensed under permissive open-source licenses (primarily MIT and ISC), allowing you to use, modify, and distribute PIE freely for any purpose, including commercial use, without fees or royalties.
+				</p>
 
-						<div class="grid md:grid-cols-2 gap-4">
-							<ul class="space-y-2">
-								<li class="flex items-start gap-2">
-									<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-									</svg>
-									<span>Use commercially without restriction</span>
-								</li>
-								<li class="flex items-start gap-2">
-									<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-									</svg>
-									<span>Modify and customize freely</span>
-								</li>
-								<li class="flex items-start gap-2">
-									<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-									</svg>
-									<span>Distribute as you wish</span>
-								</li>
-							</ul>
-							<ul class="space-y-2">
-								<li class="flex items-start gap-2">
-									<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-									</svg>
-									<span>No royalties or fees ever</span>
-								</li>
-								<li class="flex items-start gap-2">
-									<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-									</svg>
-									<span>Keep your modifications private if needed</span>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Standards Compatibility -->
-	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary mb-8">Education Technology Standards</h2>
-		<div class="alert mb-6">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-			</svg>
-			<span>PIE itself is not a standard—it is a working open source implementation designed to provide a full-stack solution for creating, packaging, and rendering assessment items.</span>
-		</div>
-
-		<div class="grid md:grid-cols-3 gap-6">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-lg">IMS Caliper / xAPI</h3>
-					<p class="text-sm text-base-content/70">
-						PIE supports exporting activity events during user interaction, enabling integration with IMS Caliper and xAPI (Tin Can/CMI5).
-					</p>
-				</div>
-			</div>
-
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-lg">IMS LTI</h3>
-					<p class="text-sm text-base-content/70">
-						PIE rendering can be wrapped in pages that use LTI Launch, and outcomes can be returned through LTI outcomes services.
-					</p>
-				</div>
-			</div>
-
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-lg">IMS QTI</h3>
-					<p class="text-sm text-base-content/70">
-						QTI items can be converted into PIE format and compiled for distribution with full visual rendering and behavior preserved.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Get Involved -->
-	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary text-center mb-6">Get Involved</h2>
-		<p class="text-center text-base-content/70 mb-12 text-lg">PIE is community-driven and welcomes contributions</p>
-
-		<div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-			<div class="card bg-base-100 shadow-lg border border-base-300 hover:shadow-2xl transition-all">
-				<div class="card-body items-center text-center">
-					<div class="text-5xl mb-4">💻</div>
-					<h3 class="card-title text-lg mb-2">Contribute Code</h3>
-					<p class="text-sm text-base-content/70">Submit pull requests with improvements, bug fixes, or new elements</p>
-				</div>
-			</div>
-
-			<div class="card bg-base-100 shadow-lg border border-base-300 hover:shadow-2xl transition-all">
-				<div class="card-body items-center text-center">
-					<div class="text-5xl mb-4">🐛</div>
-					<h3 class="card-title text-lg mb-2">Report Issues</h3>
-					<p class="text-sm text-base-content/70">Found a bug or have a feature request? Open an issue on GitHub</p>
-				</div>
-			</div>
-
-			<div class="card bg-base-100 shadow-lg border border-base-300 hover:shadow-2xl transition-all">
-				<div class="card-body items-center text-center">
-					<div class="text-5xl mb-4">📖</div>
-					<h3 class="card-title text-lg mb-2">Share Knowledge</h3>
-					<p class="text-sm text-base-content/70">Write tutorials, help others learn, and share your experiences</p>
+				<div class="grid md:grid-cols-2 gap-4">
+					<ul class="space-y-2">
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
+							</svg>
+							<span>Use commercially without restriction</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
+							</svg>
+							<span>Modify and customize freely</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
+							</svg>
+							<span>Distribute as you wish</span>
+						</li>
+					</ul>
+					<ul class="space-y-2">
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
+							</svg>
+							<span>No royalties or fees ever</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
+							</svg>
+							<span>Keep your modifications private if needed</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -305,27 +219,31 @@
 				<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl">
 					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer"
 					   class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+							<circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M8 12c0-2 1-3 2-3s2 1 2 3m4 0c0-2-1-3-2-3s-2 1-2 3" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M12 14v4m-3 1h6" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 						GitHub
 					</a>
 					<a href="/docs" class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+							<path d="M7 4h10c1.1 0 2 0.9 2 2v13c0 1.1-0.9 2-2 2H7c-1.1 0-2-0.9-2-2V6c0-1.1 0.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M9 9h6M9 13h6M9 17h4" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 						Documentation
 					</a>
 					<a href="https://github.com/pie-framework/discussions" target="_blank" rel="noopener noreferrer"
 					   class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+							<path d="M8 10c-0.2-1.8-0.1-4 3.8-4.2 3.9-0.2 4.2 2.2 4.2 4-0.1 2-1.5 3-2.5 3.5-0.8 0.4-1.2 0.8-1.2 1.5v1" stroke-linecap="round" stroke-linejoin="round" />
+							<ellipse cx="12" cy="18" rx="5.5" ry="2.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 						Community
 					</a>
 					<a href="/docs/getting-started" class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+							<path d="M7 12h13m0 0l-4-4m4 4l-4 4" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 						Get Started
 					</a>

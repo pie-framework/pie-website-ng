@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ThemeSelector from './ThemeSelector.svelte';
+	import ThemeSwitcher from './ThemeSwitcher.svelte';
 
 	// Navigation state for mobile menu
 	let mobileMenuOpen = $state(false);
@@ -25,40 +25,28 @@
 		</div>
 
 		<!-- Desktop Navigation -->
-		<div class="flex-none hidden lg:flex">
+		<div class="flex-none hidden lg:flex items-center gap-4">
 			<ul class="menu menu-horizontal px-1 gap-2">
 				<li><a href="/about" class="font-medium">About</a></li>
-				<li><a href="/docs" class="font-medium">Docs</a></li>
+				<li><a href="/docs/items-elements" class="font-medium">Items & Elements</a></li>
+				<li><a href="/docs/element-structure" class="font-medium">Element Structure</a></li>
+				<li><a href="/docs/players-toolkit" class="font-medium">Players & Toolkit</a></li>
 				<li><a href="/elements" class="font-medium">Elements</a></li>
-				<li>
-					<details>
-						<summary class="font-medium">Demos</summary>
-						<ul class="bg-base-100 rounded-box p-2 w-52 shadow-lg z-50">
-							<li><a href="/playground" class:active={currentPath === '/playground'}>Item Player</a></li>
-							<li><a href="http://localhost:5175/assessment-demo" target="_blank" rel="noopener noreferrer">Assessment Player</a></li>
-						</ul>
-					</details>
-				</li>
-				<li><a href="/blog" class="font-medium">Blog</a></li>
-				<li><a href="/community" class="font-medium">Community</a></li>
 			</ul>
-			<div class="flex items-center gap-2 ml-4">
-				<ThemeSelector />
-				<a
-					href="https://github.com/pie-framework"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="btn btn-ghost btn-sm btn-circle"
-					aria-label="GitHub"
-				>
-					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-						<path
-							d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-						/>
-					</svg>
-				</a>
-				<a href="/docs/getting-started" class="btn btn-primary btn-sm">Get Started</a>
-			</div>
+			<ThemeSwitcher />
+			<a
+				href="https://github.com/pie-framework"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-ghost btn-sm btn-circle"
+				aria-label="GitHub"
+			>
+				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+					<path
+						d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+					/>
+				</svg>
+			</a>
 		</div>
 
 		<!-- Mobile Menu Button -->
@@ -86,25 +74,13 @@
 	<div class="lg:hidden bg-base-100 shadow-lg">
 		<ul class="menu menu-vertical px-4 py-2">
 			<li><a href="/about">About</a></li>
-			<li><a href="/docs">Docs</a></li>
+			<li><a href="/docs/items-elements">Items & Elements</a></li>
+			<li><a href="/docs/element-structure">Element Structure</a></li>
+			<li><a href="/docs/players-toolkit">Players & Toolkit</a></li>
 			<li><a href="/elements">Elements</a></li>
-			<li>
-				<details>
-					<summary>Demos</summary>
-					<ul>
-						<li><a href="/playground">Item Player</a></li>
-						<li><a href="http://localhost:5175/assessment-demo" target="_blank" rel="noopener noreferrer">Assessment Player</a></li>
-					</ul>
-				</details>
-			</li>
-			<li><a href="/blog">Blog</a></li>
-			<li><a href="/community">Community</a></li>
-			<li class="mt-2">
-				<a href="/docs/getting-started" class="btn btn-primary btn-sm">Get Started</a>
-			</li>
 			<li class="mt-2">
 				<div class="flex gap-2 items-center">
-					<ThemeSelector />
+					<ThemeSwitcher />
 					<a
 						href="https://github.com/pie-framework"
 						target="_blank"

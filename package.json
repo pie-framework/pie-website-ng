@@ -1,5 +1,5 @@
 {
-  "name": "pie-website-ng",
+  "name": "@pie-website/root",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -7,13 +7,14 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "bun --filter pie-website-app dev",
-    "build": "bun --filter pie-website-app build",
-    "preview": "bun --filter pie-website-app preview",
-    "check": "bun --filter pie-website-app check",
-    "check:watch": "bun --filter pie-website-app check:watch"
+    "dev": "bun --filter @pie-website/app dev",
+    "build": "bun --filter @pie-website/app build",
+    "preview": "bun --filter @pie-website/app preview",
+    "check": "bun --filter @pie-website/app check",
+    "check:watch": "bun --filter @pie-website/app check:watch"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.0",
     "@types/bun": "latest"
   }
 }

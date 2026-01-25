@@ -61,7 +61,7 @@
 	}
 </script>
 
-<div bind:this={editorContainer} class="json-editor" style="height: {height}; width: 100%;" />
+<div bind:this={editorContainer} class="json-editor" style="height: {height}; width: 100%;"></div>
 
 <style>
 	.json-editor {
