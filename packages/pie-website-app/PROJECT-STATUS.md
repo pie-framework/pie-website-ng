@@ -23,7 +23,7 @@
 
 3. **Basic Homepage**
    - Hero section with PIE branding
-   - Trust indicators (100M+ interactions, etc.)
+   - Trust indicators (millions of learners, etc.)
    - Three value proposition cards
    - Responsive layout using DaisyUI components
 

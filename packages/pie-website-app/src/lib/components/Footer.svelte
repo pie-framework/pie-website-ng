@@ -47,7 +47,7 @@
 		<!-- Bottom Bar -->
 		<div class="mt-8 pt-8 border-t border-secondary-content/20 w-full">
 			<div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-80">
-				<p>© {new Date().getFullYear()} Renaissance. Licensed under ISC/MIT.</p>
+				<p>Licensed under ISC/MIT.</p>
 				<div class="flex gap-4">
 					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer" class="link link-hover" aria-label="GitHub">
 						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
