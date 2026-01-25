@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { base } from '$app/paths';
+</script>
+
 <svelte:head>
 	<title>PIE Framework - Open Source Assessment Items</title>
 	<meta name="description" content="Enterprise-proven web components for rendering 20+ interactive question types. Zero licensing costs. Modern web standards. Built by educators, for educators." />
@@ -155,7 +159,7 @@
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-primer-openvsprop.png"
+				src="{base}/images/landing/pie-primer-openvsprop.png"
 				alt="Open Source vs Proprietary Comparison"
 				width="845"
 				height="461"
@@ -331,7 +335,7 @@
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-overall-arch.png"
+				src="{base}/images/landing/pie-overall-arch.png"
 				alt="PIE Overall Architecture"
 				width="845"
 				height="461"
@@ -363,7 +367,7 @@
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-ecosystem-flow.jpg"
+				src="{base}/images/landing/pie-ecosystem-flow.jpg"
 				alt="PIE Ecosystem Flow"
 				width="1408"
 				height="768"
@@ -427,7 +431,7 @@
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-question-type-example.png"
+				src="{base}/images/landing/pie-question-type-example.png"
 				alt="PIE Question Type Examples"
 				width="2816"
 				height="1536"
@@ -539,7 +543,7 @@
 			<div class="card bg-secondary-content/10 backdrop-blur-sm border border-secondary-content/20">
 				<div class="card-body text-center">
 					<div class="flex justify-center mb-4">
-						<img src="/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
+						<img src="{base}/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
 					</div>
 					<p class="opacity-90 mb-4 leading-relaxed">
 						PIE powers assessment delivery for millions of learners at Renaissance. Battle-tested at enterprise scale in K-12 education.
@@ -554,7 +558,7 @@
 			<div class="card bg-secondary-content/10 backdrop-blur-sm border border-secondary-content/20">
 				<div class="card-body text-center">
 					<div class="flex justify-center mb-4">
-						<img src="/mcro-logo.svg" alt="MCRO" class="h-12" />
+						<img src="{base}/mcro-logo.svg" alt="MCRO" class="h-12" />
 					</div>
 					<p class="opacity-90 mb-4 leading-relaxed">
 						Implementation partner since 2017. MCRO has been instrumental in developing PIE from concept to production-ready framework.
