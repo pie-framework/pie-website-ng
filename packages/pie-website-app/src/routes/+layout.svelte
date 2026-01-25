@@ -4,6 +4,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	let { children } = $props();
 
@@ -28,26 +29,31 @@
 
 	<!-- Default Meta Tags (can be overridden by page-specific meta) -->
 	<meta name="description" content="PIE Framework - Open-source web components for creating interactive assessment items. Battle-tested at enterprise scale with 20+ question types. ISC licensed." />
-	<meta name="keywords" content="PIE Framework, assessment items, interactive questions, web components, open source, education technology, e-learning, testing, Renaissance Learning" />
-	<meta name="author" content="Renaissance Learning" />
+	<meta name="keywords" content="PIE Framework, assessment items, interactive questions, web components, open source, edtech, K-12, QTI, education technology, e-learning" />
+	<meta name="author" content="Renaissance" />
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="PIE Framework" />
 	<meta property="og:title" content="PIE Framework - Open Source Assessment Items" />
 	<meta property="og:description" content="Enterprise-proven web components for rendering 20+ interactive question types. Zero licensing costs. Modern web standards." />
-	<meta property="og:image" content="https://pie.org/pie-logo.svg" />
+	<meta property="og:url" content="https://pie.org{$page.url.pathname}" />
+	<meta property="og:image" content="https://pie.org/og-image.jpg" />
+	<meta property="og:image:width" content="1424" />
+	<meta property="og:image:height" content="752" />
+	<meta property="og:image:alt" content="PIE Framework - Open Source Assessment Items" />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="PIE Framework - Open Source Assessment Items" />
 	<meta name="twitter:description" content="Enterprise-proven web components for rendering 20+ interactive question types. Zero licensing costs. Modern web standards." />
-	<meta name="twitter:image" content="https://pie.org/pie-logo.svg" />
+	<meta name="twitter:image" content="https://pie.org/og-image.jpg" />
+	<meta name="twitter:image:alt" content="PIE Framework - Open Source Assessment Items" />
 
 	<!-- Additional SEO -->
 	<meta name="robots" content="index, follow" />
 	<meta name="language" content="English" />
-	<link rel="canonical" href="https://pie.org/" />
+	<link rel="canonical" href="https://pie.org{$page.url.pathname}" />
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">
