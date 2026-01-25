@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import PiePlayerDemo from '$lib/components/PiePlayerDemo.svelte';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 
@@ -153,7 +154,7 @@
 
 		<div class="my-8">
 			<img
-				src="/images/docs/items-elements/items-vs-elements.jpg"
+				src="{base}/images/docs/items-elements/items-vs-elements.jpg"
 				alt="Items vs Elements Diagram"
 				class="rounded-lg shadow-lg w-full max-w-2xl mx-auto"
 			/>
@@ -226,7 +227,7 @@
 
 		<div class="my-8 flex flex-col items-center">
 			<img
-				src="/images/docs/items-elements/pie-multiple-interfaces.png"
+				src="{base}/images/docs/items-elements/pie-multiple-interfaces.png"
 				alt="PIE Multiple Interfaces"
 				class="rounded-lg shadow-lg max-w-3xl w-full"
 			/>
@@ -265,7 +266,7 @@
 		<!-- Visual Diagram -->
 		<div class="flex justify-center mb-8">
 			<img
-				src="/images/docs/item-config-structure.jpg"
+				src="{base}/images/docs/item-config-structure.jpg"
 				alt="PIE Item Configuration Structure - showing elements, models, and markup sections"
 				class="rounded-lg shadow-lg max-w-3xl w-full"
 			/>
@@ -387,7 +388,7 @@
 
 		<div class="my-8 flex justify-center">
 			<img
-				src="/images/landing/pie-question-type-example.png"
+				src="{base}/images/landing/pie-question-type-example.png"
 				alt="PIE Question Types Example"
 				class="rounded-lg shadow-lg max-w-3xl w-full"
 			/>
@@ -402,7 +403,7 @@
 			<div>
 				<h3 class="text-xl font-semibold mb-3">Categorize - Authoring View</h3>
 				<img
-					src="/images/landing/pie-sample-categorize-author.png"
+					src="{base}/images/landing/pie-sample-categorize-author.png"
 					alt="Categorize Authoring"
 					class="rounded-lg shadow-lg border border-base-300"
 				/>
@@ -414,7 +415,7 @@
 			<div>
 				<h3 class="text-xl font-semibold mb-3">Categorize - Student View</h3>
 				<img
-					src="/images/landing/pie-sample-categorize.png"
+					src="{base}/images/landing/pie-sample-categorize.png"
 					alt="Categorize Student View"
 					class="rounded-lg shadow-lg border border-base-300"
 				/>
@@ -426,7 +427,7 @@
 			<div>
 				<h3 class="text-xl font-semibold mb-3">Hotspot - Authoring View</h3>
 				<img
-					src="/images/landing/pie-sample-hotspot-author.png"
+					src="{base}/images/landing/pie-sample-hotspot-author.png"
 					alt="Hotspot Authoring"
 					class="rounded-lg shadow-lg border border-base-300"
 				/>
@@ -438,7 +439,7 @@
 			<div>
 				<h3 class="text-xl font-semibold mb-3">Hotspot - Evaluation View</h3>
 				<img
-					src="/images/landing/pie-sample-hotspot-eval.png"
+					src="{base}/images/landing/pie-sample-hotspot-eval.png"
 					alt="Hotspot Evaluation"
 					class="rounded-lg shadow-lg border border-base-300"
 				/>

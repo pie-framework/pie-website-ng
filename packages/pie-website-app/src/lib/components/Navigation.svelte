@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
 
 	// Navigation state for mobile menu
@@ -16,7 +17,7 @@
 	<div class="container mx-auto">
 		<div class="flex-1">
 			<a href="/" class="flex items-center gap-3 px-2 py-1">
-				<img src="/pie-logo.svg" alt="PIE Framework Logo" class="h-10 w-10" />
+				<img src="{base}/pie-logo.svg" alt="PIE Framework Logo" class="h-10 w-10" />
 				<div class="flex flex-col">
 					<span class="text-xl font-bold text-primary">PIE Framework</span>
 					<span class="text-xs text-base-content/70">Open Source Assessment Items</span>
