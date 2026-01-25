@@ -144,7 +144,7 @@
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Enterprise Proven</p>
-							<p class="text-sm text-base-content/70">Powers 100M+ interactions annually. Battle-tested reliability at Renaissance scale.</p>
+							<p class="text-sm text-base-content/70">Serving millions of learners in production. Battle-tested reliability at Renaissance scale.</p>
 						</div>
 					</div>
 				</div>
@@ -238,8 +238,12 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 						</svg>
 						<div>
-							<p class="font-semibold">20+ Production-Ready Question Types</p>
+							<p class="font-semibold">Production-Ready Question Types</p>
 							<p class="text-sm text-base-content/70">Multiple choice, graphing, drag-and-drop, constructed response, and more</p>
+						</div>
+						<div>
+							<p class="font-semibold">A framework to build your own</p>
+							<p class="text-sm text-base-content/70">Contribute to or fork the project and build your own question types</p>
 						</div>
 					</li>
 					<li class="flex items-start gap-3">
@@ -447,7 +451,7 @@
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg>
 							<div>
-								<strong>Rich Interactive Experiences</strong> - Rendering and authoring beyond QTI's specification
+								<strong>Rich Interactive Experiences</strong> - Rendering and authoring beyond QTI's specification, with a predictable user experience
 							</div>
 						</li>
 						<li class="flex items-start gap-3">
@@ -455,7 +459,7 @@
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg>
 							<div>
-								<strong>Transport Layer</strong> - QTI as the format for moving content between systems
+								<strong>Bi-directional Conversion</strong> - Comprehensive tooling to import QTI content into PIE, export PIE to QTI
 							</div>
 						</li>
 						<li class="flex items-start gap-3">
@@ -463,7 +467,8 @@
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg>
 							<div>
-								<strong>Bi-directional Conversion</strong> - Import QTI content into PIE, export PIE to QTI
+								<strong>QTI Assessment compatibility</strong> - We are working towards a high degree of compatibility with the QTI assessment model
+								to make imports and exports compatible
 							</div>
 						</li>
 					</ul>
@@ -484,12 +489,6 @@
 						<p class="mb-4">
 							We're actively developing importers and exporters to seamlessly move between QTI (2.x and 3.x) and PIE formats.
 						</p>
-						<div class="alert alert-info mb-4">
-							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-							</svg>
-							<span class="text-sm">PIE content can be exchanged directly or via QTI. We're working to make QTI a viable transport option.</span>
-						</div>
 						<a href="https://pie-framework.github.io/pie-qti" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
 							Explore PIE-QTI Tools
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -523,7 +522,7 @@
 						<img src="/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
 					</div>
 					<p class="opacity-90 mb-4 leading-relaxed">
-						PIE powers assessment item delivery for Renaissance's 100+ million student interactions annually. Battle-tested at enterprise scale.
+						PIE powers assessment delivery for millions of learners at Renaissance. Battle-tested at enterprise scale in K-12 education.
 					</p>
 					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
 						Learn More
