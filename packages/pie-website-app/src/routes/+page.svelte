@@ -19,12 +19,12 @@
 		},
 		"publisher": {
 			"@type": "Organization",
-			"name": "Renaissance Learning",
+			"name": "Renaissance",
 			"url": "https://www.renaissance.com"
 		},
 		"author": {
 			"@type": "Organization",
-			"name": "Renaissance Learning"
+			"name": "Renaissance"
 		},
 		"license": "https://opensource.org/licenses/ISC",
 		"programmingLanguage": ["JavaScript", "TypeScript", "HTML", "CSS"],
@@ -85,7 +85,7 @@
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Commercial Platforms</p>
-							<p class="text-sm text-base-content/70">Comprehensive but expensive. Per-student licensing costs add up quickly. Limited customization options.</p>
+							<p class="text-sm text-base-content/70">Great if you are looking for a complete solution and it does what you need, but limited configurability and cost can add up.</p>
 						</div>
 					</div>
 					<div class="flex items-start gap-3">
@@ -93,8 +93,8 @@
 							<span class="text-error font-bold">✕</span>
 						</div>
 						<div>
-							<p class="font-semibold mb-1">Transport-only Standards (QTI)</p>
-							<p class="text-sm text-base-content/70">Interoperable but .</p>
+							<p class="font-semibold mb-1">Partial Standards (QTI)</p>
+							<p class="text-sm text-base-content/70">Interoperable data but no guarantee about how it will be rendered. Also doesn't come with authoring capabilities.</p>
 						</div>
 					</div>
 					<div class="flex items-start gap-3">
@@ -136,7 +136,7 @@
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Enterprise Proven</p>
-							<p class="text-sm text-base-content/70">Powers 100M+ interactions annually. Battle-tested reliability at Renaissance Learning scale.</p>
+							<p class="text-sm text-base-content/70">Powers 100M+ interactions annually. Battle-tested reliability at Renaissance scale.</p>
 						</div>
 					</div>
 				</div>
@@ -419,10 +419,10 @@
 <section class="py-12 bg-secondary text-secondary-content">
 	<div class="container mx-auto px-4 max-w-5xl text-center">
 		<div class="flex justify-center mb-4">
-			<img src="/renaissance-logo.svg" alt="Renaissance Learning" class="h-12 brightness-0 invert" />
+			<img src="/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
 		</div>
 		<h2 class="text-2xl md:text-3xl font-bold mb-4">
-			Trusted by Renaissance Learning
+			Trusted by Renaissance
 		</h2>
 		<p class="text-lg opacity-90 mb-6 leading-relaxed max-w-3xl mx-auto">
 			PIE powers assessment delivery for Renaissance's 100+ million student interactions annually. Battle-tested at scale, now available as open source for the entire education community.
