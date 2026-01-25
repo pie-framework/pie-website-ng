@@ -22,10 +22,18 @@
 			"name": "Renaissance",
 			"url": "https://www.renaissance.com"
 		},
-		"author": {
-			"@type": "Organization",
-			"name": "Renaissance"
-		},
+		"author": [
+			{
+				"@type": "Organization",
+				"name": "Renaissance",
+				"url": "https://www.renaissance.com"
+			},
+			{
+				"@type": "Organization",
+				"name": "MCRO",
+				"url": "https://mcro.tech"
+			}
+		],
 		"license": "https://opensource.org/licenses/ISC",
 		"programmingLanguage": ["JavaScript", "TypeScript", "HTML", "CSS"],
 		"softwareVersion": "latest",
@@ -415,21 +423,51 @@
 	</div>
 </section>
 
-<!-- Renaissance Trust Section -->
+<!-- Partners Section -->
 <section class="py-12 bg-secondary text-secondary-content">
-	<div class="container mx-auto px-4 max-w-5xl text-center">
-		<div class="flex justify-center mb-4">
-			<img src="/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
+	<div class="container mx-auto px-4 max-w-6xl">
+		<div class="text-center mb-10">
+			<h2 class="text-3xl md:text-4xl font-bold mb-4">
+				Trusted Partners
+			</h2>
+			<p class="text-lg opacity-90 max-w-3xl mx-auto">
+				PIE was built through collaboration between Renaissance and MCRO, combining educational expertise with technical excellence.
+			</p>
 		</div>
-		<h2 class="text-2xl md:text-3xl font-bold mb-4">
-			Trusted by Renaissance
-		</h2>
-		<p class="text-lg opacity-90 mb-6 leading-relaxed max-w-3xl mx-auto">
-			PIE powers assessment delivery for Renaissance's 100+ million student interactions annually. Battle-tested at scale, now available as open source for the entire education community.
-		</p>
-		<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
-			Learn More About Renaissance
-		</a>
+
+		<div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+			<!-- Renaissance -->
+			<div class="card bg-secondary-content/10 backdrop-blur-sm border border-secondary-content/20">
+				<div class="card-body text-center">
+					<div class="flex justify-center mb-4">
+						<img src="/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
+					</div>
+					<h3 class="text-xl font-bold mb-3">Renaissance</h3>
+					<p class="opacity-90 mb-4 leading-relaxed">
+						PIE powers assessment delivery for Renaissance's 100+ million student interactions annually. Battle-tested at enterprise scale.
+					</p>
+					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+						Learn More
+					</a>
+				</div>
+			</div>
+
+			<!-- MCRO -->
+			<div class="card bg-secondary-content/10 backdrop-blur-sm border border-secondary-content/20">
+				<div class="card-body text-center">
+					<div class="flex justify-center mb-4">
+						<img src="/mcro-logo.svg" alt="MCRO" class="h-12" />
+					</div>
+					<h3 class="text-xl font-bold mb-3">MCRO</h3>
+					<p class="opacity-90 mb-4 leading-relaxed">
+						Implementation partner since 2017. MCRO has been instrumental in developing PIE from concept to production-ready framework.
+					</p>
+					<a href="https://mcro.tech" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+						Learn More
+					</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 
