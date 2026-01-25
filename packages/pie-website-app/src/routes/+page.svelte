@@ -423,6 +423,86 @@
 	</div>
 </section>
 
+<!-- QTI Interoperability Section -->
+<section class="py-12 bg-base-200">
+	<div class="container mx-auto px-4 max-w-7xl">
+		<div class="text-center mb-8">
+			<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-3">
+				QTI Interoperability
+			</h2>
+			<p class="text-lg text-base-content/70 max-w-3xl mx-auto">
+				PIE works alongside QTI as the standard for content transport and interoperability.
+			</p>
+		</div>
+
+		<div class="grid md:grid-cols-2 gap-8 items-center">
+			<div>
+				<div class="prose max-w-none">
+					<p class="text-lg mb-4">
+						QTI (Question and Test Interoperability) is the industry standard for exchanging assessment content between systems. PIE complements QTI by providing:
+					</p>
+					<ul class="space-y-3">
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<div>
+								<strong>Rich Interactive Experiences</strong> - Rendering and authoring beyond QTI's specification
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<div>
+								<strong>Transport Layer</strong> - QTI as the format for moving content between systems
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<div>
+								<strong>Bi-directional Conversion</strong> - Import QTI content into PIE, export PIE to QTI
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div>
+				<div class="card bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20">
+					<div class="card-body">
+						<div class="flex items-center gap-3 mb-4">
+							<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+								<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+								</svg>
+							</div>
+							<h3 class="text-2xl font-bold text-primary">PIE-QTI Tooling</h3>
+						</div>
+						<p class="mb-4">
+							We're actively developing importers and exporters to seamlessly move between QTI (2.x and 3.x) and PIE formats.
+						</p>
+						<div class="alert alert-info mb-4">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<span class="text-sm">QTI remains the standard for content transport and interoperability between systems.</span>
+						</div>
+						<a href="https://pie-framework.github.io/pie-qti" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+							Explore PIE-QTI Tools
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 <!-- Partners Section -->
 <section class="py-12 bg-secondary text-secondary-content">
 	<div class="container mx-auto px-4 max-w-6xl">
@@ -442,9 +522,8 @@
 					<div class="flex justify-center mb-4">
 						<img src="/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
 					</div>
-					<h3 class="text-xl font-bold mb-3">Renaissance</h3>
 					<p class="opacity-90 mb-4 leading-relaxed">
-						PIE powers assessment delivery for Renaissance's 100+ million student interactions annually. Battle-tested at enterprise scale.
+						PIE powers assessment item delivery for Renaissance's 100+ million student interactions annually. Battle-tested at enterprise scale.
 					</p>
 					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
 						Learn More
@@ -458,7 +537,6 @@
 					<div class="flex justify-center mb-4">
 						<img src="/mcro-logo.svg" alt="MCRO" class="h-12" />
 					</div>
-					<h3 class="text-xl font-bold mb-3">MCRO</h3>
 					<p class="opacity-90 mb-4 leading-relaxed">
 						Implementation partner since 2017. MCRO has been instrumental in developing PIE from concept to production-ready framework.
 					</p>
