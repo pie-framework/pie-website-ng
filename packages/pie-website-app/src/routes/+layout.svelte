@@ -28,8 +28,8 @@
 
 	<!-- Default Meta Tags (can be overridden by page-specific meta) -->
 	<meta name="description" content="PIE Framework - Open-source web components for creating interactive assessment items. Battle-tested at enterprise scale with 20+ question types. ISC licensed." />
-	<meta name="keywords" content="PIE Framework, assessment items, interactive questions, web components, open source, education technology, e-learning, testing, Renaissance Learning" />
-	<meta name="author" content="Renaissance Learning" />
+	<meta name="keywords" content="PIE Framework, assessment items, interactive questions, web components, open source, education technology, e-learning, testing, Renaissance" />
+	<meta name="author" content="Renaissance" />
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />

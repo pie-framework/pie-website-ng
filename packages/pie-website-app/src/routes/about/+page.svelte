@@ -151,10 +151,10 @@
 						The PIE Framework originated from work by CoreSpring.org in building authoring and rendering tools for assessment interactions. It was created as an open source project to help educators have better access to high-quality and more interactive assessment interactions, designed to be compatible with the approach suggested by Smarter Balanced in their ARI (Accessible Rendering and Interoperability) proposal.
 					</p>
 					<p class="text-base-content/80">
-						Since those early days, PIE has been consistently developed and maintained by Renaissance Learning (and before that Illuminate Education, which was acquired by Renaissance Learning). Renaissance Learning has invested in PIE's ongoing development, ensuring the framework continues to evolve with modern web standards and educational needs.
+						Since those early days, PIE has been consistently developed and maintained by Renaissance (and before that Illuminate Education, which was acquired by Renaissance). Renaissance has invested in PIE's ongoing development, ensuring the framework continues to evolve with modern web standards and educational needs.
 					</p>
 					<p class="text-base-content/80">
-						Today, PIE is the preferred framework for assessment items at Renaissance Learning, powering assessment item delivery across their product portfolio including Star Assessments, DnA, SchoolCity, and Accelerated Reader—products used by schools worldwide. Beyond Renaissance, school districts leverage PIE to author custom assessment items tailored to their specific curriculum needs, and content providers have integrated PIE into their content management systems to deliver interactive assessments at scale.
+						Today, PIE is the preferred framework for assessment items at Renaissance, powering assessment item delivery across their product portfolio including Star Assessments, DnA, SchoolCity, and Accelerated Reader—products used by schools worldwide. Beyond Renaissance, school districts leverage PIE to author custom assessment items tailored to their specific curriculum needs, and content providers have integrated PIE into their content management systems to deliver interactive assessments at scale.
 					</p>
 				</div>
 			</div>
@@ -206,47 +206,6 @@
 							<span>Keep your modifications private if needed</span>
 						</li>
 					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Connect Section -->
-	<section>
-		<div class="card bg-gradient-to-br from-primary to-secondary text-primary-content shadow-2xl">
-			<div class="card-body items-center text-center py-12">
-				<h2 class="text-4xl font-bold mb-8">Connect With Us</h2>
-				<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl">
-					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer"
-					   class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-							<circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M8 12c0-2 1-3 2-3s2 1 2 3m4 0c0-2-1-3-2-3s-2 1-2 3" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M12 14v4m-3 1h6" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						GitHub
-					</a>
-					<a href="/docs" class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-							<path d="M7 4h10c1.1 0 2 0.9 2 2v13c0 1.1-0.9 2-2 2H7c-1.1 0-2-0.9-2-2V6c0-1.1 0.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M9 9h6M9 13h6M9 17h4" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						Documentation
-					</a>
-					<a href="https://github.com/pie-framework/discussions" target="_blank" rel="noopener noreferrer"
-					   class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-							<path d="M8 10c-0.2-1.8-0.1-4 3.8-4.2 3.9-0.2 4.2 2.2 4.2 4-0.1 2-1.5 3-2.5 3.5-0.8 0.4-1.2 0.8-1.2 1.5v1" stroke-linecap="round" stroke-linejoin="round" />
-							<ellipse cx="12" cy="18" rx="5.5" ry="2.5" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						Community
-					</a>
-					<a href="/docs/getting-started" class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-							<path d="M7 12h13m0 0l-4-4m4 4l-4 4" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						Get Started
-					</a>
 				</div>
 			</div>
 		</div>
