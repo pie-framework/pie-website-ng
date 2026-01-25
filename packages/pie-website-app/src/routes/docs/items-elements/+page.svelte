@@ -487,7 +487,7 @@
 
 		<div class="grid md:grid-cols-2 gap-6">
 			<a
-				href="/docs/element-structure"
+				href="{base}/docs/element-structure"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
@@ -510,7 +510,7 @@
 			</a>
 
 			<a
-				href="/docs/players-toolkit"
+				href="{base}/docs/players-toolkit"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
