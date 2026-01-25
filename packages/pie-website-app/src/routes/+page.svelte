@@ -181,7 +181,7 @@
 					</div>
 					<h3 class="card-title text-2xl text-primary mb-2">Secure by Design</h3>
 					<p class="text-base-content/80 leading-relaxed">
-						Server-side scoring keeps answers safe. Controllers filter sensitive data based on user role. Built with security as a foundational principle.
+						Server-side scoring protects against tinkering. And controllers filter sensitive data based on user role. Built with security as a foundational principle.
 					</p>
 				</div>
 			</div>
@@ -195,7 +195,7 @@
 					</div>
 					<h3 class="card-title text-2xl text-primary mb-2">20+ Question Types</h3>
 					<p class="text-base-content/80 leading-relaxed">
-						Multiple choice to graphing, math input to drag-and-drop. Full TEI coverage with rich, interactive experiences for every question type.
+						Multiple choice to graphing, math input to drag-and-drop. Extensive (and growing) TEI coverage with rich, interactive experiences.
 					</p>
 				</div>
 			</div>
@@ -209,7 +209,7 @@
 					</div>
 					<h3 class="card-title text-2xl text-primary mb-2">Web Standards</h3>
 					<p class="text-base-content/80 leading-relaxed">
-						HTML5 Custom Elements, React, NPM. Use tools you already know. Embed anywhere. Framework-agnostic and future-proof.
+						HTML5 Custom Elements, React/ Svelte/ ..., NPM. Use tools you already know. Embed anywhere. Framework-agnostic and future-proof.
 					</p>
 				</div>
 			</div>
@@ -488,7 +488,7 @@
 							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg>
-							<span class="text-sm">QTI remains the standard for content transport and interoperability between systems.</span>
+							<span class="text-sm">PIE content can be exchanged directly or via QTI. We're working to make QTI a viable transport option.</span>
 						</div>
 						<a href="https://pie-framework.github.io/pie-qti" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
 							Explore PIE-QTI Tools
