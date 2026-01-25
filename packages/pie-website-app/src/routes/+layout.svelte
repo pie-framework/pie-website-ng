@@ -3,8 +3,15 @@
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import favicon from '$lib/assets/favicon.svg';
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
+
+	// Set initial theme on HTML element
+	onMount(() => {
+		const savedTheme = localStorage.getItem('theme') || 'light';
+		document.documentElement.setAttribute('data-theme', savedTheme);
+	});
 </script>
 
 <svelte:head>
@@ -43,7 +50,7 @@
 	<link rel="canonical" href="https://pie.org/" />
 </svelte:head>
 
-<div data-theme="pie" class="flex flex-col min-h-screen">
+<div class="flex flex-col min-h-screen">
 	<Navigation />
 	<main class="flex-1">
 		{@render children()}

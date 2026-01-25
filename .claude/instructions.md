@@ -1,177 +1,165 @@
-# Claude Code Project Instructions
+# PIE Website NG - Project Instructions
 
-## Communication Style
+## Project Context
 
-**Direct and Technical**: Skip all project management overhead. No planning phases, time estimates, effort calculations, or "Week 1/Week 2" implementation plans. Go straight to technical solutions and code.
+**PIE Website NG** is the modern documentation and interactive playground website for the PIE (Portable Interactions and Elements) framework. It serves as the central hub for PIE framework documentation, live demos, and developer integration guides.
 
-**What to Skip**:
-- ❌ Time estimates ("2-3 hours", "next sprint", "Week 1/2/3/4")
-- ❌ Effort calculations ("estimated effort", "total estimated effort")
-- ❌ Project planning sections ("Quick Implementation Plan", "Success Metrics")
-- ❌ Priority frameworks with timing ("Priority 1: High Impact, Quick Wins")
-- ❌ Gantt charts, roadmaps, or any timeline visualizations
-- ❌ Resource allocation or capacity planning
+**Critical Requirements**:
 
-**What to Include**:
-- ✅ Technical recommendations prioritized by impact
-- ✅ Direct implementation steps
-- ✅ Code examples and solutions
-- ✅ Trade-offs and technical considerations
-- ✅ "Which would you like me to implement?" (let me decide when)
+- **Bun runtime**: Node.js is supported but Bun is primary
+- **Static site generation**: All routes pre-rendered via SvelteKit adapter-static
+- **Svelte 5 with runes**: Modern reactive patterns required
+- **PIE framework integration**: Dynamic loading of PIE players from CDN
+- **Responsive design**: Mobile-first with DaisyUI components
 
-## Response Format
+## Technology Stack
 
-When asked for improvements, recommendations, or analysis:
+- **Runtime**: Bun (Node.js 20+ also supported)
+- **Framework**: SvelteKit 2.49+ with Svelte 5.46+
+- **Build**: Vite 7.3+ (static site generation)
+- **Styling**: TailwindCSS 4.1+ with DaisyUI 5.5+
+- **Markdown**: mdsvex 0.12+ for documentation pages
+- **Rich Text**: TipTap 3.15+ with code highlighting (lowlight)
+- **Code Editor**: Monaco Editor 0.55+ for playground
+- **Type Checking**: TypeScript 5.9+ strict mode + svelte-check
 
-```markdown
-# Technical Recommendations
-
-## High Impact
-1. Feature X - [why it matters technically]
-2. Fix Y - [what it solves]
-
-## Medium Impact
-3. Improvement Z - [technical benefit]
-
-## Implementation Notes
-- Technical considerations
-- Trade-offs
-- Dependencies
-
-Which would you like me to implement?
-```
-
-**NOT**:
-```markdown
-❌ Week 1: Foundation (16-20 hours)
-❌ Estimated effort: 4-6 hours
-❌ Total: 76-92 hours (≈2-3 weeks)
-```
-
-## Code Changes
-
-- Implement directly when asked
-- Explain what you're doing while doing it
-- Show results immediately
-- Ask clarifying questions only when genuinely ambiguous
-
-## Philosophy
-
-I'm a solo developer leveraged by AI. Time estimates are meaningless because:
-- AI assistance makes traditional estimates obsolete
-- I decide scope and timing based on current priorities
-- Estimates create false expectations and planning overhead
-
-Focus on **what** can be done and **how**, not **when** or **how long**.
-
-## Skills
-
-### Available Plugin Skills
-
-#### Frontend Design (`/frontend-design`)
-
-Available via the `frontend-design` plugin. Creates distinctive, production-grade frontend interfaces with high design quality.
-
-**When to use**: Building web components, pages, or applications that need polished UI.
-
-**What it provides**:
-
-- Creative, non-generic design aesthetics
-- Production-ready code
-- Avoids typical AI-generated look
-- Integrated with Tailwind/DaisyUI
-
-**Example usage**:
+## Monorepo Structure
 
 ```text
-User: Create a landing page for PIE Framework
-Assistant: [Runs /frontend-design skill]
+pie-website-ng/
+├── packages/
+│   └── @pie-website/app/          # Main SvelteKit application
+│       ├── src/
+│       │   ├── routes/           # SvelteKit file-based routing
+│       │   │   ├── +page.svelte  # Homepage
+│       │   │   ├── docs/         # Documentation pages
+│       │   │   ├── blog/         # Blog (mdsvex)
+│       │   │   └── playground/   # Interactive playground
+│       │   └── lib/
+│       │       ├── components/   # Shared components
+│       │       ├── stores/       # Svelte stores (localStorage)
+│       │       └── playground-samples.ts  # PIE samples
+│       └── static/               # Static assets
+└── reference/                    # Planning docs & specs
 ```
 
-### Custom Skills (Not Yet Implemented)
+## Code Quality Standards
 
-The following skills are documented but need to be created in `.claude/skills/[skill-name]/SKILL.md`:
+**After completing each feature or fix**:
 
-#### PIE Element Demo (`/pie-demo`)
+1. Run Biome with auto-fix: `bun run lint:fix` or `npx @biomejs/biome check --write .`
+2. Run TypeScript type checking: `bunx tsc --noEmit`
+3. Run Svelte type checking: `bunx svelte-check --workspace packages/components`
+4. Fix all errors and warnings before marking the task as complete
 
-Creates an interactive PIE element demonstration for documentation pages.
+These checks ensure:
 
-**When to use**: Adding examples of PIE interactions to documentation or guides.
+- Code follows project style standards
+- No type errors are introduced
+- Svelte components are valid and type-safe
+- Changes don't break existing functionality
 
-**What it does**:
+**Before any merge request**:
 
-1. Asks which PIE element type to demonstrate
-2. Creates a sample configuration for that element
-3. Generates the HTML with `<pie-player>` setup
-4. Adds interactive controls (if applicable)
-5. Includes code snippets showing the JSON config
+1. TypeScript compilation passes: `bun run check`
+2. Svelte components validated: `svelte-check`
+3. Build succeeds: `bun run build`
+4. No build warnings or errors
+5. Responsive design verified (mobile + desktop)
 
-**Example usage**:
+## PIE Framework Integration
 
-```text
-User: I need to add a multiple choice demo to the getting started guide
-Assistant: [Runs /pie-demo skill]
+### Dynamic Player Loading
+
+- PIE players loaded from CDN: `https://cdn.jsdelivr.net/npm/@pie-framework/`
+- Script injection via `customElements.whenDefined()`
+- Web components registered dynamically
+- Communication via custom element APIs
+
+### Playground Architecture
+
+- **URL-based state**: `/playground/[sample]` for shareable links
+- **localStorage persistence**: Saves user edits automatically
+- **Dual-pane editor**: Player view + JSON source editor
+- **Sample categories**: Multiple Choice, Math, Drag & Drop, etc.
+- **Real-time validation**: JSON syntax checking
+
+## Build System
+
+- **Vite**: Primary build tool with SvelteKit integration
+- **Static adapter**: Pre-renders all routes (`adapter-static`)
+- **mdsvex**: Markdown preprocessing for documentation
+- **Output**: `build/` directory for static hosting
+
+**Build commands**:
+
+```bash
+bun run dev          # Development server
+bun run build        # Production build (static site)
+bun run preview      # Preview built site
+bun run check        # Type checking
 ```
 
-**Output**: Complete demo component with:
+## Special Patterns
 
-- Player initialization
-- Sample PIE config
-- Interactive example
-- Code snippets for copy-paste
+### Svelte 5 Runes
 
-### Playground Sample (`/playground-sample`)
+Use modern Svelte 5 patterns:
 
-Adds a new interactive sample to the PIE playground.
+- `$state()` for reactive variables
+- `$derived()` for computed values
+- `$effect()` for side effects
+- No `$:` reactive statements needed
 
-**When to use**: Creating pre-configured PIE element examples for users to experiment with in the playground.
+### State Management
 
-**What it does**:
+- **Playground store** (`lib/stores/playground.ts`):
+  - Manages PIE item configuration
+  - Saved items list with localStorage
+  - Player mode (`gather`, `view`, `evaluate`)
+  - User role (`student`, `instructor`)
+- Auto-persistence via store subscriptions
 
-1. Asks for element type and sample details
-2. Creates the JSON configuration following PIE element spec
-3. Adds entry to `playground-samples.ts`
-4. Ensures proper categorization
-5. Validates config structure
+### Theme System
 
-**Example usage**:
+- **DaisyUI themes**: 30+ built-in themes
+- **Custom "pie" theme** with brand colors:
+  - Primary: #E84A27 (PIE orange)
+  - Secondary: #1E3A5F (Deep navy)
+  - Accent: #0D9488 (Teal)
+- Theme selector with localStorage persistence
 
-```text
-User: Add a drag-and-drop geography example to the playground
-Assistant: [Runs /playground-sample skill]
-```
+### Documentation
 
-**Output**: New sample added to playground with:
+- **mdsvex**: Write documentation in Markdown
+- Combine Markdown with Svelte components
+- Automatic syntax highlighting for code blocks
 
-- Proper category assignment
-- Valid PIE config
-- Description and metadata
-- Element definitions
+### Responsive Design
 
-### Blog Post (`/blog-post`)
+- Mobile-first DaisyUI components
+- Responsive navigation with mobile menu
+- Tailwind breakpoints (lg, xl, etc.)
 
-Creates a new blog post with frontmatter and proper structure.
+## SEO & Performance
 
-**When to use**: Adding announcements, tutorials, or PIE Framework articles.
+- **Pre-rendered routes**: All pages generated at build time
+- **Dynamic sitemap**: Generated via `/sitemap.xml/+server.ts`
+- **Semantic HTML**: Proper heading hierarchy
+- **Structured data**: JSON-LD for SEO
 
-**What it does**:
+## Deployment
 
-1. Asks for post title, description, and category
-2. Creates folder structure: `/blog/[slug]/+page.md`
-3. Adds frontmatter (title, date, author, tags, description)
-4. Sets up blog post template with sections
-5. Updates blog index if needed
+**Static site output** can be deployed to:
 
-**Example usage**:
+- Vercel
+- Netlify
+- GitHub Pages
+- Cloudflare Pages
+- Any static hosting service
 
-```text
-User: Write a blog post about PIE best practices
-Assistant: [Runs /blog-post skill]
-```
+No server required at runtime - pure static HTML/CSS/JS.
 
-**Output**: New blog post at `/blog/[slug]/+page.md` with:
+## Current Work Focus
 
-- Frontmatter metadata
-- Structured sections
-- Markdown formatting
-- Blog layout inheritance
+The website serves as the primary documentation hub for PIE framework. Focus on maintaining clear documentation, working playground examples, and responsive design across all devices.
