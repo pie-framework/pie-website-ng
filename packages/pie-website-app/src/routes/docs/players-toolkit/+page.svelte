@@ -170,24 +170,6 @@ toolCoordinator.showTool('calculator');`;
 				</div>
 			</div>
 		</div>
-
-		<div class="alert alert-info">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-			<div>
-				<p class="font-semibold">Web Components Standard</p>
-				<p class="text-sm">
-					All PIE players are implemented as Web Components, making them framework-agnostic and
-					usable with React, Vue, Angular, Svelte, or vanilla JavaScript.
-				</p>
-			</div>
-		</div>
 	</section>
 
 	<!-- Player Types -->
@@ -210,51 +192,35 @@ toolCoordinator.showTool('calculator');`;
 		</div>
 
 		<div class="space-y-6">
-			<!-- ESM Player -->
-			<div class="card bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-700">
+			<!-- IIFE Player (Current Standard) -->
+			<div class="card bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700">
 				<div class="card-body">
 					<div class="flex items-start justify-between">
 						<div class="flex-1">
 							<div class="flex items-center gap-3 mb-3">
-								<div class="badge badge-success gap-2">
-									<svg
-										class="w-3 h-3"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M5 13l4 4L19 7"
-										/>
-									</svg>
-									Recommended
-								</div>
-								<h3 class="card-title">ESM Player</h3>
-								<span class="badge badge-outline">Modern</span>
+								<h3 class="card-title">IIFE Player</h3>
+								<span class="badge badge-primary">Current Standard</span>
 							</div>
 							<p class="mb-4">
-								Uses native browser ESM (ECMAScript Modules) for loading PIE elements. Best for
-								modern browsers with smaller bundle sizes and better caching.
+								Loads pre-bundled element packages dynamically from a bundle hosting service. The current production-ready player with broad browser support and battle-tested reliability.
 							</p>
 							<div class="grid md:grid-cols-2 gap-4 text-sm">
 								<div>
 									<p class="font-semibold text-success mb-2">Benefits:</p>
 									<ul class="list-disc list-inside text-xs space-y-1">
-										<li>~85% smaller bundles vs IIFE</li>
-										<li>Native browser module loading</li>
-										<li>Better dependency caching</li>
-										<li>Import maps for resolution</li>
+										<li>Production-ready and stable</li>
+										<li>Broad browser support</li>
+										<li>Dynamic element loading</li>
+										<li>Enterprise-proven at scale</li>
 									</ul>
 								</div>
 								<div>
-									<p class="font-semibold text-warning mb-2">Requirements:</p>
+									<p class="font-semibold text-info mb-2">Status:</p>
 									<ul class="list-disc list-inside text-xs space-y-1">
-										<li>Modern browsers (Chrome 89+)</li>
-										<li>Firefox 108+, Safari 16.4+</li>
-										<li>ESM-compatible elements</li>
+										<li>Current standard for production</li>
+										<li>Will transition to legacy in 2026</li>
+										<li>Fully supported through 2027+</li>
+										<li>Recommended for new projects today</li>
 									</ul>
 								</div>
 							</div>
@@ -263,34 +229,39 @@ toolCoordinator.showTool('calculator');`;
 				</div>
 			</div>
 
-			<!-- IIFE Player -->
-			<div class="card bg-base-100 border border-base-300">
+			<!-- ESM Player (Future) -->
+			<div class="card bg-base-100 border border-warning border-2">
 				<div class="card-body">
 					<div class="flex items-center gap-3 mb-3">
-						<h3 class="card-title">IIFE Player</h3>
-						<span class="badge badge-outline">Legacy Compatible</span>
+						<h3 class="card-title">ESM Player</h3>
+						<span class="badge badge-warning">Coming Early 2026</span>
+					</div>
+					<div class="alert alert-warning mb-4">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+						</svg>
+						<span class="text-sm font-semibold">Not production-ready yet. Expected early 2026.</span>
 					</div>
 					<p class="mb-4">
-						Loads pre-bundled element packages dynamically from a bundle hosting service. Supports
-						older browsers through CommonJS bundles.
+						Uses native browser ESM (ECMAScript Modules) for loading PIE elements. Will offer smaller bundle sizes and better caching once ready for production.
 					</p>
 					<div class="grid md:grid-cols-2 gap-4 text-sm">
 						<div>
-							<p class="font-semibold text-primary mb-2">Use Cases:</p>
+							<p class="font-semibold text-success mb-2">Future Benefits:</p>
 							<ul class="list-disc list-inside text-xs space-y-1">
-								<li>Drop-in replacement for legacy PIE</li>
-								<li>Backwards compatibility needed</li>
-								<li>Dynamic element loading</li>
-								<li>All browser support</li>
+								<li>Much smaller, cacheable bundles</li>
+								<li>Native browser module loading</li>
+								<li>Better dependency caching</li>
+								<li>Import maps for resolution</li>
 							</ul>
 						</div>
 						<div>
-							<p class="font-semibold text-warning mb-2">Trade-offs:</p>
+							<p class="font-semibold text-warning mb-2">Current Status:</p>
 							<ul class="list-disc list-inside text-xs space-y-1">
-								<li>Larger bundle sizes</li>
-								<li>Requires build service</li>
-								<li>Limited caching benefits</li>
-								<li>Being deprecated (2026-2027)</li>
+								<li>In development</li>
+								<li>Not recommended for production</li>
+								<li>Expected stable: early 2026</li>
+								<li>Will become new standard</li>
 							</ul>
 						</div>
 					</div>
@@ -302,7 +273,6 @@ toolCoordinator.showTool('calculator');`;
 				<div class="card-body">
 					<div class="flex items-center gap-3 mb-3">
 						<h3 class="card-title">Fixed Player</h3>
-						<span class="badge badge-outline">Pre-bundled</span>
 					</div>
 					<p class="mb-4">
 						Elements are bundled directly into the player at build time. Optimal for
@@ -332,63 +302,6 @@ toolCoordinator.showTool('calculator');`;
 			</div>
 		</div>
 
-		<!-- Comparison Table -->
-		<div class="overflow-x-auto mt-8">
-			<table class="table table-zebra">
-				<thead>
-					<tr>
-						<th>Feature</th>
-						<th>IIFE Player</th>
-						<th>ESM Player</th>
-						<th>Fixed Player</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="font-semibold">Bundle Format</td>
-						<td>IIFE</td>
-						<td>ESM</td>
-						<td>Pre-bundled</td>
-					</tr>
-					<tr>
-						<td class="font-semibold">Loading Strategy</td>
-						<td>Dynamic</td>
-						<td>Dynamic</td>
-						<td>Static</td>
-					</tr>
-					<tr>
-						<td class="font-semibold">Browser Support</td>
-						<td>All browsers</td>
-						<td>Modern only</td>
-						<td>All browsers</td>
-					</tr>
-					<tr>
-						<td class="font-semibold">Bundle Size</td>
-						<td>Large</td>
-						<td>Small</td>
-						<td>Smallest (data only)</td>
-					</tr>
-					<tr>
-						<td class="font-semibold">Performance</td>
-						<td>Medium</td>
-						<td>Medium</td>
-						<td>Fast</td>
-					</tr>
-					<tr>
-						<td class="font-semibold">Flexibility</td>
-						<td>High</td>
-						<td>High</td>
-						<td>Low</td>
-					</tr>
-					<tr>
-						<td class="font-semibold">Best For</td>
-						<td>Legacy compat</td>
-						<td>Modern apps</td>
-						<td>Performance</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 	</section>
 
 	<!-- Assessment Toolkit -->
@@ -419,13 +332,6 @@ toolCoordinator.showTool('calculator');`;
 					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 				/>
 			</svg>
-			<div>
-				<p class="font-semibold">Toolkit, Not Framework</p>
-				<p class="text-sm">
-					The toolkit follows a "use what you need" philosophy. Import only the services you need
-					for your specific deployment scenario.
-				</p>
-			</div>
 		</div>
 
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
