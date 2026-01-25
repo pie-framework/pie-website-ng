@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 
 	const playerPropertiesExample = `player.config = itemConfig;
@@ -116,7 +117,7 @@ toolCoordinator.showTool('calculator');`;
 
 		<div class="my-8">
 			<img
-				src="/images/docs/players/pie-item-players.png"
+				src="{base}/images/docs/players/pie-item-players.png"
 				alt="PIE Item Players"
 				width="2816"
 				height="1536"
@@ -188,7 +189,7 @@ toolCoordinator.showTool('calculator');`;
 
 		<div class="my-8">
 			<img
-				src="/images/docs/players/pie-itemplayer-packaging-strategies.png"
+				src="{base}/images/docs/players/pie-itemplayer-packaging-strategies.png"
 				alt="PIE Item Player Packaging Strategies"
 				width="2816"
 				height="1536"
@@ -323,7 +324,7 @@ toolCoordinator.showTool('calculator');`;
 
 		<div class="my-8">
 			<img
-				src="/images/docs/assessment-toolkit/pie-assessment-toolkit-arch.png"
+				src="{base}/images/docs/assessment-toolkit/pie-assessment-toolkit-arch.png"
 				alt="PIE Assessment Toolkit Architecture"
 				width="2816"
 				height="1536"
@@ -407,7 +408,7 @@ toolCoordinator.showTool('calculator');`;
 
 		<div class="my-8">
 			<img
-				src="/images/docs/assessment-toolkit/pie-tool-tiers.png"
+				src="{base}/images/docs/assessment-toolkit/pie-tool-tiers.png"
 				alt="PIE Tool Tiers"
 				width="2816"
 				height="1536"
@@ -502,7 +503,7 @@ toolCoordinator.showTool('calculator');`;
 
 		<div class="my-8">
 			<img
-				src="/images/docs/assessment-toolkit/pie-integration-flow.png"
+				src="{base}/images/docs/assessment-toolkit/pie-integration-flow.png"
 				alt="PIE Integration Flow"
 				width="2816"
 				height="1536"
