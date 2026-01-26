@@ -184,11 +184,12 @@
 	</div>
 
 	<!-- Filter Tabs -->
-	<div class="flex flex-wrap gap-2 justify-center mb-12">
+	<div class="flex flex-wrap gap-2 justify-center mb-12" role="group" aria-label="Filter elements by category">
 		{#each filterOptions as filter}
 			<button
 				class="btn btn-sm {selectedFilter === filter ? 'btn-primary' : 'btn-ghost'}"
 				onclick={() => selectedFilter = filter}
+				aria-pressed={selectedFilter === filter}
 			>
 				{filter}
 			</button>
