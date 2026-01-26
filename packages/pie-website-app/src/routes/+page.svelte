@@ -513,7 +513,7 @@
 						<p class="mb-4">
 							We're actively developing importers and exporters to seamlessly move between QTI (2.x and 3.x) and PIE formats.
 						</p>
-						<a href="https://pie-framework.github.io/pie-qti" target="_blank" class="btn btn-primary btn-block">
+						<a href="https://qti.pie-framework.org" target="_blank" class="btn btn-primary btn-block">
 							Explore PIE-QTI Tools
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
