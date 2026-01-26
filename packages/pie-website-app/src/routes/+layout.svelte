@@ -57,8 +57,15 @@
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">
+	<!-- Skip to main content link for keyboard navigation -->
+	<a
+		href="#main-content"
+		class="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-content focus:rounded focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-focus"
+	>
+		Skip to main content
+	</a>
 	<Navigation />
-	<main class="flex-1">
+	<main id="main-content" class="flex-1">
 		{@render children()}
 	</main>
 	<Footer />

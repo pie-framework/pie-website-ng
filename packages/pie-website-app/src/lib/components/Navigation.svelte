@@ -28,11 +28,11 @@
 		<!-- Desktop Navigation -->
 		<div class="flex-none hidden lg:flex items-center gap-4">
 			<ul class="menu menu-horizontal px-1 gap-2">
-				<li><a href="{base}/about" class="font-medium">About</a></li>
-				<li><a href="{base}/docs/items-elements" class="font-medium">Items & Elements</a></li>
-				<li><a href="{base}/docs/element-structure" class="font-medium">Element Structure</a></li>
-				<li><a href="{base}/docs/players-toolkit" class="font-medium">Players & Toolkit</a></li>
-				<li><a href="{base}/elements" class="font-medium">Elements</a></li>
+				<li><a href="{base}/about" class="font-medium" aria-current={currentPath === `${base}/about` ? 'page' : undefined}>About</a></li>
+				<li><a href="{base}/docs/items-elements" class="font-medium" aria-current={currentPath === `${base}/docs/items-elements` ? 'page' : undefined}>Items & Elements</a></li>
+				<li><a href="{base}/docs/element-structure" class="font-medium" aria-current={currentPath === `${base}/docs/element-structure` ? 'page' : undefined}>Element Structure</a></li>
+				<li><a href="{base}/docs/players-toolkit" class="font-medium" aria-current={currentPath === `${base}/docs/players-toolkit` ? 'page' : undefined}>Players & Toolkit</a></li>
+				<li><a href="{base}/elements" class="font-medium" aria-current={currentPath === `${base}/elements` ? 'page' : undefined}>Elements</a></li>
 			</ul>
 			<ThemeSwitcher />
 			<a
@@ -40,7 +40,7 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-ghost btn-sm btn-circle"
-				aria-label="GitHub"
+				aria-label="GitHub (opens in new tab)"
 			>
 				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
 					<path
@@ -53,7 +53,7 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-ghost btn-sm btn-circle"
-				aria-label="Slack"
+				aria-label="Slack (opens in new tab)"
 			>
 				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
 					<path
@@ -68,9 +68,11 @@
 			<button
 				class="btn btn-ghost btn-circle"
 				onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
-				aria-label="Menu"
+				aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+			aria-expanded={mobileMenuOpen}
+			aria-controls="mobile-menu"
 			>
-				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -85,7 +87,7 @@
 
 <!-- Mobile Menu Dropdown -->
 {#if mobileMenuOpen}
-	<div class="lg:hidden bg-base-100 shadow-lg">
+	<div id="mobile-menu" class="lg:hidden bg-base-100 shadow-lg">
 		<ul class="menu menu-vertical px-4 py-2">
 			<li><a href="{base}/about">About</a></li>
 			<li><a href="{base}/docs/items-elements">Items & Elements</a></li>

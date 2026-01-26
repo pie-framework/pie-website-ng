@@ -548,7 +548,7 @@
 					<p class="opacity-90 mb-4 leading-relaxed">
 						PIE powers assessment delivery for millions of learners at Renaissance. Battle-tested at enterprise scale in K-12 education.
 					</p>
-					<a href="https://www.renaissance.com" target="_blank" class="btn btn-accent btn-sm">
+					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm" aria-label="Learn more about Renaissance">
 						Learn More
 					</a>
 				</div>
@@ -563,7 +563,7 @@
 					<p class="opacity-90 mb-4 leading-relaxed">
 						Implementation partner since 2017. MCRO has been instrumental in developing PIE from concept to production-ready framework.
 					</p>
-					<a href="https://mcro.tech" target="_blank" class="btn btn-accent btn-sm">
+					<a href="https://mcro.tech" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm" aria-label="Learn more about MCRO">
 						Learn More
 					</a>
 				</div>
