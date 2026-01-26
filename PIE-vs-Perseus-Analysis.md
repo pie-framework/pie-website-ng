@@ -396,7 +396,7 @@ interface PieController {
 - **PIE-QTI tooling**: Bidirectional import/export
 - **QTI Assessment Model compatibility**: High degree of alignment
 - PIE can be **exchanged directly** OR **via QTI**
-- Dedicated project: [https://pie-framework.github.io/pie-qti](https://pie-framework.github.io/pie-qti)
+- Dedicated project: [https://qti.pie-framework.org](https://qti.pie-framework.org)
 
 **Philosophy**:
 > "QTI (Question and Test Interoperability) is the industry standard for exchanging assessment content between systems. PIE complements QTI by providing rich interactive experiences and predictable rendering beyond QTI's specification."
