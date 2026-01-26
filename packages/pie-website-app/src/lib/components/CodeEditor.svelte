@@ -53,7 +53,11 @@
 			editorProps: {
 				attributes: {
 					class: 'code-editor-content',
-					style: `min-height: ${height}`
+					style: `min-height: ${height}`,
+					role: 'textbox',
+					'aria-label': `${readonly ? 'Read-only ' : ''}${language} code editor`,
+					'aria-multiline': 'true',
+					'aria-readonly': readonly ? 'true' : 'false'
 				}
 			},
 			onUpdate: ({ editor }) => {

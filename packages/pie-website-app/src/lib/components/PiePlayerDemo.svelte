@@ -103,8 +103,8 @@
 <div class="pie-player-demo">
 	<!-- Error Display -->
 	{#if errorMessage}
-		<div class="alert alert-error mb-4 text-sm">
-			<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+		<div class="alert alert-error mb-4 text-sm" role="alert">
+			<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 				<path
 					stroke-linecap="round"
 					stroke-linejoin="round"
@@ -121,12 +121,15 @@
 		<!-- Tabs Header with Controls -->
 		{#if showTabs}
 			<div class="flex items-center justify-between border-b border-base-300 bg-base-200/50">
-				<div role="tablist" class="tabs">
+				<div role="tablist" class="tabs" aria-label="PIE Player Demo Tabs">
 					<button
 						role="tab"
 						class="tab tab-lifted tab-lg border-b-0"
 						class:tab-active={activeTab === 'demo'}
 						onclick={() => (activeTab = 'demo')}
+						aria-selected={activeTab === 'demo'}
+						aria-controls="demo-panel"
+						tabindex={activeTab === 'demo' ? 0 : -1}
 					>
 						PIE Preview
 					</button>
@@ -135,6 +138,9 @@
 						class="tab tab-lifted tab-lg border-b-0"
 						class:tab-active={activeTab === 'source'}
 						onclick={() => (activeTab = 'source')}
+						aria-selected={activeTab === 'source'}
+						aria-controls="source-panel"
+						tabindex={activeTab === 'source' ? 0 : -1}
 					>
 						PIE Source
 					</button>
@@ -143,6 +149,9 @@
 						class="tab tab-lifted tab-lg border-b-0"
 						class:tab-active={activeTab === 'edit'}
 						onclick={() => (activeTab = 'edit')}
+						aria-selected={activeTab === 'edit'}
+						aria-controls="edit-panel"
+						tabindex={activeTab === 'edit' ? 0 : -1}
 					>
 						Edit
 					</button>
@@ -150,7 +159,8 @@
 
 				<!-- Mode and Role Controls on the right -->
 				<div class="flex items-center gap-2 px-4">
-					<div class="flex items-center gap-2">
+					<fieldset class="flex items-center gap-2">
+						<legend class="sr-only">Interaction mode</legend>
 						{#each [
 							{ value: 'gather', label: 'Gather' },
 							{ value: 'view', label: 'View' },
@@ -168,11 +178,12 @@
 								<span class="text-sm">{modeOption.label}</span>
 							</label>
 						{/each}
-					</div>
+					</fieldset>
 
 					<div class="divider divider-horizontal mx-2"></div>
 
-					<div class="flex items-center gap-2">
+					<fieldset class="flex items-center gap-2">
+						<legend class="sr-only">User role</legend>
 						{#each [
 							{ value: 'student', label: 'Student' },
 							{ value: 'instructor', label: 'Instructor' }
@@ -189,7 +200,7 @@
 								<span class="text-sm">{roleOption.label}</span>
 							</label>
 						{/each}
-					</div>
+					</fieldset>
 				</div>
 			</div>
 		{/if}
@@ -198,11 +209,11 @@
 		<div class="pie-player-demo-content">
 			{#if activeTab === 'demo' || !showTabs}
 				<!-- Player Tab -->
-				<div class="p-6" style="min-height: {height}">
+				<div id="demo-panel" role="tabpanel" aria-labelledby="demo-tab" class="p-6" style="min-height: {height}">
 					{#if !playerLoaded}
-						<div class="flex items-center justify-center" style="height: {height}">
+						<div class="flex items-center justify-center" style="height: {height}" role="status" aria-live="polite" aria-busy="true">
 							<div class="text-center">
-								<div class="loading loading-spinner loading-lg mb-4"></div>
+								<div class="loading loading-spinner loading-lg mb-4" aria-hidden="true"></div>
 								<p class="text-base-content/60">Loading PIE Player...</p>
 							</div>
 						</div>
@@ -221,7 +232,7 @@
 				</div>
 			{:else if activeTab === 'source'}
 				<!-- Source Tab -->
-				<div class="p-6">
+				<div id="source-panel" role="tabpanel" aria-labelledby="source-tab" class="p-6">
 					<p class="text-sm text-base-content/70 mb-3">
 						Element configuration for <code class="bg-base-200 px-2 py-1 rounded"
 							>{elementName}</code
@@ -229,8 +240,8 @@
 					</p>
 
 				{#if jsonError}
-					<div class="alert alert-warning mb-3 text-sm">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<div class="alert alert-warning mb-3 text-sm" role="alert">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
@@ -256,11 +267,11 @@
 				</div>
 			{:else if activeTab === 'edit'}
 				<!-- Edit Tab -->
-				<div class="p-6" style="min-height: {height}">
+				<div id="edit-panel" role="tabpanel" aria-labelledby="edit-tab" class="p-6" style="min-height: {height}">
 					{#if !playerLoaded}
-						<div class="flex items-center justify-center" style="height: {height}">
+						<div class="flex items-center justify-center" style="height: {height}" role="status" aria-live="polite" aria-busy="true">
 							<div class="text-center">
-								<div class="loading loading-spinner loading-lg mb-4"></div>
+								<div class="loading loading-spinner loading-lg mb-4" aria-hidden="true"></div>
 								<p class="text-base-content/60">Loading PIE Author...</p>
 							</div>
 						</div>

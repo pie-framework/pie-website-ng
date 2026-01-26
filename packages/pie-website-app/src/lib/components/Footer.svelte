@@ -16,7 +16,7 @@
 			<!-- Documentation Column -->
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Documentation</h3>
-				<nav class="flex flex-col gap-2">
+				<nav aria-label="Documentation" class="flex flex-col gap-2">
 					<a href="{base}/docs/items-elements" class="link link-hover text-sm">Items & Elements</a>
 					<a href="{base}/docs/element-structure" class="link link-hover text-sm">Element Structure</a>
 					<a href="{base}/docs/players-toolkit" class="link link-hover text-sm">Players & Toolkit</a>
@@ -26,20 +26,20 @@
 			<!-- Resources Column -->
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Resources</h3>
-				<nav class="flex flex-col gap-2">
+				<nav aria-label="Resources" class="flex flex-col gap-2">
 					<a href="{base}/about" class="link link-hover text-sm">About</a>
 					<a href="{base}/elements" class="link link-hover text-sm">Elements</a>
-					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">GitHub</a>
-					<a href="https://pieframework.slack.com" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">Slack Community</a>
+					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">GitHub<span class="sr-only"> (opens in new tab)</span></a>
+					<a href="https://pieframework.slack.com" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">Slack Community<span class="sr-only"> (opens in new tab)</span></a>
 				</nav>
 			</div>
 
 			<!-- Partners Column -->
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Partners</h3>
-				<nav class="flex flex-col gap-2">
-					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">Renaissance</a>
-					<a href="https://mcro.tech" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">MCRO</a>
+				<nav aria-label="Partners" class="flex flex-col gap-2">
+					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">Renaissance<span class="sr-only"> (opens in new tab)</span></a>
+					<a href="https://mcro.tech" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">MCRO<span class="sr-only"> (opens in new tab)</span></a>
 				</nav>
 			</div>
 		</div>
