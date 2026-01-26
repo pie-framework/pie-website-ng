@@ -95,13 +95,6 @@ jobs:
                       "text": "*Workflow:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
                     }
                   ]
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Commit Message:*\n${{ github.event.head_commit.message }}"
-                  }
                 }
               ]
             }
@@ -148,13 +141,6 @@ jobs:
                       "text": "*Workflow:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
                     }
                   ]
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Commit Message:*\n${{ github.event.head_commit.message }}"
-                  }
                 }
               ]
             }
