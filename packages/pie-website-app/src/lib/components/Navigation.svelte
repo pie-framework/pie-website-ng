@@ -2,14 +2,17 @@
 	import { base } from '$app/paths';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
 
-	// Navigation state for mobile menu
 	let mobileMenuOpen = $state(false);
+	let docsDropdownOpen = $state(false);
 
-	// Get current path for active state
 	let currentPath = $state('');
 
 	if (typeof window !== 'undefined') {
 		currentPath = window.location.pathname;
+	}
+
+	function closeDropdown() {
+		docsDropdownOpen = false;
 	}
 </script>
 
@@ -27,12 +30,22 @@
 
 		<!-- Desktop Navigation -->
 		<div class="flex-none hidden lg:flex items-center gap-4">
-			<ul class="menu menu-horizontal px-1 gap-2">
-				<li><a href="{base}/about" class="font-medium" aria-current={currentPath === `${base}/about` ? 'page' : undefined}>About</a></li>
-				<li><a href="{base}/docs/items-elements" class="font-medium" aria-current={currentPath === `${base}/docs/items-elements` ? 'page' : undefined}>Items & Elements</a></li>
-				<li><a href="{base}/docs/element-structure" class="font-medium" aria-current={currentPath === `${base}/docs/element-structure` ? 'page' : undefined}>Element Structure</a></li>
-				<li><a href="{base}/docs/players-toolkit" class="font-medium" aria-current={currentPath === `${base}/docs/players-toolkit` ? 'page' : undefined}>Players & Toolkit</a></li>
-				<li><a href="{base}/elements" class="font-medium" aria-current={currentPath === `${base}/elements` ? 'page' : undefined}>Elements</a></li>
+			<ul class="menu menu-horizontal px-1 gap-1">
+				<li><a href="{base}/about/" class="font-medium" aria-current={currentPath.includes('/about') ? 'page' : undefined}>About</a></li>
+				<li>
+					<details bind:open={docsDropdownOpen}>
+						<summary class="font-medium" aria-current={currentPath.includes('/docs/') ? 'page' : undefined}>Docs</summary>
+						<ul class="bg-base-100 rounded-box shadow-lg z-50 w-56 p-2">
+							<li><a href="{base}/docs/items-elements/" onclick={closeDropdown}>Items & Elements</a></li>
+							<li><a href="{base}/docs/element-structure/" onclick={closeDropdown}>Element Structure</a></li>
+							<li><a href="{base}/docs/players/" onclick={closeDropdown}>Players</a></li>
+							<li><a href="{base}/docs/toolkit/" onclick={closeDropdown}>Assessment Toolkit</a></li>
+							<li><a href="{base}/docs/integration/" onclick={closeDropdown}>Integration</a></li>
+							<li><a href="{base}/docs/qti/" onclick={closeDropdown}>QTI & Standards</a></li>
+						</ul>
+					</details>
+				</li>
+				<li><a href="{base}/elements/" class="font-medium" aria-current={currentPath.includes('/elements') ? 'page' : undefined}>Elements</a></li>
 			</ul>
 			<ThemeSwitcher />
 			<a
@@ -89,11 +102,17 @@
 {#if mobileMenuOpen}
 	<div id="mobile-menu" class="lg:hidden bg-base-100 shadow-lg">
 		<ul class="menu menu-vertical px-4 py-2">
-			<li><a href="{base}/about">About</a></li>
-			<li><a href="{base}/docs/items-elements">Items & Elements</a></li>
-			<li><a href="{base}/docs/element-structure">Element Structure</a></li>
-			<li><a href="{base}/docs/players-toolkit">Players & Toolkit</a></li>
-			<li><a href="{base}/elements">Elements</a></li>
+			<li><a href="{base}/about/">About</a></li>
+			<li>
+				<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">Documentation</span>
+			</li>
+			<li><a href="{base}/docs/items-elements/">Items & Elements</a></li>
+			<li><a href="{base}/docs/element-structure/">Element Structure</a></li>
+			<li><a href="{base}/docs/players/">Players</a></li>
+			<li><a href="{base}/docs/toolkit/">Assessment Toolkit</a></li>
+			<li><a href="{base}/docs/integration/">Integration</a></li>
+			<li><a href="{base}/docs/qti/">QTI & Standards</a></li>
+			<li class="mt-2"><a href="{base}/elements/">Elements Catalog</a></li>
 			<li class="mt-2">
 				<div class="flex gap-2 items-center">
 					<ThemeSwitcher />
