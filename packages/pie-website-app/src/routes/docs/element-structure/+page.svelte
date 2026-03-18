@@ -521,7 +521,7 @@ export function outcome(
 
 		<div class="grid md:grid-cols-2 gap-6">
 			<a
-				href="{base}/docs/items-elements"
+				href="{base}/docs/items-elements/"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
@@ -538,19 +538,18 @@ export function outcome(
 			</a>
 
 			<a
-				href="{base}/docs/players-toolkit"
+				href="{base}/docs/players/"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
 					<h3 class="card-title text-primary">
-						Players & Toolkit
+						Players
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
 						</svg>
 					</h3>
 					<p class="text-sm">
-						Learn how players orchestrate elements and how the assessment toolkit provides tools and
-						accommodations.
+						Four-level player hierarchy: item players render questions, section players compose pages, assessment players orchestrate navigation.
 					</p>
 				</div>
 			</a>

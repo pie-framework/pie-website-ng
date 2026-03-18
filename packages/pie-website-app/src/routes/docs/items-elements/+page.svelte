@@ -177,7 +177,7 @@
 			</p>
 		</div>
 
-		<div class="grid md:grid-cols-3 gap-6 mb-8">
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 			<div class="card bg-primary/5 border border-primary/20">
 				<div class="card-body">
 					<h3 class="card-title text-primary">Delivery Interface</h3>
@@ -197,13 +197,13 @@
 					<h3 class="card-title text-secondary">Authoring Interface</h3>
 					<p class="text-sm">
 						Configuration UI where educators create questions using forms and visual editors.
-						WYSIWYG experience.
+						WYSIWYG experience with live preview.
 					</p>
 					<ul class="text-sm space-y-1 mt-2">
-						<li>Add/edit choices</li>
-						<li>Mark correct answers</li>
-						<li>Configure layouts</li>
-						<li>Set feedback and hints</li>
+						<li>Add/edit choices and mark correct answers</li>
+						<li>Configure layouts (vertical/horizontal)</li>
+						<li>Set feedback and difficulty</li>
+						<li>Rich text editors and visual panels</li>
 					</ul>
 				</div>
 			</div>
@@ -216,11 +216,35 @@
 						context.
 					</p>
 					<ul class="text-sm space-y-1 mt-2">
-						<li><code>model()</code> - Build UI model</li>
-						<li><code>outcome()</code> - Calculate score</li>
+						<li><code>model()</code> &mdash; Build view model for rendering</li>
+						<li><code>outcome()</code> &mdash; Calculate score and feedback</li>
 						<li>Runs client or server-side</li>
 						<li>Security filtering by role</li>
 					</ul>
+				</div>
+			</div>
+
+			<div class="card bg-base-200 border border-base-300">
+				<div class="card-body">
+					<div class="flex items-center gap-2 mb-1">
+						<h3 class="card-title text-base-content/70">Print View</h3>
+						<span class="badge badge-sm badge-outline">In Progress</span>
+					</div>
+					<p class="text-sm text-base-content/60">
+						A UI optimized for printing assessment items on paper.
+					</p>
+				</div>
+			</div>
+
+			<div class="card bg-base-200 border border-base-300">
+				<div class="card-body">
+					<div class="flex items-center gap-2 mb-1">
+						<h3 class="card-title text-base-content/70">List View</h3>
+						<span class="badge badge-sm badge-outline">In Progress</span>
+					</div>
+					<p class="text-sm text-base-content/60">
+						Compact preview UIs usable in lists and tables for item bank browsing.
+					</p>
 				</div>
 			</div>
 		</div>
@@ -450,6 +474,74 @@
 		</div>
 	</section>
 
+	<!-- Building Custom Elements -->
+	<section class="mb-12">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Building Custom Elements</h2>
+		<div class="prose max-w-none mb-6">
+			<p class="text-lg">
+				Organizations with specialized assessment needs can build custom elements following PIE's established patterns.
+			</p>
+		</div>
+		<div class="grid md:grid-cols-2 gap-6">
+			<div class="card bg-base-100 border border-base-300">
+				<div class="card-body">
+					<h4 class="font-bold text-primary mb-2">Element Boilerplate</h4>
+					<p class="text-sm text-base-content/70">Templates and scaffolding for new question types, following PIE conventions for delivery, authoring, and controllers.</p>
+				</div>
+			</div>
+			<div class="card bg-base-100 border border-base-300">
+				<div class="card-body">
+					<h4 class="font-bold text-primary mb-2">Shared Component Libraries</h4>
+					<p class="text-sm text-base-content/70">Reusable UI components for prompts, feedback displays, math rendering, and other common patterns.</p>
+				</div>
+			</div>
+			<div class="card bg-base-100 border border-base-300">
+				<div class="card-body">
+					<h4 class="font-bold text-primary mb-2">Controller Interface</h4>
+					<p class="text-sm text-base-content/70">Framework-agnostic JavaScript/TypeScript interface for scoring and validation logic with <code>model()</code> and <code>outcome()</code> functions.</p>
+				</div>
+			</div>
+			<div class="card bg-base-100 border border-base-300">
+				<div class="card-body">
+					<h4 class="font-bold text-primary mb-2">30+ Reference Implementations</h4>
+					<p class="text-sm text-base-content/70">Comprehensive examples demonstrating patterns. Custom elements integrate seamlessly, gaining accessibility support, print rendering, and player compatibility.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Accessibility -->
+	<section class="mb-12">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Accessibility Throughout</h2>
+		<div class="prose max-w-none mb-6">
+			<p class="text-lg">
+				Every PIE element includes accessibility features as part of its core implementation &mdash; not optional configurations added as an afterthought.
+			</p>
+		</div>
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
+				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+				<span class="text-sm"><strong>Keyboard navigation</strong> &mdash; tab navigation, arrow keys, enter/space activation</span>
+			</div>
+			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
+				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+				<span class="text-sm"><strong>Screen reader support</strong> &mdash; semantic HTML with proper ARIA labels, roles, and live regions</span>
+			</div>
+			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
+				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+				<span class="text-sm"><strong>Focus management</strong> &mdash; logical focus order and visible focus indicators</span>
+			</div>
+			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
+				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+				<span class="text-sm"><strong>High contrast</strong> &mdash; elements render correctly with high-contrast themes</span>
+			</div>
+			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
+				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+				<span class="text-sm"><strong>Magnification</strong> &mdash; interfaces scale properly when users increase font sizes</span>
+			</div>
+		</div>
+	</section>
+
 	<!-- Playground Link -->
 	<section class="mb-12">
 		<div class="card bg-primary text-primary-content shadow-xl">
@@ -487,7 +579,7 @@
 
 		<div class="grid md:grid-cols-2 gap-6">
 			<a
-				href="{base}/docs/element-structure"
+				href="{base}/docs/element-structure/"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
@@ -510,12 +602,12 @@
 			</a>
 
 			<a
-				href="{base}/docs/players-toolkit"
+				href="{base}/docs/players/"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
 					<h3 class="card-title text-primary">
-						Players & Toolkit
+						Players
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								stroke-linecap="round"
@@ -526,8 +618,7 @@
 						</svg>
 					</h3>
 					<p class="text-sm">
-						Learn how PIE players orchestrate elements and how the assessment toolkit provides tools
-						and accommodations.
+						Four-level player hierarchy: item players render questions, section players compose pages, assessment players orchestrate navigation.
 					</p>
 				</div>
 			</a>

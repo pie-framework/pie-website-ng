@@ -5,36 +5,35 @@
 <footer class="footer bg-secondary text-secondary-content p-10">
 	<div class="container mx-auto">
 		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 w-full">
-			<!-- About Column -->
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">PIE Framework</h3>
 				<p class="text-sm opacity-80">
-					Open-source web components for creating interactive assessment items.
+					Open-source web components for creating interactive assessment items. Built on modern web standards.
 				</p>
 			</div>
 
-			<!-- Documentation Column -->
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Documentation</h3>
 				<nav aria-label="Documentation" class="flex flex-col gap-2">
-					<a href="{base}/docs/items-elements" class="link link-hover text-sm">Items & Elements</a>
-					<a href="{base}/docs/element-structure" class="link link-hover text-sm">Element Structure</a>
-					<a href="{base}/docs/players-toolkit" class="link link-hover text-sm">Players & Toolkit</a>
+					<a href="{base}/docs/items-elements/" class="link link-hover text-sm">Items & Elements</a>
+					<a href="{base}/docs/element-structure/" class="link link-hover text-sm">Element Structure</a>
+					<a href="{base}/docs/players/" class="link link-hover text-sm">Players</a>
+					<a href="{base}/docs/toolkit/" class="link link-hover text-sm">Assessment Toolkit</a>
+					<a href="{base}/docs/integration/" class="link link-hover text-sm">Integration</a>
+					<a href="{base}/docs/qti/" class="link link-hover text-sm">QTI & Standards</a>
 				</nav>
 			</div>
 
-			<!-- Resources Column -->
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Resources</h3>
 				<nav aria-label="Resources" class="flex flex-col gap-2">
-					<a href="{base}/about" class="link link-hover text-sm">About</a>
-					<a href="{base}/elements" class="link link-hover text-sm">Elements</a>
+					<a href="{base}/about/" class="link link-hover text-sm">About</a>
+					<a href="{base}/elements/" class="link link-hover text-sm">Elements Catalog</a>
 					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">GitHub<span class="sr-only"> (opens in new tab)</span></a>
 					<a href="https://pieframework.slack.com" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">Slack Community<span class="sr-only"> (opens in new tab)</span></a>
 				</nav>
 			</div>
 
-			<!-- Partners Column -->
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Partners</h3>
 				<nav aria-label="Partners" class="flex flex-col gap-2">
@@ -44,7 +43,6 @@
 			</div>
 		</div>
 
-		<!-- Bottom Bar -->
 		<div class="mt-8 pt-8 border-t border-secondary-content/20 w-full">
 			<div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-80">
 				<p>Licensed under ISC/MIT.</p>
