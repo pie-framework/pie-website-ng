@@ -4,6 +4,7 @@
 
 	let mobileMenuOpen = $state(false);
 	let docsDropdownOpen = $state(false);
+	const elementsDemoUrl = 'https://elements.pie-framework.org/';
 
 	let currentPath = $state('');
 
@@ -47,7 +48,7 @@
 						</ul>
 					</details>
 				</li>
-				<li><a href="{base}/elements/" class="font-medium" aria-current={currentPath.includes('/elements') ? 'page' : undefined}>Elements</a></li>
+				<li><a href={elementsDemoUrl} class="font-medium">Elements Demo</a></li>
 			</ul>
 			<ThemeSwitcher />
 			<a
@@ -116,7 +117,7 @@
 			<li><a href="{base}/docs/toolkit/">Assessment Toolkit</a></li>
 			<li><a href="{base}/docs/integration/">Integration</a></li>
 			<li><a href="{base}/docs/qti/">QTI & Standards</a></li>
-			<li class="mt-2"><a href="{base}/elements/">Elements Catalog</a></li>
+			<li class="mt-2"><a href={elementsDemoUrl}>Elements Demo</a></li>
 			<li class="mt-2">
 				<div class="flex gap-2 items-center">
 					<ThemeSwitcher />
