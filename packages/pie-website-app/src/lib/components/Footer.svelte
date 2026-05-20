@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+
+	const elementsDemoUrl = 'https://elements.pie-framework.org/';
 </script>
 
 <footer class="footer bg-secondary text-secondary-content p-10">
@@ -28,7 +30,7 @@
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Resources</h3>
 				<nav aria-label="Resources" class="flex flex-col gap-2">
 					<a href="{base}/about/" class="link link-hover text-sm">About</a>
-					<a href="{base}/elements/" class="link link-hover text-sm">Elements Catalog</a>
+					<a href={elementsDemoUrl} class="link link-hover text-sm">Elements Demo</a>
 					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">GitHub<span class="sr-only"> (opens in new tab)</span></a>
 					<a href="https://pieframework.slack.com" target="_blank" rel="noopener noreferrer" class="link link-hover text-sm">Slack Community<span class="sr-only"> (opens in new tab)</span></a>
 				</nav>
