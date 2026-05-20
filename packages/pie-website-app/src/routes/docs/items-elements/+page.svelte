@@ -3,6 +3,8 @@
 	import PiePlayerDemo from '$lib/components/PiePlayerDemo.svelte';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 
+	const elementsDemoUrl = 'https://elements.pie-framework.org/';
+
 	const elementsExample = `{
   "multiple-choice": "@pie-element/multiple-choice@latest"
 }`;
@@ -548,17 +550,17 @@
 			<div class="card-body">
 				<h2 class="card-title text-2xl mb-4">Try More Examples</h2>
 				<p class="mb-4">
-					Want to explore more question types? Check out the PIE Playground with 20+ pre-configured
-					examples you can try and modify.
+					Want to explore more question types? Open the interactive PIE Elements Demo with
+					pre-configured examples you can try.
 				</p>
 				<div class="card-actions">
 					<a
-						href="https://pieoneer.pie-api.com/etl/playground/pie"
+						href={elementsDemoUrl}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="btn btn-secondary"
 					>
-						Open PIE Playground
+						Open Elements Demo
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								stroke-linecap="round"

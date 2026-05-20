@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -42,7 +43,7 @@
 	onMount(async () => {
 		// Redirect to first sample if no sample specified
 		if (!sampleId || !currentSample) {
-			goto(`/playground/${samples[0].id}`);
+			goto(`${base}/_playground/${samples[0].id}`);
 			return;
 		}
 
@@ -242,7 +243,7 @@
 									<div class="text-sm font-medium text-base-content/60 mb-1">{category.name}</div>
 									{#each category.samples as sample}
 										<a
-											href="{base}/playground/{sample.id}"
+											href="{base}/_playground/{sample.id}"
 											class="block px-3 py-2 rounded text-sm hover:bg-base-200 transition-colors"
 											class:bg-primary={sampleId === sample.id}
 											class:text-primary-content={sampleId === sample.id}
