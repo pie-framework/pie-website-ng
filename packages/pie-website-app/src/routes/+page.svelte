@@ -1,15 +1,18 @@
+<script lang="ts">
+	import { base } from '$app/paths';
+</script>
+
 <svelte:head>
 	<title>PIE Framework - Open Source Assessment Items</title>
-	<meta name="description" content="Enterprise-proven web components for rendering 20+ interactive question types. Zero licensing costs. Modern web standards. Built by educators, for educators." />
+	<meta name="description" content="A modern, open-source framework for assessment item rendering. 20+ interactive question types, layered players, accessibility toolkit. Web Components. Zero licensing costs." />
 
-	<!-- JSON-LD Structured Data for LLMs and Search Engines -->
 	{@html `<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
 		"@type": "SoftwareApplication",
 		"name": "PIE Framework",
-		"alternateName": "Portable Interactive Elements Framework",
-		"description": "Open-source web components framework for creating interactive assessment items and educational content. Provides 20+ question types including multiple choice, constructed response, math input, graphing, and drag-and-drop interactions.",
+		"alternateName": "Portable Interactions and Elements",
+		"description": "Open-source web components framework for creating interactive assessment items and educational content. Provides 20+ question types, layered players from item to assessment level, an accessibility toolkit, and QTI interoperability.",
 		"applicationCategory": "DeveloperApplication",
 		"operatingSystem": "Web Browser",
 		"offers": {
@@ -19,35 +22,43 @@
 		},
 		"publisher": {
 			"@type": "Organization",
-			"name": "Renaissance",
-			"url": "https://www.renaissance.com"
+			"name": "PIE Framework",
+			"url": "https://pie-framework.org"
 		},
 		"author": {
 			"@type": "Organization",
-			"name": "Renaissance"
+			"name": "PIE Framework",
+			"url": "https://pie-framework.org"
 		},
+		"sponsor": [
+			{
+				"@type": "Organization",
+				"name": "Renaissance",
+				"url": "https://www.renaissance.com"
+			},
+			{
+				"@type": "Organization",
+				"name": "MCRO",
+				"url": "https://mcro.tech"
+			}
+		],
 		"license": "https://opensource.org/licenses/ISC",
 		"programmingLanguage": ["JavaScript", "TypeScript", "HTML", "CSS"],
 		"softwareVersion": "latest",
 		"codeRepository": "https://github.com/pie-framework",
-		"url": "https://pie.org",
-		"keywords": "assessment, education, web components, interactive questions, e-learning, testing, open source, ISC license",
+		"url": "https://pie-framework.org",
+		"keywords": "assessment, education, web components, interactive questions, e-learning, testing, open source, QTI, accessibility",
 		"featureList": [
 			"20+ interactive question types",
+			"Four-level player hierarchy (element, item, section, assessment)",
+			"Assessment toolkit with TTS, calculator, accommodations",
 			"Web Components (Custom Elements)",
 			"Framework-agnostic integration",
-			"Server-side scoring",
-			"Role-based access control",
-			"Accessible design (WCAG compliant)",
-			"Battle-tested at enterprise scale",
+			"QTI 2.x and 3.0 interoperability",
+			"WCAG 2.2 Level AA accessibility",
+			"WYSIWYG authoring interfaces",
 			"Zero licensing costs"
-		],
-		"aggregateRating": {
-			"@type": "AggregateRating",
-			"ratingValue": "5",
-			"reviewCount": "1",
-			"bestRating": "5"
-		}
+		]
 	}
 	</script>`}
 </svelte:head>
@@ -59,8 +70,13 @@
 			<h1 class="text-4xl md:text-5xl font-extrabold text-secondary mb-3 leading-tight">
 				PIE Framework
 			</h1>
-			<p class="text-lg md:text-xl font-semibold text-primary">
+			<p class="text-lg md:text-xl font-semibold text-primary mb-4">
 				Open Source Assessment Items
+			</p>
+			<p class="text-base text-base-content/70 max-w-2xl mx-auto">
+				A modern, open-source framework for assessment item rendering that combines the interactive richness
+				of commercial platforms with the flexibility of open standards. Built on Web Components and distributed
+				as framework-agnostic custom elements.
 			</p>
 		</div>
 	</div>
@@ -71,7 +87,9 @@
 	<div class="container mx-auto px-4 max-w-7xl">
 		<div class="text-center mb-8">
 			<p class="text-lg text-base-content/70 max-w-3xl mx-auto">
-				Modern assessment demands more than multiple-choice bubbles. Choose PIE for interactive, accessible, production-ready question types.
+				Today's assessments demand interactive question types &mdash; graphing, drag-and-drop, mathematical
+				expression input &mdash; delivered accessibly through browsers to millions of students.
+				Organizations building assessment platforms face a difficult choice.
 			</p>
 		</div>
 
@@ -81,29 +99,29 @@
 				<div class="space-y-4">
 					<div class="flex items-start gap-3">
 						<div class="w-8 h-8 bg-error/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-							<span class="text-error font-bold">✕</span>
+							<span class="text-error font-bold">&#x2715;</span>
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Commercial Platforms</p>
-							<p class="text-sm text-base-content/70">Great if you are looking for a complete solution and it does what you need, but limited configurability and cost can add up.</p>
+							<p class="text-sm text-base-content/70">Comprehensive solutions but with significant per-student licensing costs and limited customization.</p>
 						</div>
 					</div>
 					<div class="flex items-start gap-3">
 						<div class="w-8 h-8 bg-error/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-							<span class="text-error font-bold">✕</span>
+							<span class="text-error font-bold">&#x2715;</span>
 						</div>
 						<div>
-							<p class="font-semibold mb-1">Partial Standards (QTI)</p>
-							<p class="text-sm text-base-content/70">Interoperable data but no guarantee about how it will be rendered. Also doesn't come with authoring capabilities.</p>
+							<p class="font-semibold mb-1">Standards Alone (QTI)</p>
+							<p class="text-sm text-base-content/70">Content interoperability for exchange, but no rendering guarantee across platforms, no authoring interface, and visual fidelity challenges especially for technology-enhanced items.</p>
 						</div>
 					</div>
 					<div class="flex items-start gap-3">
 						<div class="w-8 h-8 bg-error/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-							<span class="text-error font-bold">✕</span>
+							<span class="text-error font-bold">&#x2715;</span>
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Build from Scratch</p>
-							<p class="text-sm text-base-content/70">Complete control but massive investment. Years of development for production quality across all question types.</p>
+							<p class="text-sm text-base-content/70">Complete control but years of development to cover the range of content types with production quality and accessibility.</p>
 						</div>
 					</div>
 				</div>
@@ -114,7 +132,7 @@
 				<div class="space-y-4">
 					<div class="flex items-start gap-3">
 						<div class="w-8 h-8 bg-success/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-							<span class="text-success font-bold">✓</span>
+							<span class="text-success font-bold">&#x2713;</span>
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Open Source & Free</p>
@@ -123,20 +141,20 @@
 					</div>
 					<div class="flex items-start gap-3">
 						<div class="w-8 h-8 bg-success/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-							<span class="text-success font-bold">✓</span>
+							<span class="text-success font-bold">&#x2713;</span>
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Modern & Interactive</p>
-							<p class="text-sm text-base-content/70">Rich Web Components. 20+ production-ready question types. WYSIWYG authoring interfaces.</p>
+							<p class="text-sm text-base-content/70">20+ production-ready question types with WYSIWYG authoring, layered players, and a composable assessment toolkit.</p>
 						</div>
 					</div>
 					<div class="flex items-start gap-3">
 						<div class="w-8 h-8 bg-success/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-							<span class="text-success font-bold">✓</span>
+							<span class="text-success font-bold">&#x2713;</span>
 						</div>
 						<div>
 							<p class="font-semibold mb-1">Enterprise Proven</p>
-							<p class="text-sm text-base-content/70">Powers 100M+ interactions annually. Battle-tested reliability at Renaissance scale.</p>
+							<p class="text-sm text-base-content/70">PIE powers assessment delivery at enterprise scale, serving hundreds of millions of student interactions annually across approximately 40% of U.S. schools.</p>
 						</div>
 					</div>
 				</div>
@@ -145,8 +163,11 @@
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-primer-openvsprop.png"
+				src="{base}/images/landing/pie-primer-openvsprop.png"
 				alt="Open Source vs Proprietary Comparison"
+				width="845"
+				height="461"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-3xl mx-auto"
 			/>
 		</div>
@@ -173,7 +194,7 @@
 					</div>
 					<h3 class="card-title text-2xl text-primary mb-2">Secure by Design</h3>
 					<p class="text-base-content/80 leading-relaxed">
-						Server-side scoring keeps answers safe. Controllers filter sensitive data based on user role. Built with security as a foundational principle.
+						MVVM security model with controllers as security gateways. Server-side scoring for high-stakes assessments keeps answer keys out of the browser.
 					</p>
 				</div>
 			</div>
@@ -187,7 +208,7 @@
 					</div>
 					<h3 class="card-title text-2xl text-primary mb-2">20+ Question Types</h3>
 					<p class="text-base-content/80 leading-relaxed">
-						Multiple choice to graphing, math input to drag-and-drop. Full TEI coverage with rich, interactive experiences for every question type.
+						Multiple choice, graphing, math input, drag-and-drop, constructed response, and more. Each with delivery UI, authoring interface, and controllers.
 					</p>
 				</div>
 			</div>
@@ -196,12 +217,12 @@
 				<div class="card-body">
 					<div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
 						</svg>
 					</div>
-					<h3 class="card-title text-2xl text-primary mb-2">Web Standards</h3>
+					<h3 class="card-title text-2xl text-primary mb-2">Layered Players</h3>
 					<p class="text-base-content/80 leading-relaxed">
-						HTML5 Custom Elements, React, NPM. Use tools you already know. Embed anywhere. Framework-agnostic and future-proof.
+						Four-level player hierarchy: item players render questions, section players compose pages with tools, assessment players orchestrate navigation. Use only the layers you need.
 					</p>
 				</div>
 			</div>
@@ -217,7 +238,7 @@
 				Core Architecture
 			</h2>
 			<p class="text-lg text-base-content/70 max-w-3xl mx-auto">
-				PIE focuses on the frontend: question types, authoring interfaces, and delivery players. You control the backend.
+				PIE focuses exclusively on what appears in the browser. You bring your own backend &mdash; your CMS, item bank, authentication, and infrastructure.
 			</p>
 		</div>
 
@@ -240,7 +261,7 @@
 						</svg>
 						<div>
 							<p class="font-semibold">WYSIWYG Authoring Interfaces</p>
-							<p class="text-sm text-base-content/70">Educators create content without code using visual editors</p>
+							<p class="text-sm text-base-content/70">Educators create content without code using visual editors with live preview</p>
 						</div>
 					</li>
 					<li class="flex items-start gap-3">
@@ -248,8 +269,8 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 						</svg>
 						<div>
-							<p class="font-semibold">Delivery Players</p>
-							<p class="text-sm text-base-content/70">Render items for students and teachers with built-in accessibility</p>
+							<p class="font-semibold">Layered Player Hierarchy</p>
+							<p class="text-sm text-base-content/70">Item players render questions, section players compose pages with passages and tools, assessment players orchestrate multi-section navigation</p>
 						</div>
 					</li>
 					<li class="flex items-start gap-3">
@@ -258,7 +279,16 @@
 						</svg>
 						<div>
 							<p class="font-semibold">Assessment Toolkit</p>
-							<p class="text-sm text-base-content/70">Calculator, TTS, accommodations, and test delivery services</p>
+							<p class="text-sm text-base-content/70">Calculator, text-to-speech, accommodations, and more &mdash; coordinated through a centralized ToolkitCoordinator</p>
+						</div>
+					</li>
+					<li class="flex items-start gap-3">
+						<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+						</svg>
+						<div>
+							<p class="font-semibold">QTI-Inspired Models</p>
+							<p class="text-sm text-base-content/70">Sections and assessments use QTI 3.0-inspired structures, making content naturally mappable to QTI</p>
 						</div>
 					</li>
 				</ul>
@@ -296,7 +326,7 @@
 					</li>
 					<li class="flex items-start gap-3">
 						<svg class="w-6 h-6 text-secondary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 00-2-2m-2-4h.01M17 16h.01" />
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
 						</svg>
 						<div>
 							<p class="font-semibold">Infrastructure & Hosting</p>
@@ -309,15 +339,18 @@
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-overall-arch.png"
+				src="{base}/images/landing/pie-overall-arch.png"
 				alt="PIE Overall Architecture"
+				width="845"
+				height="461"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
 
 		<div class="text-center">
 			<p class="text-lg text-base-content/70 max-w-3xl mx-auto">
-				This separation means PIE integrates with any backend technology. Use your existing infrastructure or build exactly what you need.
+				This separation means PIE integrates with any backend technology. Your authoring CMS and production delivery system can be unified or separate &mdash; PIE works because it speaks JSON and emits standard events.
 			</p>
 		</div>
 	</div>
@@ -328,18 +361,22 @@
 	<div class="container mx-auto px-4 max-w-7xl">
 		<div class="text-center mb-8">
 			<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-3">
-				PIE Elements: 20+ Question Types
+				PIE Elements: The Question Type Framework
 			</h2>
 			<p class="text-lg text-base-content/70 max-w-3xl mx-auto">
-				Comprehensive library covering simple to highly complex interactions. Every element includes delivery UI, authoring UI, and controllers.
+				Reusable, interactive question components spanning simple to highly complex interactions. Every element includes delivery UI,
+				authoring interface, and controllers. Print and list view interfaces are in progress.
 			</p>
 		</div>
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-ecosystem-flow.jpg"
+				src="{base}/images/landing/pie-ecosystem-flow.jpg"
 				alt="PIE Ecosystem Flow"
-				class="rounded-lg shadow-lg w-full max-w-3xl mx-auto"
+				width="1408"
+				height="768"
+				loading="lazy"
+				class="rounded-lg shadow-lg w-full max-w-2xl mx-auto"
 			/>
 		</div>
 
@@ -348,11 +385,11 @@
 				<div class="card-body p-5">
 					<h4 class="font-bold text-primary mb-3">Simple Response</h4>
 					<ul class="text-sm space-y-2">
-						<li>• Multiple Choice</li>
-						<li>• Text Entry</li>
-						<li>• Extended Text</li>
-						<li>• Inline Choice</li>
-						<li>• Math Inline</li>
+						<li>&bull; Multiple Choice</li>
+						<li>&bull; Text Entry</li>
+						<li>&bull; Extended Text</li>
+						<li>&bull; Inline Choice</li>
+						<li>&bull; Math Inline</li>
 					</ul>
 				</div>
 			</div>
@@ -361,11 +398,11 @@
 				<div class="card-body p-5">
 					<h4 class="font-bold text-primary mb-3">Matching & Categorization</h4>
 					<ul class="text-sm space-y-2">
-						<li>• Match</li>
-						<li>• Match List</li>
-						<li>• Categorize</li>
-						<li>• Placement Ordering</li>
-						<li>• Drag in the Blank</li>
+						<li>&bull; Match</li>
+						<li>&bull; Match List</li>
+						<li>&bull; Categorize</li>
+						<li>&bull; Placement Ordering</li>
+						<li>&bull; Drag in the Blank</li>
 					</ul>
 				</div>
 			</div>
@@ -374,11 +411,11 @@
 				<div class="card-body p-5">
 					<h4 class="font-bold text-primary mb-3">Visual & Graphical</h4>
 					<ul class="text-sm space-y-2">
-						<li>• Hotspot</li>
-						<li>• Image Cloze</li>
-						<li>• Drawing Response</li>
-						<li>• Graphing</li>
-						<li>• Number Line</li>
+						<li>&bull; Hotspot</li>
+						<li>&bull; Image Cloze</li>
+						<li>&bull; Drawing Response</li>
+						<li>&bull; Graphing</li>
+						<li>&bull; Number Line</li>
 					</ul>
 				</div>
 			</div>
@@ -387,10 +424,10 @@
 				<div class="card-body p-5">
 					<h4 class="font-bold text-primary mb-3">Support Elements</h4>
 					<ul class="text-sm space-y-2">
-						<li>• Passage</li>
-						<li>• Rubric</li>
-						<li>• Image</li>
-						<li>• Math Templated</li>
+						<li>&bull; Passage</li>
+						<li>&bull; Rubric</li>
+						<li>&bull; Image</li>
+						<li>&bull; Math Templated</li>
 					</ul>
 				</div>
 			</div>
@@ -398,14 +435,17 @@
 
 		<div class="my-8">
 			<img
-				src="/images/landing/pie-question-type-example.png"
+				src="{base}/images/landing/pie-question-type-example.png"
 				alt="PIE Question Type Examples"
+				width="2816"
+				height="1536"
+				loading="lazy"
 				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
 			/>
 		</div>
 
 		<div class="text-center">
-			<a href="/docs/items-elements" class="btn btn-primary btn-lg">
+			<a href="{base}/docs/items-elements/" class="btn btn-primary btn-lg">
 				Explore PIE Elements
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -415,21 +455,133 @@
 	</div>
 </section>
 
-<!-- Renaissance Trust Section -->
-<section class="py-12 bg-secondary text-secondary-content">
-	<div class="container mx-auto px-4 max-w-5xl text-center">
-		<div class="flex justify-center mb-4">
-			<img src="/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
+<!-- QTI Interoperability Section -->
+<section class="py-12 bg-base-200">
+	<div class="container mx-auto px-4 max-w-7xl">
+		<div class="text-center mb-8">
+			<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-3">
+				QTI Interoperability
+			</h2>
+			<p class="text-lg text-base-content/70 max-w-3xl mx-auto">
+				PIE-QTI, a sibling project, provides production-ready QTI players and bidirectional transforms with a version-agnostic architecture supporting both QTI 2.x and QTI 3.0.
+			</p>
 		</div>
-		<h2 class="text-2xl md:text-3xl font-bold mb-4">
-			Trusted by Renaissance
-		</h2>
-		<p class="text-lg opacity-90 mb-6 leading-relaxed max-w-3xl mx-auto">
-			PIE powers assessment delivery for Renaissance's 100+ million student interactions annually. Battle-tested at scale, now available as open source for the entire education community.
-		</p>
-		<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
-			Learn More About Renaissance
-		</a>
+
+		<div class="grid md:grid-cols-2 gap-8 items-center">
+			<div>
+				<div class="prose max-w-none">
+					<ul class="space-y-3 list-none pl-0">
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<div>
+								<strong>Version-Agnostic Architecture</strong> &mdash; Auto-detects QTI version from XML and maps both QTI 2.x (camelCase) and QTI 3.0 (kebab-case with <code>qti-</code> prefix) to a shared canonical model
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<div>
+								<strong>QTI Item & Assessment Players</strong> &mdash; 21 interaction types and 45+ response processing operators with full scoring support
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<div>
+								<strong>Bidirectional Transforms</strong> &mdash; Plugin-based engine with CLI and web app for converting between QTI and PIE formats
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<div>
+								<strong>QTI 3.0 Influence on PIE</strong> &mdash; Personal Needs Profiles, accessibility catalogs, and context declarations directly inspired PIE's toolkit architecture
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div>
+				<div class="card bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20">
+					<div class="card-body">
+						<div class="flex items-center gap-3 mb-4">
+							<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+								<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+								</svg>
+							</div>
+							<h3 class="text-2xl font-bold text-primary">PIE-QTI</h3>
+						</div>
+						<p class="mb-4">
+							Production-ready QTI players and transforms supporting QTI 2.x and 3.0 with auto-detection and shared response processing.
+						</p>
+						<div class="flex flex-col gap-2">
+							<a href="{base}/docs/qti/" class="btn btn-primary btn-block">
+								QTI & Standards Docs
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+								</svg>
+							</a>
+							<a href="https://qti.pie-framework.org" target="_blank" class="btn btn-outline btn-primary btn-block">
+								Explore PIE-QTI Tools
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 
+<!-- Partners Section -->
+<section class="py-12 bg-secondary text-secondary-content">
+	<div class="container mx-auto px-4 max-w-6xl">
+		<div class="text-center mb-10">
+			<h2 class="text-3xl md:text-4xl font-bold mb-4">
+				Trusted Partners
+			</h2>
+			<p class="text-lg opacity-90 max-w-3xl mx-auto">
+				PIE is sponsored and developed in collaboration with leading organizations in educational technology.
+			</p>
+		</div>
+
+		<div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+			<div class="card bg-secondary-content/10 backdrop-blur-sm border border-secondary-content/20">
+				<div class="card-body text-center">
+					<div class="flex justify-center mb-4">
+						<img src="{base}/renaissance-logo.svg" alt="Renaissance" class="h-12 brightness-0 invert" />
+					</div>
+					<p class="opacity-90 mb-4 leading-relaxed">
+						PIE's primary sponsor and largest production user, serving approximately 40% of U.S. schools.
+					</p>
+					<a href="https://www.renaissance.com" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm" aria-label="Learn more about Renaissance">
+						Learn More
+					</a>
+				</div>
+			</div>
+
+			<div class="card bg-secondary-content/10 backdrop-blur-sm border border-secondary-content/20">
+				<div class="card-body text-center">
+					<div class="flex justify-center mb-4">
+						<img src="{base}/mcro-logo.svg" alt="MCRO" class="h-12" />
+					</div>
+					<p class="opacity-90 mb-4 leading-relaxed">
+						Implementation partner since 2017. MCRO has been instrumental in developing PIE from concept to production-ready framework.
+					</p>
+					<a href="https://mcro.tech" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm" aria-label="Learn more about MCRO">
+						Learn More
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

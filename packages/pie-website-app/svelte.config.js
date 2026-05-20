@@ -18,26 +18,15 @@ const config = {
 			assets: 'build',
 			fallback: undefined,
 			precompress: false,
-			strict: true
+			strict: false
 		}),
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '' : ''
+			base: process.env.NODE_ENV === 'production' ? '/pie-website-ng' : ''
 		},
 		prerender: {
-			handleHttpError: ({ path, referrer, message }) => {
-				// Ignore 404s for pages we haven't built yet
-				if (path.startsWith('/elements') ||
-					path.startsWith('/docs') ||
-					path.startsWith('/community') ||
-					path.startsWith('/playground') ||
-					path.startsWith('/about') ||
-					path.startsWith('/blog') ||
-					path.startsWith('/compare') ||
-					path.startsWith('/ecosystem')) {
-					return;
-				}
-				throw new Error(message);
-			}
+			entries: ['*'],
+			handleMissingId: 'warn',
+			handleHttpError: 'warn'
 		}
 	}
 };

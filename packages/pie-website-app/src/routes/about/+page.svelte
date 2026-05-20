@@ -1,94 +1,103 @@
 <script lang="ts">
+	import { base } from '$app/paths';
+
 	const technologies = [
-		{ name: 'Custom Elements', description: 'W3C Web Components standard' },
-		{ name: 'ES Modules', description: 'ES6 preferred, CommonJS supported' },
-		{ name: 'JSON', description: 'For configuration data' },
-		{ name: 'NPM', description: 'Package management' }
+		{ name: 'Custom Elements', description: 'W3C Web Components standard for framework-agnostic UI' },
+		{ name: 'ES Modules', description: 'Native browser imports with tree-shaking and caching' },
+		{ name: 'JSON', description: 'Item configuration, session state, and API communication' },
+		{ name: 'NPM', description: 'Package distribution and dependency management' }
 	];
 
 	const ecosystem = [
 		{
 			title: 'PIE Elements',
-			description: 'A suite of open source question types and UI components',
-			features: ['Multiple choice', 'Text entry', 'Math expressions', 'Drag and drop', 'Graphing']
+			description: '20+ production-ready question types with delivery, authoring, and controller interfaces',
+			features: ['Multiple choice, text entry, math expressions', 'Drag-and-drop, graphing, hotspot', 'WYSIWYG authoring with live preview', 'Partial credit scoring and feedback']
 		},
 		{
 			title: 'PIE Players',
-			description: 'Open source runtimes for rendering PIE items, assessments and tools and accomodations',
-			features: ['Framework agnostic', 'Element loading', 'Session management', 'Event handling']
+			description: 'A layered player hierarchy from individual questions to full assessment delivery',
+			features: ['Item player with multiple loading strategies', 'Section player for page-level composition', 'Assessment player for multi-section orchestration', 'All delivered as Web Components']
 		},
 		{
-			title: 'PIE Author',
-			description: 'Authoring components for creating and configuring PIE elements',
-			features: ['Visual editing', 'Configuration UI', 'Live preview', 'Reusable components']
+			title: 'Assessment Toolkit',
+			description: 'Composable services for tools, accommodations, and accessibility coordinated through ToolkitCoordinator',
+			features: ['Calculator, ruler, protractor, graph tools', 'Text-to-speech with word-level highlighting', 'Annotation toolbar and answer eliminator', 'QTI 3.0-inspired PNP accommodation model']
 		},
 		{
-			title: 'PIE Tools',
-			description: 'Development and packaging tools',
-			features: ['CLI tooling', 'Module bundling', 'Development server', 'Package creation']
+			title: 'PIE-QTI',
+			description: 'Sibling project providing QTI players and bidirectional transforms with version-agnostic architecture',
+			features: ['QTI 2.x and 3.0 item and assessment players', 'Auto-detection of QTI version from XML', 'Plugin-based transform engine with CLI', 'IMS Content Package support']
 		}
 	];
 </script>
 
+<svelte:head>
+	<title>About - PIE Framework</title>
+	<meta name="description" content="Learn about PIE (Portable Interactions and Elements), the open-source assessment framework built on web standards." />
+</svelte:head>
+
 <div class="container mx-auto px-4 py-12 max-w-7xl">
-	<!-- Hero Section -->
 	<div class="text-center mb-20">
 		<h1 class="text-6xl font-bold text-secondary mb-6">About PIE Framework</h1>
 		<p class="text-2xl text-base-content/70 max-w-4xl mx-auto leading-relaxed">
-			Portable Interactions and Elements (PIE) is an open source framework for building, distributing, and rendering re-usable UI elements and interactions for assessments
+			Portable Interactions and Elements &mdash; a modern, open-source frontend framework for rendering interactive assessment items
 		</p>
 	</div>
 
-	<!-- What is PIE For -->
 	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary mb-8">What is it For?</h2>
+		<h2 class="text-4xl font-bold text-secondary mb-8">What is PIE?</h2>
+
+		<div class="prose prose-lg max-w-none mb-8">
+			<p class="text-base-content/80">
+				PIE is an open-source frontend framework for rendering interactive assessment items. Unlike commercial platforms that bundle frontend, backend, and hosting into a single service, PIE focuses exclusively on what appears in the browser: the question types, authoring interfaces, and delivery players. You bring your own backend &mdash; your content management system, your item bank, your assessment administration platform, your authentication system, your scoring engine, your infrastructure.
+			</p>
+		</div>
 
 		<div class="grid lg:grid-cols-2 gap-8 mb-12">
-			<!-- Challenges -->
 			<div class="card bg-base-100 shadow-xl border border-base-300">
 				<div class="card-body">
-					<h3 class="card-title text-2xl mb-4">Challenges PIE Addresses</h3>
+					<h3 class="card-title text-2xl mb-4">Key Differentiators</h3>
 					<ul class="space-y-3">
 						<li class="flex items-start gap-3">
-							<span class="text-error text-xl mt-1">•</span>
-							<span>Assessment items don't look and behave the same way across different systems</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>WYSIWYG Authoring</strong> &mdash; Graphical authoring interfaces with live previewing built right in</span>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-error text-xl mt-1">•</span>
-							<span>Advanced, engaging interactions are difficult to create and share</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>Framework-Agnostic</strong> &mdash; Web Components work with React, Vue, Angular, Svelte, or vanilla JS</span>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-error text-xl mt-1">•</span>
-							<span>Content portability between platforms is limited</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>Accessibility First</strong> &mdash; Every element includes keyboard navigation, screen reader support, ARIA labels, and high-contrast compatibility</span>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-error text-xl mt-1">•</span>
-							<span>Advanced scoring algorithms are hard to implement consistently</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>Production-Ready</strong> &mdash; Powers some of the highest-volume assessment platforms in education</span>
 						</li>
 					</ul>
 				</div>
 			</div>
 
-			<!-- Solutions -->
 			<div class="card bg-base-100 shadow-xl border border-base-300">
 				<div class="card-body">
-					<h3 class="card-title text-2xl mb-4">What PIE Provides</h3>
+					<h3 class="card-title text-2xl mb-4">Standards Alignment</h3>
 					<ul class="space-y-3">
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1">✓</span>
-							<span>A framework for developing re-usable assessment interactions</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>QTI Interoperability</strong> &mdash; PIE-QTI provides production-ready QTI 2.x and 3.0 players alongside bidirectional transforms</span>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1">✓</span>
-							<span>An open source player for rendering assessments</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>QTI-Inspired Architecture</strong> &mdash; Section and assessment models map naturally to QTI 3.0 structures</span>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1">✓</span>
-							<span>Tools for sharing assessments in a distributable format</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>WCAG 2.2 Level AA</strong> &mdash; Comprehensive accessibility throughout elements, players, and toolkit</span>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1">✓</span>
-							<span>A suite of open source question types and UI components</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
+							<span><strong>LTI Compatible</strong> &mdash; Players can be embedded in LTI tools for LMS integration</span>
 						</li>
 					</ul>
 				</div>
@@ -96,11 +105,10 @@
 		</div>
 	</section>
 
-	<!-- How Does it Work -->
 	<section class="mb-24">
 		<h2 class="text-4xl font-bold text-secondary mb-6">How Does it Work?</h2>
 		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
-			PIE adopts web standards wherever possible and uses web development best practices to make development straightforward.
+			PIE adopts web standards wherever possible. All players and elements are distributed as HTML5 custom elements, integrating into any web page as standard HTML tags.
 		</p>
 
 		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -115,7 +123,6 @@
 		</div>
 	</section>
 
-	<!-- The PIE Ecosystem -->
 	<section class="mb-24">
 		<h2 class="text-4xl font-bold text-secondary mb-12 text-center">The PIE Ecosystem</h2>
 
@@ -141,7 +148,6 @@
 		</div>
 	</section>
 
-	<!-- Origin and Development -->
 	<section class="mb-24">
 		<div class="card bg-gradient-to-br from-secondary/10 to-secondary/5 shadow-xl">
 			<div class="card-body">
@@ -151,24 +157,26 @@
 						The PIE Framework originated from work by CoreSpring.org in building authoring and rendering tools for assessment interactions. It was created as an open source project to help educators have better access to high-quality and more interactive assessment interactions, designed to be compatible with the approach suggested by Smarter Balanced in their ARI (Accessible Rendering and Interoperability) proposal.
 					</p>
 					<p class="text-base-content/80">
-						Since those early days, PIE has been consistently developed and maintained by Renaissance Learning (and before that Illuminate Education, which was acquired by Renaissance Learning). Renaissance Learning has invested in PIE's ongoing development, ensuring the framework continues to evolve with modern web standards and educational needs.
+						Since those early days, PIE has been consistently sponsored and developed by a sizable team of full-time developers, with Renaissance (previously Illuminate Education) as the project's primary sponsor. The framework continues to evolve with modern web standards and educational needs.
 					</p>
 					<p class="text-base-content/80">
-						Today, PIE is the preferred framework for assessment items at Renaissance Learning, powering assessment item delivery across their product portfolio including Star Assessments, DnA, SchoolCity, and Accelerated Reader—products used by schools worldwide. Beyond Renaissance, school districts leverage PIE to author custom assessment items tailored to their specific curriculum needs, and content providers have integrated PIE into their content management systems to deliver interactive assessments at scale.
+						Today, PIE powers assessment delivery at enterprise scale, serving approximately 40% of U.S. schools and processing hundreds of millions of student interactions annually. The framework's eight-year development history reflects continuous refinement based on production feedback &mdash; features like the section player composition model, the ToolkitCoordinator, the multi-strategy item player architecture, and QTI-inspired accommodation resolution all emerged from real operational requirements.
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- License -->
 	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary mb-8">Open Source License</h2>
+		<h2 class="text-4xl font-bold text-secondary mb-8">Open Source</h2>
 		<div class="card bg-base-100 shadow-xl border-2 border-primary/30">
 			<div class="card-body">
-				<h3 class="text-2xl font-bold text-primary mb-4">Open Source: MIT & ISC Licenses</h3>
+				<h3 class="text-2xl font-bold text-primary mb-4">ISC & MIT Licensed</h3>
+				<p class="text-base-content/70 mb-4">
+					PIE is licensed with permissive open source software licensing &mdash; ISC and MIT. Use, modify, and distribute freely for any purpose, including commercial use, without fees or royalties.
+				</p>
 				<p class="text-base-content/70 mb-6">
-					PIE projects are licensed under permissive open-source licenses (primarily MIT and ISC), allowing you to use, modify, and distribute PIE freely for any purpose, including commercial use, without fees or royalties.
+					PIE's primary sponsor, Renaissance, aims to accelerate learning for all children and adults of all ability levels and ethnic and social backgrounds, worldwide. Contributing PIE as open source supports that mission, and we welcome the community to help make the framework even better.
 				</p>
 
 				<div class="grid md:grid-cols-2 gap-4">
@@ -185,12 +193,6 @@
 							</svg>
 							<span>Modify and customize freely</span>
 						</li>
-						<li class="flex items-start gap-2">
-							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
-							</svg>
-							<span>Distribute as you wish</span>
-						</li>
 					</ul>
 					<ul class="space-y-2">
 						<li class="flex items-start gap-2">
@@ -203,7 +205,7 @@
 							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
 							</svg>
-							<span>Keep your modifications private if needed</span>
+							<span>Active development by full-time team</span>
 						</li>
 					</ul>
 				</div>
@@ -211,44 +213,4 @@
 		</div>
 	</section>
 
-	<!-- Connect Section -->
-	<section>
-		<div class="card bg-gradient-to-br from-primary to-secondary text-primary-content shadow-2xl">
-			<div class="card-body items-center text-center py-12">
-				<h2 class="text-4xl font-bold mb-8">Connect With Us</h2>
-				<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl">
-					<a href="https://github.com/pie-framework" target="_blank" rel="noopener noreferrer"
-					   class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-							<circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M8 12c0-2 1-3 2-3s2 1 2 3m4 0c0-2-1-3-2-3s-2 1-2 3" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M12 14v4m-3 1h6" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						GitHub
-					</a>
-					<a href="/docs" class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-							<path d="M7 4h10c1.1 0 2 0.9 2 2v13c0 1.1-0.9 2-2 2H7c-1.1 0-2-0.9-2-2V6c0-1.1 0.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M9 9h6M9 13h6M9 17h4" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						Documentation
-					</a>
-					<a href="https://github.com/pie-framework/discussions" target="_blank" rel="noopener noreferrer"
-					   class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-							<path d="M8 10c-0.2-1.8-0.1-4 3.8-4.2 3.9-0.2 4.2 2.2 4.2 4-0.1 2-1.5 3-2.5 3.5-0.8 0.4-1.2 0.8-1.2 1.5v1" stroke-linecap="round" stroke-linejoin="round" />
-							<ellipse cx="12" cy="18" rx="5.5" ry="2.5" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						Community
-					</a>
-					<a href="/docs/getting-started" class="btn btn-outline btn-primary-content">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-							<path d="M7 12h13m0 0l-4-4m4 4l-4 4" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						Get Started
-					</a>
-				</div>
-			</div>
-		</div>
-	</section>
 </div>

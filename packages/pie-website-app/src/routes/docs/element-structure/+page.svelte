@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 
 	const elementPropertiesExample = `// Using a PIE element
@@ -153,7 +154,7 @@ export function outcome(
 
 		<div class="my-8">
 			<img
-				src="/images/docs/element-structure/element-structure.jpg"
+				src="{base}/images/docs/element-structure/element-structure.jpg"
 				alt="Element Structure Diagram"
 				class="rounded-lg shadow-lg w-full max-w-3xl mx-auto"
 			/>
@@ -221,19 +222,6 @@ export function outcome(
 						<li>• Framework-agnostic (pure JS/TS)</li>
 					</ul>
 				</div>
-			</div>
-		</div>
-
-		<div class="alert alert-info mt-8">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-			<div>
-				<p class="font-semibold">Optional Components</p>
-				<p class="text-sm">
-					Elements may also include <strong>Print View</strong> (optimized for printing) and
-					<strong>List View</strong> (compact list preview, coming soon) and potentially other views.
-				</p>
 			</div>
 		</div>
 	</section>
@@ -336,7 +324,7 @@ export function outcome(
 
 		<div class="my-8 flex justify-center">
 			<img
-				src="/images/docs/architecture/mvvm-security-flow.png"
+				src="{base}/images/docs/architecture/mvvm-security-flow.png"
 				alt="MVVM Security Flow"
 				class="rounded-lg shadow-lg max-w-2xl w-full"
 			/>
@@ -506,24 +494,11 @@ export function outcome(
 				</div>
 			</div>
 		</div>
-
-		<div class="alert alert-info">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-			<div>
-				<p class="font-semibold">No Code Required</p>
-				<p class="text-sm">
-					Authors never see JSON or code. The authoring interface handles all configuration,
-					validation, and serialization automatically.
-				</p>
-			</div>
-		</div>
 	</section>
 
 	<!-- Code Examples -->
 	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">High-Level Code Examples</h2>
+		<h2 class="text-3xl font-bold text-secondary mb-6">High-Level Code Example</h2>
 
 		<div class="prose max-w-none mb-6">
 			<p class="text-lg">
@@ -538,18 +513,6 @@ export function outcome(
 
 		<CodeEditor value={detailedControllerExample} language="typescript" readonly={true} height="700px" />
 
-		<div class="alert alert-warning">
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-			</svg>
-			<div>
-				<p class="font-semibold">Simplified for Clarity</p>
-				<p class="text-sm">
-					Production elements include error handling, validation, partial credit scoring, feedback
-					logic, and more. These examples focus on core concepts.
-				</p>
-			</div>
-		</div>
 	</section>
 
 	<!-- Next Steps -->
@@ -558,7 +521,7 @@ export function outcome(
 
 		<div class="grid md:grid-cols-2 gap-6">
 			<a
-				href="/docs/items-elements"
+				href="{base}/docs/items-elements/"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
@@ -575,19 +538,18 @@ export function outcome(
 			</a>
 
 			<a
-				href="/docs/players-toolkit"
+				href="{base}/docs/players/"
 				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
 			>
 				<div class="card-body">
 					<h3 class="card-title text-primary">
-						Players & Toolkit
+						Players
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
 						</svg>
 					</h3>
 					<p class="text-sm">
-						Learn how players orchestrate elements and how the assessment toolkit provides tools and
-						accommodations.
+						Four-level player hierarchy: item players render questions, section players compose pages, assessment players orchestrate navigation.
 					</p>
 				</div>
 			</a>

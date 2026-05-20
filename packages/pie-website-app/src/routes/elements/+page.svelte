@@ -166,12 +166,18 @@
 	);
 </script>
 
+<svelte:head>
+	<title>Elements Catalog - PIE Framework</title>
+	<meta name="description" content="Browse 20+ production-ready PIE question types: multiple choice, graphing, drag-and-drop, math input, hotspot, and more. Each with delivery UI, authoring, and controllers." />
+</svelte:head>
+
 <div class="container mx-auto px-4 py-12 max-w-7xl">
 	<!-- Hero -->
 	<div class="text-center mb-12">
 		<h1 class="text-5xl font-bold text-secondary mb-4">PIE Elements Catalog</h1>
 		<p class="text-xl text-base-content/70 max-w-3xl mx-auto">
-			Explore 20+ production-ready question types. Each element includes delivery UI, authoring UI, and controllers.
+			Explore 20+ production-ready question types spanning simple to highly complex interactions.
+			Every element includes delivery UI, authoring interface, and controllers with partial credit scoring and accessibility support.
 		</p>
 		<p>
 			<a href="https://pieoneer.pie-api.com/etl/playground/pie" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
@@ -184,11 +190,12 @@
 	</div>
 
 	<!-- Filter Tabs -->
-	<div class="flex flex-wrap gap-2 justify-center mb-12">
+	<div class="flex flex-wrap gap-2 justify-center mb-12" role="group" aria-label="Filter elements by category">
 		{#each filterOptions as filter}
 			<button
 				class="btn btn-sm {selectedFilter === filter ? 'btn-primary' : 'btn-ghost'}"
 				onclick={() => selectedFilter = filter}
+				aria-pressed={selectedFilter === filter}
 			>
 				{filter}
 			</button>

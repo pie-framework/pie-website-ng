@@ -1,0 +1,258 @@
+{
+  "active": [
+    {
+      "username": "CarlaCostea",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/56835388?v=4&s=128",
+      "profileUrl": "https://github.com/CarlaCostea",
+      "contributions": 2663,
+      "repos": [
+        "material-ui-calculator",
+        "math-validation",
+        "pie-demo-component",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "PatriciaRomaniuc",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/61793308?v=4&s=128",
+      "profileUrl": "https://github.com/PatriciaRomaniuc",
+      "contributions": 1070,
+      "repos": [
+        "material-ui-calculator",
+        "math-validation",
+        "pie-code-health",
+        "pie-demo-component",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "lakatosandrei",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/2714022?v=4&s=128",
+      "profileUrl": "https://github.com/lakatosandrei",
+      "contributions": 1053,
+      "repos": [
+        "pie-cli",
+        "pie-demo-component",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "andreeimiron",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/63587739?v=4&s=128",
+      "profileUrl": "https://github.com/andreeimiron",
+      "contributions": 683,
+      "repos": [
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components"
+      ]
+    },
+    {
+      "username": "chillenious",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/137683?v=4&s=128",
+      "profileUrl": "https://github.com/chillenious",
+      "contributions": 632,
+      "repos": [
+        "embed-pivot",
+        "pie-elements",
+        "pie-elements-ng",
+        "pie-lib",
+        "pie-players",
+        "pie-qti",
+        "pie-website-ng"
+      ]
+    },
+    {
+      "username": "arimieandreea",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/33003371?v=4&s=128",
+      "profileUrl": "https://github.com/arimieandreea",
+      "contributions": 576,
+      "repos": [
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components"
+      ]
+    },
+    {
+      "username": "iacoshoria",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/9037628?v=4&s=128",
+      "profileUrl": "https://github.com/iacoshoria",
+      "contributions": 50,
+      "repos": [
+        "build-helper",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components"
+      ]
+    }
+  ],
+  "alumni": [
+    {
+      "username": "edeustace",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/101623?v=4&s=128",
+      "profileUrl": "https://github.com/edeustace",
+      "contributions": 5184,
+      "repos": [
+        "build-helper",
+        "embed-pivot",
+        "expression-parser",
+        "material-ui-calculator",
+        "math-validation",
+        "meh",
+        "mr-test",
+        "pie-cli",
+        "pie-cli-libs",
+        "pie-configure-events",
+        "pie-demo-component",
+        "pie-dev-test",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components",
+        "pie-player-events",
+        "pie-test-elements",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "andreeapescar",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/20281464?v=4&s=128",
+      "profileUrl": "https://github.com/andreeapescar",
+      "contributions": 4439,
+      "repos": [
+        "build-helper",
+        "embed-pivot",
+        "material-ui-calculator",
+        "pie-configure-events",
+        "pie-demo-component",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "elodszopos",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4669986?v=4&s=128",
+      "profileUrl": "https://github.com/elodszopos",
+      "contributions": 598,
+      "repos": [
+        "pie-elements",
+        "pie-examples",
+        "pie-lib",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "sergiulucaci",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/16645155?v=4&s=128",
+      "profileUrl": "https://github.com/sergiulucaci",
+      "contributions": 377,
+      "repos": [
+        "pie-configure-events",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "evaneus",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/799323?v=4&s=128",
+      "profileUrl": "https://github.com/evaneus",
+      "contributions": 288,
+      "repos": [
+        "pie-cli",
+        "pie-demo-component",
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "dianagociu",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/26737238?v=4&s=128",
+      "profileUrl": "https://github.com/dianagociu",
+      "contributions": 270,
+      "repos": [
+        "pie-elements",
+        "pie-lib",
+        "pie-player-components"
+      ]
+    },
+    {
+      "username": "barta-adrian",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4011631?v=4&s=128",
+      "profileUrl": "https://github.com/barta-adrian",
+      "contributions": 104,
+      "repos": [
+        "pie-demo-component",
+        "pie-elements",
+        "pie-lib"
+      ]
+    },
+    {
+      "username": "akshayhiwale",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/118424906?v=4&s=128",
+      "profileUrl": "https://github.com/akshayhiwale",
+      "contributions": 68,
+      "repos": [
+        "pie-elements",
+        "pie-lib"
+      ]
+    },
+    {
+      "username": "BubblesSOC",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/613099?v=4&s=128",
+      "profileUrl": "https://github.com/BubblesSOC",
+      "contributions": 56,
+      "repos": [
+        "pie-elements",
+        "pie-lib"
+      ]
+    },
+    {
+      "username": "mkkumar548",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4945968?v=4&s=128",
+      "profileUrl": "https://github.com/mkkumar548",
+      "contributions": 50,
+      "repos": [
+        "pie-elements",
+        "pie-lib",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "harryprimoko",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/37156180?v=4&s=128",
+      "profileUrl": "https://github.com/harryprimoko",
+      "contributions": 25,
+      "repos": [
+        "pie-elements",
+        "pie-lib",
+        "pie-ui"
+      ]
+    },
+    {
+      "username": "DreamerIn",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/34124341?v=4&s=128",
+      "profileUrl": "https://github.com/DreamerIn",
+      "contributions": 20,
+      "repos": [
+        "pie-elements",
+        "pie-lib",
+        "pie-ui"
+      ]
+    }
+  ],
+  "generatedAt": "2026-03-17T23:47:31Z"
+}
