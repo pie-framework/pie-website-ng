@@ -37,8 +37,6 @@
 					<details bind:open={docsDropdownOpen}>
 						<summary class="font-medium" aria-current={currentPath.includes('/docs/') ? 'page' : undefined}>Docs</summary>
 						<ul class="bg-base-100 rounded-box shadow-lg z-50 w-56 p-2">
-							<li><a href="{base}/pie-primer.pdf" onclick={closeDropdown} target="_blank" rel="noopener noreferrer">Technical Primer <svg class="w-3.5 h-3.5 inline-block ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></a></li>
-							<li class="my-1"><hr class="border-base-300" /></li>
 							<li><a href="{base}/docs/items-elements/" onclick={closeDropdown}>Items & Elements</a></li>
 							<li><a href="{base}/docs/element-structure/" onclick={closeDropdown}>Element Structure</a></li>
 							<li><a href="{base}/docs/players/" onclick={closeDropdown}>Players</a></li>
@@ -109,8 +107,6 @@
 			<li>
 				<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">Documentation</span>
 			</li>
-			<li><a href="{base}/pie-primer.pdf" target="_blank" rel="noopener noreferrer">Technical Primer <svg class="w-3.5 h-3.5 inline-block ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></a></li>
-			<li class="my-1"><hr class="border-base-300" /></li>
 			<li><a href="{base}/docs/items-elements/">Items & Elements</a></li>
 			<li><a href="{base}/docs/element-structure/">Element Structure</a></li>
 			<li><a href="{base}/docs/players/">Players</a></li>
