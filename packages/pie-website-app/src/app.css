@@ -17,6 +17,12 @@
 	--color-secondary-content: oklch(1 0 0); /* white */
 }
 
+/* Excalidraw diagrams are drawn on white; invert them for the dark theme and
+   rotate the hue back so their colors keep their meaning. */
+[data-theme='dark'] img.diagram {
+	filter: invert(93%) hue-rotate(180deg);
+}
+
 /* Custom base styles */
 @layer base {
 	/* Preflight fixes */

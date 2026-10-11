@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import ExternalLink from './ExternalLink.svelte';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
+	import { DEVELOPER_GUIDES, SITES } from '$lib/data/links';
 
 	let mobileMenuOpen = $state(false);
 	let docsDropdownOpen = $state(false);
-	const elementsDemoUrl = 'https://elements.pie-framework.org/';
+	const elementsDemoUrl = SITES.elementsDemo;
 
 	let currentPath = $state('');
 
@@ -43,6 +45,10 @@
 							<li><a href="{base}/docs/toolkit/" onclick={closeDropdown}>Assessment Toolkit</a></li>
 							<li><a href="{base}/docs/integration/" onclick={closeDropdown}>Integration</a></li>
 							<li><a href="{base}/docs/qti/" onclick={closeDropdown}>QTI & Standards</a></li>
+							<li class="menu-title mt-2">Developer guides</li>
+							{#each DEVELOPER_GUIDES as guide (guide.href)}
+								<li><ExternalLink href={guide.href} class="">{guide.label}</ExternalLink></li>
+							{/each}
 						</ul>
 					</details>
 				</li>
@@ -50,7 +56,7 @@
 			</ul>
 			<ThemeSwitcher />
 			<a
-				href="https://github.com/pie-framework"
+				href={SITES.githubOrg}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-ghost btn-sm btn-circle"
@@ -63,7 +69,7 @@
 				</svg>
 			</a>
 			<a
-				href="https://pieframework.slack.com"
+				href={SITES.slack}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-ghost btn-sm btn-circle"
@@ -113,12 +119,18 @@
 			<li><a href="{base}/docs/toolkit/">Assessment Toolkit</a></li>
 			<li><a href="{base}/docs/integration/">Integration</a></li>
 			<li><a href="{base}/docs/qti/">QTI & Standards</a></li>
+			<li>
+				<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">Developer guides</span>
+			</li>
+			{#each DEVELOPER_GUIDES as guide (guide.href)}
+				<li><ExternalLink href={guide.href} class="">{guide.label}</ExternalLink></li>
+			{/each}
 			<li class="mt-2"><a href={elementsDemoUrl}>Elements Demo</a></li>
 			<li class="mt-2">
 				<div class="flex gap-2 items-center">
 					<ThemeSwitcher />
 					<a
-						href="https://github.com/pie-framework"
+						href={SITES.githubOrg}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="btn btn-ghost btn-sm flex-1"
@@ -131,7 +143,7 @@
 						GitHub
 					</a>
 					<a
-						href="https://pieframework.slack.com"
+						href={SITES.slack}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="btn btn-ghost btn-sm flex-1"
