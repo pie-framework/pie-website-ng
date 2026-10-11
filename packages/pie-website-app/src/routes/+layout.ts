@@ -1,7 +1,6 @@
-// Enable prerendering for the site so adapter-static emits HTML pages
-// for GitHub Pages deployment.
+// Prerender every page so adapter-static emits HTML for GitHub Pages.
 export const prerender = true;
 
-// GitHub Pages serves directories with `index.html`; keeping trailing slashes
-// avoids subtle path issues when hosting under a base path like `/pie-website-ng`.
+// GitHub Pages serves each directory's `index.html`; trailing slashes keep
+// relative asset and link paths resolving against that directory.
 export const trailingSlash = 'always';

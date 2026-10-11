@@ -1,79 +1,142 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import {
+		AUTHORING_COUNT,
+		ELEMENT_COUNT,
+		ELEMENT_COUNT_SENTENCE,
+		PRINT_COUNT
+	} from '$lib/data/elements';
+	import { DOCS, REPOS } from '$lib/data/links';
 
 	const technologies = [
-		{ name: 'Custom Elements', description: 'W3C Web Components standard for framework-agnostic UI' },
-		{ name: 'ES Modules', description: 'Native browser imports with tree-shaking and caching' },
-		{ name: 'JSON', description: 'Item configuration, session state, and API communication' },
-		{ name: 'NPM', description: 'Package distribution and dependency management' }
+		{ name: 'Custom elements', description: 'Framework-agnostic HTML tags for every player and element' },
+		{
+			name: 'IIFE bundles',
+			description: "Pre-built element bundles from the PIE bundle host; the item player's default"
+		},
+		{
+			name: 'ES modules',
+			description: 'Static browser builds from a CDN, with shared dependencies through an import map'
+		},
+		{ name: 'JSON', description: 'Item configuration, session state and API communication' },
+		{ name: 'npm', description: 'Package distribution and dependency management' }
 	];
 
 	const ecosystem = [
 		{
 			title: 'PIE Elements',
-			description: '20+ production-ready question types with delivery, authoring, and controller interfaces',
-			features: ['Multiple choice, text entry, math expressions', 'Drag-and-drop, graphing, hotspot', 'WYSIWYG authoring with live preview', 'Partial credit scoring and feedback']
+			description: `${ELEMENT_COUNT_SENTENCE} Each ships a delivery view and a controller; ${AUTHORING_COUNT} add an authoring view and ${PRINT_COUNT} a print view.`,
+			features: [
+				'Multiple choice, constructed response, math entry',
+				'Drag-and-drop, graphing, hotspot',
+				'Authoring views that emit every change for a live preview',
+				'Partial credit scoring and feedback'
+			]
 		},
 		{
 			title: 'PIE Players',
-			description: 'A layered player hierarchy from individual questions to full assessment delivery',
-			features: ['Item player with multiple loading strategies', 'Section player for page-level composition', 'Assessment player for multi-section orchestration', 'All delivered as Web Components']
+			description:
+				'Composable players that each host assembles into its own assessment experience',
+			features: [
+				'Item player with three loading strategies',
+				'Section players for page-level composition',
+				'Print player for printable versions of items',
+				'A reference assessment player that shows one assembly'
+			]
 		},
 		{
 			title: 'Assessment Toolkit',
-			description: 'Composable services for tools, accommodations, and accessibility coordinated through ToolkitCoordinator',
-			features: ['Calculator, ruler, protractor, graph tools', 'Text-to-speech with word-level highlighting', 'Annotation toolbar and answer eliminator', 'QTI 3.0-inspired PNP accommodation model']
+			description:
+				'Composable services for tools, accommodations and accessibility, coordinated through ToolkitCoordinator',
+			features: [
+				'Calculator, ruler, protractor, graph tools',
+				'Text-to-speech with word-level highlighting',
+				'Annotation toolbar and answer eliminator',
+				'AfA PNP 3.0 accommodation model (as used by QTI 3.0)'
+			]
 		},
 		{
 			title: 'PIE-QTI',
-			description: 'Sibling project providing QTI players and bidirectional transforms with version-agnostic architecture',
-			features: ['QTI 2.x and 3.0 item and assessment players', 'Auto-detection of QTI version from XML', 'Plugin-based transform engine with CLI', 'IMS Content Package support']
+			description:
+				'Sibling project providing QTI players and bidirectional transforms with a version-agnostic architecture',
+			features: [
+				'QTI 2.2 and 3.0 item and assessment players (pre-1.0)',
+				'Auto-detection of the QTI version from the XML',
+				'Plugin-based transform engine with a CLI (in development)',
+				'IMS Content Package support'
+			]
 		}
+	];
+
+	const licenceTerms = [
+		'Use commercially without restriction',
+		'Modify and customize freely',
+		'No royalties or fees ever',
+		'Active development by full-time team'
 	];
 </script>
 
 <svelte:head>
 	<title>About - PIE Framework</title>
-	<meta name="description" content="Learn about PIE (Portable Interactions and Elements), the open-source assessment framework built on web standards." />
+	<meta
+		name="description"
+		content="PIE (Portable Interactions and Elements): open-source assessment elements and players built on web standards, MIT licensed."
+	/>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-12 max-w-7xl">
 	<div class="text-center mb-20">
-		<h1 class="text-6xl font-bold text-secondary mb-6">About PIE Framework</h1>
-		<p class="text-2xl text-base-content/70 max-w-4xl mx-auto leading-relaxed">
-			Portable Interactions and Elements &mdash; a modern, open-source frontend framework for rendering interactive assessment items
+		<h1 class="text-4xl sm:text-6xl font-bold text-secondary mb-6">About PIE Framework</h1>
+		<p class="text-xl sm:text-2xl text-base-content/70 max-w-4xl mx-auto leading-relaxed">
+			Portable Interactions and Elements &mdash; an open-source framework for rendering and authoring
+			interactive assessment items
 		</p>
 	</div>
 
 	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary mb-8">What is PIE?</h2>
+		<h2 class="text-3xl sm:text-4xl font-bold text-secondary mb-8">PIE in brief</h2>
 
 		<div class="prose prose-lg max-w-none mb-8">
 			<p class="text-base-content/80">
-				PIE is an open-source frontend framework for rendering interactive assessment items. Unlike commercial platforms that bundle frontend, backend, and hosting into a single service, PIE focuses exclusively on what appears in the browser: the question types, authoring interfaces, and delivery players. You bring your own backend &mdash; your content management system, your item bank, your assessment administration platform, your authentication system, your scoring engine, your infrastructure.
+				PIE renders assessment content in the browser: the question types, their authoring views, and
+				the players that deliver them. You bring the backend: content storage, authentication, scoring
+				service, reporting and infrastructure. Element controllers and the text-to-speech server
+				packages can run on your servers.
 			</p>
 		</div>
 
 		<div class="grid lg:grid-cols-2 gap-8 mb-12">
 			<div class="card bg-base-100 shadow-xl border border-base-300">
 				<div class="card-body">
-					<h3 class="card-title text-2xl mb-4">Key Differentiators</h3>
+					<h3 class="card-title text-2xl mb-4">Key differentiators</h3>
 					<ul class="space-y-3">
 						<li class="flex items-start gap-3">
-							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>WYSIWYG Authoring</strong> &mdash; Graphical authoring interfaces with live previewing built right in</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>Graphical authoring</strong> &mdash; Authoring views for {AUTHORING_COUNT} of the
+								{ELEMENT_COUNT} element types; hosts pair them with a live delivery preview</span
+							>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>Framework-Agnostic</strong> &mdash; Web Components work with React, Vue, Angular, Svelte, or vanilla JS</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>Framework-agnostic</strong> &mdash; Custom elements work with React, Vue, Angular,
+								Svelte, or plain JavaScript</span
+							>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>Accessibility First</strong> &mdash; Every element includes keyboard navigation, screen reader support, ARIA labels, and high-contrast compatibility</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>Accessibility first</strong> &mdash; Elements are built for keyboard navigation,
+								screen readers and high-contrast color schemes</span
+							>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-primary text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>Production-Ready</strong> &mdash; Powers some of the highest-volume assessment platforms in education</span>
+							<span class="text-primary text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>Production-ready</strong> &mdash; Powers some of the highest-volume assessment
+								platforms in education</span
+							>
 						</li>
 					</ul>
 				</div>
@@ -81,23 +144,37 @@
 
 			<div class="card bg-base-100 shadow-xl border border-base-300">
 				<div class="card-body">
-					<h3 class="card-title text-2xl mb-4">Standards Alignment</h3>
+					<h3 class="card-title text-2xl mb-4">Standards alignment</h3>
 					<ul class="space-y-3">
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>QTI Interoperability</strong> &mdash; PIE-QTI provides production-ready QTI 2.x and 3.0 players alongside bidirectional transforms</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>QTI interoperability</strong> &mdash; PIE-QTI provides QTI 2.2 and 3.0 item and
+								assessment players (pre-1.0) alongside bidirectional transforms</span
+							>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>QTI-Inspired Architecture</strong> &mdash; Section and assessment models map naturally to QTI 3.0 structures</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>QTI-inspired architecture</strong> &mdash; Section and assessment models follow
+								QTI 3.0's test parts, sections and item references</span
+							>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>WCAG 2.2 Level AA</strong> &mdash; Comprehensive accessibility throughout elements, players, and toolkit</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>WCAG 2.2 AA</strong> &mdash; Built to WCAG 2.2 AA. Automated axe checks run against
+								every element and player; manual assistive-technology validation is in progress.
+								<ExternalLink href={DOCS.accessibility}>Accessibility docs</ExternalLink></span
+							>
 						</li>
 						<li class="flex items-start gap-3">
-							<span class="text-success text-xl mt-1 flex-shrink-0">&bull;</span>
-							<span><strong>LTI Compatible</strong> &mdash; Players can be embedded in LTI tools for LMS integration</span>
+							<span class="text-success text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
+							<span
+								><strong>LTI compatible</strong> &mdash; PIE players run inside an LTI tool; the tool host
+								handles the launch, Deep Linking and grade passback.
+								<ExternalLink href={DOCS.lti}>LTI integration guide</ExternalLink></span
+							>
 						</li>
 					</ul>
 				</div>
@@ -106,13 +183,16 @@
 	</section>
 
 	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary mb-6">How Does it Work?</h2>
+		<h2 class="text-3xl sm:text-4xl font-bold text-secondary mb-6">Web standards</h2>
 		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
-			PIE adopts web standards wherever possible. All players and elements are distributed as HTML5 custom elements, integrating into any web page as standard HTML tags.
+			PIE adopts web standards wherever possible. All players and elements are distributed as HTML5
+			custom elements, integrating into any web page as standard HTML tags. The item player loads
+			elements as IIFE bundles, as ES modules, or preloaded by the host;
+			<ExternalLink href={DOCS.loadingStrategies}>loading strategies</ExternalLink> compares them.
 		</p>
 
-		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-			{#each technologies as tech}
+		<div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+			{#each technologies as tech (tech.name)}
 				<div class="card bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/30 shadow-lg">
 					<div class="card-body">
 						<h3 class="card-title text-lg text-primary">{tech.name}</h3>
@@ -124,19 +204,31 @@
 	</section>
 
 	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary mb-12 text-center">The PIE Ecosystem</h2>
+		<h2 class="text-3xl sm:text-4xl font-bold text-secondary mb-12 text-center">The PIE ecosystem</h2>
 
 		<div class="grid md:grid-cols-2 gap-8">
-			{#each ecosystem as component}
+			{#each ecosystem as component (component.title)}
 				<div class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-all">
 					<div class="card-body">
 						<h3 class="card-title text-2xl text-secondary mb-4">{component.title}</h3>
 						<p class="text-base-content/70 mb-4">{component.description}</p>
 						<ul class="space-y-2">
-							{#each component.features as feature}
+							{#each component.features as feature (feature)}
 								<li class="flex items-center gap-2 text-sm">
-									<svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
+									<svg
+										class="w-4 h-4 text-primary flex-shrink-0"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+										aria-hidden="true"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2.5"
+											d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8"
+											style="paint-order: stroke;"
+										></path>
 									</svg>
 									<span>{feature}</span>
 								</li>
@@ -168,49 +260,49 @@
 	</section>
 
 	<section class="mb-24">
-		<h2 class="text-4xl font-bold text-secondary mb-8">Open Source</h2>
+		<h2 class="text-3xl sm:text-4xl font-bold text-secondary mb-8">Open source</h2>
 		<div class="card bg-base-100 shadow-xl border-2 border-primary/30">
 			<div class="card-body">
-				<h3 class="text-2xl font-bold text-primary mb-4">ISC & MIT Licensed</h3>
+				<h3 class="text-2xl font-bold text-primary mb-4">MIT licensed</h3>
 				<p class="text-base-content/70 mb-4">
-					PIE is licensed with permissive open source software licensing &mdash; ISC and MIT. Use, modify, and distribute freely for any purpose, including commercial use, without fees or royalties.
+					PIE is MIT licensed (legacy pie-elements and pie-lib: ISC). Use, modify and distribute it
+					freely for any purpose, including commercial use, without fees or royalties.
 				</p>
 				<p class="text-base-content/70 mb-6">
 					PIE's primary sponsor, Renaissance, aims to accelerate learning for all children and adults of all ability levels and ethnic and social backgrounds, worldwide. Contributing PIE as open source supports that mission, and we welcome the community to help make the framework even better.
 				</p>
 
-				<div class="grid md:grid-cols-2 gap-4">
-					<ul class="space-y-2">
+				<ul class="grid md:grid-cols-2 gap-x-4 gap-y-2 mb-6">
+					{#each licenceTerms as term (term)}
 						<li class="flex items-start gap-2">
-							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
+							<svg
+								class="w-5 h-5 text-success mt-0.5 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2.5"
+									d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8"
+									style="paint-order: stroke;"
+								></path>
 							</svg>
-							<span>Use commercially without restriction</span>
+							<span>{term}</span>
 						</li>
-						<li class="flex items-start gap-2">
-							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
-							</svg>
-							<span>Modify and customize freely</span>
-						</li>
-					</ul>
-					<ul class="space-y-2">
-						<li class="flex items-start gap-2">
-							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
-							</svg>
-							<span>No royalties or fees ever</span>
-						</li>
-						<li class="flex items-start gap-2">
-							<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 12.5l4.2 4.3c0.1 0.1 0.2 0.1 0.3 0 L19.5 6.8" style="paint-order: stroke;"></path>
-							</svg>
-							<span>Active development by full-time team</span>
-						</li>
-					</ul>
+					{/each}
+				</ul>
+
+				<div class="flex flex-wrap gap-3">
+					<ExternalLink href={REPOS.piePlayers} class="btn btn-outline btn-sm">pie-players</ExternalLink>
+					<ExternalLink href={REPOS.pieElementsNg} class="btn btn-outline btn-sm"
+						>pie-elements-ng</ExternalLink
+					>
+					<ExternalLink href={REPOS.pieQti} class="btn btn-outline btn-sm">pie-qti</ExternalLink>
 				</div>
 			</div>
 		</div>
 	</section>
-
 </div>

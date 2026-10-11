@@ -1,309 +1,320 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import CodeEditor from './CodeEditor.svelte';
-	import PiePlayerStyles from './PiePlayerStyles.svelte';
+	import ExternalLink from './ExternalLink.svelte';
+	import { ITEM_PLAYER_CDN_URL } from '$lib/versions';
+	import { EXAMPLE_ENV, EXAMPLE_SESSION, exampleConfig } from '$lib/data/host-example';
+	import { SITES } from '$lib/data/links';
 
-	interface Props {
-		elementName?: string;
-		model: any;
-		session?: any;
-		showTabs?: boolean;
-		height?: string;
+	/**
+	 * The canonical multiple-choice item in a live <pie-item-player>, loaded from
+	 * jsDelivr at the pinned version. The delivery tab changes only `env`; the
+	 * authoring tab runs the same item with mode="author" and feeds each
+	 * `model-updated` into a delivery preview.
+	 */
+
+	type Mode = 'gather' | 'view' | 'evaluate';
+	type Role = 'student' | 'instructor';
+	type PlayerElement = HTMLElement & { config?: unknown; env?: unknown; session?: unknown };
+	type ItemConfig = ReturnType<typeof exampleConfig>;
+	type ItemModel = ItemConfig['models'][number] & Record<string, unknown>;
+
+	const LOAD_TIMEOUT_MS = 20000;
+	const PREVIEW_DELAY_MS = 300;
+
+	const MODES: { value: Mode; label: string }[] = [
+		{ value: 'gather', label: 'Gather' },
+		{ value: 'view', label: 'View' },
+		{ value: 'evaluate', label: 'Evaluate' }
+	];
+	const ROLES: { value: Role; label: string }[] = [
+		{ value: 'student', label: 'Student' },
+		{ value: 'instructor', label: 'Instructor' }
+	];
+	const TABS = [
+		{ id: 'delivery', label: 'Delivery' },
+		{ id: 'authoring', label: 'Authoring' }
+	] as const;
+	type Tab = (typeof TABS)[number]['id'];
+
+	// The demo adds a rationale to each choice so the instructor role has
+	// something to show in view and evaluate modes.
+	const RATIONALES: Record<string, string> = {
+		paris: 'Paris is the capital of France.',
+		london: 'London is the capital of the United Kingdom.',
+		madrid: 'Madrid is the capital of Spain.'
+	};
+
+	function demoConfig(): ItemConfig {
+		const config = exampleConfig();
+		config.models = config.models.map((model) => ({
+			...model,
+			choices: model.choices.map((choice) => ({ ...choice, rationale: RATIONALES[choice.value] }))
+		}));
+		return config;
 	}
 
-	let {
-		elementName = 'multiple-choice',
-		model,
-		session = $bindable({ id: '1', value: [] }),
-		showTabs = true,
-		height = '500px'
-	}: Props = $props();
+	let status = $state<'loading' | 'ready' | 'error'>('loading');
+	let activeTab = $state<Tab>('delivery');
+	let authoringOpened = $state(false);
+	let mode = $state<Mode>(EXAMPLE_ENV.mode);
+	let role = $state<Role>(EXAMPLE_ENV.role);
+	let sessionJson = $state<string | null>(null);
 
-	// State
-	let playerLoaded = $state(false);
-	let errorMessage = $state('');
-	let activeTab: 'demo' | 'source' | 'edit' = $state('demo');
-	let mode: 'gather' | 'view' | 'evaluate' = $state('gather');
-	let role: 'student' | 'instructor' = $state('student');
-	let jsonError = $state('');
-	let piePlayerElement: any = $state(null);
-	let pieAuthorElement: any = $state(null);
+	let deliveryPlayer = $state<PlayerElement | null>(null);
+	let authorPlayer = $state<PlayerElement | null>(null);
+	let previewPlayer = $state<PlayerElement | null>(null);
 
-	// Derived value that updates when model changes
-	let jsonValue = $derived(JSON.stringify(model, null, 2));
+	// Plain objects, set imperatively: the player clones what it is given.
+	let previewConfig: ItemConfig = demoConfig();
+	let previewTimer: ReturnType<typeof setTimeout> | undefined;
 
-	// Build the config structure that pie-player expects
-	const config = $derived({
-		elements: {
-			[`${elementName}-element`]: `@pie-element/${elementName}@latest`
-		},
-		models: [model],
-		markup: `<${elementName}-element id="${model.id || '1'}"></${elementName}-element>`
-	});
-
-	const env = $derived({
-		mode,
-		role
-	});
+	function loadPlayer(): Promise<unknown> {
+		const defined = customElements.whenDefined('pie-item-player');
+		const waits: Promise<unknown>[] = [
+			defined,
+			new Promise((_, reject) =>
+				setTimeout(() => reject(new Error('Timed out loading the item player')), LOAD_TIMEOUT_MS)
+			)
+		];
+		if (
+			!customElements.get('pie-item-player') &&
+			!document.querySelector(`script[src="${ITEM_PLAYER_CDN_URL}"]`)
+		) {
+			const script = document.createElement('script');
+			script.type = 'module';
+			script.src = ITEM_PLAYER_CDN_URL;
+			waits.push(
+				new Promise((_, reject) =>
+					script.addEventListener('error', () =>
+						reject(new Error('Could not load the item player'))
+					)
+				)
+			);
+			document.head.append(script);
+		}
+		return Promise.race(waits);
+	}
 
 	onMount(() => {
-		// Load PIE Player components
-		const playerUrl = 'https://cdn.jsdelivr.net/npm/@pie-framework/pie-player-components@latest/dist/pie-player-components/pie-player-components.esm.js';
-
-		const loadScript = (src: string) => new Promise<void>((resolve, reject) => {
-			const scriptElement = document.createElement('script');
-			scriptElement.src = src;
-			scriptElement.type = 'module';
-			scriptElement.async = true;
-			scriptElement.onload = () => resolve();
-			scriptElement.onerror = () => reject(new Error(`Could not load script ${src}`));
-			document.head.appendChild(scriptElement);
-		});
-
-		loadScript(playerUrl)
-			.then(() => {
-				return Promise.all([
-					customElements.whenDefined('pie-player'),
-					customElements.whenDefined('pie-author')
-				]);
-			})
-			.then(() => {
-				console.log('PIE Player and Author loaded and ready');
-				playerLoaded = true;
-			})
-			.catch((error) => {
-				console.error('Error loading PIE Player components:', error);
-				errorMessage = `Failed to load PIE components: ${error.message}`;
-			});
+		let active = true;
+		loadPlayer().then(
+			() => {
+				if (active) status = 'ready';
+			},
+			() => {
+				if (active) status = 'error';
+			}
+		);
+		return () => {
+			active = false;
+			clearTimeout(previewTimer);
+		};
 	});
 
-	function handleJsonChange(newJson: string) {
-		try {
-			const parsed = JSON.parse(newJson);
-			model = parsed;
-			jsonError = '';
-			// config will automatically update via $derived reactivity
-		} catch (e: any) {
-			jsonError = e.message;
-		}
+	// Delivery: config and session once; mode and role change env only.
+	$effect(() => {
+		const player = deliveryPlayer;
+		if (!player) return;
+		player.config = demoConfig();
+		player.session = structuredClone(EXAMPLE_SESSION);
+		const onSessionChanged = (event: Event) => {
+			const { session } = (event as CustomEvent).detail ?? {};
+			if (session) sessionJson = JSON.stringify(session, null, 2);
+		};
+		player.addEventListener('session-changed', onSessionChanged);
+		return () => player.removeEventListener('session-changed', onSessionChanged);
+	});
+
+	$effect(() => {
+		const env = { mode, role };
+		if (deliveryPlayer) deliveryPlayer.env = env;
+	});
+
+	// Authoring: every model-updated merges into the preview's model.
+	$effect(() => {
+		const author = authorPlayer;
+		if (!author) return;
+		author.config = demoConfig();
+		const onModelUpdated = (event: Event) => {
+			const { update, reset } = (event as CustomEvent).detail ?? {};
+			if (!update || typeof update !== 'object') return;
+			const current = previewConfig.models[0] as ItemModel;
+			const merged = reset ? { ...update } : { ...current, ...update };
+			previewConfig = {
+				...previewConfig,
+				models: [{ ...merged, id: current.id, element: current.element }]
+			};
+			clearTimeout(previewTimer);
+			previewTimer = setTimeout(() => {
+				if (previewPlayer) previewPlayer.config = previewConfig;
+			}, PREVIEW_DELAY_MS);
+		};
+		author.addEventListener('model-updated', onModelUpdated);
+		return () => author.removeEventListener('model-updated', onModelUpdated);
+	});
+
+	$effect(() => {
+		const preview = previewPlayer;
+		if (!preview) return;
+		preview.env = { ...EXAMPLE_ENV };
+		preview.session = structuredClone(EXAMPLE_SESSION);
+		preview.config = previewConfig;
+	});
+
+	function selectTab(tab: Tab) {
+		activeTab = tab;
+		if (tab === 'authoring') authoringOpened = true;
 	}
 
-	function handleModelUpdated(event: CustomEvent) {
-		console.debug('pie-author model updated:', event.detail);
-		if (!event.detail) return;
-
-		// Update the model with changes from the author
-		const updatedConfig = event.detail;
-		if (updatedConfig && updatedConfig.models && updatedConfig.models[0]) {
-			model = updatedConfig.models[0];
-		}
+	function onTabKeydown(event: KeyboardEvent) {
+		if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+		event.preventDefault();
+		const index = TABS.findIndex((tab) => tab.id === activeTab);
+		const next = TABS[(index + (event.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length];
+		selectTab(next.id);
+		document.getElementById(`pie-demo-tab-${next.id}`)?.focus();
 	}
 </script>
 
-<div class="pie-player-demo">
-	<!-- Error Display -->
-	{#if errorMessage}
-		<div class="alert alert-error mb-4 text-sm" role="alert">
-			<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-			<span>{errorMessage}</span>
-		</div>
-	{/if}
+<div class="rounded-xl border border-base-300 bg-base-100 shadow-sm">
+	<div role="tablist" aria-label="Live demo" class="tabs tabs-border px-2 pt-2">
+		{#each TABS as tab (tab.id)}
+			<button
+				type="button"
+				role="tab"
+				id="pie-demo-tab-{tab.id}"
+				class="tab font-medium"
+				class:tab-active={activeTab === tab.id}
+				aria-selected={activeTab === tab.id}
+				aria-controls="pie-demo-panel-{tab.id}"
+				tabindex={activeTab === tab.id ? 0 : -1}
+				onclick={() => selectTab(tab.id)}
+				onkeydown={onTabKeydown}
+			>
+				{tab.label}
+			</button>
+		{/each}
+	</div>
 
-	<!-- Tabs and Controls Container -->
-	<div class="border border-base-300 rounded-lg bg-base-100">
-		<!-- Tabs Header with Controls -->
-		{#if showTabs}
-			<div class="flex items-center justify-between border-b border-base-300 bg-base-200/50">
-				<div role="tablist" class="tabs" aria-label="PIE Player Demo Tabs">
-					<button
-						role="tab"
-						class="tab tab-lifted tab-lg border-b-0"
-						class:tab-active={activeTab === 'demo'}
-						onclick={() => (activeTab = 'demo')}
-						aria-selected={activeTab === 'demo'}
-						aria-controls="demo-panel"
-						tabindex={activeTab === 'demo' ? 0 : -1}
-					>
-						PIE Preview
-					</button>
-					<button
-						role="tab"
-						class="tab tab-lifted tab-lg border-b-0"
-						class:tab-active={activeTab === 'source'}
-						onclick={() => (activeTab = 'source')}
-						aria-selected={activeTab === 'source'}
-						aria-controls="source-panel"
-						tabindex={activeTab === 'source' ? 0 : -1}
-					>
-						PIE Source
-					</button>
-					<button
-						role="tab"
-						class="tab tab-lifted tab-lg border-b-0"
-						class:tab-active={activeTab === 'edit'}
-						onclick={() => (activeTab = 'edit')}
-						aria-selected={activeTab === 'edit'}
-						aria-controls="edit-panel"
-						tabindex={activeTab === 'edit' ? 0 : -1}
-					>
-						Edit
-					</button>
+	<div class="p-4 sm:p-6 border-t border-base-300">
+		{#if status === 'loading'}
+			<div class="flex items-center gap-3 py-12 justify-center" role="status">
+				<span class="loading loading-spinner loading-md" aria-hidden="true"></span>
+				<span class="text-base-content/70">Loading the item player</span>
+			</div>
+		{:else if status === 'error'}
+			<div role="alert" class="alert alert-warning">
+				<span>
+					The item player could not be loaded from the CDN. The same elements run on the
+					<ExternalLink href={SITES.elementsDemo}>elements demo</ExternalLink>.
+				</span>
+			</div>
+		{:else}
+			<div
+				id="pie-demo-panel-delivery"
+				role="tabpanel"
+				aria-labelledby="pie-demo-tab-delivery"
+				hidden={activeTab !== 'delivery'}
+			>
+				<div class="flex flex-wrap gap-x-8 gap-y-3 mb-4">
+					<fieldset class="flex flex-wrap items-center gap-x-4 gap-y-2">
+						<legend class="text-sm font-semibold mb-1">Mode</legend>
+						{#each MODES as option (option.value)}
+							<label class="flex items-center gap-2 cursor-pointer text-sm">
+								<input
+									type="radio"
+									name="pie-demo-mode"
+									class="radio radio-sm radio-primary"
+									value={option.value}
+									bind:group={mode}
+								/>
+								{option.label}
+							</label>
+						{/each}
+					</fieldset>
+					<fieldset class="flex flex-wrap items-center gap-x-4 gap-y-2">
+						<legend class="text-sm font-semibold mb-1">Role</legend>
+						{#each ROLES as option (option.value)}
+							<label class="flex items-center gap-2 cursor-pointer text-sm">
+								<input
+									type="radio"
+									name="pie-demo-role"
+									class="radio radio-sm radio-primary"
+									value={option.value}
+									bind:group={role}
+								/>
+								{option.label}
+							</label>
+						{/each}
+					</fieldset>
 				</div>
 
-				<!-- Mode and Role Controls on the right -->
-				<div class="flex items-center gap-2 px-4">
-					<fieldset class="flex items-center gap-2">
-						<legend class="sr-only">Interaction mode</legend>
-						{#each [
-							{ value: 'gather', label: 'Gather' },
-							{ value: 'view', label: 'View' },
-							{ value: 'evaluate', label: 'Evaluate' }
-						] as modeOption}
-							<label class="flex items-center gap-1 cursor-pointer">
-								<input
-									type="radio"
-									name="mode"
-									value={modeOption.value}
-									bind:group={mode}
-									disabled={!playerLoaded}
-									class="radio radio-sm"
-								/>
-								<span class="text-sm">{modeOption.label}</span>
-							</label>
-						{/each}
-					</fieldset>
-
-					<div class="divider divider-horizontal mx-2"></div>
-
-					<fieldset class="flex items-center gap-2">
-						<legend class="sr-only">User role</legend>
-						{#each [
-							{ value: 'student', label: 'Student' },
-							{ value: 'instructor', label: 'Instructor' }
-						] as roleOption}
-							<label class="flex items-center gap-1 cursor-pointer">
-								<input
-									type="radio"
-									name="role"
-									value={roleOption.value}
-									bind:group={role}
-									disabled={!playerLoaded}
-									class="radio radio-sm"
-								/>
-								<span class="text-sm">{roleOption.label}</span>
-							</label>
-						{/each}
-					</fieldset>
+				<div class="grid lg:grid-cols-5 gap-4">
+					<div class="lg:col-span-3 pie-demo-stage" data-theme="light">
+						<pie-item-player bind:this={deliveryPlayer} strategy="iife"></pie-item-player>
+					</div>
+					<div class="lg:col-span-2 min-w-0">
+						<h3 class="text-sm font-semibold mb-2">Latest session</h3>
+						{#if sessionJson}
+							<pre
+								class="bg-base-200 rounded-lg text-xs overflow-x-auto"
+								aria-live="polite"><code>{sessionJson}</code></pre>
+						{:else}
+							<p class="text-sm text-base-content/70" aria-live="polite">
+								Choose an answer in gather mode; the session the player reports in
+								<code>session-changed</code> appears here.
+							</p>
+						{/if}
+					</div>
 				</div>
 			</div>
-		{/if}
 
-		<!-- Content Area -->
-		<div class="pie-player-demo-content">
-			{#if activeTab === 'demo' || !showTabs}
-				<!-- Player Tab -->
-				<div id="demo-panel" role="tabpanel" aria-labelledby="demo-tab" class="p-6" style="min-height: {height}">
-					{#if !playerLoaded}
-						<div class="flex items-center justify-center" style="height: {height}" role="status" aria-live="polite" aria-busy="true">
-							<div class="text-center">
-								<div class="loading loading-spinner loading-lg mb-4" aria-hidden="true"></div>
-								<p class="text-base-content/60">Loading PIE Player...</p>
+			<div
+				id="pie-demo-panel-authoring"
+				role="tabpanel"
+				aria-labelledby="pie-demo-tab-authoring"
+				hidden={activeTab !== 'authoring'}
+			>
+				<p class="text-sm text-base-content/70 mb-4">
+					The same item with <code>mode="author"</code>. Each edit emits
+					<code>model-updated</code>, and the preview renders the updated model.
+				</p>
+				{#if authoringOpened}
+					<div class="grid lg:grid-cols-2 gap-4">
+						<div class="min-w-0">
+							<h3 class="text-sm font-semibold mb-2">Authoring view</h3>
+							<div class="pie-demo-stage" data-theme="light">
+								<pie-item-player bind:this={authorPlayer} mode="author" strategy="iife"
+								></pie-item-player>
 							</div>
 						</div>
-					{:else}
-						<PiePlayerStyles>
-							<pie-player
-								bind:this={piePlayerElement}
-								config={config}
-								env={env}
-								hosted={false}
-								bundleHost="prod"
-								add-correct-response={mode === 'evaluate' && role === 'instructor'}
-							></pie-player>
-						</PiePlayerStyles>
-					{/if}
-				</div>
-			{:else if activeTab === 'source'}
-				<!-- Source Tab -->
-				<div id="source-panel" role="tabpanel" aria-labelledby="source-tab" class="p-6">
-					<p class="text-sm text-base-content/70 mb-3">
-						Element configuration for <code class="bg-base-200 px-2 py-1 rounded"
-							>{elementName}</code
-						>
-					</p>
-
-				{#if jsonError}
-					<div class="alert alert-warning mb-3 text-sm" role="alert">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-							/>
-						</svg>
-						<span>JSON Error: {jsonError}</span>
+						<div class="min-w-0">
+							<h3 class="text-sm font-semibold mb-2">Delivery preview</h3>
+							<div class="pie-demo-stage" data-theme="light">
+								<pie-item-player bind:this={previewPlayer} strategy="iife"></pie-item-player>
+							</div>
+						</div>
 					</div>
 				{/if}
-
-				<CodeEditor value={jsonValue} language="json" onChange={handleJsonChange} {height} />
-
-					<div class="mt-4 text-sm text-base-content/60">
-						<p class="mb-2 font-semibold">Understanding the Model:</p>
-						<ul class="space-y-1 list-disc list-inside">
-							<li><code>element</code> - The element type identifier</li>
-							<li><code>prompt</code> - The question text shown to students</li>
-							<li><code>choices</code> - Available answer options (for choice-based questions)</li>
-							<li><code>correct</code> - Indicates the correct answer(s)</li>
-						</ul>
-					</div>
-				</div>
-			{:else if activeTab === 'edit'}
-				<!-- Edit Tab -->
-				<div id="edit-panel" role="tabpanel" aria-labelledby="edit-tab" class="p-6" style="min-height: {height}">
-					{#if !playerLoaded}
-						<div class="flex items-center justify-center" style="height: {height}" role="status" aria-live="polite" aria-busy="true">
-							<div class="text-center">
-								<div class="loading loading-spinner loading-lg mb-4" aria-hidden="true"></div>
-								<p class="text-base-content/60">Loading PIE Author...</p>
-							</div>
-						</div>
-					{:else}
-						<PiePlayerStyles>
-							<pie-author
-								bind:this={pieAuthorElement}
-								config={config}
-								env={{ mode: 'view', role: 'instructor' }}
-								hosted={false}
-								bundleHost="prod"
-								onmodelUpdated={handleModelUpdated}
-							></pie-author>
-						</PiePlayerStyles>
-					{/if}
-				</div>
-			{/if}
-		</div>
+			</div>
+		{/if}
 	</div>
 </div>
 
 <style>
-	.pie-player-demo {
-		max-width: 100%;
+	/* Elements render in light DOM with their own light palette, so the stage
+	   stays light in both site themes. */
+	.pie-demo-stage {
+		min-width: 0;
+		padding: 1rem;
+		border: 1px solid var(--color-base-300);
+		border-radius: 0.5rem;
+		background: var(--color-base-100);
+		color: var(--color-base-content);
+		color-scheme: light;
 	}
 
-	.pie-player-demo-content {
-		width: 100%;
-	}
-
-	/* Ensure pie-player takes full width */
-	:global(pie-player) {
+	.pie-demo-stage :global(pie-item-player) {
 		display: block;
 		width: 100%;
 	}

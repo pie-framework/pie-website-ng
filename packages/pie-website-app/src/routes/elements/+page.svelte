@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { SITES } from '$lib/data/links';
 
-	const elementsDemoUrl = 'https://elements.pie-framework.org/';
+	const elementsDemoUrl = SITES.elementsDemo;
 
 	onMount(() => {
 		window.location.replace(elementsDemoUrl);
