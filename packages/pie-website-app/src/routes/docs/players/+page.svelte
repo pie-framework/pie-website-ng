@@ -246,22 +246,11 @@ await controller.persist();                 // save current state`;
 	<section class="mb-20">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Section Player: Page-Level Composition</h2>
 		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
-			Step back and look at what a real assessment screen looks like in practice. There's a reading passage on the left paired with questions on the right. A toolbar at the bottom offers section-wide tools: calculator, graph, periodic table, protractor, line reader, ruler. Each item has its own controls &mdash; text-to-speech playback, annotation, answer elimination. Accommodation controls manage audio, contrast, and fullscreen mode. All of this needs coordination, shared state, and a coherent lifecycle.
+			A typical assessment screen pairs a reading passage with the questions about it. A section toolbar offers tools for the whole page: graph, periodic table, line reader, ruler, protractor, dictionaries and color schemes. Each item has its own controls &mdash; read-aloud, calculator, answer elimination and highlighting &mdash; and the passage has read-aloud and highlighting. All of this needs coordination, shared state, and a coherent lifecycle.
 		</p>
 		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
 			Every team that builds beyond the item player level ends up rebuilding some version of this composition. The section player exists to provide that layer as a ready-made, well-tested foundation &mdash; so integration teams can focus on their product's unique concerns rather than re-solving passage-item layout, tool coordination, session persistence, and accessibility plumbing.
 		</p>
-
-		<div class="my-8">
-			<img
-				src="{base}/images/docs/players/pie-section-real-assessment.png"
-				alt="A section as students see it: passage, items, tools, accommodations, and navigation composed into a single view"
-				width="845"
-				height="461"
-				loading="lazy"
-				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
-			/>
-		</div>
 
 		<h3 class="text-2xl font-bold text-primary mb-4">Three-Layer Architecture</h3>
 
