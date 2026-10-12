@@ -4,9 +4,28 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { page } from '$app/stores';
+	import { ELEMENT_COUNT } from '$lib/data/elements';
 
 	let { children } = $props();
+
+	// The site is served at the root of its custom domain (static/CNAME).
+	const SITE_URL = 'https://pie-framework.org';
+	const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+	const SHARE_DESCRIPTION = `Enterprise-proven web components for rendering ${ELEMENT_COUNT} interactive element types. MIT licensed. Modern web standards.`;
+	const sitePath = $derived(
+		base && $page.url.pathname.startsWith(base)
+			? $page.url.pathname.slice(base.length) || '/'
+			: $page.url.pathname
+	);
+	const canonicalUrl = $derived(SITE_URL + sitePath);
+	// Redirect pages point their canonical URL at the target; /elements/ sets its own.
+	const REDIRECT_TARGETS: Record<string, string> = {
+		'/docs/players-toolkit/': `${SITE_URL}/docs/players/`
+	};
+	const isRedirect = $derived(sitePath === '/elements/');
+	const canonicalHref = $derived(REDIRECT_TARGETS[sitePath] ?? canonicalUrl);
 
 	// Set initial theme on HTML element
 	onMount(() => {
@@ -27,8 +46,7 @@
 		rel="stylesheet"
 	/>
 
-	<!-- Default Meta Tags (can be overridden by page-specific meta) -->
-	<meta name="description" content="PIE Framework - Open-source web components for creating interactive assessment items. Battle-tested at enterprise scale with 20+ question types. ISC licensed." />
+	<!-- Each content page sets its own description. -->
 	<meta name="keywords" content="PIE Framework, assessment items, interactive questions, web components, open source, edtech, K-12, QTI, education technology, e-learning" />
 	<meta name="author" content="PIE Framework" />
 
@@ -36,9 +54,9 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="PIE Framework" />
 	<meta property="og:title" content="PIE Framework - Open Source Assessment Items" />
-	<meta property="og:description" content="Enterprise-proven web components for rendering 20+ interactive question types. Zero licensing costs. Modern web standards." />
-	<meta property="og:url" content="https://pie.org{$page.url.pathname}" />
-	<meta property="og:image" content="https://pie.org/og-image.jpg" />
+	<meta property="og:description" content={SHARE_DESCRIPTION} />
+	<meta property="og:url" content={canonicalUrl} />
+	<meta property="og:image" content={OG_IMAGE} />
 	<meta property="og:image:width" content="1424" />
 	<meta property="og:image:height" content="752" />
 	<meta property="og:image:alt" content="PIE Framework - Open Source Assessment Items" />
@@ -46,14 +64,16 @@
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="PIE Framework - Open Source Assessment Items" />
-	<meta name="twitter:description" content="Enterprise-proven web components for rendering 20+ interactive question types. Zero licensing costs. Modern web standards." />
-	<meta name="twitter:image" content="https://pie.org/og-image.jpg" />
+	<meta name="twitter:description" content={SHARE_DESCRIPTION} />
+	<meta name="twitter:image" content={OG_IMAGE} />
 	<meta name="twitter:image:alt" content="PIE Framework - Open Source Assessment Items" />
 
 	<!-- Additional SEO -->
 	<meta name="robots" content="index, follow" />
 	<meta name="language" content="English" />
-	<link rel="canonical" href="https://pie.org{$page.url.pathname}" />
+	{#if !isRedirect}
+		<link rel="canonical" href={canonicalHref} />
+	{/if}
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">

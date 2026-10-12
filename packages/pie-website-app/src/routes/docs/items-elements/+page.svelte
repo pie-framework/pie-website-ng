@@ -1,93 +1,58 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import PiePlayerDemo from '$lib/components/PiePlayerDemo.svelte';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
+	import Diagram from '$lib/components/Diagram.svelte';
+	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import PiePlayerDemo from '$lib/components/PiePlayerDemo.svelte';
+	import {
+		ELEMENT_COUNT,
+		ELEMENT_COUNT_SENTENCE,
+		ELEMENTS_WITHOUT_AUTHORING,
+		PRINT_COUNT,
+		PRINT_ELEMENTS,
+		elementsByGroup,
+		groupAnchor
+	} from '$lib/data/elements';
+	import { SAMPLE_CAPTURES, deliveryCapture } from '$lib/data/element-captures';
+	import {
+		ELEMENTS_MAP_JSON,
+		EXAMPLE_MARKUP,
+		HOST_EXAMPLE_HTML,
+		MODELS_JSON,
+		SESSION_LISTENER_JS
+	} from '$lib/data/host-example';
+	import { DOCS, SITES } from '$lib/data/links';
+	import { ITEM_PLAYER_VERSION, elementSpec, elementVersion } from '$lib/versions';
 
-	const elementsDemoUrl = 'https://elements.pie-framework.org/';
-
-	const elementsExample = `{
-  "multiple-choice": "@pie-element/multiple-choice@latest"
-}`;
-
-	const modelsExample = `[
-  {
-    "id": "1",
-    "element": "multiple-choice",
-    "prompt": "Question text",
-    "choices": [
-      {
-        "label": "A",
-        "value": "a",
-        "correct": true
-      }
-    ]
-  }
-]`;
-
-	const markupExample = `<multiple-choice id="1"></multiple-choice>`;
-
-	// Sample multiple choice model for the demo
-	const multipleChoiceModel = {
-		id: 'Q124',
-		element: 'multiple-choice-element',
-		prompt: 'What is the capital of France?',
-		choicePrefix: 'letters',
-		scoringType: 'auto',
-		lockChoiceOrder: false,
-		partialScoring: false,
-		choices: [
-			{
-				value: 'A',
-				label: 'London',
-				correct: false
-			},
-			{
-				value: 'B',
-				label: 'Paris',
-				correct: true
-			},
-			{
-				value: 'C',
-				label: 'Berlin',
-				correct: false
-			},
-			{
-				value: 'D',
-				label: 'Rome',
-				correct: false
-			}
-		],
-		choiceMode: 'radio',
-		promptEnabled: true,
-		rationaleEnabled: true,
-		teacherInstructionsEnabled: true,
-		studentInstructionsEnabled: true
-	};
+	const groups = elementsByGroup();
+	const withoutAuthoring = ELEMENTS_WITHOUT_AUTHORING.map((e) => e.displayName).join(', ');
+	const printNames = PRINT_ELEMENTS.map((e) => e.displayName).join(', ');
+	const elementsImage = (file: string) => `${base}/images/elements/${file}`;
 </script>
 
 <svelte:head>
 	<title>PIE Items and Elements - PIE Framework</title>
 	<meta
 		name="description"
-		content="Understand the difference between PIE Items and Elements. Learn how elements compose into items to create complete assessment questions."
+		content="How PIE elements compose into items: the item config, each element's views and controller, the {ELEMENT_COUNT} element types, and a live item player demo."
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
+<div>
 	<!-- Header -->
 	<div class="mb-12">
-		<h1 class="text-5xl font-bold text-secondary mb-4">PIE Items and Elements</h1>
+		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">PIE Items and Elements</h1>
 		<p class="text-xl text-base-content/70 max-w-3xl">
-			Understanding the foundational concepts of PIE: reusable elements that compose into complete
-			assessment items.
+			An element implements one interaction or content type. An item composes elements into one
+			assessment question.
 		</p>
 	</div>
 
 	<!-- Introduction -->
-	<section class="prose max-w-none mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Introduction</h2>
+	<section class="mb-20 scroll-mt-24" id="elements-and-items">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Elements and items</h2>
 
-		<div class="grid md:grid-cols-2 gap-8 mb-8 not-prose">
+		<div class="grid md:grid-cols-2 gap-8 mb-8">
 			<div class="card bg-base-100 shadow-xl border border-base-300">
 				<div class="card-body">
 					<div class="flex items-center gap-3 mb-4">
@@ -96,6 +61,7 @@
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
+							aria-hidden="true"
 						>
 							<path
 								stroke-linecap="round"
@@ -107,15 +73,20 @@
 						<h3 class="card-title text-2xl text-primary">PIE Element</h3>
 					</div>
 					<p class="text-base-content/80 mb-4">
-						A <strong>PIE Element</strong> is a reusable, interactive component that implements a specific
-						question type. Think of it as a building block.
+						A <strong>PIE element</strong> is a reusable interaction, published as an
+						<code>@pie-element/&lt;name&gt;</code> npm package: its views are custom elements, and a
+						controller shapes and scores its data.
 					</p>
 					<ul class="list-disc list-inside space-y-2 text-sm">
 						<li>Multiple Choice</li>
-						<li>Text Entry</li>
+						<li>Explicit Constructed Response</li>
 						<li>Graphing</li>
-						<li>Drag and Drop</li>
-						<li>20+ question types</li>
+						<li>Categorize</li>
+						<li>
+							<a href="#element-library" class="link link-primary"
+								>{ELEMENT_COUNT} element types in all</a
+							>
+						</li>
 					</ul>
 					<div class="badge badge-primary mt-4">Reusable Component</div>
 				</div>
@@ -129,6 +100,7 @@
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
+							aria-hidden="true"
 						>
 							<path
 								stroke-linecap="round"
@@ -140,71 +112,77 @@
 						<h3 class="card-title text-2xl text-secondary">PIE Item</h3>
 					</div>
 					<p class="text-base-content/80 mb-4">
-						A <strong>PIE Item</strong> is a complete assessment question that may contain one or more
-						elements plus optional supporting content.
+						A <strong>PIE item</strong> is one assessment question: markup that places one or more
+						elements, a model for each, and the packages that supply them.
 					</p>
 					<ul class="list-disc list-inside space-y-2 text-sm">
 						<li>Reading passage</li>
 						<li>One or more questions</li>
 						<li>Scoring rubric</li>
-						<li>Feedback and hints</li>
+						<li>Feedback</li>
 					</ul>
 					<div class="badge badge-secondary mt-4">Assessment Unit</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="my-8">
-			<img
-				src="{base}/images/docs/items-elements/items-vs-elements.jpg"
-				alt="Items vs Elements Diagram"
-				class="rounded-lg shadow-lg w-full max-w-2xl mx-auto"
-			/>
-		</div>
+		<Diagram
+			name="content-item-and-elements"
+			width={1028}
+			height={594}
+			alt="One item whose markup places four elements, a passage, a multiple-choice question, an extended text entry and a rubric, each with its own id. The @pie-element packages beside it supply their code, and two of them also serve a second item."
+		/>
 
-		<p class="text-lg">
-			Items are what students see as complete questions. Elements are the interactive components
-			that capture responses. An item might combine a reading passage with multiple elements (e.g.,
-			a multiple choice and a constructed response) to assess comprehension from different angles.
+		<p class="text-lg max-w-4xl">
+			Passages and rubrics are elements too, so one item can pair a reading passage with several
+			questions and a scoring rubric. A package holds the code for one element type and serves every
+			item that uses it.
 		</p>
 	</section>
 
 	<!-- Element Architecture -->
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Element Architecture</h2>
+	<section class="mb-20 scroll-mt-24" id="views">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Element views and controller</h2>
 
-		<div class="prose max-w-none mb-8">
-			<p class="text-lg">
-				Every PIE element provides multiple interfaces to support different use cases:
-			</p>
-		</div>
+		<p class="text-lg max-w-4xl mb-8">
+			Each element ships a delivery view and a controller. All but {withoutAuthoring} ship an
+			authoring view, and {PRINT_COUNT} ship a print view rendered by <code>&lt;pie-print&gt;</code>.
+		</p>
 
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+		<div class="grid md:grid-cols-2 gap-6 mb-8">
 			<div class="card bg-primary/5 border border-primary/20">
 				<div class="card-body">
-					<h3 class="card-title text-primary">Delivery Interface</h3>
+					<h3 class="card-title text-primary">Delivery view <code class="text-sm">&lt;tag&gt;</code></h3>
 					<p class="text-sm">
-						The interactive UI students and teachers see. Adapts based on mode and role:
+						The interactive view learners and instructors see. The <code>env</code> mode sets what it
+						does:
 					</p>
 					<ul class="text-sm space-y-1 mt-2">
-						<li><strong>Gather mode:</strong> Students interact and select answers</li>
-						<li><strong>View mode:</strong> Read-only display without interaction</li>
-						<li><strong>Evaluate mode:</strong> Shows correctness and feedback</li>
+						<li><strong>Gather:</strong> the learner responds</li>
+						<li><strong>View:</strong> read-only</li>
+						<li><strong>Evaluate:</strong> read-only, with correctness and feedback</li>
 					</ul>
+					<p class="text-sm mt-2">
+						The role, student or instructor, shapes each mode: for instructors, multiple choice adds
+						rationale and teacher instructions in view and evaluate.
+					</p>
 				</div>
 			</div>
 
 			<div class="card bg-secondary/5 border border-secondary/20">
 				<div class="card-body">
-					<h3 class="card-title text-secondary">Authoring Interface</h3>
+					<h3 class="card-title text-secondary">
+						Authoring view <code class="text-sm">&lt;tag&gt;-config</code>
+					</h3>
 					<p class="text-sm">
-						Configuration UI where educators create questions using forms and visual editors.
-						WYSIWYG experience with live preview.
+						Edits the model and emits <code>model.updated</code> on every change, which the item player
+						re-emits as <code>model-updated</code>, so the host can show a live delivery preview beside
+						the editor.
 					</p>
 					<ul class="text-sm space-y-1 mt-2">
-						<li>Add/edit choices and mark correct answers</li>
-						<li>Configure layouts (vertical/horizontal)</li>
-						<li>Set feedback and difficulty</li>
+						<li>Add and edit choices and mark correct answers</li>
+						<li>Choose a layout: vertical, grid or horizontal</li>
+						<li>Set feedback, scoring and partial credit</li>
 						<li>Rich text editors and visual panels</li>
 					</ul>
 				</div>
@@ -214,416 +192,327 @@
 				<div class="card-body">
 					<h3 class="card-title text-accent">Controller</h3>
 					<p class="text-sm">
-						JavaScript/TypeScript functions that transform data and calculate scores based on
-						context.
+						Plain functions in <code>@pie-element/&lt;name&gt;/controller</code>, called with the model,
+						the session and the <code>env</code>.
 					</p>
 					<ul class="text-sm space-y-1 mt-2">
-						<li><code>model()</code> &mdash; Build view model for rendering</li>
-						<li><code>outcome()</code> &mdash; Calculate score and feedback</li>
-						<li>Runs client or server-side</li>
-						<li>Security filtering by role</li>
+						<li><code>model()</code> &mdash; shapes the view model by mode and role</li>
+						<li>
+							<code>outcome()</code> &mdash; scores the session from 0 to 1; content elements such as
+							passage have none
+						</li>
+						<li>Runs in the browser, or on your server in hosted mode</li>
 					</ul>
 				</div>
 			</div>
 
 			<div class="card bg-base-200 border border-base-300">
 				<div class="card-body">
-					<div class="flex items-center gap-2 mb-1">
-						<h3 class="card-title text-base-content/70">Print View</h3>
-						<span class="badge badge-sm badge-outline">In Progress</span>
-					</div>
-					<p class="text-sm text-base-content/60">
-						A UI optimized for printing assessment items on paper.
-					</p>
-				</div>
-			</div>
-
-			<div class="card bg-base-200 border border-base-300">
-				<div class="card-body">
-					<div class="flex items-center gap-2 mb-1">
-						<h3 class="card-title text-base-content/70">List View</h3>
-						<span class="badge badge-sm badge-outline">In Progress</span>
-					</div>
-					<p class="text-sm text-base-content/60">
-						Compact preview UIs usable in lists and tables for item bank browsing.
+					<h3 class="card-title">Print view</h3>
+					<p class="text-sm">
+						A static rendering for paper, drawn by <code>&lt;pie-print&gt;</code>. {PRINT_COUNT} elements
+						ship one: {printNames}.
 					</p>
 				</div>
 			</div>
 		</div>
 
-		<div class="my-8 flex flex-col items-center">
-			<img
-				src="{base}/images/docs/items-elements/pie-multiple-interfaces.png"
-				alt="PIE Multiple Interfaces"
-				class="rounded-lg shadow-lg max-w-3xl w-full"
-			/>
-			<p class="text-center text-sm text-base-content/60 mt-2">
-				Elements adapt their interface based on environment mode and user role
-			</p>
-		</div>
+		<Diagram
+			name="element-views"
+			width={1028}
+			height={626}
+			alt="One multiple-choice question in a grid of three modes by two roles: gather enables the choices, view is read-only, and evaluate adds correctness. Instructors see the same as students in gather, and rationale and teacher instructions in view and evaluate."
+			caption="Elements adapt their interface based on environment mode and user role"
+		/>
 	</section>
 
 	<!-- Live Interactive Example -->
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Live Interactive Example</h2>
+	<section class="mb-20 scroll-mt-24" id="demo">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Live demo</h2>
 
-		<div class="prose max-w-none mb-6">
-			<p class="text-lg">
-				Try interacting with a live PIE multiple choice element below. Switch between different
-				modes and roles to see how the element adapts:
-			</p>
-		</div>
+		<p class="text-lg max-w-4xl mb-6">
+			The multiple-choice item from Getting started, in <code>&lt;pie-item-player&gt;</code>
+			{ITEM_PLAYER_VERSION} loaded from jsDelivr. Mode and role change only <code>env</code>, so the
+			response survives a switch to evaluate.
+		</p>
 
-		<div class="bg-base-200 p-6 rounded-lg">
-			<PiePlayerDemo elementName="multiple-choice" model={multipleChoiceModel} height="400px" />
-		</div>
+		<PiePlayerDemo />
+
+		<p class="text-sm text-base-content/70 mt-4">
+			Hosts moving from <code>pie-player-components</code> can follow the
+			<ExternalLink href={DOCS.migration}>migration guide</ExternalLink>.
+		</p>
 	</section>
 
 	<!-- Item Configuration Structure -->
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Item Configuration Structure</h2>
+	<section class="mb-20 scroll-mt-24" id="item-config">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Item configuration</h2>
 
-		<div class="prose max-w-none mb-6">
-			<p class="text-lg">
-				PIE items are configured using JSON with three essential sections that work together:
-			</p>
-		</div>
+		<p class="text-lg max-w-4xl mb-2">An item config has three parts that reference each other.</p>
 
-		<!-- Visual Diagram -->
-		<div class="flex justify-center mb-8">
-			<img
-				src="{base}/images/docs/item-config-structure.jpg"
-				alt="PIE Item Configuration Structure - showing elements, models, and markup sections"
-				class="rounded-lg shadow-lg max-w-3xl w-full"
-			/>
-		</div>
+		<Diagram
+			name="content-item-config"
+			width={1028}
+			height={293}
+			alt="The three parts of an item config: elements maps the multiple-choice tag to {elementSpec(
+				'multiple-choice'
+			)}, markup places that tag with id q1, and models holds one model with the same id and the same element name."
+		/>
 
-		<!-- Explanation Cards -->
-		<div class="grid md:grid-cols-3 gap-6 mb-6">
-			<div class="card bg-base-100 border-2 border-primary/30">
+		<div class="grid lg:grid-cols-3 gap-6 mb-6">
+			<div class="card bg-base-100 border-2 border-primary/30 min-w-0">
 				<div class="card-body">
-					<h4 class="card-title text-primary text-lg">1. elements</h4>
+					<h3 class="card-title text-primary text-lg">1. elements</h3>
 					<p class="text-sm text-base-content/80">
-						Maps element tags from <code class="bg-base-200 px-2 py-1 rounded text-xs">markup</code> to PIE element
-						NPM packages. Tells the player which PIE elements (and which versions) to load from CDN or your server.
+						Maps each tag in <code>markup</code> to an npm package version. Pin exact versions; preloaded builds and
+						<code>requireExactVersions</code> enforce them. The player loads
+						the packages and registers each tag under a versioned name, such as
+						<code>multiple-choice--version-{elementVersion('multiple-choice').replaceAll('.', '-')}</code>,
+						so several versions can share a page.
 					</p>
 					<div class="mt-2">
-						<CodeEditor value={elementsExample} language="json" readonly={true} height="100px" />
+						<CodeEditor value={ELEMENTS_MAP_JSON} language="json" readonly={true} height="100px" />
 					</div>
 				</div>
 			</div>
 
-			<div class="card bg-base-100 border-2 border-secondary/30">
+			<div class="card bg-base-100 border-2 border-secondary/30 min-w-0">
 				<div class="card-body">
-					<h4 class="card-title text-secondary text-lg">2. models</h4>
+					<h3 class="card-title text-secondary text-lg">2. models</h3>
 					<p class="text-sm text-base-content/80">
-						Array of element configurations. Each model defines one element's content, behavior,
-						and correct answers. Linked by <code class="bg-base-200 px-2 py-1 rounded text-xs">id</code>.
-						Each model entry is interpreted by the PIE element implementation it is mapped to. The PIE element
-						should advertise its interface (the PIE React elements do this through JSON schemas) but ultimately
-						it is entirely up the PIE element how that is interpreted. In this case, 'choices' is specific for
-						the multiple-choice PIE element. Only a few things are in all models: the 'id', the 'element'
-						and the 'prompt'.
+						Each model is interpreted by the element it maps to, and each element documents its model
+						fields. Every model carries an <code>id</code>, matching the element's <code>id</code> in
+						the markup, and an <code>element</code>, matching a key in <code>elements</code>. All other
+						fields &mdash; <code>choices</code> here &mdash; belong to the element.
 					</p>
 					<div class="mt-2">
-						<CodeEditor value={modelsExample} language="json" readonly={true} height="250px" />
+						<CodeEditor value={MODELS_JSON} language="json" readonly={true} height="250px" />
 					</div>
 				</div>
 			</div>
 
-			<div class="card bg-base-100 border-2 border-accent/30">
+			<div class="card bg-base-100 border-2 border-accent/30 min-w-0">
 				<div class="card-body">
-					<h4 class="card-title text-accent text-lg">3. markup</h4>
+					<h3 class="card-title text-accent text-lg">3. markup</h3>
 					<p class="text-sm text-base-content/80">
-						HTML defining element placement and layout. Can include passages, multiple elements,
-						and custom structure. Element tags must match <code class="bg-base-200 px-2 py-1 rounded text-xs">elements</code> keys.
-						While it can be used for sophisticated layout, it is typically not recommended for this and instead
-						you should try to build in layout concerns in the PIE element implementation and aim for consistency.
+						HTML that places each element by tag and <code>id</code>, alongside passages and other
+						content. Keep layout in the element implementations rather than the markup, so items stay
+						consistent. The player sanitizes markup with DOMPurify by default; hosts serving trusted
+						content can opt out with <code>trust-markup</code>.
 					</p>
 					<div class="mt-2">
-						<CodeEditor value={markupExample} language="html" readonly={true} height="120px" />
+						<CodeEditor value={EXAMPLE_MARKUP} language="html" readonly={true} height="60px" />
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<p class="text-base-content/80 max-w-4xl">
+			Optional: <code>resources</code> adds stylesheets and the container classes
+			<code>containerClass</code> and <code>passageContainerClass</code>. An item with a stimulus
+			takes the form <code>{'{ pie, passage }'}</code>, two configs of this shape, and the player
+			renders the passage beside the item.
+		</p>
 	</section>
 
-	<!-- Comprehensive Question Type Library -->
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Comprehensive Question Type Library</h2>
+	<!-- Delivering an item -->
+	<section class="mb-20 scroll-mt-24" id="delivering">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Delivering an item</h2>
 
-		<div class="prose max-w-none mb-6">
-			<p class="text-lg">
-				PIE includes over 20 production-ready question types covering simple to highly complex
-				interactions:
-			</p>
+		<p class="text-lg max-w-4xl mb-4">
+			A host page loads the item player from the CDN and sets <code>config</code>, <code>env</code>
+			and <code>session</code> as properties. This is the example from
+			<ExternalLink href={DOCS.gettingStarted}>Getting started</ExternalLink>:
+		</p>
+		<div class="mb-6 min-w-0">
+			<CodeEditor value={HOST_EXAMPLE_HTML} language="html" readonly={true} height="200px" />
 		</div>
 
-		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-			<div class="card bg-base-100 border border-base-300">
-				<div class="card-body p-4">
-					<h4 class="font-semibold text-sm mb-2">Simple Response</h4>
-					<ul class="text-xs space-y-1">
-						<li>• Multiple Choice</li>
-						<li>• Text Entry</li>
-						<li>• Extended Text</li>
-						<li>• Inline Choice</li>
-						<li>• Math Inline</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="card bg-base-100 border border-base-300">
-				<div class="card-body p-4">
-					<h4 class="font-semibold text-sm mb-2">Matching & Categorization</h4>
-					<ul class="text-xs space-y-1">
-						<li>• Match</li>
-						<li>• Match List</li>
-						<li>• Categorize</li>
-						<li>• Placement Ordering</li>
-						<li>• Drag in the Blank</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="card bg-base-100 border border-base-300">
-				<div class="card-body p-4">
-					<h4 class="font-semibold text-sm mb-2">Visual & Graphical</h4>
-					<ul class="text-xs space-y-1">
-						<li>• Hotspot</li>
-						<li>• Image Cloze Association</li>
-						<li>• Drawing Response</li>
-						<li>• Graphing</li>
-						<li>• Number Line</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="card bg-base-100 border border-base-300">
-				<div class="card-body p-4">
-					<h4 class="font-semibold text-sm mb-2">Support Elements</h4>
-					<ul class="text-xs space-y-1">
-						<li>• Passage</li>
-						<li>• Rubric</li>
-						<li>• Image</li>
-						<li>• Math Templated</li>
-					</ul>
-				</div>
-			</div>
+		<p class="text-lg max-w-4xl mb-4">
+			The player emits <code>session-changed</code> as the learner responds. Save
+			<code>event.detail.session</code> when it is non-null:
+		</p>
+		<div class="mb-8 min-w-0">
+			<CodeEditor value={SESSION_LISTENER_JS} language="javascript" readonly={true} height="80px" />
 		</div>
 
-		<div class="my-8 flex justify-center">
-			<img
-				src="{base}/images/landing/pie-question-type-example.png"
-				alt="PIE Question Types Example"
-				class="rounded-lg shadow-lg max-w-3xl w-full"
-			/>
-		</div>
+		<h3 class="text-xl font-semibold mb-3">From authoring to score</h3>
+		<ol class="list-decimal list-outside ml-6 space-y-2 max-w-4xl text-base-content/80">
+			<li>
+				The authoring view edits the model, the item player emits <code>model-updated</code>, and the
+				host stores the item config.
+			</li>
+			<li>The host sets the item config, an <code>env</code> and the learner's saved session.</li>
+			<li>
+				Each controller's <code>model()</code> builds the view model for that mode and role, and the
+				delivery view renders it.
+			</li>
+			<li>Responses arrive in <code>session-changed</code>, and the host saves each session.</li>
+			<li>
+				<code>provideScore()</code> runs each controller's <code>outcome()</code> in the browser. For
+				high-stakes delivery the host scores on its server instead; see
+				<a href="{base}/docs/element-structure/#controller-placement" class="link link-primary"
+					>where the controller runs</a
+				>.
+			</li>
+			<li>In evaluate mode, the view model adds correctness and feedback.</li>
+		</ol>
+	</section>
+
+	<!-- Element library -->
+	<section class="mb-20 scroll-mt-24" id="element-library">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Element library</h2>
+
+		<p class="text-lg max-w-4xl mb-4">
+			{ELEMENT_COUNT_SENTENCE} Each card shows the element's delivery view, captured from the
+			<ExternalLink href={SITES.elementsDemo}>elements demo</ExternalLink>.
+		</p>
+
+		<nav aria-label="Element groups" class="flex flex-wrap gap-2 mb-8">
+			{#each groups as { group, elements } (group)}
+				<a href="#{groupAnchor(group)}" class="btn btn-sm btn-outline">
+					{group}
+					<span class="badge badge-sm">{elements.length}</span>
+				</a>
+			{/each}
+		</nav>
+
+		{#each groups as { group, elements } (group)}
+			<div class="mb-10 scroll-mt-24" id={groupAnchor(group)}>
+				<h3 class="text-2xl font-semibold mb-4">{group}</h3>
+				<ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+					{#each elements as element (element.name)}
+						{@const capture = deliveryCapture(element.name)}
+						<li class="card bg-base-100 border border-base-300 shadow-sm overflow-hidden">
+							<div class="capture-frame h-48 p-3 border-b border-base-300">
+								<img
+									src={elementsImage(capture.file)}
+									alt={capture.alt}
+									width={capture.width}
+									height={capture.height}
+									loading="lazy"
+									class="w-full h-full object-contain"
+								/>
+							</div>
+							<div class="p-4">
+								<h4 class="font-semibold">{element.displayName}</h4>
+								<code class="text-xs text-base-content/70">{element.package}</code>
+								<p class="text-sm text-base-content/70 mt-1">{capture.caption}</p>
+							</div>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/each}
 	</section>
 
 	<!-- Example Screenshots -->
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Element Examples</h2>
+	<section class="mb-20 scroll-mt-24" id="views-gallery">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Authoring and evaluation views</h2>
 
-		<div class="grid md:grid-cols-2 gap-8">
-			<div>
-				<h3 class="text-xl font-semibold mb-3">Categorize - Authoring View</h3>
-				<img
-					src="{base}/images/landing/pie-sample-categorize-author.png"
-					alt="Categorize Authoring"
-					class="rounded-lg shadow-lg border border-base-300"
-				/>
-				<p class="text-sm text-base-content/60 mt-2">
-					WYSIWYG authoring interface for configuring a drag-and-drop categorization question
-				</p>
-			</div>
-
-			<div>
-				<h3 class="text-xl font-semibold mb-3">Categorize - Student View</h3>
-				<img
-					src="{base}/images/landing/pie-sample-categorize.png"
-					alt="Categorize Student View"
-					class="rounded-lg shadow-lg border border-base-300"
-				/>
-				<p class="text-sm text-base-content/60 mt-2">
-					Interactive student experience: drag items into labeled categories
-				</p>
-			</div>
-
-			<div>
-				<h3 class="text-xl font-semibold mb-3">Hotspot - Authoring View</h3>
-				<img
-					src="{base}/images/landing/pie-sample-hotspot-author.png"
-					alt="Hotspot Authoring"
-					class="rounded-lg shadow-lg border border-base-300"
-				/>
-				<p class="text-sm text-base-content/60 mt-2">
-					Define clickable regions on images during authoring
-				</p>
-			</div>
-
-			<div>
-				<h3 class="text-xl font-semibold mb-3">Hotspot - Evaluation View</h3>
-				<img
-					src="{base}/images/landing/pie-sample-hotspot-eval.png"
-					alt="Hotspot Evaluation"
-					class="rounded-lg shadow-lg border border-base-300"
-				/>
-				<p class="text-sm text-base-content/60 mt-2">
-					Show correct and incorrect responses with visual feedback
-				</p>
-			</div>
+		<div class="grid md:grid-cols-2 gap-8 items-start">
+			{#each SAMPLE_CAPTURES as sample (sample.file)}
+				<figure class="card bg-base-100 border border-base-300 shadow-sm overflow-hidden">
+					<div class="capture-frame p-3 border-b border-base-300">
+						<img
+							src={elementsImage(sample.file)}
+							alt={sample.alt}
+							width={sample.width}
+							height={sample.height}
+							loading="lazy"
+							class="w-full h-auto"
+						/>
+					</div>
+					<figcaption class="p-4">
+						<h3 class="font-semibold">{sample.title}</h3>
+						<p class="text-sm text-base-content/70 mt-1">{sample.caption}</p>
+					</figcaption>
+				</figure>
+			{/each}
 		</div>
 	</section>
 
 	<!-- Building Custom Elements -->
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Building Custom Elements</h2>
-		<div class="prose max-w-none mb-6">
-			<p class="text-lg">
-				Organizations with specialized assessment needs can build custom elements following PIE's established patterns.
-			</p>
-		</div>
+	<section class="mb-20 scroll-mt-24" id="custom-elements">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Building custom elements</h2>
+		<p class="text-lg max-w-4xl mb-6">
+			Organizations with assessment needs the library does not cover can build their own elements on
+			the same contract.
+		</p>
 		<div class="grid md:grid-cols-2 gap-6">
 			<div class="card bg-base-100 border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary mb-2">Element Boilerplate</h4>
-					<p class="text-sm text-base-content/70">Templates and scaffolding for new question types, following PIE conventions for delivery, authoring, and controllers.</p>
+					<h3 class="font-bold text-primary mb-2">
+						<ExternalLink href={DOCS.elementContract}>Element contract</ExternalLink>
+					</h3>
+					<p class="text-sm text-base-content/70">
+						The delivery, authoring, print and controller contract every element implements.
+					</p>
 				</div>
 			</div>
 			<div class="card bg-base-100 border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary mb-2">Shared Component Libraries</h4>
-					<p class="text-sm text-base-content/70">Reusable UI components for prompts, feedback displays, math rendering, and other common patterns.</p>
+					<h3 class="font-bold text-primary mb-2">Shared component libraries</h3>
+					<p class="text-sm text-base-content/70">
+						The <code>@pie-lib/*</code> packages in pie-elements-ng provide prompts, feedback displays,
+						math rendering and other common parts.
+					</p>
 				</div>
 			</div>
 			<div class="card bg-base-100 border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary mb-2">Controller Interface</h4>
-					<p class="text-sm text-base-content/70">Framework-agnostic JavaScript/TypeScript interface for scoring and validation logic with <code>model()</code> and <code>outcome()</code> functions.</p>
+					<h3 class="font-bold text-primary mb-2">Controller interface</h3>
+					<p class="text-sm text-base-content/70">
+						Framework-independent functions: <code>model()</code>, <code>outcome()</code> for elements
+						that score, and
+						<code>createDefaultModel()</code>, <code>validate()</code> and
+						<code>createCorrectResponseSession()</code> for authoring and review.
+					</p>
 				</div>
 			</div>
 			<div class="card bg-base-100 border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary mb-2">30+ Reference Implementations</h4>
-					<p class="text-sm text-base-content/70">Comprehensive examples demonstrating patterns. Custom elements integrate seamlessly, gaining accessibility support, print rendering, and player compatibility.</p>
+					<h3 class="font-bold text-primary mb-2">{ELEMENT_COUNT} reference implementations</h3>
+					<p class="text-sm text-base-content/70">
+						A custom element that follows the element contract loads in the PIE players like a
+						built-in one; its accessibility and print view are its own to implement.
+					</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- Accessibility -->
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Accessibility Throughout</h2>
-		<div class="prose max-w-none mb-6">
-			<p class="text-lg">
-				Every PIE element includes accessibility features as part of its core implementation &mdash; not optional configurations added as an afterthought.
-			</p>
-		</div>
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm"><strong>Keyboard navigation</strong> &mdash; tab navigation, arrow keys, enter/space activation</span>
-			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm"><strong>Screen reader support</strong> &mdash; semantic HTML with proper ARIA labels, roles, and live regions</span>
-			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm"><strong>Focus management</strong> &mdash; logical focus order and visible focus indicators</span>
-			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm"><strong>High contrast</strong> &mdash; elements render correctly with high-contrast themes</span>
-			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm"><strong>Magnification</strong> &mdash; interfaces scale properly when users increase font sizes</span>
-			</div>
-		</div>
+	<section class="mb-20 scroll-mt-24" id="accessibility">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Accessibility</h2>
+		<p class="text-lg text-base-content/70 max-w-4xl">
+			Accessibility is part of each element's delivery view, built to WCAG 2.2 AA and covered by automated axe
+			checks. <a href="{base}/docs/accessibility/" class="link link-primary">Accessibility</a> covers the
+			criteria, read-aloud, catalogs and accommodations.
+		</p>
 	</section>
 
-	<!-- Playground Link -->
+	<!-- Elements demo link -->
 	<section class="mb-12">
 		<div class="card bg-primary text-primary-content shadow-xl">
 			<div class="card-body">
-				<h2 class="card-title text-2xl mb-4">Try More Examples</h2>
+				<h2 class="card-title text-2xl mb-4">Try more examples</h2>
 				<p class="mb-4">
-					Want to explore more question types? Open the interactive PIE Elements Demo with
-					pre-configured examples you can try.
+					The PIE elements demo runs every element with sample items, in delivery and authoring.
 				</p>
 				<div class="card-actions">
-					<a
-						href={elementsDemoUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="btn btn-secondary"
-					>
-						Open Elements Demo
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-							/>
-						</svg>
-					</a>
+					<ExternalLink href={SITES.elementsDemo} class="btn btn-secondary">
+						Open the elements demo
+					</ExternalLink>
 				</div>
 			</div>
 		</div>
 	</section>
-
-	<!-- Next Steps -->
-	<section>
-		<h2 class="text-3xl font-bold text-secondary mb-6">Next Steps</h2>
-
-		<div class="grid md:grid-cols-2 gap-6">
-			<a
-				href="{base}/docs/element-structure/"
-				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
-			>
-				<div class="card-body">
-					<h3 class="card-title text-primary">
-						Element Structure
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M13 7l5 5m0 0l-5 5m5-5H6"
-							/>
-						</svg>
-					</h3>
-					<p class="text-sm">
-						Deep dive into element architecture: delivery UI, author UI, controllers, and how the
-						pieces work together.
-					</p>
-				</div>
-			</a>
-
-			<a
-				href="{base}/docs/players/"
-				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
-			>
-				<div class="card-body">
-					<h3 class="card-title text-primary">
-						Players
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M13 7l5 5m0 0l-5 5m5-5H6"
-							/>
-						</svg>
-					</h3>
-					<p class="text-sm">
-						Four-level player hierarchy: item players render questions, section players compose pages, assessment players orchestrate navigation.
-					</p>
-				</div>
-			</a>
-		</div>
-	</section>
 </div>
+
+<style>
+	/* Captures are screenshots of the light theme: keep their frame light in both site themes. */
+	.capture-frame {
+		background: #ffffff;
+	}
+</style>

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import ExternalLink from './ExternalLink.svelte';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
+	import { DEVELOPER_GUIDES, SITES } from '$lib/data/links';
+	import { DOCS_NAV } from '$lib/data/docs-nav';
 
 	let mobileMenuOpen = $state(false);
 	let docsDropdownOpen = $state(false);
-	const elementsDemoUrl = 'https://elements.pie-framework.org/';
+	const elementsDemoUrl = SITES.elementsDemo;
 
 	let currentPath = $state('');
 
@@ -36,21 +39,29 @@
 				<li>
 					<details bind:open={docsDropdownOpen}>
 						<summary class="font-medium" aria-current={currentPath.includes('/docs/') ? 'page' : undefined}>Docs</summary>
-						<ul class="bg-base-100 rounded-box shadow-lg z-50 w-56 p-2">
-							<li><a href="{base}/docs/items-elements/" onclick={closeDropdown}>Items & Elements</a></li>
-							<li><a href="{base}/docs/element-structure/" onclick={closeDropdown}>Element Structure</a></li>
-							<li><a href="{base}/docs/players/" onclick={closeDropdown}>Players</a></li>
-							<li><a href="{base}/docs/toolkit/" onclick={closeDropdown}>Assessment Toolkit</a></li>
-							<li><a href="{base}/docs/integration/" onclick={closeDropdown}>Integration</a></li>
-							<li><a href="{base}/docs/qti/" onclick={closeDropdown}>QTI & Standards</a></li>
-						</ul>
+						<div class="bg-base-100 rounded-box shadow-lg z-50 w-[36rem] p-4 grid grid-cols-2 gap-x-4 gap-y-2">
+							{#each DOCS_NAV as group (group.title)}
+								<ul class="menu menu-sm w-full p-0">
+									<li class="menu-title">{group.title}</li>
+									{#each group.pages as docsPage (docsPage.path)}
+										<li><a href="{base}{docsPage.path}" onclick={closeDropdown}>{docsPage.label}</a></li>
+									{/each}
+								</ul>
+							{/each}
+							<ul class="menu menu-sm w-full p-0">
+								<li class="menu-title">Developer guides</li>
+								{#each DEVELOPER_GUIDES as guide (guide.href)}
+									<li><ExternalLink href={guide.href} class="">{guide.label}</ExternalLink></li>
+								{/each}
+							</ul>
+						</div>
 					</details>
 				</li>
 				<li><a href={elementsDemoUrl} class="font-medium">Elements Demo</a></li>
 			</ul>
 			<ThemeSwitcher />
 			<a
-				href="https://github.com/pie-framework"
+				href={SITES.githubOrg}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-ghost btn-sm btn-circle"
@@ -63,7 +74,7 @@
 				</svg>
 			</a>
 			<a
-				href="https://pieframework.slack.com"
+				href={SITES.slack}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="btn btn-ghost btn-sm btn-circle"
@@ -104,21 +115,26 @@
 	<div id="mobile-menu" class="lg:hidden bg-base-100 shadow-lg">
 		<ul class="menu menu-vertical px-4 py-2">
 			<li><a href="{base}/about/">About</a></li>
+			{#each DOCS_NAV as group (group.title)}
+				<li>
+					<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">{group.title}</span>
+				</li>
+				{#each group.pages as docsPage (docsPage.path)}
+					<li><a href="{base}{docsPage.path}" onclick={() => (mobileMenuOpen = false)}>{docsPage.label}</a></li>
+				{/each}
+			{/each}
 			<li>
-				<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">Documentation</span>
+				<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">Developer guides</span>
 			</li>
-			<li><a href="{base}/docs/items-elements/">Items & Elements</a></li>
-			<li><a href="{base}/docs/element-structure/">Element Structure</a></li>
-			<li><a href="{base}/docs/players/">Players</a></li>
-			<li><a href="{base}/docs/toolkit/">Assessment Toolkit</a></li>
-			<li><a href="{base}/docs/integration/">Integration</a></li>
-			<li><a href="{base}/docs/qti/">QTI & Standards</a></li>
+			{#each DEVELOPER_GUIDES as guide (guide.href)}
+				<li><ExternalLink href={guide.href} class="">{guide.label}</ExternalLink></li>
+			{/each}
 			<li class="mt-2"><a href={elementsDemoUrl}>Elements Demo</a></li>
 			<li class="mt-2">
 				<div class="flex gap-2 items-center">
 					<ThemeSwitcher />
 					<a
-						href="https://github.com/pie-framework"
+						href={SITES.githubOrg}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="btn btn-ghost btn-sm flex-1"
@@ -131,7 +147,7 @@
 						GitHub
 					</a>
 					<a
-						href="https://pieframework.slack.com"
+						href={SITES.slack}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="btn btn-ghost btn-sm flex-1"

@@ -1,16 +1,9 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import { mdsvex } from 'mdsvex';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	extensions: ['.svelte', '.md'],
-	preprocess: [
-		vitePreprocess(),
-		mdsvex({
-			extensions: ['.md']
-		})
-	],
+	preprocess: vitePreprocess(),
 
 	kit: {
 		adapter: adapter({
@@ -20,13 +13,14 @@ const config = {
 			precompress: false,
 			strict: false
 		}),
+		// Served at the root of pie-framework.org (static/CNAME), so no base path.
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '/pie-website-ng' : ''
+			base: ''
 		},
 		prerender: {
 			entries: ['*'],
-			handleMissingId: 'warn',
-			handleHttpError: 'warn'
+			handleMissingId: 'fail',
+			handleHttpError: 'fail'
 		}
 	}
 };

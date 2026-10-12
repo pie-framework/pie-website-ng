@@ -1,356 +1,404 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import Diagram from '$lib/components/Diagram.svelte';
+	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import { DOCS } from '$lib/data/links';
+
+	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
+	const TOOL_REGISTRY = `${PP}packages/assessment-toolkit/docs/TOOL_REGISTRY.md`;
+	const DEFAULT_TOOL_LOADERS_README = `${PP}packages/default-tool-loaders/README.md`;
+	const TTS_ARCH = `${PP}docs/accessibility/tts-architecture.md`;
+
+	const tools = [
+		{
+			name: 'Calculator',
+			ids: ['calculator'],
+			placement: 'item',
+			does: 'Basic, scientific and graphing modes over Desmos, GeoGebra or Cortex.',
+			universal: true
+		},
+		{
+			name: 'Text-to-speech',
+			ids: ['textToSpeech'],
+			placement: 'item, passage',
+			does: 'Reads content aloud with synchronized highlighting.',
+			universal: true
+		},
+		{
+			name: 'Answer eliminator',
+			ids: ['answerEliminator'],
+			placement: 'item',
+			does: 'Strikes through (the default) or masks choices the learner rules out.',
+			universal: true
+		},
+		{
+			name: 'Annotation toolbar',
+			ids: ['annotationToolbar'],
+			placement: 'item, passage',
+			does: 'Highlights selected text in yellow, pink, blue or green, underlines it, reads it aloud, or clears marks.',
+			universal: true
+		},
+		{
+			name: 'Line reader',
+			ids: ['lineReader'],
+			placement: 'section, item, passage',
+			does: 'A movable, resizable reading window that obscures the lines around it.',
+			universal: true
+		},
+		{
+			name: 'Ruler',
+			ids: ['ruler'],
+			placement: 'section, item',
+			does: 'Inches or centimeters; drag and rotate.',
+			universal: true
+		},
+		{
+			name: 'Protractor',
+			ids: ['protractor'],
+			placement: 'section, item',
+			does: 'Drag to position; rotates about its vertex.',
+			universal: true
+		},
+		{
+			name: 'Graph',
+			ids: ['graph'],
+			placement: 'section, item',
+			does: 'A coordinate grid for graphing.',
+			universal: true
+		},
+		{
+			name: 'Periodic table',
+			ids: ['periodicTable'],
+			placement: 'section, item',
+			does: 'Element details, category filtering and keyboard navigation.',
+			universal: true
+		},
+		{
+			name: 'Theme',
+			ids: ['theme'],
+			placement: 'section',
+			does: 'A color-scheme picker over ten accessible schemes, applied through <pie-theme>; the choice is kept per section and attempt.',
+			universal: true
+		},
+		{
+			name: 'Dictionaries',
+			ids: ['dictionary', 'pictureDictionary', 'dictionarySpanish', 'pictureDictionarySpanish'],
+			placement: 'section, item, passage',
+			does: 'Word and picture lookup against an endpoint the host supplies; PIE ships none.',
+			universal: false
+		},
+		{
+			name: 'Transcript',
+			ids: ['transcript'],
+			placement: 'not placeable; content regions activate it',
+			does: "Shows the text of an audio prompt from the content's transcript catalog, to learners granted it or always when the catalog says so.",
+			universal: false
+		}
+	];
 </script>
 
 <svelte:head>
 	<title>Assessment Toolkit - PIE Framework</title>
-	<meta name="description" content="PIE Assessment Toolkit: ToolkitCoordinator, calculator, text-to-speech, annotation, accommodations, and accessibility services for assessment delivery." />
+	<meta
+		name="description"
+		content="The PIE assessment toolkit: the ToolkitCoordinator and its services, tool placement, the packaged tools, tool policy, theming and accessibility."
+	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
-	<div class="text-center mb-16">
-		<h1 class="text-5xl font-bold text-secondary mb-4">Assessment Toolkit</h1>
-		<p class="text-xl text-base-content/70 max-w-3xl mx-auto">
-			Composable services for tools, accommodations, and accessibility &mdash; coordinated through a centralized ToolkitCoordinator.
+<div>
+	<!-- Header -->
+	<div class="mb-12">
+		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Assessment toolkit</h1>
+		<p class="text-xl text-base-content/70 max-w-4xl">
+			The assessment toolkit coordinates tools, read-aloud, highlighting, accessibility catalogs and
+			tool policy for one assessment context. Hosts use it through the section player, or directly
+			with <code>&lt;pie-assessment-toolkit&gt;</code> around item players.
 		</p>
 	</div>
 
 	<!-- ToolkitCoordinator -->
-	<section class="mb-20">
+	<section class="mb-20 scroll-mt-24" id="coordinator">
 		<h2 class="text-3xl font-bold text-secondary mb-6">ToolkitCoordinator</h2>
-		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
-			The toolkit is designed as a toolkit, not a framework &mdash; products use only what they need. Rendering items without tools? Use just the player. Need calculator and ruler? Add those tools. Full accommodation support with TTS, high contrast, and PNP profiles? Integrate the complete toolkit.
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			<code>ToolkitCoordinator</code> owns the toolkit services for one assessment context. The section
+			player and <code>&lt;pie-assessment-toolkit&gt;</code> build one from their <code>tools</code>
+			configuration; a host that needs the services directly constructs its own and passes it as
+			<code>runtime.coordinator</code>. A host that renders several sections passes the same coordinator
+			to each; otherwise each layout builds its own and disposes it on unmount.
 		</p>
 
-		<div class="my-8">
-			<img
-				src="{base}/images/docs/toolkit/pie-toolkit-coordinator.jpg"
-				alt="ToolkitCoordinator orchestration of toolkit services and section player integration"
-				width="845"
-				height="461"
-				loading="lazy"
-				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
-			/>
-		</div>
+		<Diagram
+			name="toolkit-coordinator"
+			width={1028}
+			height={728}
+			alt="The host constructs a ToolkitCoordinator from a tool registry and hands it to the section player layouts or pie-assessment-toolkit. The coordinator owns six services and holds the tool policy engine privately."
+		/>
 
-		<div class="alert alert-info mb-8">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-			<span>The <strong>ToolkitCoordinator</strong> is the single entry point for initializing and managing all toolkit services. Products construct one coordinator per assessment context, configure tools and providers, and pass it to the section player. The coordinator owns all services as public properties.</span>
-		</div>
-
-		<p class="text-base-content/70 mb-4">
-			When connected to the section player, the toolkit automatically handles:
-		</p>
-		<ul class="space-y-2 mb-8">
-			<li class="flex items-start gap-3">
-				<svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span>SSML extraction from passages and items for text-to-speech</span>
-			</li>
-			<li class="flex items-start gap-3">
-				<svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span>Accessibility catalog lifecycle (add on load, clear on navigation)</span>
-			</li>
-			<li class="flex items-start gap-3">
-				<svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span>TTS tools rendered inline in passage and item headers</span>
-			</li>
-			<li class="flex items-start gap-3">
-				<svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span>Z-index layering coordination for overlapping tools</span>
-			</li>
-			<li class="flex items-start gap-3">
-				<svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span>Text highlighting synchronized with TTS playback</span>
-			</li>
-		</ul>
-	</section>
-
-	<!-- Tool Placement -->
-	<section class="mb-20">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Tool Placement</h2>
-		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
-			Tools are placed at three levels &mdash; section, item, and passage &mdash; each with its own toolbar scope. The ToolkitCoordinator drives which tools appear where based on a placement configuration.
-		</p>
-
-		<div class="my-8">
-			<img
-				src="{base}/images/docs/toolkit/pie-tool-placement-levels.jpg"
-				alt="Tool placement levels: section toolbar, per-item toolbars, and per-passage toolbars"
-				width="845"
-				height="461"
-				loading="lazy"
-				class="rounded-lg shadow-lg w-full max-w-4xl mx-auto"
-			/>
-		</div>
-
-		<div class="grid md:grid-cols-3 gap-6">
-			<div class="card bg-primary/5 border border-primary/20">
-				<div class="card-body">
-					<h4 class="font-bold text-primary mb-2">Section Level</h4>
-					<p class="text-sm text-base-content/70 mb-3">
-						Available across all items in the section. Typically reference tools that persist while the student works through the page.
-					</p>
-					<div class="flex flex-wrap gap-2">
-						<span class="badge badge-outline badge-sm">Calculator</span>
-						<span class="badge badge-outline badge-sm">Graph</span>
-						<span class="badge badge-outline badge-sm">Ruler</span>
-						<span class="badge badge-outline badge-sm">Protractor</span>
-						<span class="badge badge-outline badge-sm">Periodic Table</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="card bg-secondary/5 border border-secondary/20">
-				<div class="card-body">
-					<h4 class="font-bold text-secondary mb-2">Item Level</h4>
-					<p class="text-sm text-base-content/70 mb-3">
-						A playback button or control in each item header. Tools that operate on a specific question's content.
-					</p>
-					<div class="flex flex-wrap gap-2">
-						<span class="badge badge-outline badge-sm">Text-to-Speech</span>
-						<span class="badge badge-outline badge-sm">Answer Eliminator</span>
-						<span class="badge badge-outline badge-sm">Calculator</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="card bg-base-200 border border-base-300">
-				<div class="card-body">
-					<h4 class="font-bold mb-2">Passage Level</h4>
-					<p class="text-sm text-base-content/70 mb-3">
-						Tools that let students interact with reading content &mdash; highlighting, annotation, and playback.
-					</p>
-					<div class="flex flex-wrap gap-2">
-						<span class="badge badge-outline badge-sm">Text-to-Speech</span>
-						<span class="badge badge-outline badge-sm">Annotation</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Tool Categories -->
-	<section class="mb-20">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Tool Categories</h2>
-
-		<div class="grid md:grid-cols-3 gap-8">
-			<div>
-				<h3 class="text-xl font-bold text-primary mb-4">Reference Tools</h3>
-				<p class="text-sm text-base-content/70 mb-4">Utilities for calculations and measurements</p>
-				<ul class="space-y-3">
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Calculator</strong> &mdash; Scientific and graphing modes (Desmos integration)
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Ruler</strong> &mdash; Metric and imperial with drag, rotation, and snap-to-grid
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Protractor</strong> &mdash; Angle measurement with center origin alignment
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Graph</strong> &mdash; Interactive coordinate plane
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Periodic Table</strong> &mdash; Chemistry reference
-						</div>
-					</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="text-xl font-bold text-primary mb-4">Accessibility Tools</h3>
-				<p class="text-sm text-base-content/70 mb-4">Supporting students with diverse needs</p>
-				<ul class="space-y-3">
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Line Reader</strong> &mdash; Masks content to highlight individual lines
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Color Schemes</strong> &mdash; High-contrast and accessibility overlays
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Theme</strong> &mdash; Student-facing light/dark mode toggle
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Text-to-Speech</strong> &mdash; Word-level highlighting synchronized to audio (Web Speech API, AWS Polly, Google TTS)
-						</div>
-					</li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="text-xl font-bold text-primary mb-4">Student Support</h3>
-				<p class="text-sm text-base-content/70 mb-4">Enhancing comprehension and interaction</p>
-				<ul class="space-y-3">
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Annotation Toolbar</strong> &mdash; Highlight text in multiple colors, create underlines and notes
-						</div>
-					</li>
-					<li class="flex items-start gap-2">
-						<span class="text-primary font-bold flex-shrink-0">&bull;</span>
-						<div>
-							<strong>Answer Eliminator</strong> &mdash; Cross out multiple-choice options to narrow choices
-						</div>
-					</li>
-				</ul>
-				<div class="mt-6 p-4 bg-base-200 rounded-lg">
-					<p class="text-sm text-base-content/70">
-						Each tool is a Web Component, usable independently or composed into toolbars. The toolkit treats tools and accommodations uniformly &mdash; same placement model, same lifecycle. The policy distinction (which student sees which tools) is the host application's responsibility.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Service Architecture -->
-	<section class="mb-20">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Service Architecture</h2>
-		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
-			The ToolkitCoordinator manages five core services that work together, plus additional resolvers and theming infrastructure.
+		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
+			ToolkitCoordinator owns six services and a policy engine. The services are public properties;
+			the policy engine is private, queried through <code>decideToolPolicy</code> and
+			<code>decideFeaturePolicy</code> and observed through <code>onPolicyChange</code>.
 		</p>
 
 		<div class="grid md:grid-cols-2 gap-6 mb-8">
-			<div class="card bg-base-100 shadow border border-base-300">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary text-lg mb-2">ToolCoordinator</h4>
-					<p class="text-sm text-base-content/70">
-						Manages z-index layering and visibility for tools. When multiple tools are open, it ensures proper stacking order with reserved z-index ranges across five layers: content, non-modal tools, modal tools, control handles, and highlight infrastructure.
+					<h3 class="card-title text-primary text-lg">toolCoordinator</h3>
+					<p class="text-sm">
+						Stacks open tools in reserved z-index layers: content 0–999, tools 1000–1999, modal tools
+						2000–2999, control handles 3000–3999 and highlights 4000–4999.
 					</p>
 				</div>
 			</div>
-
-			<div class="card bg-base-100 shadow border border-base-300">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary text-lg mb-2">HighlightCoordinator</h4>
-					<p class="text-sm text-base-content/70">
-						Manages simultaneous highlighting using the CSS Custom Highlight API. Students can have persistent annotations in one color while TTS highlights the current word in another. Zero DOM mutation &mdash; preserves framework virtual DOM and is screen reader friendly.
+					<h3 class="card-title text-primary text-lg">highlightCoordinator</h3>
+					<p class="text-sm">
+						Paints read-aloud and annotation highlights through the CSS Custom Highlight API without
+						changing the DOM; browsers without that API get no highlights.
 					</p>
 				</div>
 			</div>
-
-			<div class="card bg-base-100 shadow border border-base-300">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary text-lg mb-2">TTSService</h4>
-					<p class="text-sm text-base-content/70">
-						Text-to-speech with synchronized word-level highlighting. Abstracts TTS providers (browser Web Speech API, AWS Polly, Google TTS) behind a pluggable provider interface, handles playback state, and coordinates with HighlightCoordinator for real-time word tracking.
+					<h3 class="card-title text-primary text-lg">ttsService</h3>
+					<p class="text-sm">
+						Speaks content through browser speech or a server provider and drives the read-aloud
+						highlight. Server synthesis runs on the host's server with
+						<code>@pie-players/tts-server-core</code> and <code>tts-server-polly</code>,
+						<code>tts-server-google</code> or <code>tts-server-sc</code>; <code>@pie-players/tts-client-server</code> is the browser
+						side. <ExternalLink href={TTS_ARCH}>TTS architecture</ExternalLink>
 					</p>
 				</div>
 			</div>
-
-			<div class="card bg-base-100 shadow border border-base-300">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary text-lg mb-2">AccessibilityCatalogResolver</h4>
-					<p class="text-sm text-base-content/70">
-						Resolves QTI 3.0-inspired accessibility catalogs with priority ordering: extracted SSML from content, item-level catalogs, and assessment-level catalogs. Supports pre-recorded audio, sign language videos, and braille alternatives.
+					<h3 class="card-title text-primary text-lg">catalogResolver</h3>
+					<p class="text-sm">
+						Resolves accessibility catalogs by id, item-level before assessment-level; an authored
+						catalog beats one a preprocessing step extracted into <code>extractedCatalogs</code>. Catalog
+						types: spoken, sign-language, transcript, braille, tactile, simplified-language,
+						audio-description, extended-description.
 					</p>
 				</div>
 			</div>
-
-			<div class="card bg-base-100 shadow border border-base-300">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary text-lg mb-2">ElementToolStateStore</h4>
-					<p class="text-sm text-base-content/70">
-						Manages per-element ephemeral tool state (annotation colors, calculator position) using globally unique composite keys. Tool state is client-only and not sent to the server for scoring.
+					<h3 class="card-title text-primary text-lg">elementToolStateStore</h3>
+					<p class="text-sm">
+						Holds per-element tool state such as answer eliminations, annotations and the chosen color
+						scheme, keyed <code class="[overflow-wrap:anywhere]">assessmentId:sectionId:attemptId:itemId:elementId</code>.
+						It stays out of the scoring session; hosts persist it through the
+						<code>loadToolState</code>/<code>saveToolState</code> hooks.
 					</p>
 				</div>
 			</div>
-
-			<div class="card bg-base-100 shadow border border-base-300">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
 				<div class="card-body">
-					<h4 class="font-bold text-primary text-lg mb-2">PNPToolResolver</h4>
-					<p class="text-sm text-base-content/70">
-						Resolves tool availability using QTI 3.0 Personal Needs Profile (PNP) precedence rules: district blocks, test administration overrides, item restrictions, item requirements, district requirements, and PNP supports.
+					<h3 class="card-title text-primary text-lg">toolProviderRegistry</h3>
+					<p class="text-sm">
+						Registers and initializes tool providers (read-aloud, calculator) from the tool registry;
+						a failed initialization raises a <code>provider-init</code> framework error.
 					</p>
 				</div>
 			</div>
 		</div>
 
-		<div class="card bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20">
-			<div class="card-body">
-				<h4 class="font-bold text-lg mb-2">&lt;pie-theme&gt; Element</h4>
-				<p class="text-base-content/70">
-					Provides theming through a provider adapter model. It reads CSS variables from an existing design system (a DaisyUI adapter is built in) and maps them to PIE's <code>--pie-*</code> custom properties. Color schemes are accessibility overlays applied on top of the base theme, and students can select their preferred scheme at runtime via the color scheme toolbar tool.
-				</p>
-			</div>
-		</div>
+		<h3 class="text-2xl font-bold text-primary mb-4">Inside the section player</h3>
+		<ul class="list-disc pl-6 space-y-2 text-base-content/80 max-w-4xl">
+			<li>
+				Resolves accessibility catalogs for the items on the page, registering them on load and
+				clearing them on navigation.
+			</li>
+			<li>Renders read-aloud controls in item and passage headers where placement puts them.</li>
+			<li>Stacks open tools in reserved z-index layers.</li>
+			<li>Highlights the text being read.</li>
+		</ul>
 	</section>
 
-	<!-- WCAG 2.2 Compliance -->
-	<section class="mb-20">
-		<h2 class="text-3xl font-bold text-secondary mb-6">WCAG 2.2 Compliance</h2>
-		<p class="text-lg text-base-content/70 mb-8 max-w-4xl">
-			The toolkit's accessibility features target WCAG 2.2 Level AA compliance:
+	<!-- Tool placement -->
+	<section class="mb-20 scroll-mt-24" id="placement">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Tool placement</h2>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Hosts place tools at three levels through <code>tools.placement</code>: <code>section</code> (the
+			section toolbar), <code>item</code> (each item header) and <code>passage</code> (each passage
+			header). Placement is empty by default: a tool appears only where placement puts it and policy
+			allows it. The section toolbar renders when <code>show-toolbar</code> is set.
 		</p>
 
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm">All tools keyboard navigable with visible focus indicators</span>
+		<Diagram
+			name="section-tool-placement"
+			width={1008}
+			height={678}
+			alt="Lists in tools.placement for each level feed the section, passage and item toolbars of a layout with show-toolbar set. Item and passage toolbars keep only the tools their content can use, and a tool placed at a level it does not support is a configuration error."
+			caption="Placement puts a tool at a level; policy decides whether the learner gets it. Placement is empty by default."
+		/>
+
+		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
+			<code class="[overflow-wrap:anywhere]">SECTION_PLAYER_PREFERRED_TOOL_PLACEMENT</code> from
+			<code>@pie-players/pie-default-tool-loaders</code> is the opt-in arrangement:
+		</p>
+
+		<div class="grid md:grid-cols-3 gap-6 mb-6">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
+				<div class="card-body">
+					<h3 class="card-title text-primary text-lg">section</h3>
+					<p class="text-sm">Theme, graph, periodic table, line reader, ruler, protractor and the four dictionaries.</p>
+				</div>
 			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm">Screen readers receive announcements via ARIA live regions</span>
+			<div class="card bg-base-100 shadow-lg border border-base-300">
+				<div class="card-body">
+					<h3 class="card-title text-primary text-lg">item</h3>
+					<p class="text-sm">Calculator, text-to-speech, answer eliminator and annotation toolbar.</p>
+				</div>
 			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm">Color contrast meets 4.5:1 minimum ratios</span>
-			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm">Interactive elements meet 44x44 pixel touch targets</span>
-			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm">Time limits include warnings and extension mechanisms</span>
-			</div>
-			<div class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-				<svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-				<span class="text-sm">Alternative text and captions for content accessibility</span>
+			<div class="card bg-base-100 shadow-lg border border-base-300">
+				<div class="card-body">
+					<h3 class="card-title text-primary text-lg">passage</h3>
+					<p class="text-sm">Text-to-speech and annotation toolbar.</p>
+				</div>
 			</div>
 		</div>
+
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Each tool declares the levels it supports. A tool placed at a level it does not support fails
+			validation (<code>tools.unsupportedLevel</code>), which throws under the default
+			<code>tool-config-strictness</code> of <code>error</code>; the calculator and answer eliminator are
+			item-only. The annotation toolbar has no button: placing it enables the selection highlighter at
+			that level. Item and passage toolbars drop a tool their content cannot use; the answer eliminator,
+			for one, leaves items without a choice interaction.
+		</p>
 	</section>
 
-	<!-- Navigation -->
-	<section class="mb-12">
-		<div class="flex flex-col md:flex-row gap-4 justify-between">
-			<a href="{base}/docs/players/" class="btn btn-outline btn-secondary">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-				</svg>
-				Players
-			</a>
-			<a href="{base}/docs/integration/" class="btn btn-primary">
-				Integration & Architecture
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-				</svg>
-			</a>
+	<!-- Tools -->
+	<section class="mb-20 scroll-mt-24" id="tools">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Tools</h2>
+		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
+			<code>createPackagedToolRegistry()</code> from <code>@pie-players/pie-default-tool-loaders</code>
+			registers the 15 packaged tools; the section player uses it when the host passes no registry.
+		</p>
+
+		<div class="overflow-x-auto mb-8">
+			<table class="table table-zebra">
+				<thead>
+					<tr>
+						<th>Tool</th>
+						<th>Id</th>
+						<th>Placement</th>
+						<th>What it does</th>
+						<th>Universal profile</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each tools as tool (tool.name)}
+						<tr>
+							<th class="font-semibold">{tool.name}</th>
+							<td>
+								<div class="flex flex-col items-start gap-1">
+									{#each tool.ids as id (id)}<code>{id}</code>{/each}
+								</div>
+							</td>
+							<td>{tool.placement}</td>
+							<td class="min-w-64">{tool.does}</td>
+							<td>{tool.universal ? 'Yes' : 'No'}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
 		</div>
+
+		<div class="grid md:grid-cols-2 gap-6 mb-6">
+			<div class="card bg-base-100 shadow-lg border border-base-300">
+				<div class="card-body">
+					<h3 class="card-title text-primary text-lg">Calculator</h3>
+					<p class="text-sm">
+						One calculator tool, <code>pie-tool-calculator</code>, with basic, scientific and graphing
+						modes over three providers: Desmos (the default; needs an API key and, for production, a
+						Desmos Commercial Tier license), GeoGebra (commercial use needs a GeoGebra license) and
+						Cortex (MIT, bundled, works offline with no key). The calculator is an item-level tool.
+					</p>
+				</div>
+			</div>
+			<div class="card bg-base-100 shadow-lg border border-base-300">
+				<div class="card-body">
+					<h3 class="card-title text-primary text-lg">Text-to-speech</h3>
+					<p class="text-sm">
+						Reads item and passage content aloud with synchronized highlighting: sentence-level with
+						browser speech, word-level from speech marks with Amazon Polly, Google Cloud Standard and
+						WaveNet voices, or SchoolCity. Server speech needs a host synthesis endpoint, <code>/api/tts</code> by
+						default; if the server client fails to load, the toolkit reports a
+						<code>provider-init</code> framework error and falls back to browser speech.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Sign language is its own package, <code>@pie-players/pie-tool-sign-language</code>, which docks a
+			signed translation of an item beside its content.
+		</p>
+		<p class="text-base text-base-content/70 max-w-4xl">
+			<ExternalLink href={TOOL_REGISTRY}>Tool registry</ExternalLink> ·
+			<ExternalLink href={DEFAULT_TOOL_LOADERS_README}>Default tool loaders README</ExternalLink> ·
+			<ExternalLink href={DOCS.toolkitReadme}>Assessment toolkit README</ExternalLink>
+		</p>
+	</section>
+
+	<!-- Tool policy -->
+	<section class="mb-20 scroll-mt-24" id="policy">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Tool policy</h2>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Tools and accommodations share one registry, one placement model and one lifecycle. The host
+			supplies profile, district and test-administration inputs; the toolkit resolves them through its
+			precedence order. Which tools a learner gets is program policy. With no profile, placement alone
+			decides. <code>createUniversalPersonalNeedsProfile()</code> grants the ten universal packaged
+			tools; dictionaries, transcripts and sign language are accommodations a profile or district
+			setting grants.
+		</p>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Tool availability resolves through eight precedence levels, highest first: district block,
+			test-administration withdrawal, item restriction, profile prohibition, test-administration grant,
+			item requirement, district requirement, profile support. Item restrictions and requirements apply
+			to item-level decisions. Supports and prohibitions follow AfA PNP 3.0; the ordering is PIE's.
+		</p>
+
+		<Diagram
+			name="tool-policy-precedence"
+			width={656}
+			height={768}
+			alt="Eight rungs from district block to PNP support; the first rung that applies decides whether a placed tool is withdrawn or granted, and the result is a ToolPolicyDecision."
+		/>
+
+		<p class="text-lg text-base-content/70 max-w-4xl">
+			Host gates apply first, in order: a tool must be placed, its provider must not be disabled, a
+			<code>tools.policy.allowed</code> list must name it, and <code>tools.policy.blocked</code> must not.
+			A tool that fails a gate is withdrawn before the ladder runs.
+			A source added with <code>registerPolicySource</code> can only narrow the result, and
+			<code>toolContextResolvers</code> can hide a tool or add parameters without re-enabling one. A grant
+			never places a tool.
+		</p>
+	</section>
+
+	<!-- Item player with the toolkit -->
+	<section class="mb-20 scroll-mt-24" id="item-scope">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Item players with the toolkit</h2>
+		<p class="text-lg text-base-content/70 max-w-4xl">
+			<code>&lt;pie-assessment-toolkit&gt;</code> needs no section: around item players, each in a
+			<code>&lt;pie-item-scope&gt;</code> with a <code>&lt;pie-item-toolbar&gt;</code>, it provides the
+			same tools, policy and services.
+			<a href="{base}/docs/integration/#item-player-with-toolkit" class="link link-primary">Item player with toolkit</a>
+			shows the pattern.
+		</p>
+	</section>
+
+	<!-- Theming and accessibility -->
+	<section class="mb-20 scroll-mt-24" id="related">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Theming and accessibility</h2>
+		<p class="text-lg text-base-content/70 max-w-4xl">
+			The theme tool switches color schemes through <code>&lt;pie-theme&gt;</code>, covered under
+			<a href="{base}/docs/theming/" class="link link-primary">Theming</a>. Read-aloud, catalogs, sign
+			language and the PNP mapping are covered under
+			<a href="{base}/docs/accessibility/" class="link link-primary">Accessibility</a>.
+		</p>
 	</section>
 </div>
