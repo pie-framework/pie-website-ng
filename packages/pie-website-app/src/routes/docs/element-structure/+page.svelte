@@ -117,7 +117,7 @@ export async function outcome(question, session, env) {
 					<p class="text-sm mb-2">Plain functions that shape and score the element's data.</p>
 					<ul class="text-sm list-disc list-inside space-y-1">
 						<li><code>model()</code> builds the view model</li>
-						<li><code>outcome()</code> scores a session</li>
+						<li><code>outcome()</code> scores a session, in elements that score</li>
 						<li>Runs in the browser by default, or on your server in hosted mode</li>
 						<li>Framework-independent JavaScript</li>
 					</ul>
@@ -221,8 +221,10 @@ export async function outcome(question, session, env) {
 					<div class="card-body p-4">
 						<h4 class="font-bold text-primary"><code>outcome(model, session, env)</code></h4>
 						<p class="text-sm">
-							Scores a session and returns <code>{'{ score, empty }'}</code>, with score between 0 and 1.
+							Scores a session and returns an object whose <code>score</code> lies between 0 and 1.
 							Partial credit applies where the element supports it and partial scoring is enabled.
+							Optional: content elements such as passage define none, and manually scored elements
+							return 0 with a note.
 						</p>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 /**
  * The PIE element catalog: the single source for every element count, list and
  * grid on the site. Mirrors the published @pie-element/* packages from
- * pie-elements-ng (versions are npm `latest` on 2026-10-10). Update this table
+ * pie-elements-ng (versions are npm `latest` on 2026-10-11). Update this table
  * when an element is added, removed or released; the pages derive from it.
  */
 
@@ -60,60 +60,60 @@ type Row = [
 
 // views: D = delivery, A = authoring, P = print, C = controller
 const ROWS: Row[] = [
-	['multiple-choice', 'Multiple Choice', 'Choice and text', 'React', '14.0.3', 'DAPC'],
-	['ebsr', 'EBSR', 'Choice and text', 'React', '15.0.3', 'DAPC'],
-	['inline-dropdown', 'Inline Dropdown', 'Choice and text', 'React', '11.0.3', 'DAC'],
-	['mc-populated-blank', 'MC Populated Blank', 'Choice and text', 'Svelte', '0.3.3', 'DAPC'],
-	['select-text', 'Select Text', 'Choice and text', 'React', '14.0.3', 'DAPC'],
-	['likert', 'Likert', 'Choice and text', 'React', '5.0.3', 'DAC'],
-	['matrix', 'Matrix', 'Choice and text', 'React', '5.0.3', 'DAC'],
+	['multiple-choice', 'Multiple Choice', 'Choice and text', 'React', '14.0.4', 'DAPC'],
+	['ebsr', 'EBSR', 'Choice and text', 'React', '15.0.4', 'DAPC'],
+	['inline-dropdown', 'Inline Dropdown', 'Choice and text', 'React', '11.0.4', 'DAC'],
+	['mc-populated-blank', 'MC Populated Blank', 'Choice and text', 'Svelte', '0.3.4', 'DAPC'],
+	['select-text', 'Select Text', 'Choice and text', 'React', '14.0.4', 'DAPC'],
+	['likert', 'Likert', 'Choice and text', 'React', '5.0.4', 'DAC'],
+	['matrix', 'Matrix', 'Choice and text', 'React', '5.0.4', 'DAC'],
 	[
 		'explicit-constructed-response',
 		'Explicit Constructed Response',
 		'Choice and text',
 		'React',
-		'12.0.3',
+		'12.0.4',
 		'DAPC'
 	],
-	['simple-cloze', 'Simple Cloze', 'Choice and text', 'Svelte', '0.1.7', 'DAPC'],
-	['extended-text-entry', 'Extended Text Entry', 'Choice and text', 'React', '16.0.3', 'DAPC'],
+	['simple-cloze', 'Simple Cloze', 'Choice and text', 'Svelte', '0.1.8', 'DAPC'],
+	['extended-text-entry', 'Extended Text Entry', 'Choice and text', 'React', '16.0.4', 'DAPC'],
 
-	['math-inline', 'Math Inline', 'Math', 'React', '13.0.3', 'DAPC'],
-	['math-templated', 'Math Templated', 'Math', 'React', '8.0.3', 'DAPC'],
-	['fraction-model', 'Fraction Model', 'Math', 'React', '7.0.3', 'DAC'],
+	['math-inline', 'Math Inline', 'Math', 'React', '13.0.4', 'DAPC'],
+	['math-templated', 'Math Templated', 'Math', 'React', '8.0.4', 'DAPC'],
+	['fraction-model', 'Fraction Model', 'Math', 'React', '7.0.4', 'DAC'],
 
-	['match', 'Match', 'Matching and ordering', 'React', '13.0.3', 'DAC'],
-	['match-list', 'Match List', 'Matching and ordering', 'React', '8.0.3', 'DC'],
-	['categorize', 'Categorize', 'Matching and ordering', 'React', '14.0.3', 'DAC'],
-	['placement-ordering', 'Placement Ordering', 'Matching and ordering', 'React', '15.0.3', 'DAC'],
-	['drag-in-the-blank', 'Drag In The Blank', 'Matching and ordering', 'React', '11.0.3', 'DAC'],
+	['match', 'Match', 'Matching and ordering', 'React', '13.0.4', 'DAC'],
+	['match-list', 'Match List', 'Matching and ordering', 'React', '8.0.4', 'DC'],
+	['categorize', 'Categorize', 'Matching and ordering', 'React', '14.0.4', 'DAC'],
+	['placement-ordering', 'Placement Ordering', 'Matching and ordering', 'React', '15.0.4', 'DAC'],
+	['drag-in-the-blank', 'Drag In The Blank', 'Matching and ordering', 'React', '11.0.4', 'DAC'],
 	[
 		'image-cloze-association',
 		'Image Cloze Association',
 		'Matching and ordering',
 		'React',
-		'11.0.3',
+		'11.0.4',
 		'DAC'
 	],
-	['venn-classification', 'Venn Classification', 'Matching and ordering', 'Svelte', '0.1.4', 'DAC'],
+	['venn-classification', 'Venn Classification', 'Matching and ordering', 'Svelte', '0.1.5', 'DAC'],
 
-	['graphing', 'Graphing', 'Graphs and images', 'React', '11.0.3', 'DAC'],
-	['graphing-solution-set', 'Graphing Solution Set', 'Graphs and images', 'React', '7.0.3', 'DAC'],
-	['number-line', 'Number Line', 'Graphs and images', 'React', '14.0.3', 'DAC'],
-	['charting', 'Charting', 'Graphs and images', 'React', '13.0.3', 'DAC'],
-	['hotspot', 'Hotspot', 'Graphs and images', 'React', '12.0.3', 'DAC'],
-	['drawing-response', 'Drawing Response', 'Graphs and images', 'React', '13.0.3', 'DAC'],
+	['graphing', 'Graphing', 'Graphs and images', 'React', '11.0.4', 'DAC'],
+	['graphing-solution-set', 'Graphing Solution Set', 'Graphs and images', 'React', '7.0.4', 'DAC'],
+	['number-line', 'Number Line', 'Graphs and images', 'React', '14.0.4', 'DAC'],
+	['charting', 'Charting', 'Graphs and images', 'React', '13.0.4', 'DAC'],
+	['hotspot', 'Hotspot', 'Graphs and images', 'React', '12.0.4', 'DAC'],
+	['drawing-response', 'Drawing Response', 'Graphs and images', 'React', '13.0.4', 'DAC'],
 
-	['passage', 'Passage', 'Content and scoring', 'React', '8.0.3', 'DAPC', 'content'],
-	['video-stimulus', 'Video Stimulus', 'Content and scoring', 'Svelte', '0.1.2', 'DAC', 'content'],
-	['rubric', 'Rubric', 'Content and scoring', 'React', '9.0.3', 'DAPC', 'rubric'],
-	['complex-rubric', 'Complex Rubric', 'Content and scoring', 'React', '8.0.3', 'DAPC', 'rubric'],
+	['passage', 'Passage', 'Content and scoring', 'React', '8.0.4', 'DAPC', 'content'],
+	['video-stimulus', 'Video Stimulus', 'Content and scoring', 'Svelte', '0.1.3', 'DAC', 'content'],
+	['rubric', 'Rubric', 'Content and scoring', 'React', '9.0.4', 'DAPC', 'rubric'],
+	['complex-rubric', 'Complex Rubric', 'Content and scoring', 'React', '8.0.4', 'DAPC', 'rubric'],
 	[
 		'multi-trait-rubric',
 		'Multi Trait Rubric',
 		'Content and scoring',
 		'React',
-		'9.0.3',
+		'9.0.4',
 		'DAC',
 		'rubric'
 	]

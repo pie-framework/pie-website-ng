@@ -165,7 +165,7 @@ coordinator.subscribeSectionLifecycleEvents({ listener: (event) => console.log(e
 	const controllerExample = `const player = document.querySelector('pie-section-player-splitpane');
 const controller = await player.waitForSectionController(5000); // null at the timeout
 
-const unsubscribe = controller?.subscribe((event) => {
+const unsubscribe = controller?.subscribe?.((event) => {
   switch (event.type) {
     case 'item-session-data-changed':
       saveSection(controller.getSession());
