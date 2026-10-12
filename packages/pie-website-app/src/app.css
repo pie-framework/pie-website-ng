@@ -33,6 +33,8 @@
 	/* Smooth scrolling */
 	html {
 		scroll-behavior: smooth;
+		/* Anchored headings clear the sticky header. */
+		scroll-padding-top: 6rem;
 	}
 
 	/* Better font rendering */
@@ -56,6 +58,8 @@
 		padding: 0.125rem 0.375rem !important;
 		border-radius: 0.25rem !important;
 		font-size: 0.875em !important;
+		/* Long API names wrap instead of widening the page on phones. */
+		overflow-wrap: anywhere;
 	}
 
 	/* Enhanced focus styles for accessibility */

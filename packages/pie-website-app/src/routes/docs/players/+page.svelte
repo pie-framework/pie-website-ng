@@ -99,7 +99,7 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
+<div>
 	<!-- Header -->
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Players and building blocks</h1>
@@ -227,7 +227,7 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
 			<code>session-changed</code> carries the whole item session; store it, and assign it back to
 			<code>player.session</code> to resume. <code>provideScore()</code> runs each element's scoring
-			controller in the browser and returns one result per scored model.
+			controller in the browser and returns one slot per model, <code>undefined</code> where an element has no outcome. A hosted player scores nothing in the browser.
 		</p>
 		<div class="mb-8">
 			<CodeEditor value={scoreExample} language="javascript" readonly={true} height="140px" />
@@ -266,13 +266,13 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 					<tr>
 						<th>Loaded by</th>
 						<td>Script injection</td>
-						<td>Native <code>import()</code> by URL or import map</td>
+						<td>Native <code>import()</code>; the player adds an import map for shared React</td>
 						<td>The host bundle; the player asserts registration</td>
 					</tr>
 					<tr>
 						<th>Host setup</th>
 						<td>None</td>
-						<td>None, or an import map</td>
+						<td>None; needs a browser with import-map support</td>
 						<td><code>registerPreloadedElements(...)</code> before mount; <code>math.assetRoot</code></td>
 					</tr>
 					<tr>
@@ -325,7 +325,7 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 			<span>
 				Hosted delivery works with any strategy: a hosted player renders server-processed models and
 				runs no element controller in the browser.
-				<a href="{base}/docs/integration/#security" class="link">Security model</a>
+				<a href="{base}/docs/security/#graded-delivery" class="link">Graded delivery</a>
 			</span>
 		</div>
 
@@ -585,23 +585,5 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 		<p class="text-base text-base-content/70 max-w-4xl">
 			<ExternalLink href={ASSESSMENT_PLAYER_README}>Assessment player README</ExternalLink>
 		</p>
-	</section>
-
-	<!-- Navigation -->
-	<section class="mb-12">
-		<div class="flex flex-col md:flex-row gap-4 justify-between">
-			<a href="{base}/docs/element-structure/" class="btn btn-outline btn-secondary">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-				</svg>
-				Element Structure
-			</a>
-			<a href="{base}/docs/toolkit/" class="btn btn-primary">
-				Assessment Toolkit
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-				</svg>
-			</a>
-		</div>
 	</section>
 </div>

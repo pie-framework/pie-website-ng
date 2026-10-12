@@ -2,6 +2,7 @@
 	import { base } from '$app/paths';
 	import ExternalLink from './ExternalLink.svelte';
 	import { DEVELOPER_GUIDES, SITES } from '$lib/data/links';
+	import { DOCS_PAGES } from '$lib/data/docs-nav';
 
 	const elementsDemoUrl = SITES.elementsDemo;
 </script>
@@ -19,12 +20,9 @@
 			<div>
 				<h3 class="footer-title opacity-100 text-lg font-bold mb-3">Documentation</h3>
 				<nav aria-label="Documentation" class="flex flex-col gap-2">
-					<a href="{base}/docs/items-elements/" class="link link-hover text-sm">Items & Elements</a>
-					<a href="{base}/docs/element-structure/" class="link link-hover text-sm">Element Structure</a>
-					<a href="{base}/docs/players/" class="link link-hover text-sm">Players</a>
-					<a href="{base}/docs/toolkit/" class="link link-hover text-sm">Assessment Toolkit</a>
-					<a href="{base}/docs/integration/" class="link link-hover text-sm">Integration</a>
-					<a href="{base}/docs/qti/" class="link link-hover text-sm">QTI & Standards</a>
+					{#each DOCS_PAGES as docsPage (docsPage.path)}
+						<a href="{base}{docsPage.path}" class="link link-hover text-sm">{docsPage.label}</a>
+					{/each}
 				</nav>
 			</div>
 
