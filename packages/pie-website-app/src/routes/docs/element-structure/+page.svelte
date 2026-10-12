@@ -47,7 +47,7 @@ export async function outcome(question, session, env) {
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
+<div>
 	<!-- Header -->
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Structure of PIE Elements</h1>
@@ -438,50 +438,6 @@ export async function outcome(question, session, env) {
 					interfaces, and for the npm package surface players rely on.
 				</p>
 			</div>
-		</div>
-	</section>
-
-	<!-- Next Steps -->
-	<section>
-		<h2 class="text-3xl font-bold text-secondary mb-6">Next steps</h2>
-
-		<div class="grid md:grid-cols-2 gap-6">
-			<a
-				href="{base}/docs/items-elements/"
-				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
-			>
-				<div class="card-body">
-					<h3 class="card-title text-primary">
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-						</svg>
-						Items and Elements
-					</h3>
-					<p class="text-sm">
-						How elements compose into items, the element library, and a live item player.
-					</p>
-				</div>
-			</a>
-
-			<a
-				href="{base}/docs/players/"
-				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
-			>
-				<div class="card-body">
-					<h3 class="card-title text-primary">
-						Players
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-						</svg>
-					</h3>
-					<p class="text-sm">
-						The item player renders one item. Section players lay out a page of items and passages,
-						with tools and accommodations from the assessment toolkit. The print player renders
-						printable versions. Hosts assemble these into their own assessment experience; a
-						reference assessment player shows one way to do it.
-					</p>
-				</div>
-			</a>
 		</div>
 	</section>
 </div>

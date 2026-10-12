@@ -25,6 +25,15 @@
 		return { element, capture: deliveryCapture(name), href: `${base}/docs/items-elements/#${groupAnchor(element.group)}` };
 	});
 
+	const capabilities = [
+		{ label: 'Accessibility', path: '/docs/accessibility/', text: 'WCAG 2.2 AA, PNP-driven accommodations, read-aloud with highlighting, sign-language alternates.' },
+		{ label: 'Theming', path: '/docs/theming/', text: 'One theme element, ten accessible color schemes, font scaling, adapters for your design system.' },
+		{ label: 'Localization', path: '/docs/localization/', text: 'Interface locale, content language and authored language alternates.' },
+		{ label: 'Timed media', path: '/docs/timed-media/', text: 'Video stimuli whose playback reveals items and pauses for answers.' },
+		{ label: 'Security & CSP', path: '/docs/security/', text: 'Server-side scoring with stripped models, and the origins a strict CSP must allow.' },
+		{ label: 'Instrumentation', path: '/docs/instrumentation/', text: 'Telemetry into your own observability backend, and debugger panels for development.' }
+	];
+
 	const groups = elementsByGroup().map(({ group, elements }) => ({
 		group,
 		count: elements.length,
@@ -94,6 +103,7 @@
 				<ExternalLink href={SITES.elementsDemo} class="btn btn-outline btn-secondary"
 					>Try the elements</ExternalLink
 				>
+				<a href="{base}/docs/" class="btn btn-ghost">Read the docs</a>
 			</div>
 		</div>
 	</div>
@@ -212,7 +222,7 @@
 						Each element's controller turns the stored model into a view model for the current mode and role. By default the controllers run in the browser, which suits practice and formative use. A hosted player loads elements without their controllers and renders models your server has processed; with answer keys stripped from those models and scores computed on your server, neither the key nor the scoring logic reaches the browser.
 					</p>
 					<p class="text-sm mt-2">
-						<ExternalLink href={DOCS.security}>Security model</ExternalLink>
+						<a href="{base}/docs/security/#graded-delivery" class="link link-primary">Graded delivery</a>
 					</p>
 				</div>
 			</div>
@@ -250,6 +260,20 @@
 					</p>
 				</div>
 			</div>
+		</div>
+
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+			{#each capabilities as cap (cap.path)}
+				<a
+					href="{base}{cap.path}"
+					class="card bg-base-100 shadow-sm border border-base-300 hover:border-primary hover:shadow-md transition"
+				>
+					<div class="card-body p-5">
+						<h3 class="card-title text-lg text-primary">{cap.label}</h3>
+						<p class="text-sm text-base-content/70">{cap.text}</p>
+					</div>
+				</a>
+			{/each}
 		</div>
 	</div>
 </section>

@@ -208,11 +208,11 @@ await controller?.applySession(savedSession, { mode: 'replace' });`;
 	<title>Integration - PIE Framework</title>
 	<meta
 		name="description"
-		content="Integrating PIE: the four integration patterns, what PIE and the host each own, the section controller API, and the security model for graded delivery."
+		content="Integrating PIE: the four integration patterns, what PIE and the host each own, the section controller API, delivery backends and element controllers."
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
+<div>
 	<!-- Header -->
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Integration</h1>
@@ -396,48 +396,16 @@ await controller?.applySession(savedSession, { mode: 'replace' });`;
 		</p>
 	</section>
 
-	<!-- Security -->
-	<section class="mb-20 scroll-mt-24" id="security">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Security model</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<!-- Delivery and scoring -->
+	<section class="mb-20 scroll-mt-24" id="delivery">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Delivery and scoring</h2>
+		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
 			By default the whole item config reaches the browser, answer keys included, and the element
-			controllers run there. That fits practice and formative delivery. Graded delivery needs three
-			things together: hosted mode, models stripped of answer keys on your server, and outcomes your
-			server computes.
+			controllers run there. That fits practice and formative delivery. Graded delivery runs the
+			controllers on a server instead; <a href="{base}/docs/security/#graded-delivery" class="link link-primary"
+				>Security</a
+			> sets out what it takes.
 		</p>
-
-		<Diagram
-			name="element-controller-flow"
-			width={1028}
-			height={724}
-			alt="Where the controller runs. By default the authored model, answer key included, reaches the browser and the item player runs the element controller there. In hosted delivery, set with hosted or a delivery backend, a controller on your server sends only view models to the browser."
-		/>
-
-		<div class="grid md:grid-cols-2 gap-6 mb-6">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Hosted delivery</h3>
-					<p class="text-sm">
-						Set <code>hosted</code> on <code>&lt;pie-item-player&gt;</code>, or enable
-						<code>runtime.player.backend.delivery</code> on the section player, which sets
-						<code>hosted</code> on every embedded item player. Item players then load no element
-						controllers and render the server-processed models they are given; your server runs
-						<code>model()</code> and <code>outcome()</code> and keeps the answer key.
-					</p>
-				</div>
-			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Stripped models</h3>
-					<p class="text-sm">
-						The host strips answer-key and rationale fields from the models on its server; the players
-						pass models through as they receive them, and nothing in PIE redacts them.
-						<code>env.role</code> and <code>env.mode</code> shape what an element shows and are no
-						security boundary.
-					</p>
-				</div>
-			</div>
-		</div>
 
 		<h3 class="text-2xl font-bold text-primary mb-4">Delivery backend</h3>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
@@ -470,23 +438,5 @@ await controller?.applySession(savedSession, { mode: 'replace' });`;
 			<ExternalLink href={DOCS.security}>Security</ExternalLink> ·
 			<ExternalLink href={DOCS.elementContract}>Element contract</ExternalLink>
 		</p>
-	</section>
-
-	<!-- Navigation -->
-	<section class="mb-12">
-		<div class="flex flex-col md:flex-row gap-4 justify-between">
-			<a href="{base}/docs/toolkit/" class="btn btn-outline btn-secondary">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-				</svg>
-				Assessment Toolkit
-			</a>
-			<a href="{base}/docs/qti/" class="btn btn-primary">
-				QTI & Standards
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-				</svg>
-			</a>
-		</div>
 	</section>
 </div>

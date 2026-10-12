@@ -7,9 +7,7 @@
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const TOOL_REGISTRY = `${PP}packages/assessment-toolkit/docs/TOOL_REGISTRY.md`;
 	const DEFAULT_TOOL_LOADERS_README = `${PP}packages/default-tool-loaders/README.md`;
-	const THEME_README = `${PP}packages/theme/README.md`;
 	const TTS_ARCH = `${PP}docs/accessibility/tts-architecture.md`;
-	const WCAG_BASELINE = `${PP}docs/wcag/wcag-2.2-aa-baseline.md`;
 
 	const tools = [
 		{
@@ -107,7 +105,7 @@
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
+<div>
 	<!-- Header -->
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Assessment toolkit</h1>
@@ -119,7 +117,7 @@
 	</div>
 
 	<!-- ToolkitCoordinator -->
-	<section class="mb-20" id="coordinator">
+	<section class="mb-20 scroll-mt-24" id="coordinator">
 		<h2 class="text-3xl font-bold text-secondary mb-6">ToolkitCoordinator</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
 			<code>ToolkitCoordinator</code> owns the toolkit services for one assessment context. The section
@@ -219,7 +217,7 @@
 	</section>
 
 	<!-- Tool placement -->
-	<section class="mb-20" id="placement">
+	<section class="mb-20 scroll-mt-24" id="placement">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Tool placement</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
 			Hosts place tools at three levels through <code>tools.placement</code>: <code>section</code> (the
@@ -273,7 +271,7 @@
 	</section>
 
 	<!-- Tools -->
-	<section class="mb-20" id="tools">
+	<section class="mb-20 scroll-mt-24" id="tools">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Tools</h2>
 		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
 			<code>createPackagedToolRegistry()</code> from <code>@pie-players/pie-default-tool-loaders</code>
@@ -326,8 +324,8 @@
 					<h3 class="card-title text-primary text-lg">Text-to-speech</h3>
 					<p class="text-sm">
 						Reads item and passage content aloud with synchronized highlighting: sentence-level with
-						browser speech, word-level from speech marks with Amazon Polly or Google Cloud Standard and
-						WaveNet voices. Server speech needs a host synthesis endpoint, <code>/api/tts</code> by
+						browser speech, word-level from speech marks with Amazon Polly, Google Cloud Standard and
+						WaveNet voices, or SchoolCity. Server speech needs a host synthesis endpoint, <code>/api/tts</code> by
 						default; if the server client fails to load, the toolkit reports a
 						<code>provider-init</code> framework error and falls back to browser speech.
 					</p>
@@ -347,7 +345,7 @@
 	</section>
 
 	<!-- Tool policy -->
-	<section class="mb-20" id="policy">
+	<section class="mb-20 scroll-mt-24" id="policy">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Tool policy</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
 			Tools and accommodations share one registry, one placement model and one lifecycle. The host
@@ -372,8 +370,9 @@
 		/>
 
 		<p class="text-lg text-base-content/70 max-w-4xl">
-			Host gates apply first: a tool whose provider is disabled, that <code>tools.policy.blocked</code>
-			lists, or that a <code>tools.policy.allowed</code> list omits is withdrawn before the ladder runs.
+			Host gates apply first, in order: a tool must be placed, its provider must not be disabled, a
+			<code>tools.policy.allowed</code> list must name it, and <code>tools.policy.blocked</code> must not.
+			A tool that fails a gate is withdrawn before the ladder runs.
 			A source added with <code>registerPolicySource</code> can only narrow the result, and
 			<code>toolContextResolvers</code> can hide a tool or add parameters without re-enabling one. A grant
 			never places a tool.
@@ -381,7 +380,7 @@
 	</section>
 
 	<!-- Item player with the toolkit -->
-	<section class="mb-20" id="item-scope">
+	<section class="mb-20 scroll-mt-24" id="item-scope">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Item players with the toolkit</h2>
 		<p class="text-lg text-base-content/70 max-w-4xl">
 			<code>&lt;pie-assessment-toolkit&gt;</code> needs no section: around item players, each in a
@@ -392,51 +391,14 @@
 		</p>
 	</section>
 
-	<!-- Theming -->
-	<section class="mb-20" id="theming">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Theming</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			<code>&lt;pie-theme&gt;</code> merges four layers, each overwriting the tokens the one before it
-			set: the base theme (<code>light</code>, <code>dark</code> or <code>auto</code>), the provider
-			adapter output (a DaisyUI adapter is built in), the resolved color scheme and explicit
-			<code>variables</code>. The theme tool sets the scheme at runtime.
+	<!-- Theming and accessibility -->
+	<section class="mb-20 scroll-mt-24" id="related">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Theming and accessibility</h2>
+		<p class="text-lg text-base-content/70 max-w-4xl">
+			The theme tool switches color schemes through <code>&lt;pie-theme&gt;</code>, covered under
+			<a href="{base}/docs/theming/" class="link link-primary">Theming</a>. Read-aloud, catalogs, sign
+			language and the PNP mapping are covered under
+			<a href="{base}/docs/accessibility/" class="link link-primary">Accessibility</a>.
 		</p>
-		<p class="text-base text-base-content/70 max-w-4xl">
-			<ExternalLink href={DOCS.theming}>How theming works</ExternalLink> ·
-			<ExternalLink href={THEME_README}>Theme README</ExternalLink>
-		</p>
-	</section>
-
-	<!-- Accessibility -->
-	<section class="mb-20" id="accessibility">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Accessibility</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			PIE targets WCAG 2.2 AA; the
-			<ExternalLink href={WCAG_BASELINE}>WCAG 2.2 AA baseline</ExternalLink> sets interactive targets at
-			24 by 24 CSS pixels or larger (2.5.8). Content carries its own alternatives: alternative text in
-			the markup, captions and transcripts in the video stimulus element, and transcripts through the
-			transcript tool and accessibility catalogs.
-		</p>
-		<p class="text-base text-base-content/70 max-w-4xl">
-			<ExternalLink href={DOCS.accessibility}>Accessibility documentation</ExternalLink>
-		</p>
-	</section>
-
-	<!-- Navigation -->
-	<section class="mb-12">
-		<div class="flex flex-col md:flex-row gap-4 justify-between">
-			<a href="{base}/docs/players/" class="btn btn-outline btn-secondary">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-				</svg>
-				Players
-			</a>
-			<a href="{base}/docs/integration/" class="btn btn-primary">
-				Integration
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-				</svg>
-			</a>
-		</div>
 	</section>
 </div>

@@ -19,10 +19,10 @@
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
-	<div class="text-center mb-16">
+<div>
+	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">QTI & Standards</h1>
-		<p class="text-xl text-base-content/70 max-w-3xl mx-auto">
+		<p class="text-xl text-base-content/70 max-w-4xl">
 			PIE integrates with established assessment standards through dedicated tooling and
 			QTI-inspired architectural patterns.
 		</p>
@@ -223,19 +223,6 @@
 					</p>
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<!-- Navigation -->
-	<section class="mb-12">
-		<div class="flex flex-col md:flex-row gap-4 justify-between">
-			<a href="{base}/docs/integration/" class="btn btn-outline btn-secondary">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-				</svg>
-				Integration & Architecture
-			</a>
-			<ExternalLink href={SITES.elementsDemo} class="btn btn-primary">Elements Demo</ExternalLink>
 		</div>
 	</section>
 </div>
