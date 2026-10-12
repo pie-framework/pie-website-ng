@@ -38,7 +38,7 @@
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-7xl">
+<div>
 	<!-- Header -->
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">PIE Items and Elements</h1>
@@ -49,7 +49,7 @@
 	</div>
 
 	<!-- Introduction -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="elements-and-items">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Elements and items</h2>
 
 		<div class="grid md:grid-cols-2 gap-8 mb-8">
@@ -141,7 +141,7 @@
 	</section>
 
 	<!-- Element Architecture -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="views">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Element views and controller</h2>
 
 		<p class="text-lg max-w-4xl mb-8">
@@ -227,7 +227,7 @@
 	</section>
 
 	<!-- Live Interactive Example -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="demo">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Live demo</h2>
 
 		<p class="text-lg max-w-4xl mb-6">
@@ -245,7 +245,7 @@
 	</section>
 
 	<!-- Item Configuration Structure -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="item-config">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Item configuration</h2>
 
 		<p class="text-lg max-w-4xl mb-2">An item config has three parts that reference each other.</p>
@@ -264,7 +264,8 @@
 				<div class="card-body">
 					<h3 class="card-title text-primary text-lg">1. elements</h3>
 					<p class="text-sm text-base-content/80">
-						Maps each tag in <code>markup</code> to an npm package at an exact version. The player loads
+						Maps each tag in <code>markup</code> to an npm package version. Pin exact versions; preloaded builds and
+						<code>requireExactVersions</code> enforce them. The player loads
 						the packages and registers each tag under a versioned name, such as
 						<code>multiple-choice--version-{elementVersion('multiple-choice').replaceAll('.', '-')}</code>,
 						so several versions can share a page.
@@ -315,7 +316,7 @@
 	</section>
 
 	<!-- Delivering an item -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="delivering">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Delivering an item</h2>
 
 		<p class="text-lg max-w-4xl mb-4">
@@ -359,7 +360,7 @@
 	</section>
 
 	<!-- Element library -->
-	<section class="mb-12" id="element-library">
+	<section class="mb-20 scroll-mt-24" id="element-library">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Element library</h2>
 
 		<p class="text-lg max-w-4xl mb-4">
@@ -406,7 +407,7 @@
 	</section>
 
 	<!-- Example Screenshots -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="views-gallery">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Authoring and evaluation views</h2>
 
 		<div class="grid md:grid-cols-2 gap-8 items-start">
@@ -432,7 +433,7 @@
 	</section>
 
 	<!-- Building Custom Elements -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="custom-elements">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Building custom elements</h2>
 		<p class="text-lg max-w-4xl mb-6">
 			Organizations with assessment needs the library does not cover can build their own elements on
@@ -482,31 +483,13 @@
 	</section>
 
 	<!-- Accessibility -->
-	<section class="mb-12">
+	<section class="mb-20 scroll-mt-24" id="accessibility">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Accessibility</h2>
-		<p class="text-lg max-w-4xl mb-2">
-			Built to WCAG 2.2 AA. Automated axe checks cover every element and the item, section and assessment players, and their findings
-			are being worked down; manual assistive-technology validation is in progress.
+		<p class="text-lg text-base-content/70 max-w-4xl">
+			Accessibility is part of each element's delivery view, built to WCAG 2.2 AA and covered by automated axe
+			checks. <a href="{base}/docs/accessibility/" class="link link-primary">Accessibility</a> covers the
+			criteria, read-aloud, catalogs and accommodations.
 		</p>
-		<p class="text-lg max-w-4xl mb-6">
-			Accessibility is part of each element's delivery view. See the
-			<ExternalLink href={DOCS.accessibility}>accessibility documentation</ExternalLink>.
-		</p>
-		<ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-			{#each [['Keyboard navigation', 'tab navigation, arrow keys, enter/space activation'], ['Screen reader support', 'semantic HTML with ARIA labels, roles and live regions'], ['Focus management', 'logical focus order and visible focus indicators'], ['High contrast', 'color schemes reach every element through theme tokens, with known gaps in graph and chart rendering'], ['Magnification', 'interfaces scale when users increase font sizes']] as [title, detail] (title)}
-				<li class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
-					<svg
-						class="w-5 h-5 text-success mt-0.5 flex-shrink-0"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-						><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg
-					>
-					<span class="text-sm"><strong>{title}</strong> &mdash; {detail}</span>
-				</li>
-			{/each}
-		</ul>
 	</section>
 
 	<!-- Elements demo link -->
@@ -523,61 +506,6 @@
 					</ExternalLink>
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<!-- Next Steps -->
-	<section>
-		<h2 class="text-3xl font-bold text-secondary mb-6">Next steps</h2>
-
-		<div class="grid md:grid-cols-2 gap-6">
-			<a
-				href="{base}/docs/element-structure/"
-				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
-			>
-				<div class="card-body">
-					<h3 class="card-title text-primary">
-						Element Structure
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M13 7l5 5m0 0l-5 5m5-5H6"
-							/>
-						</svg>
-					</h3>
-					<p class="text-sm">
-						The element contract: delivery and authoring views, the controller, events, and where the
-						controller runs.
-					</p>
-				</div>
-			</a>
-
-			<a
-				href="{base}/docs/players/"
-				class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow"
-			>
-				<div class="card-body">
-					<h3 class="card-title text-primary">
-						Players
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M13 7l5 5m0 0l-5 5m5-5H6"
-							/>
-						</svg>
-					</h3>
-					<p class="text-sm">
-						The item player renders one item. Section players lay out a page of items and passages,
-						with tools and accommodations from the assessment toolkit. The print player renders
-						printable versions. Hosts assemble these into their own assessment experience; a
-						reference assessment player shows one way to do it.
-					</p>
-				</div>
-			</a>
 		</div>
 	</section>
 </div>
