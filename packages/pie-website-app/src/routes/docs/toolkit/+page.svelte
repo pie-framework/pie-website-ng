@@ -167,8 +167,8 @@
 					<p class="text-sm">
 						Speaks content through browser speech or a server provider and drives the read-aloud
 						highlight. Server synthesis runs on the host's server with
-						<code>@pie-players/tts-server-core</code> and <code>tts-server-polly</code> or
-						<code>tts-server-google</code>; <code>@pie-players/tts-client-server</code> is the browser
+						<code>@pie-players/tts-server-core</code> and <code>tts-server-polly</code>,
+						<code>tts-server-google</code> or <code>tts-server-sc</code>; <code>@pie-players/tts-client-server</code> is the browser
 						side. <ExternalLink href={TTS_ARCH}>TTS architecture</ExternalLink>
 					</p>
 				</div>

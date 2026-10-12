@@ -131,7 +131,8 @@
 				<div class="card-body">
 					<h3 class="font-bold text-primary mb-2">QTI 3.0 mappings</h3>
 					<p class="text-sm text-base-content/70">
-						About 170 QTI 3.0 element-name mappings, each with its attribute-name mappings.
+						About 170 QTI 3.0 element-name mappings and about 120 attribute-name mappings, with a
+						camelCase fallback for other attributes.
 					</p>
 				</div>
 			</div>
@@ -143,16 +144,17 @@
 		<h2 class="text-3xl font-bold text-secondary mb-6">Bidirectional transforms</h2>
 		<p class="text-lg text-base-content/70 max-w-4xl">
 			Organizations with existing QTI content can import it into PIE, and PIE content can be exported
-			to QTI. The transform engine is plugin-based and extensible. Each direction embeds the source it
-			read, and the reverse transform returns that source verbatim: a round trip is lossless, and an
-			item edited after import exports in its original form.
+			to QTI. The transform engine is plugin-based and extensible. For items, each direction embeds the
+			source it read and the reverse transform returns that source verbatim, so an item round-trips
+			losslessly. The embedded source wins over later edits: an item edited after import exports in its
+			original form. Assessments carry no embedded source, so their round trips can lose data.
 		</p>
 
 		<Diagram
 			name="qti-to-pie"
 			width={1028}
 			height={412}
-			alt="QTI 2.x items and IMS content packages pass through @pie-qti/to-pie into a PIE item config, which the item player renders; @pie-qti/pie-to-qti2 writes the config back as QTI 2.2 items with an IMS manifest. Each direction embeds its source, and the built-in transformers reject QTI 3.0 items."
+			alt="QTI 2.x items and IMS content packages pass through @pie-qti/to-pie into a PIE item config, which the item player renders; @pie-qti/pie-to-qti2 writes the config back as QTI 2.2 items with an IMS manifest. Each direction embeds the item source, and the built-in transformers reject QTI 3.0 items."
 		/>
 
 		<div class="grid md:grid-cols-3 gap-6 mb-8">
@@ -160,8 +162,8 @@
 				<div class="card-body">
 					<h3 class="font-bold text-primary mb-2">QTI &rarr; PIE</h3>
 					<p class="text-sm text-base-content/70">
-						Transform QTI 2.1 and 2.2 XML, as single items or IMS content packages, into PIE item
-						configs, with plugin-based extraction of interactions, response declarations and processing
+						Transform QTI 2.1 and 2.2 XML, as items, assessment tests, passages, stimuli or IMS content
+						packages, into PIE configs, with plugin-based extraction of interactions, response declarations and processing
 						rules. The built-in transformers reject QTI 3.0 items.
 					</p>
 				</div>
@@ -172,7 +174,7 @@
 					<p class="text-sm text-base-content/70">
 						Export PIE items to QTI 2.2: native interactions for 13 PIE element types, plus passages,
 						rubrics and assessments; other elements travel as <code>customInteraction</code> with the
-						PIE model embedded.
+						PIE model embedded. An item with several interactions converts only its first natively.
 					</p>
 				</div>
 			</div>

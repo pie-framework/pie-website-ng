@@ -13,10 +13,11 @@
 	const ASSESSMENT_PLAYER_README = `${PP}packages/assessment-player/README.md`;
 	const PRINT_PLAYER_README = `${PP}packages/print-player/README.md`;
 	const THEME_README = `${PP}packages/theme/README.md`;
+	const VERSIONING = `${PP}docs/install/versioning.md`;
 	const SECTION_PLAYER_CDN_URL = `https://cdn.jsdelivr.net/npm/@pie-players/pie-section-player@${ITEM_PLAYER_VERSION}/dist/browser/pie-section-player.js`;
 	const PRINT_PLAYER_CDN_URL = `https://cdn.jsdelivr.net/npm/@pie-players/pie-print-player@${ITEM_PLAYER_VERSION}/dist/print-player.js`;
 
-	const installExample = `npm install ${ITEM_PLAYER_PACKAGE}@${ITEM_PLAYER_VERSION}`;
+	const installExample = `npm install --save-exact ${ITEM_PLAYER_PACKAGE}@${ITEM_PLAYER_VERSION}`;
 
 	const scoreExample = `${SESSION_LISTENER_JS}
 
@@ -176,7 +177,7 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 				<div class="card-body">
 					<h3 class="card-title text-primary">Theme</h3>
 					<p class="text-sm">
-						<code>&lt;pie-theme&gt;</code> merges a light or dark base theme, a provider adapter, a color
+						<code>&lt;pie-theme&gt;</code> merges a light, dark or auto base theme, a provider adapter, a color
 						scheme and explicit <code>variables</code> into the tokens players and elements read.
 						<ExternalLink href={THEME_README}>Theme README</ExternalLink>
 					</p>
@@ -195,7 +196,10 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 
 		<p class="text-base text-base-content/70 mt-8 max-w-4xl">
 			All <code>@pie-players/*</code> packages release together under one version number; the samples
-			on this site pin {ITEM_PLAYER_VERSION}. Pin it exactly.
+			on this site pin {ITEM_PLAYER_VERSION}. Every release is a patch release, breaking changes
+			included, so pin it exactly and read the changelog before upgrading. 1.0 ships first as
+			<code>1.0.0-beta.N</code> prereleases under the <code>beta</code> npm tag.
+			<ExternalLink href={VERSIONING}>Versioning</ExternalLink>
 		</p>
 		<p class="text-sm text-base-content/60 mt-4 max-w-4xl">
 			<code>&lt;pie-element-player&gt;</code> in pie-elements-ng renders one element in isolation for
@@ -309,7 +313,9 @@ player.navigateNext(); // fires the cancelable request, then persists after the 
 						<code>registerPreloadedElements</code> from
 						<code>@pie-players/pie-item-player/preloaded</code> before the player mounts. The player
 						loads no element code; MathJax assets still load from <code>math.assetRoot</code>. A tag
-						missing at mount raises a non-recoverable <code>element-preload</code> framework error.
+						missing at mount raises a non-recoverable <code>player-error</code>.
+						<code>@pie-players/pie-preloaded-player</code> publishes ready-made element sets for this
+						strategy.
 					</p>
 				</div>
 			</div>

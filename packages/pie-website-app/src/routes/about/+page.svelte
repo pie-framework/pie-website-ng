@@ -163,8 +163,9 @@
 						<li class="flex items-start gap-3">
 							<span class="text-success text-xl mt-1 flex-shrink-0" aria-hidden="true">&bull;</span>
 							<span
-								><strong>WCAG 2.2 AA</strong> &mdash; Built to WCAG 2.2 AA. Automated axe checks run against
-								every element and player; manual assistive-technology validation is in progress.
+								><strong>WCAG 2.2 AA</strong> &mdash; Built to WCAG 2.2 AA. Automated axe checks cover every
+								element and the item, section and assessment players, and their findings are being
+								worked down; manual assistive-technology validation is in progress.
 								<ExternalLink href={DOCS.accessibility}>Accessibility docs</ExternalLink></span
 							>
 						</li>

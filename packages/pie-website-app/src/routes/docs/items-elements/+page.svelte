@@ -22,7 +22,7 @@
 		SESSION_LISTENER_JS
 	} from '$lib/data/host-example';
 	import { DOCS, SITES } from '$lib/data/links';
-	import { ITEM_PLAYER_VERSION, elementSpec } from '$lib/versions';
+	import { ITEM_PLAYER_VERSION, elementSpec, elementVersion } from '$lib/versions';
 
 	const groups = elementsByGroup();
 	const withoutAuthoring = ELEMENTS_WITHOUT_AUTHORING.map((e) => e.displayName).join(', ');
@@ -175,8 +175,9 @@
 						Authoring view <code class="text-sm">&lt;tag&gt;-config</code>
 					</h3>
 					<p class="text-sm">
-						Edits the model and emits <code>model-updated</code> on every change, so the host can show
-						a live delivery preview beside the editor.
+						Edits the model and emits <code>model.updated</code> on every change, which the item player
+						re-emits as <code>model-updated</code>, so the host can show a live delivery preview beside
+						the editor.
 					</p>
 					<ul class="text-sm space-y-1 mt-2">
 						<li>Add and edit choices and mark correct answers</li>
@@ -196,7 +197,10 @@
 					</p>
 					<ul class="text-sm space-y-1 mt-2">
 						<li><code>model()</code> &mdash; shapes the view model by mode and role</li>
-						<li><code>outcome()</code> &mdash; calculates the score: <code>{'{ score, empty }'}</code></li>
+						<li>
+							<code>outcome()</code> &mdash; scores the session from 0 to 1; content elements such as
+							passage have none
+						</li>
 						<li>Runs in the browser, or on your server in hosted mode</li>
 					</ul>
 				</div>
@@ -262,7 +266,8 @@
 					<p class="text-sm text-base-content/80">
 						Maps each tag in <code>markup</code> to an npm package at an exact version. The player loads
 						the packages and registers each tag under a versioned name, such as
-						<code>multiple-choice--version-14-0-3</code>, so several versions can share a page.
+						<code>multiple-choice--version-{elementVersion('multiple-choice').replaceAll('.', '-')}</code>,
+						so several versions can share a page.
 					</p>
 					<div class="mt-2">
 						<CodeEditor value={ELEMENTS_MAP_JSON} language="json" readonly={true} height="100px" />
@@ -333,8 +338,8 @@
 		<h3 class="text-xl font-semibold mb-3">From authoring to score</h3>
 		<ol class="list-decimal list-outside ml-6 space-y-2 max-w-4xl text-base-content/80">
 			<li>
-				The authoring view edits the model and emits <code>model-updated</code>; the host stores the
-				item config.
+				The authoring view edits the model, the item player emits <code>model-updated</code>, and the
+				host stores the item config.
 			</li>
 			<li>The host sets the item config, an <code>env</code> and the learner's saved session.</li>
 			<li>
@@ -457,7 +462,8 @@
 				<div class="card-body">
 					<h3 class="font-bold text-primary mb-2">Controller interface</h3>
 					<p class="text-sm text-base-content/70">
-						Framework-independent functions: <code>model()</code> and <code>outcome()</code>, plus
+						Framework-independent functions: <code>model()</code>, <code>outcome()</code> for elements
+						that score, and
 						<code>createDefaultModel()</code>, <code>validate()</code> and
 						<code>createCorrectResponseSession()</code> for authoring and review.
 					</p>
@@ -479,15 +485,15 @@
 	<section class="mb-12">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Accessibility</h2>
 		<p class="text-lg max-w-4xl mb-2">
-			Built to WCAG 2.2 AA. Automated axe checks run against every element and player; manual
-			assistive-technology validation is in progress.
+			Built to WCAG 2.2 AA. Automated axe checks cover every element and the item, section and assessment players, and their findings
+			are being worked down; manual assistive-technology validation is in progress.
 		</p>
 		<p class="text-lg max-w-4xl mb-6">
 			Accessibility is part of each element's delivery view. See the
 			<ExternalLink href={DOCS.accessibility}>accessibility documentation</ExternalLink>.
 		</p>
 		<ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-			{#each [['Keyboard navigation', 'tab navigation, arrow keys, enter/space activation'], ['Screen reader support', 'semantic HTML with ARIA labels, roles and live regions'], ['Focus management', 'logical focus order and visible focus indicators'], ['High contrast', 'elements render correctly with high-contrast themes'], ['Magnification', 'interfaces scale when users increase font sizes']] as [title, detail] (title)}
+			{#each [['Keyboard navigation', 'tab navigation, arrow keys, enter/space activation'], ['Screen reader support', 'semantic HTML with ARIA labels, roles and live regions'], ['Focus management', 'logical focus order and visible focus indicators'], ['High contrast', 'color schemes reach every element through theme tokens, with known gaps in graph and chart rendering'], ['Magnification', 'interfaces scale when users increase font sizes']] as [title, detail] (title)}
 				<li class="flex items-start gap-3 p-4 bg-base-100 rounded-lg border border-base-300">
 					<svg
 						class="w-5 h-5 text-success mt-0.5 flex-shrink-0"
