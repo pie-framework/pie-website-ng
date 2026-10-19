@@ -2,6 +2,7 @@
 	import '../app.css';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import StatusBanner from '$lib/components/StatusBanner.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
@@ -85,6 +86,7 @@
 		Skip to main content
 	</a>
 	<Navigation />
+	<StatusBanner />
 	<main id="main-content" class="flex-1">
 		{@render children()}
 	</main>
