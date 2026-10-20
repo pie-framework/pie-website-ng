@@ -27,6 +27,8 @@
 	};
 	const isRedirect = $derived(sitePath === '/elements/');
 	const canonicalHref = $derived(REDIRECT_TARGETS[sitePath] ?? canonicalUrl);
+	// The QTI beta banner belongs to the QTI docs section only.
+	const showStatusBanner = $derived(sitePath === '/docs/qti' || sitePath.startsWith('/docs/qti/'));
 
 	// Set initial theme on HTML element
 	onMount(() => {
@@ -86,7 +88,9 @@
 		Skip to main content
 	</a>
 	<Navigation />
-	<StatusBanner />
+	{#if showStatusBanner}
+		<StatusBanner />
+	{/if}
 	<main id="main-content" class="flex-1">
 		{@render children()}
 	</main>
