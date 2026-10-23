@@ -200,7 +200,7 @@
 					<option value="splitpane">Passage beside questions</option><option value="vertical">Vertical</option><option value="tabbed">Tabbed</option>
 				</select>
 			</label>
-			<DemoViewSwitcher value={deliveryView} onchange={changeView} disabled={status !== 'ready'} hint={editorial && kind === 'section'} />
+			<DemoViewSwitcher value={deliveryView} onchange={changeView} disabled={status !== 'ready'} />
 			{#if kind === 'tools'}
 				<label class="text-sm font-medium">Calculator profile
 					<select class="site-select mt-1 block" bind:value={profile} onchange={change} aria-busy={changing}>

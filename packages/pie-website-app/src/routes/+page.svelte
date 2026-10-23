@@ -6,7 +6,9 @@
  import Diagram from '$lib/components/Diagram.svelte';
  import SiteIcon from '$lib/components/SiteIcon.svelte';
  import PartnerCredits from '$lib/components/PartnerCredits.svelte';
- import { ELEMENT_COUNT, AUTHORING_COUNT, PRINT_COUNT, ELEMENTS } from '$lib/data/elements';
+ import ExternalLink from '$lib/components/ExternalLink.svelte';
+ import { ELEMENTS } from '$lib/data/elements';
+ import { SITES } from '$lib/data/links';
  import { deliveryCapture } from '$lib/data/element-captures';
  import { INTEGRATE_PAGES } from '$lib/data/site';
  const featured = ELEMENTS.filter((element) => ['multiple-choice', 'fraction-model', 'categorize', 'graphing'].includes(element.name));
@@ -47,8 +49,8 @@
  </section>
 
  <section id="elements" class="home-section">
-  <div class="section-heading"><h2 class="section-title">{ELEMENT_COUNT} element types</h2><a class="text-link" href="{base}/elements/">Element library <SiteIcon name="arrow-right" /></a></div>
-  <p class="section-description">Questions in choice, text, math and other formats, plus passages, video and rubrics. {AUTHORING_COUNT} types include editors; {PRINT_COUNT} include print views.</p>
+  <div class="section-heading"><h2 class="section-title">Questions, content and rubrics</h2><a class="text-link" href="{base}/elements/">Element library <SiteIcon name="arrow-right" /></a></div>
+  <p class="section-description">Questions in choice, text, math and other formats, plus passages, video and rubrics. Try every sample in the <ExternalLink href={SITES.elementsDemo}>live sample library</ExternalLink>.</p>
   <div class="element-previews">
    {#each featured as element (element.name)}
     {@const capture = deliveryCapture(element.name)}
