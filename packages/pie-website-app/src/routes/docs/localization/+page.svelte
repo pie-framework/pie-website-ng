@@ -87,10 +87,10 @@ const i18n = createPieI18n({
 		<h2 class="text-3xl font-bold text-secondary mb-6">Three channels</h2>
 
 		<Diagram
-			name="localization-channels"
-			width={1000}
-			height={568}
-			alt="Three inputs, each resolved on its own. The locale attribute on the players sets the interface locale, matched by exact tag, then its language, then en-US, from bundled, generated and host catalogs; it drives toolbars, tool panels, status, aria-labels and text direction. Lang in the content, from markup lang, env.locale on the item or model.language on an element, sets the content language: the nearest lang wins and the interface locale never sets it; it drives lang and dir on the content and the read-aloud voice and request language. The AfA profile's grants, start-up activation, prohibitions and sign language feed the tool policy, where blocks and restrictions outrank overrides, requirements and the profile; it decides which tools each toolbar shows and the signed video in the profile's sign language. Elements render their own labels: multiple choice follows the interface locale the players publish, then model.language; the other elements use model.language with English and Spanish."
+			name="localization-overview"
+			width={979}
+			height={684}
+			alt="A section player with a Dutch interface and English content, with seven numbered callouts. 1, interface locale: the section toolbar and headers use the players' catalog for nl-NL, set by the locale attribute. 2, content language: the passage text is en-US from lang in the markup; the locale never sets it. 3, AfA profile: read-aloud is granted by the AfA profile and speaks en-US, the content language. 4, AfA profile: the policy allows the calculator, and it shows here because the item carries math. 5, interface locale: multiple choice labels its answer choices from its own catalog, in the players' locale on next builds and in model.language on 14.0.7. 6, content language: the choice text is en-US, the nearest lang in the item markup. 7, AfA profile: signed video shows the card in the profile's sign language, ase if none, else an unlabelled card, else none."
 		/>
 
 		<div class="overflow-x-auto">
@@ -118,14 +118,31 @@ const i18n = createPieI18n({
 						<td>Declared by the content</td>
 					</tr>
 					<tr>
-						<td class="font-semibold">In-item alternates</td>
-						<td>Accessibility catalog cards authored in the item</td>
-						<td>Signed video and audio transcripts; translated keywords and items are not built</td>
-						<td><code>sign-language</code></td>
+						<td class="font-semibold">AfA profile</td>
+						<td>
+							The student's AfA record, through the tool policy; alternates are accessibility catalog cards
+							authored in the item
+						</td>
+						<td>
+							Which tools each toolbar shows and starts, and which alternate plays: signed video and audio
+							transcripts. Translated keywords and items are not built
+						</td>
+						<td><code>spoken</code>, <code>calculator-on-screen</code>, <code>line-reader</code>, <code>sign-language</code></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+
+		<h3 class="text-2xl font-bold text-primary mt-12 mb-4" id="fallbacks">Fallback order</h3>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Each surface resolves its language on its own, from the first source that has a value.
+		</p>
+		<Diagram
+			name="localization-fallbacks"
+			width={980}
+			height={742}
+			alt="Six fallback chains, read left to right; the first source with a value wins. Player text: exact tag by RFC 4647 lookup, then the primary subtag (es-MX to es), then en-US. Element labels: the players' locale on next builds, then the authored model.language, then en-US. Content language: model.language on the element, then lang in the markup, then env.locale on the item, else undeclared; nothing is invented. Read-aloud voice: lang in the markup, then contentLanguage from the runtime or toolkit, then the TTS tool's configured language, then en-US. Spoken alternate card: the read's language, then widened (es-MX to es), then the toolkit default from accessibility.language, then any card of that type. Signed video: the profile's sign language, ase if none, then a card that names no sign language, then nothing. An element looks a tag up in its own catalogs by exact tag, then the same language, else en-US. Multiple choice 14.0.7 takes its labels from model.language and only its region name from the locale. The sign-language tool never falls back to a spoken card or to a card in another sign language."
+		/>
 	</section>
 
 	<section class="mb-20 scroll-mt-24" id="interface-locale">

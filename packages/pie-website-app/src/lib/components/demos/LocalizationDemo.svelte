@@ -457,7 +457,7 @@
 </div>
 
 <style>
-	.localization-sim { display: grid; gap: 1.25rem; }
+	.localization-sim { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
 	.sim-presets { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 	.sim-controls { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
 	.sim-group { display: grid; align-content: start; gap: 0.75rem; min-width: 0; padding: 1rem; border: 1px solid var(--color-base-300); border-radius: 0.5rem; background: var(--color-base-100); }
@@ -474,13 +474,13 @@
 	.sim-tabs { display: inline-flex; gap: 0.125rem; justify-self: start; padding: 0.1875rem; border: 1px solid var(--site-control-border); border-radius: 0.375rem; }
 	.sim-tabs button { min-height: 2.25rem; padding: 0 1rem; border-radius: 0.3125rem; font-size: 0.875rem; font-weight: 500; color: var(--site-muted); }
 	.sim-tabs button[aria-selected='true'] { background: var(--color-base-200); color: var(--color-base-content); box-shadow: inset 0 -2px var(--color-primary); }
-	.sim-flow { display: grid; gap: 0; counter-reset: stage; }
+	.sim-flow { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; counter-reset: stage; }
 	.sim-stage { position: relative; padding: 0 0 1.5rem 1.75rem; border-left: 2px solid var(--color-base-300); margin-left: 0.5rem; }
 	.sim-stage:last-child { border-left-color: transparent; }
 	.sim-stage::before { content: ''; position: absolute; left: -0.5625rem; top: 0.25rem; width: 1rem; height: 1rem; border-radius: 999px; background: var(--color-primary); box-shadow: 0 0 0 3px var(--color-base-100); }
 	.sim-stage header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.75rem; }
 	.sim-stage h4 { font-size: 1.125rem; font-weight: 700; }
-	.sim-basis { font-size: 0.75rem; padding: 0.0625rem 0.5rem; border-radius: 999px; border: 1px solid var(--color-base-300); color: var(--site-muted); }
+	.sim-basis { min-width: 0; overflow-wrap: anywhere; font-size: 0.75rem; padding: 0.0625rem 0.5rem; border-radius: 999px; border: 1px solid var(--color-base-300); color: var(--site-muted); }
 	.sim-basis[data-kind='framework'] { border-color: color-mix(in oklch, var(--color-primary) 45%, transparent); }
 	.sim-outcome { margin: 0.375rem 0 0.75rem; font-weight: 600; }
 	.sim-columns { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
