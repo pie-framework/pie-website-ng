@@ -103,18 +103,33 @@ const translations: Record<ContentLanguage, Translation> = {
 // 14.0.7 is the first release that follows the interface locale and leaves the
 // content's `lang` in place; the element catalog still lists 14.0.4.
 const MULTIPLE_CHOICE = '@pie-element/multiple-choice@14.0.7';
+// The `next` build of the release that labels every control in the interface locale.
+const MULTIPLE_CHOICE_NEXT = '@pie-element/multiple-choice@14.0.8-next.20261023175726';
 
 export const CONTENT_LANGUAGES = (Object.keys(translations) as ContentLanguage[])
 	.map((value) => ({ value, label: translations[value].label }));
 
-// `lang` and `dir` travel in the markup, the way authored content declares its
-// own language; the demo also sets env.locale and runtime.contentLanguage.
-function wrap(language: ContentLanguage, html: string) {
-	return `<div lang="${language}" dir="${translations[language].dir}">${html}</div>`;
+export function contentDirection(language: ContentLanguage) {
+	return translations[language].dir;
 }
 
-export function localizedSection(language: ContentLanguage) {
+export interface SectionOptions {
+	/** Declare `lang` and `dir` in the markup, the way authored content does. */
+	markupLang?: boolean;
+	/** Set each multiple choice model's `language`. */
+	modelLanguage?: boolean;
+	/** `settings.restrictedTools` on the first question. */
+	restrictedTools?: string[];
+	/** Load multiple choice's `next` build instead of the published release. */
+	nextElement?: boolean;
+	/** An equation in the first question's prompt, which the calculator's relevance check looks for. */
+	math?: boolean;
+}
+
+export function localizedSection(language: ContentLanguage, options: SectionOptions = {}) {
+	const { markupLang = true, modelLanguage = false, restrictedTools = [], nextElement = false, math = false } = options;
 	const t = translations[language];
+	const wrap = (html: string) => markupLang ? `<div lang="${language}" dir="${t.dir}">${html}</div>` : `<div>${html}</div>`;
 	return {
 		identifier: 'website-localization-' + language,
 		title: t.title,
@@ -127,7 +142,7 @@ export function localizedSection(language: ContentLanguage) {
 				name: t.title,
 				config: {
 					elements: {}, models: [],
-					markup: wrap(language, `<h4 style="margin-bottom:0.75rem">${t.title}</h4><p>${t.paragraphs[0]}</p><p style="margin-top:1rem">${t.paragraphs[1]}</p>`)
+					markup: wrap(`<h4 style="margin-bottom:0.75rem">${t.title}</h4><p>${t.paragraphs[0]}</p><p style="margin-top:1rem">${t.paragraphs[1]}</p>`)
 				}
 			}
 		}],
@@ -135,17 +150,19 @@ export function localizedSection(language: ContentLanguage) {
 			const id = `bees-${language}-q${index + 1}`;
 			return {
 				identifier: id,
+				...(index === 0 && restrictedTools.length ? { settings: { restrictedTools: [...restrictedTools] } } : {}),
 				item: {
 					id,
 					name: 'Question ' + (index + 1),
 					config: {
-						elements: { 'multiple-choice': MULTIPLE_CHOICE },
-						markup: wrap(language, `<multiple-choice id="${id}-choice"></multiple-choice>`),
+						elements: { 'multiple-choice': nextElement ? MULTIPLE_CHOICE_NEXT : MULTIPLE_CHOICE },
+						markup: wrap(`<multiple-choice id="${id}-choice"></multiple-choice>`),
 						models: [{
 							id: id + '-choice',
 							element: 'multiple-choice',
-							prompt: question.prompt,
+							prompt: index === 0 && math ? `${question.prompt}<p>12 × 50 = 600</p>` : question.prompt,
 							promptEnabled: true,
+							...(modelLanguage ? { language } : {}),
 							choiceMode: 'radio',
 							choicePrefix: 'letters',
 							choices: question.choices
