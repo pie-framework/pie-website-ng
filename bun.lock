@@ -15,9 +15,9 @@
       "name": "@pie-website/app",
       "version": "0.0.1",
       "dependencies": {
-        "@pie-players/pie-i18n-generated": "1.0.0-beta.5",
-        "@pie-players/pie-players-shared": "1.0.0-beta.5",
-        "@pie-players/pie-theme": "1.0.0-beta.5",
+        "@pie-players/pie-i18n-generated": "1.0.0-beta.6",
+        "@pie-players/pie-players-shared": "1.0.0-beta.6",
+        "@pie-players/pie-theme": "1.0.0-beta.6",
         "@tiptap/core": "^3.17.1",
         "@tiptap/extension-code-block-lowlight": "^3.17.1",
         "@tiptap/pm": "^3.15.3",
@@ -167,11 +167,11 @@
 
     "@pie-lib/math-rendering-module": ["@pie-lib/math-rendering-module@6.0.0", "", {}, "sha512-qXI7z1E8blazVDijE3ul5S25hWZGx0fRAEpuPUuNhs0R4usFJzPbg2DrAX0pEPd4Fxuz6yQkCknVtIqYWPXbSQ=="],
 
-    "@pie-players/pie-i18n-generated": ["@pie-players/pie-i18n-generated@1.0.0-beta.5", "", { "dependencies": { "@pie-players/pie-players-shared": "1.0.0-beta.5" } }, "sha512-UQxfRFdgRkYGyEbsZooW7cg2/lCrnxXCCbaVq44O9Vbj0cUyriV1nnSa0d4L93HkteHgSb0rvNAPzxWV++Uxjg=="],
+    "@pie-players/pie-i18n-generated": ["@pie-players/pie-i18n-generated@1.0.0-beta.6", "", { "dependencies": { "@pie-players/pie-players-shared": "1.0.0-beta.6" } }, "sha512-IDvF9KO/Uzy9C+omiNxFFEgnlgUlPeYZk6vQtvZhu108qJ0tqKd+cSiVjwh2OhjDRVjFHRgy9fR7EZpJCfIYxg=="],
 
-    "@pie-players/pie-players-shared": ["@pie-players/pie-players-shared@1.0.0-beta.5", "", { "dependencies": { "@pie-element/shared-utils": "0.1.4", "@pie-lib/math-rendering-module": "6.0.0", "dompurify": "^3.4.17", "semver": "^7.8.5" } }, "sha512-eRJCdAP7q2eeDmcT6zgnx80KShEQoK7whLHsyrUznGTJAJFU2Vr2Vt7MmVxvNfmXFPKgl8Fvfoe0HdcUOEXQtw=="],
+    "@pie-players/pie-players-shared": ["@pie-players/pie-players-shared@1.0.0-beta.6", "", { "dependencies": { "@pie-element/shared-utils": "0.1.4", "@pie-lib/math-rendering-module": "6.0.0", "dompurify": "^3.4.17", "semver": "^7.8.5" } }, "sha512-Dz6butVK8Jdwx7U2peLNlqlLRZbTQ93qZ57BJC/UlFRCHkIomPa9vhW9LM20eP6p2/0UkxIuxWxMiq+27itnGg=="],
 
-    "@pie-players/pie-theme": ["@pie-players/pie-theme@1.0.0-beta.5", "", {}, "sha512-KKpnSJWULgldBfkv6HJJ1pXqrjAhxBYNy+3rdLNjIed43ipEYsAHXYe1JR7Mfg9vbgjMH6kUmBFQwopQkLX9Yg=="],
+    "@pie-players/pie-theme": ["@pie-players/pie-theme@1.0.0-beta.6", "", {}, "sha512-spiPD5vhA6RhtFGxh9mF93QLRuU3UGytuZJDPLiBQElhxdjVcVAPV9YgdPZgEG0Uc5cSg2E8w1GjXAw5SwHb+A=="],
 
     "@pie-website/app": ["@pie-website/app@workspace:packages/pie-website-app"],
 
