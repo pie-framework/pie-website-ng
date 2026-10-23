@@ -108,11 +108,13 @@ sectionPlayer.runtime = {
 				<div class="card-body">
 					<h3 class="card-title text-primary">The contract</h3>
 					<p class="text-sm">
-						An <code>InstrumentationProvider</code> implements <code>trackError</code>,
+						An <code>InstrumentationProvider</code> carries string <code>providerId</code> and
+						<code>providerName</code> fields and implements <code>trackError</code>,
 						<code>trackEvent</code>, <code>trackMetric</code>, <code>setUserContext</code> and
 						<code>setGlobalAttributes</code>, plus <code>initialize</code>, <code>isReady</code> and
-						<code>destroy</code>. Extend <code>BaseInstrumentationProvider</code> to write an adapter for
-						any backend.
+						<code>destroy</code>. A player ignores an object that lacks the two ids, <code>initialize</code>,
+						<code>trackError</code>, <code>trackEvent</code>, <code>isReady</code> or <code>destroy</code>.
+						Extend <code>BaseInstrumentationProvider</code> to write an adapter for any backend.
 					</p>
 				</div>
 			</div>
