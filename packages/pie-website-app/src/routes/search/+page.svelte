@@ -13,7 +13,7 @@
 		.sort((left, right) => right.score - left.score) : []);
 </script>
 <Seo title="Search PIE - Guides, elements and examples" description="Search PIE integration guides, interaction-development material, element types and working examples." noindex />
-<div class="site-container max-w-5xl">
+<div class="site-container reading-page">
 	<header class="mb-8"><p class="eyebrow">Search</p><h1 class="page-title">Guides, elements and examples</h1></header>
 	<form action="{base}/search/" method="get" role="search" aria-label="Content search">
 		<label for="site-search" class="mb-2 block font-medium">Search the site</label>

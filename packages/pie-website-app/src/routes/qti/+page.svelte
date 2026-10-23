@@ -6,7 +6,7 @@
 	import { SITES } from '$lib/data/links';
 </script>
 <Seo title="QTI and PIE - Independent players and interoperability" description="PIE-QTI provides standalone QTI item and assessment players independently of PIE, plus packages for optional conversion between QTI and PIE." />
-<div class="site-container max-w-5xl">
+<div class="site-container reading-page">
 	<header class="mb-10"><p class="eyebrow">Related project</p><h1 class="page-title">QTI players and conversion</h1><p class="page-intro">PIE-QTI has full-featured QTI item and assessment players that run independently of PIE. You can play QTI content directly, without conversion.</p></header>
 	<section id="delivery" class="mb-10">
 		<h2 class="section-title">Standalone QTI delivery</h2>

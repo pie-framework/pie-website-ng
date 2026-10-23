@@ -4,6 +4,8 @@
 
 @layer components {
 	.site-container { max-width: 80rem; margin-inline: auto; padding: 3.5rem 2.5rem; }
+	/* Reading pages share the site's left edge and limit the measure of their content instead. */
+	.reading-page > * { max-width: 64rem; }
 }
 .eyebrow { margin-bottom: 1rem; color: var(--color-primary); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.065em; text-transform: uppercase; }
 .page-title, .section-title, .guide-prose h2 { font-family: var(--font-editorial); font-weight: 500; font-optical-sizing: auto; letter-spacing: -0.025em; }
@@ -12,6 +14,8 @@
 .section-title { margin-bottom: 1.25rem; color: var(--color-base-content); font-size: clamp(2rem, 3.5vw, 2.75rem); line-height: 1.12; }
 .guide-prose { max-width: 52rem; font-size: 1rem; line-height: 1.85; overflow-wrap: anywhere; }
 .guide-prose h2 { margin: 3rem 0 1rem; color: var(--color-base-content); font-size: 2.1rem; line-height: 1.2; }
+/* Reading pages keep one heading scale; the larger section title belongs to landing pages. */
+.guide-layout .section-title, .reading-page .section-title { margin-bottom: 1rem; font-size: 2.1rem; line-height: 1.2; }
 .guide-prose h3 { margin: 2rem 0 0.75rem; font-size: 1.25rem; }
 .guide-prose h4 { margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
 .guide-prose p, .guide-prose ul, .guide-prose ol { margin-bottom: 1.2rem; }

@@ -76,22 +76,23 @@ const registration = registerPieColorSchemes([
 <Seo title="Theming - PIE Framework" description="Set PIE colors, themes and font sizes with pie-theme and CSS custom properties." />
 
 <div>
-	<div class="mb-12">
-		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Theming</h1>
-		<p class="text-xl text-base-content/70 max-w-4xl">
+	<header class="mb-10">
+		<p class="eyebrow">Guide and reference</p>
+		<h1 class="page-title">Theming</h1>
+		<p class="page-intro">
 			Players, tools and elements use <code>--pie-*</code> CSS custom properties.
 			<code>&lt;pie-theme&gt;</code> sets these properties on a container, and its items inherit them,
 			including inside shadow DOM.
 		</p>
-	</div>
+	</header>
 
-	<section class="mb-20 scroll-mt-24" id="pie-theme">
-		<h2 class="text-3xl font-bold text-secondary mb-6">The theme element</h2>
+	<section class="mb-12" id="pie-theme">
+		<h2 class="section-title">The theme element</h2>
 		<div class="mb-6">
 			<CodeEditor value={setupExample} language="html" readonly={true} height="170px" />
 		</div>
 		<div class="overflow-x-auto mb-6">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead><tr><th>Attribute</th><th>Values</th><th>Default</th></tr></thead>
 				<tbody>
 					{#each attributeRows as [attr, values, def] (attr)}
@@ -100,7 +101,7 @@ const registration = registerPieColorSchemes([
 				</tbody>
 			</table>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			A mounted <code>&lt;pie-theme&gt;</code> writes its tokens inline, and an inline declaration beats any
 			stylesheet rule, so a host stylesheet that sets <code>--pie-*</code> cannot override it. Change tokens
 			through <code>variables</code> or a registered scheme. Without the element, the stylesheet-only
@@ -109,9 +110,9 @@ const registration = registerPieColorSchemes([
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="resolution">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Resolution order</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="resolution">
+		<h2 class="section-title">Resolution order</h2>
+		<p class="guide-prose mb-4">
 			Four layers, each overwriting the tokens the one before set: the base theme, the provider adapter's
 			output, the resolved color scheme, and explicit <code>variables</code>.
 		</p>
@@ -122,9 +123,9 @@ const registration = registerPieColorSchemes([
 			alt="pie-theme resolves four layers in order: the base theme light, dark or auto; provider adapter output such as DaisyUI; the resolved color scheme, ten built in plus registered ones; and explicit variables. The merged tokens are written onto the theme target."
 		/>
 		<div class="grid md:grid-cols-2 gap-6">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Provider adapters</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Provider adapters</h3>
 					<p class="text-sm">
 						<code>provider</code> decides whether PIE content takes the host's look or PIE's own.
 						<code>none</code> keeps the canonical palette, identical in every host. The built-in DaisyUI
@@ -133,9 +134,9 @@ const registration = registerPieColorSchemes([
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Token registry</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Token registry</h3>
 					<p class="text-sm">
 						<code>@pie-players/pie-theme/token-registry.json</code> lists every public token with its owner,
 						category and whether color schemes must set it. Registered names and values are part of the
@@ -146,9 +147,9 @@ const registration = registerPieColorSchemes([
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="color-schemes">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Color schemes</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="color-schemes">
+		<h2 class="section-title">Color schemes</h2>
+		<p class="guide-prose mb-4">
 			A theme is presentation; a color scheme is an accommodation under WCAG 1.4.1, 1.4.3 and 1.4.11.
 			A scheme replaces every color it covers, folds fixed hues such as chart categories into its two
 			colors, and recolors authored inline colors in item content so dark ink never lands on a dark page.
@@ -159,7 +160,7 @@ const registration = registerPieColorSchemes([
 				<span class="badge badge-outline badge-lg font-mono text-xs">{scheme}</span>
 			{/each}
 		</div>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+		<p class="guide-prose mb-4">
 			A program with its own palettes registers them as partial overlays. Each entry is validated against
 			the token registry, and an invalid one is rejected without dropping its siblings. Contrast problems
 			come back as warnings on the returned receipt, because the palette is yours: read them.
@@ -167,16 +168,16 @@ const registration = registerPieColorSchemes([
 		<div class="mb-6">
 			<CodeEditor value={schemeExample} language="javascript" readonly={true} height="280px" />
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			Learners choose a scheme with the <ExternalLink href={THEME_TOOL}>theme tool</ExternalLink>, a
 			section-level toolkit tool that sets <code>scheme</code> on the nearest <code>&lt;pie-theme&gt;</code>
 			and keeps the choice per attempt through the toolkit's tool-state hooks.
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="host-chrome">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Host chrome</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="host-chrome">
+		<h2 class="section-title">Host chrome</h2>
+		<p class="guide-prose mb-4">
 			<code>&lt;pie-theme&gt;</code> writes <code>--pie-*</code> tokens only, so switching a theme recolors PIE
 			content and leaves your page's own UI alone. To carry an active accommodation into your chrome,
 			alias your tokens to PIE's under <code>[data-color-scheme]</code>, which is set only while a scheme
@@ -191,22 +192,22 @@ const registration = registerPieColorSchemes([
 		<div class="mb-4">
 			<CodeEditor value={aliasExample} language="javascript" readonly={true} height="130px" />
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			<code>theme="dark"</code> does not darken native controls such as <code>select</code> and scrollbars;
 			that stays your page's own <code>color-scheme</code> declaration. A resolved color scheme sets it for
 			you.
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="font-size">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Font size</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="font-size">
+		<h2 class="section-title">Font size</h2>
+		<p class="guide-prose mb-4">
 			Set <code>data-font-size</code> on any ancestor of a player, or <code>--pie-font-scale</code> through
 			<code>variables</code>. The presets match Learnosity's steps, which accommodation profiles are
 			already written against.
 		</p>
 		<div class="overflow-x-auto">
-			<table class="table table-zebra max-w-md">
+			<table class="table max-w-md">
 				<thead><tr><th>Preset</th><th>Scale</th></tr></thead>
 				<tbody>
 					{#each fontRows as [preset, scale] (preset)}
@@ -217,9 +218,9 @@ const registration = registerPieColorSchemes([
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="reference">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Reference</h2>
-		<p class="text-base text-base-content/70 max-w-4xl">
+	<section class="mb-12" id="reference">
+		<h2 class="section-title">Reference</h2>
+		<p class="guide-prose">
 			<ExternalLink href={DOCS.theming}>How theming works</ExternalLink> ·
 			<ExternalLink href={THEME_README}>Theme README</ExternalLink> ·
 			<ExternalLink href={WCAG_MATRIX}>Theming WCAG matrix</ExternalLink> ·

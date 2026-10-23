@@ -35,16 +35,17 @@ const i18n = createPieI18n({
 <Seo title="Localization - PIE Framework" description="Interface locale for PIE players and tools, content language for read-aloud and catalog cards, and in-item language alternates." />
 
 <div>
-	<div class="mb-12">
-		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Localization</h1>
-		<p class="text-xl text-base-content/70 max-w-4xl">
+	<header class="mb-10">
+		<p class="eyebrow">Guide and reference</p>
+		<h1 class="page-title">Localization</h1>
+		<p class="page-intro">
 			Set the interface language, content language and authored translations separately.
 			Changing the player's language does not translate question content.
 		</p>
-	</div>
+	</header>
 
-	<section class="mb-20 scroll-mt-24" id="channels">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Three channels</h2>
+	<section class="mb-12" id="channels">
+		<h2 class="section-title">Three channels</h2>
 
 		<Diagram
 			name="localization-channels"
@@ -54,7 +55,7 @@ const i18n = createPieI18n({
 		/>
 
 		<div class="overflow-x-auto">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead>
 					<tr><th>Channel</th><th>Set by</th><th>Governs</th><th>AfA PNP 3.0</th></tr>
 				</thead>
@@ -87,9 +88,9 @@ const i18n = createPieI18n({
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="interface-locale">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Interface locale</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="interface-locale">
+		<h2 class="section-title">Interface locale</h2>
+		<p class="guide-prose mb-4">
 			Set <code>locale</code> on the item player, each section player layout or the toolkit. Unset,
 			everything renders English. PIE ships <code>en-US</code>, the source catalog, and a complete
 			<code>nl-NL</code>; other locales load as separate chunks, so English pages carry no other catalog.
@@ -99,8 +100,8 @@ const i18n = createPieI18n({
 			<CodeEditor value={localeExample} language="html" readonly={true} height="90px" />
 		</div>
 
-		<h3 class="text-2xl font-bold text-primary mb-4" id="tag-resolution">Tag resolution</h3>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+		<h3 class="mb-3 text-xl font-semibold text-secondary" id="tag-resolution">Tag resolution</h3>
+		<p class="guide-prose mb-4">
 			Tags resolve by RFC 4647 lookup, then by widening to the primary subtag.
 		</p>
 		<div class="overflow-x-auto mb-8">
@@ -118,15 +119,15 @@ const i18n = createPieI18n({
 			</table>
 		</div>
 
-		<h3 class="text-2xl font-bold text-primary mb-4" id="custom-messages">Your own messages</h3>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+		<h3 class="mb-3 text-xl font-semibold text-secondary" id="custom-messages">Your own messages</h3>
+		<p class="guide-prose mb-4">
 			<code>customMessages</code> adds a locale or overrides shipped keys one at a time, so renaming a
 			label needs no fork. Plurals use <code>Intl.PluralRules</code> with the CLDR categories.
 		</p>
 		<div class="mb-4">
 			<CodeEditor value={customExample} language="javascript" readonly={true} height="150px" />
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			The players set <code>lang</code> and <code>dir</code> on their own interface subtree and leave the
 			document's alone. Tools registered by a host name their labels with <code>nameKey</code> and
 			<code>descriptionKey</code>, so they localize with the rest. A coverage check in CI keeps every
@@ -141,9 +142,9 @@ const i18n = createPieI18n({
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="content-language">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Content language</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="content-language">
+		<h2 class="section-title">Content language</h2>
+		<p class="guide-prose mb-4">
 			Content language decides what read-aloud speaks in and which catalog cards apply. A
 			<code>lang</code> attribute in the markup wins; content without one takes the toolkit's
 			<code>content-language</code> or the section player's <code>runtime.contentLanguage</code>, which
@@ -151,7 +152,7 @@ const i18n = createPieI18n({
 			English content in an English voice.
 		</p>
 		<div class="overflow-x-auto mb-4">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead><tr><th>TTS provider</th><th>How the language reaches it</th></tr></thead>
 				<tbody>
 					<tr>
@@ -169,37 +170,37 @@ const i18n = createPieI18n({
 				</tbody>
 			</table>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			Content language does not yet reach the elements themselves: they receive no locale through
 			<code>env</code>, and the players set no <code>lang</code> on the content subtree. Speech-to-text
 			language is also not built.
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="alternates">
-		<h2 class="text-3xl font-bold text-secondary mb-6">In-item alternates</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="alternates">
+		<h2 class="section-title">In-item alternates</h2>
+		<p class="guide-prose mb-4">
 			An item carries alternates as accessibility catalog cards, each tagged with its
 			<code>language</code>. The resolver tries the content language, widening <code>es-MX</code> to
 			<code>es</code>, then the default language, then any card of that type. A sign-language card is chosen by its card <code>language</code>;
 			PIE never infers a sign language from a spoken one and never substitutes one sign language for
 			another.
 		</p>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			<a href="{base}/docs/accessibility/#catalogs" class="link link-primary">Accessibility catalogs</a> cover
 			authoring and resolution.
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="elements">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Element labels</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="elements">
+		<h2 class="section-title">Element labels</h2>
+		<p class="guide-prose mb-4">
 			Elements render their own interface text, such as button labels and feedback, in the language
 			named by the authored <code>model.language</code>. The pie-elements-ng elements ship English and
 			Spanish (<code>en_US</code> and <code>es_ES</code>). That channel is per item and separate from
 			the players' <code>locale</code>.
 		</p>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			<ExternalLink href={I18N_DESIGN}>Internationalization design</ExternalLink> ·
 			<ExternalLink href={I18N_README}>Interface i18n</ExternalLink> ·
 			<ExternalLink href={SECTION_README}>Section player README</ExternalLink>
