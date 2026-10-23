@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/select-text@14.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "selectedTokens": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TextToken"
+      },
+      "description": "The tokens the student selected"
+    }
+  },
+  "definitions": {
+    "TextToken": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The token text"
+        },
+        "start": {
+          "type": "number",
+          "description": "The start point in the main text for this token"
+        },
+        "end": {
+          "type": "number",
+          "description": "The end point in the main text for this token"
+        },
+        "correct": {
+          "type": "boolean",
+          "description": "Is selected does the token represent a correct response"
+        },
+        "oldStart": {
+          "type": "number",
+          "description": "The start point before the author re-parsed the text; scoring matches a selection on either position"
+        },
+        "oldEnd": {
+          "type": "number",
+          "description": "The end point before the author re-parsed the text; scoring matches a selection on either position"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "description": "A selectable span of the main text"
+    }
+  }
+}

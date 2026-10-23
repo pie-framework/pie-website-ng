@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/hotspot@12.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/HotspotAnswer"
+      },
+      "description": "The selected hotspots"
+    },
+    "selector": {
+      "type": "string",
+      "enum": [
+        "Mouse",
+        "Keyboard"
+      ],
+      "description": "How the learner made the last selection"
+    },
+    "audioStartTime": {
+      "type": "number",
+      "description": "Timestamp, in milliseconds, when auto-played prompt audio started playing"
+    },
+    "audioEndTime": {
+      "type": "number",
+      "description": "Timestamp, in milliseconds, when auto-played prompt audio finished playing"
+    },
+    "waitTime": {
+      "type": "number",
+      "description": "Milliseconds the learner waited for auto-played prompt audio to finish"
+    }
+  },
+  "definitions": {
+    "HotspotAnswer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "id of the selected shape"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "description": "A selected hotspot."
+    }
+  }
+}

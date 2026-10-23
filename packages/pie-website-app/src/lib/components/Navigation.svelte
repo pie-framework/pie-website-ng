@@ -1,166 +1,92 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import ExternalLink from './ExternalLink.svelte';
-	import ThemeSwitcher from './ThemeSwitcher.svelte';
-	import { DEVELOPER_GUIDES, SITES } from '$lib/data/links';
-	import { DOCS_NAV } from '$lib/data/docs-nav';
-
-	let mobileMenuOpen = $state(false);
-	let docsDropdownOpen = $state(false);
-	const elementsDemoUrl = SITES.elementsDemo;
-
-	let currentPath = $state('');
-
-	if (typeof window !== 'undefined') {
-		currentPath = window.location.pathname;
-	}
-
-	function closeDropdown() {
-		docsDropdownOpen = false;
-	}
+ import { base } from '$app/paths';
+ import { page } from '$app/state';
+ import { afterNavigate } from '$app/navigation';
+ import { PRIMARY_NAV } from '$lib/data/site';
+ import { SITES } from '$lib/data/links';
+ import ThemeSwitcher from './ThemeSwitcher.svelte';
+ import SiteIcon from './SiteIcon.svelte';
+ import { onMount } from 'svelte';
+ let mobileOpen = $state(false);
+ let menuButton: HTMLButtonElement;
+ let nav: HTMLElement;
+ const currentPath = $derived(base && page.url.pathname.startsWith(base) ? page.url.pathname.slice(base.length) : page.url.pathname);
+ afterNavigate(() => { mobileOpen = false; });
+ onMount(() => {
+  const observer = new ResizeObserver(() => {
+   document.documentElement.style.setProperty('--site-header-height', nav.getBoundingClientRect().height + 'px');
+  });
+  observer.observe(nav);
+  return () => observer.disconnect();
+ });
 </script>
 
-<nav class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
-	<div class="container mx-auto">
-		<div class="flex-1">
-			<a href="{base}/" class="flex items-center gap-3 px-2 py-1">
-				<img src="{base}/pie-logo.svg" alt="PIE Framework Logo" class="h-10 w-10" />
-				<div class="flex flex-col">
-					<span class="text-xl font-bold text-primary">PIE Framework</span>
-					<span class="text-xs text-base-content/70">Open Source Assessment Items</span>
-				</div>
-			</a>
-		</div>
+<svelte:window onkeydown={(event) => { if (event.key === 'Escape' && mobileOpen) { mobileOpen = false; menuButton?.focus(); } }} />
+<header class="site-header sticky top-0 z-50" onfocusout={(event) => {
+ if (mobileOpen && event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) mobileOpen = false;
+}}>
+ <nav class="main-nav" aria-label="Main navigation" bind:this={nav}>
+  <a href="{base}/" class="site-brand">
+   <img src="{base}/pie-logo.svg" alt="" width="40" height="40" />
+   <span><span class="brand-name">PIE Framework</span><span class="brand-caption">Open-source assessment software</span></span>
+  </a>
+  <div class="desktop-nav nav-links">
+   {#each PRIMARY_NAV as entry (entry.path)}
+    <a href="{base}{entry.path}" aria-current={currentPath.startsWith(entry.path) ? 'page' : undefined}>{entry.label}</a>
+   {/each}
+  </div>
+  <form action="{base}/search/" method="get" role="search" aria-label="Header search" class="desktop-nav header-search">
+   <label class="sr-only" for="header-search">Search the site</label>
+   <SiteIcon name="magnifying-glass" /><input id="header-search" name="q" type="search" placeholder="Search PIE" />
+  </form>
+  <div class="desktop-nav nav-actions">
+   <ThemeSwitcher />
+   <a class="btn btn-ghost btn-sm" href={SITES.githubOrg} target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in new tab)</span></a>
+   <a class="btn btn-primary btn-sm" href="{base}/get-started/">Get started</a>
+  </div>
+  <button bind:this={menuButton} class="mobile-menu-button btn btn-ghost btn-sm" aria-expanded={mobileOpen} aria-controls="mobile-navigation" onclick={() => mobileOpen = !mobileOpen}>{mobileOpen ? 'Close menu' : 'Menu'}</button>
+ </nav>
+ <div id="mobile-navigation" hidden={!mobileOpen} class="mobile-navigation border-t border-base-300 px-5 py-4">
+  <nav aria-label="Mobile navigation" class="flex flex-col gap-2">
+   {#each PRIMARY_NAV as entry (entry.path)}
+    <a class="py-2 font-medium" href="{base}{entry.path}" aria-current={currentPath.startsWith(entry.path) ? 'page' : undefined}>{entry.label}</a>
+   {/each}
+   <a class="py-2" href="{base}/elements/">Element library</a>
+   <a class="py-2" href="{base}/get-started/">Get started</a>
+  </nav>
+  <form action="{base}/search/" method="get" role="search" aria-label="Mobile search" class="mt-4">
+   <label for="mobile-search" class="label">Search the site</label>
+   <div class="flex gap-2"><input id="mobile-search" class="input site-input min-w-0 w-full" type="search" name="q" placeholder="Search guides, elements and examples" /><button class="btn btn-primary" type="submit">Search</button></div>
+  </form>
+  <div class="mt-4 flex items-center gap-3"><ThemeSwitcher /><a href={SITES.githubOrg} class="link">GitHub</a><a href="{base}/about/" class="link">About and community</a></div>
+ </div>
+</header>
 
-		<!-- Desktop Navigation -->
-		<div class="flex-none hidden lg:flex items-center gap-4">
-			<ul class="menu menu-horizontal px-1 gap-1">
-				<li><a href="{base}/about/" class="font-medium" aria-current={currentPath.includes('/about') ? 'page' : undefined}>About</a></li>
-				<li>
-					<details bind:open={docsDropdownOpen}>
-						<summary class="font-medium" aria-current={currentPath.includes('/docs/') ? 'page' : undefined}>Docs</summary>
-						<div class="bg-base-100 rounded-box shadow-lg z-50 w-[36rem] p-4 grid grid-cols-2 gap-x-4 gap-y-2">
-							{#each DOCS_NAV as group (group.title)}
-								<ul class="menu menu-sm w-full p-0">
-									<li class="menu-title">{group.title}</li>
-									{#each group.pages as docsPage (docsPage.path)}
-										<li><a href="{base}{docsPage.path}" onclick={closeDropdown}>{docsPage.label}</a></li>
-									{/each}
-								</ul>
-							{/each}
-							<ul class="menu menu-sm w-full p-0">
-								<li class="menu-title">Developer guides</li>
-								{#each DEVELOPER_GUIDES as guide (guide.href)}
-									<li><ExternalLink href={guide.href} class="">{guide.label}</ExternalLink></li>
-								{/each}
-							</ul>
-						</div>
-					</details>
-				</li>
-				<li><a href={elementsDemoUrl} class="font-medium">Elements Demo</a></li>
-			</ul>
-			<ThemeSwitcher />
-			<a
-				href={SITES.githubOrg}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="btn btn-ghost btn-sm btn-circle"
-				aria-label="GitHub (opens in new tab)"
-			>
-				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-					<path
-						d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-					/>
-				</svg>
-			</a>
-			<a
-				href={SITES.slack}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="btn btn-ghost btn-sm btn-circle"
-				aria-label="Slack (opens in new tab)"
-			>
-				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-					<path
-						d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"
-					/>
-				</svg>
-			</a>
-		</div>
-
-		<!-- Mobile Menu Button -->
-		<div class="flex-none lg:hidden">
-			<button
-				class="btn btn-ghost btn-circle"
-				onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
-				aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-			aria-expanded={mobileMenuOpen}
-			aria-controls="mobile-menu"
-			>
-				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d={mobileMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-					/>
-				</svg>
-			</button>
-		</div>
-	</div>
-</nav>
-
-<!-- Mobile Menu Dropdown -->
-{#if mobileMenuOpen}
-	<div id="mobile-menu" class="lg:hidden bg-base-100 shadow-lg">
-		<ul class="menu menu-vertical px-4 py-2">
-			<li><a href="{base}/about/">About</a></li>
-			{#each DOCS_NAV as group (group.title)}
-				<li>
-					<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">{group.title}</span>
-				</li>
-				{#each group.pages as docsPage (docsPage.path)}
-					<li><a href="{base}{docsPage.path}" onclick={() => (mobileMenuOpen = false)}>{docsPage.label}</a></li>
-				{/each}
-			{/each}
-			<li>
-				<span class="menu-title text-xs uppercase tracking-wider opacity-60 mt-2">Developer guides</span>
-			</li>
-			{#each DEVELOPER_GUIDES as guide (guide.href)}
-				<li><ExternalLink href={guide.href} class="">{guide.label}</ExternalLink></li>
-			{/each}
-			<li class="mt-2"><a href={elementsDemoUrl}>Elements Demo</a></li>
-			<li class="mt-2">
-				<div class="flex gap-2 items-center">
-					<ThemeSwitcher />
-					<a
-						href={SITES.githubOrg}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="btn btn-ghost btn-sm flex-1"
-					>
-						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-							<path
-								d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-							/>
-						</svg>
-						GitHub
-					</a>
-					<a
-						href={SITES.slack}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="btn btn-ghost btn-sm flex-1"
-					>
-						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-							<path
-								d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"
-							/>
-						</svg>
-						Slack
-					</a>
-				</div>
-			</li>
-		</ul>
-	</div>
-{/if}
+<style>
+ .site-header { background: var(--site-page); border-bottom: 1px solid color-mix(in srgb, var(--color-base-300) 50%, transparent); }
+ .main-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; max-width: 82rem; min-height: 4.5rem; margin: auto; padding: 0.75rem 2.5rem; }
+ .site-brand { display: flex; align-items: center; min-width: 0; gap: 0.75rem; margin-right: auto; }
+ .site-brand > img, .mobile-menu-button { flex-shrink: 0; }
+ .site-brand > span { min-width: 0; }
+ .brand-name { display: block; color: var(--color-primary); font-size: 1.2rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.4; }
+ .brand-caption { display: block; color: var(--site-muted); font-size: 0.69rem; line-height: 1.6; }
+ .desktop-nav { display: none; }
+ .nav-links { align-items: center; gap: 1.3rem; white-space: nowrap; }
+ .nav-links a { font-size: 0.8rem; font-weight: 500; padding-block: 0.5rem; }
+ .nav-links a:hover, .nav-links [aria-current='page'] { color: var(--color-primary); }
+ .header-search { align-items: center; gap: 0.4rem; padding: 0.5rem 0.65rem; background: var(--color-base-100); border: 1px solid var(--site-control-border); border-radius: 0.3rem; color: var(--site-muted); }
+ .header-search input { width: 5.25rem; background: transparent; font-size: 0.75rem; color: var(--color-base-content); }
+ .nav-actions { align-items: center; gap: 0.25rem; white-space: nowrap; }
+ .nav-actions :global(.btn-circle) { width: 2rem; height: 2rem; min-height: 2rem; }
+ .nav-actions :global(.btn-circle svg) { width: 1.15rem; height: 1.15rem; }
+ .nav-actions :global(.btn-sm) { font-size: 0.75rem; }
+ .mobile-navigation { max-height: calc(100dvh - var(--site-header-height, 4.5rem)); overflow-y: auto; overscroll-behavior: contain; }
+ @media (min-width: 1000px) {
+  .desktop-nav { display: flex; }
+  .mobile-menu-button, .mobile-navigation { display: none; }
+  .main-nav { gap: 0.875rem; padding-inline: 2rem; }
+ }
+ @media (min-width: 1200px) { .main-nav { gap: 1.5rem; } .nav-links { gap: 1.5rem; } .header-search input { width: 6rem; } }
+ @media (max-width: 999px) { .main-nav { flex-wrap: nowrap; } }
+ @media (max-width: 640px) { .main-nav { min-height: 4.5rem; padding-inline: 1.25rem; } .brand-caption { font-size: 0.6rem; } .brand-name { font-size: 1.1rem; } .site-brand { gap: 0.5rem; } }
+</style>

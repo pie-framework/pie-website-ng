@@ -11,10 +11,16 @@
     "build": "bun --filter @pie-website/app build",
     "preview": "bun --filter @pie-website/app preview",
     "check": "bun --filter @pie-website/app check",
-    "check:watch": "bun --filter @pie-website/app check:watch"
+    "check:watch": "bun --filter @pie-website/app check:watch",
+    "verify:site": "bun test tests/site.test.ts",
+    "audit:a11y": "bun scripts/audit-accessibility.ts",
+    "sync:docs": "bun scripts/sync-docs.ts",
+    "sync:examples": "bun scripts/sync-element-demos.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "axe-core": "^4.14.0",
+    "sharp": "^0.35.5"
   }
 }

@@ -63,7 +63,6 @@
 		</svg>
 	</div>
 	<ul
-		tabindex="0"
 		class="dropdown-content menu p-2 shadow-lg bg-base-100 rounded-box w-52 max-h-96 overflow-y-auto z-[100]"
 	>
 		{#each themes as themeName}

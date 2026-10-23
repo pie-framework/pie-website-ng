@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
 	import { base } from '$app/paths';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Diagram from '$lib/components/Diagram.svelte';
@@ -31,21 +32,14 @@ const i18n = createPieI18n({
 	];
 </script>
 
-<svelte:head>
-	<title>Localization - PIE Framework</title>
-	<meta
-		name="description"
-		content="Interface locale for PIE players and tools, content language for read-aloud and catalog cards, and in-item language alternates."
-	/>
-</svelte:head>
+<Seo title="Localization - PIE Framework" description="Interface locale for PIE players and tools, content language for read-aloud and catalog cards, and in-item language alternates." />
 
 <div>
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Localization</h1>
 		<p class="text-xl text-base-content/70 max-w-4xl">
-			Three languages meet in a delivered item, set on three separate channels: the language of the
-			player's own interface, the language the content is written in, and the language alternates
-			authored inside an item. Setting one never changes another.
+			Set the interface language, content language and authored translations separately.
+			Changing the player's language does not translate question content.
 		</p>
 	</div>
 
@@ -67,7 +61,7 @@ const i18n = createPieI18n({
 				<tbody>
 					<tr>
 						<td class="font-semibold">Interface locale</td>
-						<td>The <code>locale</code> attribute, a deployment fact</td>
+						<td>The <code>locale</code> attribute</td>
 						<td>Player status and errors, toolbar labels, tool panels, <code>aria-label</code>s, debug panels</td>
 						<td><code>language-of-interface</code></td>
 					</tr>

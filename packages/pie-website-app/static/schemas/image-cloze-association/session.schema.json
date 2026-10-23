@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/image-cloze-association@11.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ImageClozeAssociationAnswer"
+      },
+      "description": "The images the learner placed"
+    },
+    "selector": {
+      "type": "string",
+      "description": "How the learner placed the images; the delivery writes `Mouse`"
+    },
+    "shuffledValues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Possible responses in the order they were shuffled for this learner, when their order is not locked"
+    }
+  },
+  "definitions": {
+    "ImageClozeAssociationAnswer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the placement; the instructor's correct-response session leaves it out"
+        },
+        "value": {
+          "type": "string",
+          "description": "The img tag of the placed possible response"
+        },
+        "containerIndex": {
+          "type": "number",
+          "description": "Index of the response container the image is placed in"
+        }
+      },
+      "required": [
+        "value",
+        "containerIndex"
+      ],
+      "description": "An image the learner placed in a response container"
+    }
+  }
+}

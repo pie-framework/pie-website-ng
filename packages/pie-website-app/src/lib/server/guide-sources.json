@@ -1,0 +1,170 @@
+{
+  "/integrate/item-player/": {
+    "repository": "pie-players",
+    "file": "docs/getting-started.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "ce29f5f2b7488b25d70014708fdc27f7cca3a7f26dea1d38860b39e2cc29e72a"
+  },
+  "/integrate/section-player/": {
+    "repository": "pie-players",
+    "file": "docs/getting-started-section.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "cadbe2cc067c878d8fff82345c378eece56743c4461ae2d4895271260aee8697"
+  },
+  "/integrate/assessment-shell/": {
+    "repository": "pie-players",
+    "file": "docs/assessment-player/integration-guide.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "025071fa667919a0266fc105f7d6234bbfa4a4e13a8642f00e8e650393177192"
+  },
+  "/integrate/formative/": {
+    "repository": "pie-players",
+    "file": "docs/section-player/formative-delivery.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "2f5308e471754120640be9c35b492ae0311346433425101a71e272346c40b67f"
+  },
+  "/integrate/timed-media/": {
+    "repository": "pie-players",
+    "file": "packages/section-player/README.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "15e45905fc35d4c6ea825bc8d7e65c59033cc0bf1ae1d72ca15e6129a22e2b96"
+  },
+  "/integrate/print/": {
+    "repository": "pie-players",
+    "file": "packages/print-player/README.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "9039b29d6ae5d0486b9ca3e2e50bffa6294159a125677ed3914e5fc9e610b6b4"
+  },
+  "/integrate/item-summaries/": {
+    "repository": "pie-players",
+    "file": "packages/item-list/README.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "dee6f2b74165be0ce637ceaf110457decea15b25bfbe75efea9f74a86406d5c8"
+  },
+  "/integrate/extending/": {
+    "repository": "pie-players",
+    "file": "packages/assessment-toolkit/docs/TOOL_REGISTRY.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "0f209f40dc4d8aa6d26c3ac2caa9bf4b749698342d099cf5a2654d4205609237"
+  },
+  "/build/how-elements-work/": {
+    "repository": "pie-elements-ng",
+    "file": "docs/PIE_ELEMENT_CONTRACT.md",
+    "commit": "cb30a68fa78dff12c84a661ad529a49137b64d73",
+    "sha256": "9b70fbd08df538ca6206b8c6881a4bb8ee044687a4e029b9671b81eacf93230b"
+  },
+  "/docs/loading/": {
+    "repository": "pie-players",
+    "file": "docs/item-player/loading-strategies.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "bf766132a7ab0f81c8bb39945dac8f54c12e9c2c3065ebccf11981e30dd496c8"
+  },
+  "/docs/content-and-schemas/": {
+    "repository": "pie-elements-ng",
+    "file": "docs/ELEMENT_SCHEMAS.md",
+    "commit": "cb30a68fa78dff12c84a661ad529a49137b64d73",
+    "sha256": "07b73a4e0774679429a4805f9c361cd7a754dc03aa55432005d01ffd86463012"
+  },
+  "/docs/scoring/": {
+    "repository": "pie-players",
+    "file": "docs/item-player/scoring-and-rubrics.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "07b6870939ac2214a1e76a4a59a6f5e5b8a09fb9d67f42fc85a20c5304fbbac1"
+  },
+  "/docs/backend/": {
+    "repository": "pie-players",
+    "file": "docs/item-player/backend-support.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "524607c679b0f34a4d1f05bb8aa0c49c9415e37f74fd3f210ab74c021ce0eb39"
+  },
+  "/docs/custom-layouts/": {
+    "repository": "pie-players",
+    "file": "docs/section-player/custom-layouts.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "1259d75f73bebfc44e44f8adb3c93dab643196dea532e500f38bb158a5b473e4"
+  },
+  "/docs/lti/": {
+    "repository": "pie-players",
+    "file": "docs/integrations/lti.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "3f2ea63d6617e8981f13497f25feb678f05172af8bcede1fcf43b40e8ee2f71a"
+  },
+  "/docs/tool-policy/": {
+    "repository": "pie-players",
+    "file": "packages/assessment-toolkit/docs/PNP_CONFIGURATION.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "74a69ff02aa31ad9fefad643afba80e7550d59f7fc170501d45f5b04739d2f88"
+  },
+  "/docs/providers/": {
+    "repository": "pie-players",
+    "file": "packages/default-tool-loaders/README.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "c246b5f26e3685655ec684f3718ec56fd5ac04aaf4915a892a26f13c9b493e1b"
+  },
+  "/docs/read-aloud/": {
+    "repository": "pie-players",
+    "file": "docs/accessibility/tts-deep-dive.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "5e20ffe6b61f5d787bce9a549c134d9d7cc9d6bcc07fe3dba098ee8e64192d83"
+  },
+  "/docs/accessibility-catalogs/": {
+    "repository": "pie-players",
+    "file": "docs/accessibility/accessibility-catalogs-integration-guide.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "3e7163cc53f9c59cacc753b50cfb5d0fb69fef132909a23534a07a926dd7281c"
+  },
+  "/docs/math/": {
+    "repository": "pie-players",
+    "file": "docs/item-player/math-rendering.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "76fac8f7cdfb1fd1c239bf4f066119e76b4e5236e75d6302e4ce524992330475"
+  },
+  "/docs/migration/": {
+    "repository": "pie-players",
+    "file": "docs/item-player/migration-from-pie-player-components.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "8bd2723d0959fd076681e17ca782d3c0ab76368262f04156e2194463aab4297f"
+  },
+  "/docs/versioning/": {
+    "repository": "pie-players",
+    "file": "docs/install/versioning.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "0eb282116eae861582d188a17faf662567c93817062c63969765c860c529a7fd"
+  },
+  "/docs/reference/": {
+    "repository": "pie-players",
+    "file": "docs/install/packages.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "0eddef8a550aa6b15a593d61e42cd18d2c2df886c9dee775fdbe255bbbb54dff"
+  },
+  "/docs/reference/item-player/": {
+    "repository": "pie-players",
+    "file": "packages/item-player/README.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "c17de563d37737280a70794528f9c421a5cdf5b7c17999321b9c22d77f014e7a"
+  },
+  "/docs/reference/section-player/": {
+    "repository": "pie-players",
+    "file": "packages/section-player/README.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "15e45905fc35d4c6ea825bc8d7e65c59033cc0bf1ae1d72ca15e6129a22e2b96"
+  },
+  "/docs/reference/toolkit/": {
+    "repository": "pie-players",
+    "file": "packages/assessment-toolkit/README.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "d835e58275b60f667327ebc18a19881df49293997bee7c4c1f564677e98e15c8"
+  },
+  "/docs/reference/tool-registry/": {
+    "repository": "pie-players",
+    "file": "packages/assessment-toolkit/docs/TOOL_REGISTRY.md",
+    "commit": "1d68220b569befcd5ab208de80d71e1b0213445b",
+    "sha256": "0f209f40dc4d8aa6d26c3ac2caa9bf4b749698342d099cf5a2654d4205609237"
+  },
+  "/docs/reference/element-contract/": {
+    "repository": "pie-elements-ng",
+    "file": "docs/PIE_ELEMENT_CONTRACT.md",
+    "commit": "cb30a68fa78dff12c84a661ad529a49137b64d73",
+    "sha256": "9b70fbd08df538ca6206b8c6881a4bb8ee044687a4e029b9671b81eacf93230b"
+  }
+}

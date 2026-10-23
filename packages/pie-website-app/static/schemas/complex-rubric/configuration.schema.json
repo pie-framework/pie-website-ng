@@ -1,0 +1,469 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/complex-rubric@8.0.6/dist/schemas/configuration.schema.json",
+  "type": "object",
+  "properties": {
+    "width": {
+      "type": "string",
+      "description": "How large should complex-rubric be. It replaces the `width` of the simple rubric and rubricless configurations, and the multi trait rubric's when set."
+    },
+    "rubricOptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RubricType"
+      },
+      "description": "Contains the available rubric types; the author offers a choice between them when there is more than one",
+      "default": [
+        "simpleRubric",
+        "multiTraitRubric",
+        "rubricless"
+      ]
+    },
+    "simpleRubric": {
+      "$ref": "#/definitions/RubricConfiguration",
+      "description": "Contains the simple rubric configuration; its `width` is not read."
+    },
+    "multiTraitRubric": {
+      "$ref": "#/definitions/MultiTraitRubricConfiguration",
+      "description": "Contains the multi trait rubric configuration."
+    },
+    "rubricless": {
+      "$ref": "#/definitions/RubricConfiguration",
+      "description": "Contains the rubricless configuration, which takes effect with `rubricless: true`; its `width` is not read."
+    },
+    "contentDimensions": {
+      "$ref": "#/definitions/ContentDimensions",
+      "description": "Dimensions of the authoring container"
+    }
+  },
+  "description": "Config Object for `@pie-element/complex-rubric`",
+  "definitions": {
+    "RubricType": {
+      "type": "string",
+      "enum": [
+        "simpleRubric",
+        "multiTraitRubric",
+        "rubricless"
+      ],
+      "description": "Indicates the type of the rubric"
+    },
+    "RubricConfiguration": {
+      "type": "object",
+      "properties": {
+        "baseInputConfiguration": {
+          "$ref": "#/definitions/EditableHtmlConfigureProp",
+          "description": "Base editable html input configuration regarding plugins that are enabled/disabled E.g. audio, video, image"
+        },
+        "settingsPanelDisabled": {
+          "type": "boolean",
+          "description": "Indicates if the settings panel is not available"
+        },
+        "showExcludeZero": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Ability to exclude zero configuration"
+        },
+        "showMaxPoint": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Show max points dropdown configuration"
+        },
+        "width": {
+          "type": "string",
+          "description": "How large can the rubric be"
+        },
+        "mathMlOptions": {
+          "$ref": "#/definitions/ConfigureMathMLProp",
+          "description": "Configuration for editable-html"
+        },
+        "maxMaxPoints": {
+          "type": "number",
+          "description": "Indicates the max limit for scoring points; the dropdown stops at 100",
+          "default": 9
+        },
+        "rubricless": {
+          "type": "boolean",
+          "description": "Indicates that it is rubricless: the author edits max points and an instruction, without point descriptors"
+        },
+        "rubriclessInstruction": {
+          "$ref": "#/definitions/EditableHtmlPluginConfigure",
+          "description": "Scoring instruction for rubricless: `settings` and `label` set its Settings Panel toggle. Its editor takes `baseInputConfiguration`; `inputConfiguration` is not read."
+        },
+        "contentDimensions": {
+          "$ref": "#/definitions/ContentDimensions",
+          "description": "Dimensions of the authoring container"
+        },
+        "showPrompt": {
+          "type": "boolean",
+          "description": "Not read by this element: the rubric has no prompt"
+        },
+        "promptLabel": {
+          "type": "string",
+          "description": "Not read by this element: the rubric has no prompt"
+        },
+        "settingsPartialScoring": {
+          "type": "boolean",
+          "description": "Not read by this element: the rubric is not scored"
+        }
+      },
+      "description": "Config Object for `@pie-element/rubric`"
+    },
+    "EditableHtmlConfigureProp": {
+      "type": "object",
+      "properties": {
+        "math": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "audio": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "video": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "image": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "customPlugins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomPlugin"
+          },
+          "description": "An array of objects that determine custom plugins. A custom plugin is an object which determines how the button will look like (icon) and the event name that will be triggered when the button gets pressed (event)."
+        },
+        "blockquote": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "h3": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "characters": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "bold": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "html": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "italic": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "ol_list": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "redo": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "strikethrough": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "sub": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "sup": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "table": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "ul_list": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "underline": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "undo": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "showParagraphs": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "separateParagraphs": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "pasteFormatting": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "superscript": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "subscript": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "languageCharacters": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "responseArea": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        }
+      },
+      "description": "Toolbar plugins of an editable-html field, keyed by plugin name."
+    },
+    "EditableHtmlButtonConfigure": {
+      "type": "object",
+      "properties": {
+        "disabled": {
+          "type": "boolean",
+          "description": "Indicates if the plugin is disabled or not"
+        }
+      }
+    },
+    "CustomPlugin": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "type": "string",
+          "description": "The name of the custom event. It needs to be valid (only letters, numbers and \"_\" can be used). The event is emitted with the \"PIE-\" prefix."
+        },
+        "iconAlt": {
+          "type": "string",
+          "description": "The alt for the custom button icon"
+        },
+        "iconType": {
+          "type": "string",
+          "description": "The icon type. Currently, only \"SVG\" is supported."
+        },
+        "icon": {
+          "type": "string",
+          "description": "The icon string. Currently, only SVG is supported, so it needs to be a valid svg."
+        }
+      },
+      "required": [
+        "event",
+        "iconAlt",
+        "iconType",
+        "icon"
+      ]
+    },
+    "ConfigureProp": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        }
+      },
+      "description": "Building blocks of an element's authoring configuration: the object a host passes to the `<tag>-config` custom element to decide which settings the author sees and how editors behave.\n\nEach element declares its own `<Name>Configuration` interface from these, and its JSON Schema is generated from that interface. Descriptions are carried over from the legacy `pie-elements` config schemas, so they appear in the generated schemas unchanged."
+    },
+    "ConfigureMathMLProp": {
+      "type": "object",
+      "properties": {
+        "mmlOutput": {
+          "type": "boolean",
+          "description": "Indicates if model should have mathML output instead of latex"
+        },
+        "mmlEditing": {
+          "type": "boolean",
+          "description": "Indicates if mathML that's already in model should be editable"
+        }
+      }
+    },
+    "EditableHtmlPluginConfigure": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "inputConfiguration": {
+          "$ref": "#/definitions/EditableHtmlConfigureProp",
+          "description": "Configuration for editable-html"
+        }
+      }
+    },
+    "ContentDimensions": {
+      "type": "object",
+      "properties": {
+        "maxHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "maxWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        }
+      },
+      "description": "Indicates the dimensions configuration for the authoring container. Note: Some items have a default minimum width because of their content, but if a lower minWidth is provided, it will be used."
+    },
+    "MultiTraitRubricConfiguration": {
+      "type": "object",
+      "properties": {
+        "baseInputConfiguration": {
+          "$ref": "#/definitions/EditableHtmlConfigureProp",
+          "description": "Base editable html input configuration regarding plugins that are enabled/disabled E.g. audio, video, image"
+        },
+        "expandedInput": {
+          "$ref": "#/definitions/EditableHtmlPluginConfigure",
+          "description": "Expanded input configurations: only `inputConfiguration` is read, for the standards, description and score point descriptor editors"
+        },
+        "labelInput": {
+          "$ref": "#/definitions/EditableHtmlPluginConfigure",
+          "description": "Label input configurations: only `inputConfiguration` is read, for the trait name, trait label and score point label editors"
+        },
+        "excludeZeroDialogBoxContent": {
+          "$ref": "#/definitions/DialogContent",
+          "description": "Not read by the element: the dialog shows its built-in text"
+        },
+        "includeZeroDialogBoxContent": {
+          "$ref": "#/definitions/DialogContent",
+          "description": "Not read by the element: the dialog shows its built-in text"
+        },
+        "deleteScaleDialogBoxContent": {
+          "$ref": "#/definitions/DialogContent",
+          "description": "Not read by the element: the dialog shows its built-in text"
+        },
+        "maxPointsDialogBoxContent": {
+          "$ref": "#/definitions/DialogContent",
+          "description": "Not read by the element: the dialog shows its built-in text"
+        },
+        "settingsPanelDisabled": {
+          "type": "boolean",
+          "description": "Indicates if the settings panel is not available"
+        },
+        "showExcludeZero": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for Excluding Zero Column"
+        },
+        "showScorePointLabels": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for Showing Score Point Labels"
+        },
+        "showDescription": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for Showing Description"
+        },
+        "showVisibleToStudent": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for Showing Multi-trait-rubric to Students"
+        },
+        "showHalfScoring": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for Showing Half Scoring Indicator"
+        },
+        "spellCheck": {
+          "$ref": "#/definitions/ConfigurePropWithEnabled",
+          "description": "Configuration for the author's spellcheck: `enabled` is not read, the model's `spellCheckEnabled` sets it"
+        },
+        "showStandards": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for showing the Standards column"
+        },
+        "showLevelTagInput": {
+          "$ref": "#/definitions/ConfigurePropWithEnabled",
+          "description": "Configuration for showing the Level Tag Input; `enabled` shows it"
+        },
+        "dragAndDrop": {
+          "$ref": "#/definitions/ConfigurePropWithEnabled",
+          "description": "Configuration for allowing drag & drop per traits; `enabled` allows it"
+        },
+        "showMaxPoint": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for the Settings Panel toggle of the model's `maxPointsEnabled`"
+        },
+        "addScale": {
+          "$ref": "#/definitions/ConfigureProp",
+          "description": "Configuration for the Settings Panel toggle of the model's `addScaleEnabled`"
+        },
+        "width": {
+          "type": "string",
+          "description": "How large (in px) should multi-trait-rubric be; without it the rubric takes the container's width"
+        },
+        "contentDimensions": {
+          "$ref": "#/definitions/ContentDimensions",
+          "description": "Dimensions of the authoring container"
+        },
+        "minNoOfTraits": {
+          "type": "number",
+          "description": "Minimum number of traits",
+          "default": 1
+        },
+        "maxNoOfTraits": {
+          "type": "number",
+          "description": "Maximum number of traits",
+          "default": 10
+        },
+        "minNoOfScales": {
+          "type": "number",
+          "description": "Minimum number of scales",
+          "default": 1
+        },
+        "maxNoOfScales": {
+          "type": "number",
+          "description": "Maximum number of scales",
+          "default": 10
+        },
+        "defaultTraitLabel": {
+          "type": "string",
+          "description": "The default trait label for new created scales. If it's not defined, it will default to the label of the first trait.",
+          "default": "Trait"
+        },
+        "mathMlOptions": {
+          "$ref": "#/definitions/ConfigureMathMLProp",
+          "description": "Configuration for editable-html"
+        },
+        "maxMaxPoints": {
+          "type": "number",
+          "description": "Indicates the max limit for scoring points",
+          "default": 10
+        }
+      },
+      "description": "Config Object for `@pie-element/multi-trait-rubric`"
+    },
+    "DialogContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Dialog box title"
+        },
+        "text": {
+          "type": "string",
+          "description": "Dialog box text"
+        }
+      }
+    },
+    "ConfigurePropWithEnabled": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Indicates the value of the item if it affects config-ui (eg.: if item is a switch and displaying an input on the config-ui depends on the switch value: on/off)"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

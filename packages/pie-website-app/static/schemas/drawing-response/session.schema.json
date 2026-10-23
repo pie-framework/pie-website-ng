@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/drawing-response@13.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "drawables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DrawingResponseDrawable"
+      },
+      "description": "The shapes the learner drew"
+    },
+    "texts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DrawingResponseText"
+      },
+      "description": "The text boxes the learner added"
+    },
+    "width": {
+      "type": "number",
+      "description": "Width of the drawing area when the session was saved; delivery restores the drawing area to it"
+    }
+  },
+  "definitions": {
+    "DrawingResponseDrawable": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "FreePathDrawable",
+            "LineDrawable",
+            "RectangleDrawable",
+            "CircleDrawable",
+            "EraserDrawable"
+          ],
+          "description": "The tool that drew the shape"
+        },
+        "startx": {
+          "type": "number",
+          "description": "x position where drawing started"
+        },
+        "starty": {
+          "type": "number",
+          "description": "y position where drawing started"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of when the shape was drawn; it orders undo"
+        },
+        "fillColor": {
+          "type": "string",
+          "description": "Fill color of rectangles and circles"
+        },
+        "outlineColor": {
+          "type": "string",
+          "description": "Outline color of rectangles and circles"
+        },
+        "paintColor": {
+          "type": "string",
+          "description": "Color applied with the paint tool"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Flat x, y coordinate list of free paths and eraser strokes"
+        },
+        "posX": {
+          "type": "number",
+          "description": "x offset after the shape was dragged"
+        },
+        "posY": {
+          "type": "number",
+          "description": "y offset after the shape was dragged"
+        },
+        "x": {
+          "type": "number",
+          "description": "End x of lines and rectangles; center x of circles"
+        },
+        "y": {
+          "type": "number",
+          "description": "End y of lines and rectangles; center y of circles"
+        },
+        "width": {
+          "type": "number",
+          "description": "Width of rectangles"
+        },
+        "height": {
+          "type": "number",
+          "description": "Height of rectangles"
+        },
+        "radius": {
+          "type": "number",
+          "description": "Radius of circles"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "A shape the learner drew, serialized from its drawing tool."
+    },
+    "DrawingResponseText": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the text box"
+        },
+        "type": {
+          "type": "string",
+          "const": "text-entry",
+          "description": "Always \"text-entry\""
+        },
+        "text": {
+          "type": "string",
+          "description": "The text shown on the canvas"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the text box's editor"
+        },
+        "label": {
+          "type": "string",
+          "description": "Placeholder shown before the learner edits the text box"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Indicates the text box still shows its placeholder"
+        },
+        "x": {
+          "type": "number",
+          "description": "x position"
+        },
+        "y": {
+          "type": "number",
+          "description": "y position"
+        },
+        "width": {
+          "type": "number",
+          "description": "Width of the text box"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of when the text box was added; it orders undo"
+        },
+        "textVisible": {
+          "type": "boolean",
+          "description": "Indicates the text node is shown"
+        },
+        "transformerVisible": {
+          "type": "boolean",
+          "description": "Indicates the resize handles are shown"
+        },
+        "textareaVisible": {
+          "type": "boolean",
+          "description": "Indicates the editor is shown"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "description": "A text box the learner added. It also carries the Konva text node's attributes (scale, rotation, font size)."
+    }
+  }
+}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
 	import { base } from '$app/paths';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Diagram from '$lib/components/Diagram.svelte';
@@ -72,21 +73,15 @@ const registration = registerPieColorSchemes([
 	];
 </script>
 
-<svelte:head>
-	<title>Theming - PIE Framework</title>
-	<meta
-		name="description"
-		content="Theme PIE players and content with pie-theme: base themes, provider adapters such as DaisyUI, accessible color schemes, font scaling and the --pie-* token registry."
-	/>
-</svelte:head>
+<Seo title="Theming - PIE Framework" description="Set PIE colors, themes and font sizes with pie-theme and CSS custom properties." />
 
 <div>
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Theming</h1>
 		<p class="text-xl text-base-content/70 max-w-4xl">
-			PIE's players, tools and elements read their colors from <code>--pie-*</code> custom properties.
-			<code>&lt;pie-theme&gt;</code> computes those tokens and writes them onto one element, from which they
-			inherit into every item, including inside shadow DOM.
+			Players, tools and elements use <code>--pie-*</code> CSS custom properties.
+			<code>&lt;pie-theme&gt;</code> sets these properties on a container, and its items inherit them,
+			including inside shadow DOM.
 		</p>
 	</div>
 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="465" height="313" viewBox="0 0 465 313">
+  <title>Two lines with different slopes</title>
+  <desc>Both start at zero. Line A reaches six, eight. Line B reaches eight, three.</desc>
+  <rect width="465" height="313" fill="white"/>
+  <g stroke="#e2e8f0" stroke-width="1">
+    <path d="M40 40H430M40 100H430M40 160H430M40 220H430M100 40V280M160 40V280M220 40V280M280 40V280M340 40V280M400 40V280"/>
+  </g>
+  <path d="M40 25V280H445" fill="none" stroke="#334155" stroke-width="2"/>
+  <path d="M40 280L280 40" stroke="#17486a" stroke-width="4" fill="none"/>
+  <path d="M40 280L360 190" stroke="#126d53" stroke-width="4" fill="none"/>
+  <g font-family="system-ui,sans-serif" font-size="18" fill="#172331">
+    <text x="253" y="30">A</text><text x="368" y="211">B</text>
+    <text x="24" y="301">0</text><text x="425" y="301">x</text><text x="17" y="29">y</text>
+  </g>
+</svg>

@@ -1,0 +1,614 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/categorize@14.0.6/dist/schemas/model.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier to identify the Pie Element in html markup, Must be unique within a pie item config."
+    },
+    "element": {
+      "type": "string",
+      "description": "The html Element tag name: the key in the item config's `elements` map, e.g. \"multiple-choice\""
+    },
+    "accessibilityCatalogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityCatalog"
+      },
+      "description": "QTI-aligned accessibility catalogs whose cards dock to content nodes by `data-catalog-idref`"
+    },
+    "allowAlternateEnabled": {
+      "type": "boolean",
+      "description": "Indicates if alternate correct answers are allowed"
+    },
+    "allowMaxChoicesPerCategory": {
+      "type": "boolean",
+      "description": "Indicates if author has the possibility to set maxChoicesPerCategory"
+    },
+    "allowMultiplePlacementsEnabled": {
+      "$ref": "#/definitions/MultiplePlacements",
+      "description": "Whether choices may be placed in more than one category; `Set Per Choice` reads each choice's `categoryCount`. When unset, the element allows it exactly when a choice appears in more than one category of the correct response."
+    },
+    "alternates": {
+      "type": "array",
+      "items": {},
+      "description": "Not read by the element: alternate responses live in `correctResponse[].alternateResponses`. Default models include it."
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CategoryChoice"
+      },
+      "description": "The available choices"
+    },
+    "categoriesPerRow": {
+      "type": "number",
+      "description": "The number of columns in which to present the categories",
+      "default": 2
+    },
+    "choicesPosition": {
+      "type": "string",
+      "enum": [
+        "above",
+        "below",
+        "left",
+        "right"
+      ],
+      "description": "Indicates where the choices should be presented in relation to the categories."
+    },
+    "choicesLabel": {
+      "type": "string",
+      "description": "Label to be displayed for the choices"
+    },
+    "lockChoiceOrder": {
+      "type": "boolean",
+      "description": "Should the choices be shuffled or not"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The question prompt or item stem"
+    },
+    "promptEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the prompt is enabled"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Category"
+      },
+      "description": "The categories in which choices may be placed"
+    },
+    "correctResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CategoryCorrectResponse"
+      },
+      "description": "The defintion of the correct response to the question"
+    },
+    "feedback": {
+      "$ref": "#/definitions/CategorizeFeedback",
+      "description": "Feedback configuration"
+    },
+    "maxChoicesPerCategory": {
+      "type": "number",
+      "description": "Indicates the maximum number of choices from a category"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Indicates the value for rationale"
+    },
+    "partialScoring": {
+      "type": "boolean",
+      "description": "Indicates if partial scoring is enabled"
+    },
+    "feedbackEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Feedback is enabled"
+    },
+    "rationaleEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rationale are enabled"
+    },
+    "spellCheckEnabled": {
+      "type": "boolean",
+      "description": "Indicates if spellcheck is enabled for the author. Default value is true"
+    },
+    "studentInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Student Instructions are enabled"
+    },
+    "teacherInstructions": {
+      "type": "string",
+      "description": "Indicates teacher instructions"
+    },
+    "teacherInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Teacher Instructions are enabled"
+    },
+    "note": {
+      "type": "string",
+      "description": "Indicates the note for the answer"
+    },
+    "toolbarEditorPosition": {
+      "type": "string",
+      "enum": [
+        "bottom",
+        "top"
+      ],
+      "description": "Indicates the editor's toolbar position which can be 'bottom' or 'top'",
+      "default": "bottom"
+    },
+    "rubricEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rubric is enabled"
+    },
+    "scoringType": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "rubric"
+      ],
+      "description": "Indicates scoring type"
+    },
+    "language": {
+      "type": "string",
+      "description": "Indicates the language of the component Supported options: en, es, en_US, en-US, es_ES, es-ES, es_MX, es-MX"
+    },
+    "maxAnswerChoices": {
+      "type": "number",
+      "description": "Maximum number of choices"
+    },
+    "rowLabels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Labels shown beside each row of categories, one per row"
+    },
+    "minRowHeight": {
+      "type": "string",
+      "description": "Minimum height of a category row, as a CSS length"
+    },
+    "fontSizeFactor": {
+      "type": "number",
+      "description": "Indicates font size adjustment factor"
+    },
+    "autoplayAudioEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the audio for the prompt should autoplay"
+    },
+    "autoplayAudioHeld": {
+      "type": "boolean",
+      "description": "Set by the player when the host holds autoplay; it outranks `autoplayAudioEnabled`"
+    },
+    "completeAudioEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the audio should reach the end before the item can be marked as 'complete'"
+    },
+    "customAudioButton": {
+      "$ref": "#/definitions/CustomAudioButton",
+      "description": "Indicates if the audio should be replaced with a custom audio button"
+    },
+    "extraCSSRules": {
+      "$ref": "#/definitions/ExtraCSSRules",
+      "description": "Host-supplied CSS scoped to the element"
+    }
+  },
+  "required": [
+    "categories",
+    "choices",
+    "element",
+    "id"
+  ],
+  "description": "Pie Model Object for `@pie-element/categorize`",
+  "definitions": {
+    "AccessibilityCatalog": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatalogCard"
+          }
+        }
+      },
+      "required": [
+        "identifier",
+        "cards"
+      ]
+    },
+    "CatalogCard": {
+      "type": "object",
+      "properties": {
+        "catalog": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "payload": {
+          "$ref": "#/definitions/CatalogCardPayload"
+        }
+      },
+      "required": [
+        "catalog"
+      ],
+      "description": "QTI-aligned accessibility catalog entry: one alternate representation of a content node, docked to it by `data-catalog-idref`.\n\nMaps onto QTI 3's `qti-card`. `catalog` is QTI's `@support` and is the only discriminant — there is deliberately no second `kind` field. `language` is the card entry's `xml:lang`. QTI's single content slot is represented by exactly one of two fields, never both, with nothing mirrored between them:\n\n- `content` — the string form, for alternates a string can express: SSML for   `spoken`, plain text for `simplified-language`.\n- `payload` — the structured form, for what a string cannot express. Today   only a signing video.\n\nOne generic payload slot rather than a field per accommodation (`signLanguage`, `braille`, …), which is the shape pie-players canonicalises and the shape this repo now follows. A field per accommodation makes every new structured alternate a breaking widening of this type in every consumer that reads cards, and it gives the same fact two names across repos — which produced a real bug: a card carrying `signLanguage` rendered its video in the player and was simultaneously reported as carrying no payload by the player's \"what alternates exist\" path, because only one of the two read paths knew about the alias.\n\n`catalog` is a bare `string` because the vocabulary is open-ended and unknown tokens must be ignored rather than rejected. TypeScript therefore cannot express \"a `sign-language` card must carry a payload\", so a `{ catalog: 'sign-language', content: '<url>' }` object still satisfies this type. That legacy bare-URL form is not supported: runtime validation on the consuming side must reject it rather than render the URL as visible text. Narrow with `isSignLanguageCard`."
+    },
+    "CatalogCardPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/SignLanguageCardPayload"
+        },
+        {
+          "$ref": "#/definitions/SpokenAudioCardPayload"
+        }
+      ],
+      "description": "The structured forms a card's `payload` may take.\n\nWhich one applies is decided by the card's `catalog`, so this union carries no discriminant of its own — a second discriminant could contradict the first. Consumers select a card by catalog type and then validate the payload structurally, which they must do regardless: catalog data is authored, wire-facing and untrusted."
+    },
+    "SignLanguageCardPayload": {
+      "type": "object",
+      "properties": {
+        "signLang": {
+          "type": "string",
+          "description": "Language tag for the signed translation — BCP 47, which admits ISO 639-3 subtags for languages with no 639-1/2 code. \"ase\" is ASL, matching QTI 3 `xml:lang`.\n\nThis is the language of the *adaptation*, not the item's base content language (AfA/PNP's `languageOfAdaptation`). The distinction is load bearing: a Spanish item's signed alternate is LSM, not ASL, so `signLang` must never be inferred from the item or assessment content language.\n\nOptional, and redundant on almost every card. The card's `language` states the same code and is the only field pie-players resolves a card on — resolution runs before anything knows the card is a signing card, so it can only key on the generic field — and the player falls back to it when this is absent. Author it only where the two differ: a card tagged with the item's content language (`language: 'en-US'`, `signLang: 'ase'`) so resolution reaches it by the default-language rung. The pie-api-aws importer emits `language` alone."
+        },
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `sign-language` catalog card: a signed translation of the content node the card is docked to."
+    },
+    "MediaAssetRef": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/MediaKind"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MediaSource"
+          }
+        },
+        "poster": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "durationSeconds": {
+          "type": "number"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextTrackRef"
+          }
+        },
+        "transcript": {
+          "$ref": "#/definitions/TranscriptRef"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "description": "Language of the asset itself, as authored metadata. Sign-language cards leave it unset: the card's `language` already states the adaptation language, and a second copy is a second thing to keep in agreement."
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "kind",
+        "sources"
+      ],
+      "description": "Reference to a media asset and its playable encodings.\n\nStructurally mirrors the `MediaAssetRef` in the pie-players `media-asset-contract` PRD. The two definitions are deliberately kept as separate declarations rather than a shared package dependency: this repo owns the item-model side of the contract, pie-players owns the player side, and both read the same authored JSON, so structural typing is sufficient for interop. Fixture parity — not a package edge — is what pins them together.\n\nSign-language catalog cards were the first consumer and use only the core source fields. The optional presentation, track, and transcript metadata is declared for broader consumers such as video stimuli; it remains meaningless for a signing clip, where captions would duplicate the text already on screen."
+    },
+    "MediaKind": {
+      "type": "string",
+      "enum": [
+        "image",
+        "audio",
+        "video",
+        "other"
+      ]
+    },
+    "MediaSource": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "MIME type, e.g. \"video/mp4\"."
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "bitrate": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "description": "One playable encoding of a media asset."
+    },
+    "TextTrackRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "captions",
+            "subtitles",
+            "descriptions",
+            "chapters",
+            "metadata"
+          ]
+        },
+        "lang": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "src",
+        "kind",
+        "lang",
+        "label"
+      ],
+      "description": "One authored text track associated with an audio or video asset."
+    },
+    "TranscriptRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "plainText": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        }
+      },
+      "description": "Inline or externally hosted transcript content for a media asset."
+    },
+    "MediaFragmentRange": {
+      "type": "object",
+      "properties": {
+        "startSeconds": {
+          "type": "number"
+        },
+        "endSeconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "startSeconds"
+      ],
+      "description": "A time slice within a media asset, so one recording can serve several content nodes. Mirrors QTI 3's Media Fragments URI usage."
+    },
+    "SpokenAudioCardPayload": {
+      "type": "object",
+      "properties": {
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `spoken` catalog card that is a recording rather than a script.\n\nQTI 3 treats recorded audio and synthesized speech as the same support: both are `spoken`, so this is not a new accommodation, it is the other form the existing one can take. A node commonly carries both this and a `content` card in the same language — the script is both what the audio was generated from and the fallback for when the audio cannot play; pie-players resolves between them with `CatalogLookupOptions.form`.\n\nNo `kind` discriminant, for the same reason `SignLanguageCardPayload` has none: the card's `catalog` already says what this is."
+    },
+    "MultiplePlacements": {
+      "type": "string",
+      "enum": [
+        "Yes",
+        "No",
+        "Set Per Choice"
+      ],
+      "description": "Whether a choice may be placed in more than one category: for every choice, for none, or per choice"
+    },
+    "CategoryChoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier for the choice"
+        },
+        "content": {
+          "type": "string",
+          "description": "The xhtml content for the choice"
+        },
+        "categoryCount": {
+          "type": "number",
+          "description": "How many categories the choice may be placed in: 0 places it in any number of categories, 1 in one. Read when `allowMultiplePlacementsEnabled` is `Set Per Choice`; otherwise the element derives it from that key."
+        },
+        "correctResponseCount": {
+          "type": "number",
+          "description": "How often the choice appears in the correct response; the authoring view recomputes it on every render, so a stored value is not read"
+        }
+      },
+      "required": [
+        "id",
+        "content"
+      ]
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier for the category"
+        },
+        "label": {
+          "type": "string",
+          "description": "The label to display with the category."
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CategoryChoice"
+          },
+          "description": "Not read by the element: the choices placed in a category come from the session's `answers`"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ]
+    },
+    "CategoryCorrectResponse": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "The identifier for the category"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of identifiers for the choices that belong in this category"
+        },
+        "alternateResponses": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": "Array of alternatives correct choices"
+        }
+      },
+      "required": [
+        "category",
+        "choices"
+      ]
+    },
+    "CategorizeFeedback": {
+      "type": "object",
+      "properties": {
+        "correct": {
+          "$ref": "#/definitions/FeedbackLevel",
+          "description": "Indicates the configuration for feedback when answer is correct"
+        },
+        "incorrect": {
+          "$ref": "#/definitions/FeedbackLevel",
+          "description": "Indicates the configuration for feedback when answer is incorrect"
+        },
+        "partial": {
+          "$ref": "#/definitions/FeedbackLevel",
+          "description": "Indicates the configuration for feedback when answer is partially correct"
+        }
+      }
+    },
+    "FeedbackLevel": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "default",
+            "custom",
+            "none"
+          ],
+          "description": "Indicates the feedback type"
+        },
+        "default": {
+          "type": "string",
+          "description": "Indicates the feedback value"
+        },
+        "custom": {
+          "type": "string",
+          "description": "Indicates the feedback custom value"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "Feedback configuration for one correctness level"
+    },
+    "CustomAudioButton": {
+      "type": "object",
+      "properties": {
+        "playImage": {
+          "type": "string",
+          "description": "image url for the play state"
+        },
+        "pauseImage": {
+          "type": "string",
+          "description": "image url for the pause state"
+        }
+      },
+      "required": [
+        "playImage",
+        "pauseImage"
+      ],
+      "description": "Images that replace the default audio play button."
+    },
+    "ExtraCSSRules": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "string"
+        }
+      },
+      "description": "Host-supplied CSS scoped to the element: `rules` is a stylesheet whose class names are listed in `names`."
+    }
+  },
+  "additionalProperties": false
+}

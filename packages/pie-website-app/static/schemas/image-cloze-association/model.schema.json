@@ -1,0 +1,634 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/image-cloze-association@11.0.6/dist/schemas/model.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier to identify the Pie Element in html markup, Must be unique within a pie item config."
+    },
+    "element": {
+      "type": "string",
+      "description": "The html Element tag name: the key in the item config's `elements` map, e.g. \"multiple-choice\""
+    },
+    "accessibilityCatalogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityCatalog"
+      },
+      "description": "QTI-aligned accessibility catalogs whose cards dock to content nodes by `data-catalog-idref`"
+    },
+    "answerChoiceTransparency": {
+      "type": "boolean",
+      "description": "Indicates in answer choices should have a transparent background. Default value is undefined."
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The question prompt or item stem"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Indicates rationale value; instructors see it in view and evaluate modes"
+    },
+    "rationaleEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rationale is enabled. Not read by the element: the rationale shows whenever it is set"
+    },
+    "spellCheckEnabled": {
+      "type": "boolean",
+      "description": "Indicates if spellcheck is enabled for the author. Default value is true"
+    },
+    "teacherInstructions": {
+      "type": "string",
+      "description": "Indicates teacher instructions value; instructors see it in view and evaluate modes"
+    },
+    "teacherInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Teacher Instructions are enabled"
+    },
+    "studentInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Student Instructions are enabled. Not read by the element"
+    },
+    "image": {
+      "$ref": "#/definitions/ImageClozeAssociationImage",
+      "description": "The image over which the responses will be dragged"
+    },
+    "responseContainers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ImageClozeAssociationResponseContainer"
+      },
+      "description": "List of the response containers The response containers are the areas where the images are dragged in"
+    },
+    "stimulus": {
+      "type": "string",
+      "description": "The question stimulus"
+    },
+    "possibleResponses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of img tags that are the possible responses"
+    },
+    "validation": {
+      "$ref": "#/definitions/ImageClozeAssociationValidation",
+      "description": "The validation - correct responses, alternate responses and score"
+    },
+    "partialScoring": {
+      "type": "boolean",
+      "description": "Indicates if the item should use partial scoring"
+    },
+    "maxResponsePerZone": {
+      "type": "number",
+      "description": "Indicates how many responses can be placed in a response container",
+      "default": 1
+    },
+    "duplicateResponses": {
+      "type": "boolean",
+      "description": "Indicates if duplicate responses are allowed"
+    },
+    "showDashedBorder": {
+      "type": "boolean",
+      "description": "Indicates if the response containers should have a dashed border"
+    },
+    "rubricEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rubric is enabled"
+    },
+    "shuffle": {
+      "type": "boolean",
+      "description": "Indicates if the possible responses have to be shuffled in the player"
+    },
+    "lockChoiceOrder": {
+      "type": "boolean",
+      "description": "Indicates that the possible responses keep their authored order even when `shuffle` is set"
+    },
+    "language": {
+      "type": "string",
+      "description": "Indicates the language of the component Supported options: en, es, en_US, en-US, es_ES, es-ES, es_MX, es-MX"
+    },
+    "uiStyle": {
+      "$ref": "#/definitions/ImageClozeAssociationUiStyle",
+      "description": "Indicates style options of the component"
+    },
+    "responseAreaFill": {
+      "type": "string",
+      "description": "Indicates the background color of the response area"
+    },
+    "responseContainerPadding": {
+      "type": "string",
+      "description": "Indicates padding of the response container"
+    },
+    "imageDropTargetPadding": {
+      "type": "string",
+      "description": "Indicates the padding of the image drop target"
+    },
+    "fontSizeFactor": {
+      "type": "number",
+      "description": "Indicates font size adjustment factor"
+    },
+    "autoplayAudioEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the audio for the prompt should autoplay"
+    },
+    "autoplayAudioHeld": {
+      "type": "boolean",
+      "description": "Set by the player when the host holds autoplay; it outranks `autoplayAudioEnabled`"
+    },
+    "completeAudioEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the audio should reach the end before the item can be marked as 'complete'"
+    },
+    "customAudioButton": {
+      "$ref": "#/definitions/CustomAudioButton",
+      "description": "Indicates if the audio should be replaced with a custom audio button"
+    },
+    "extraCSSRules": {
+      "$ref": "#/definitions/ExtraCSSRules",
+      "description": "Host-supplied CSS scoped to the element"
+    },
+    "possible_responses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Snake-case form of `possibleResponses`"
+    },
+    "response_containers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ImageClozeAssociationResponseContainer"
+      },
+      "description": "Snake-case form of `responseContainers`"
+    },
+    "ui_style": {
+      "$ref": "#/definitions/ImageClozeAssociationSnakeCaseUiStyle",
+      "description": "Snake-case form of `uiStyle`"
+    },
+    "duplicate_responses": {
+      "type": "boolean",
+      "description": "Snake-case form of `duplicateResponses`"
+    },
+    "max_response_per_zone": {
+      "type": "number",
+      "description": "Snake-case form of `maxResponsePerZone`",
+      "default": 1
+    },
+    "response_container": {
+      "type": "object",
+      "additionalProperties": {},
+      "description": "Not read by the element: the demo model carries it"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {},
+      "description": "Not read by the element: the demo model carries it"
+    },
+    "is_math": {
+      "type": "boolean",
+      "description": "Not read by the element: the demo model carries it"
+    },
+    "response_id": {
+      "type": "string",
+      "description": "Not read by the element: the demo model carries it"
+    },
+    "metadatadistractor_rationale": {
+      "type": "string",
+      "description": "Not read by the element: the demo model carries it"
+    },
+    "published": {
+      "type": "boolean",
+      "description": "Not read by the element: imported content carries it"
+    },
+    "shuffle_options": {
+      "type": "boolean",
+      "description": "Not read by the element: imported content carries it; `shuffle` controls shuffling"
+    }
+  },
+  "required": [
+    "element",
+    "id"
+  ],
+  "description": "Model for the `@pie-element/image-cloze-association` Interaction\n\nThe controller camelizes every key before reading the model, so a snake-case key reads as its camel-case form. The snake-case keys declared here are those that authored models carry.",
+  "definitions": {
+    "AccessibilityCatalog": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatalogCard"
+          }
+        }
+      },
+      "required": [
+        "identifier",
+        "cards"
+      ]
+    },
+    "CatalogCard": {
+      "type": "object",
+      "properties": {
+        "catalog": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "payload": {
+          "$ref": "#/definitions/CatalogCardPayload"
+        }
+      },
+      "required": [
+        "catalog"
+      ],
+      "description": "QTI-aligned accessibility catalog entry: one alternate representation of a content node, docked to it by `data-catalog-idref`.\n\nMaps onto QTI 3's `qti-card`. `catalog` is QTI's `@support` and is the only discriminant — there is deliberately no second `kind` field. `language` is the card entry's `xml:lang`. QTI's single content slot is represented by exactly one of two fields, never both, with nothing mirrored between them:\n\n- `content` — the string form, for alternates a string can express: SSML for   `spoken`, plain text for `simplified-language`.\n- `payload` — the structured form, for what a string cannot express. Today   only a signing video.\n\nOne generic payload slot rather than a field per accommodation (`signLanguage`, `braille`, …), which is the shape pie-players canonicalises and the shape this repo now follows. A field per accommodation makes every new structured alternate a breaking widening of this type in every consumer that reads cards, and it gives the same fact two names across repos — which produced a real bug: a card carrying `signLanguage` rendered its video in the player and was simultaneously reported as carrying no payload by the player's \"what alternates exist\" path, because only one of the two read paths knew about the alias.\n\n`catalog` is a bare `string` because the vocabulary is open-ended and unknown tokens must be ignored rather than rejected. TypeScript therefore cannot express \"a `sign-language` card must carry a payload\", so a `{ catalog: 'sign-language', content: '<url>' }` object still satisfies this type. That legacy bare-URL form is not supported: runtime validation on the consuming side must reject it rather than render the URL as visible text. Narrow with `isSignLanguageCard`."
+    },
+    "CatalogCardPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/SignLanguageCardPayload"
+        },
+        {
+          "$ref": "#/definitions/SpokenAudioCardPayload"
+        }
+      ],
+      "description": "The structured forms a card's `payload` may take.\n\nWhich one applies is decided by the card's `catalog`, so this union carries no discriminant of its own — a second discriminant could contradict the first. Consumers select a card by catalog type and then validate the payload structurally, which they must do regardless: catalog data is authored, wire-facing and untrusted."
+    },
+    "SignLanguageCardPayload": {
+      "type": "object",
+      "properties": {
+        "signLang": {
+          "type": "string",
+          "description": "Language tag for the signed translation — BCP 47, which admits ISO 639-3 subtags for languages with no 639-1/2 code. \"ase\" is ASL, matching QTI 3 `xml:lang`.\n\nThis is the language of the *adaptation*, not the item's base content language (AfA/PNP's `languageOfAdaptation`). The distinction is load bearing: a Spanish item's signed alternate is LSM, not ASL, so `signLang` must never be inferred from the item or assessment content language.\n\nOptional, and redundant on almost every card. The card's `language` states the same code and is the only field pie-players resolves a card on — resolution runs before anything knows the card is a signing card, so it can only key on the generic field — and the player falls back to it when this is absent. Author it only where the two differ: a card tagged with the item's content language (`language: 'en-US'`, `signLang: 'ase'`) so resolution reaches it by the default-language rung. The pie-api-aws importer emits `language` alone."
+        },
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `sign-language` catalog card: a signed translation of the content node the card is docked to."
+    },
+    "MediaAssetRef": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/MediaKind"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MediaSource"
+          }
+        },
+        "poster": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "durationSeconds": {
+          "type": "number"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextTrackRef"
+          }
+        },
+        "transcript": {
+          "$ref": "#/definitions/TranscriptRef"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "description": "Language of the asset itself, as authored metadata. Sign-language cards leave it unset: the card's `language` already states the adaptation language, and a second copy is a second thing to keep in agreement."
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "kind",
+        "sources"
+      ],
+      "description": "Reference to a media asset and its playable encodings.\n\nStructurally mirrors the `MediaAssetRef` in the pie-players `media-asset-contract` PRD. The two definitions are deliberately kept as separate declarations rather than a shared package dependency: this repo owns the item-model side of the contract, pie-players owns the player side, and both read the same authored JSON, so structural typing is sufficient for interop. Fixture parity — not a package edge — is what pins them together.\n\nSign-language catalog cards were the first consumer and use only the core source fields. The optional presentation, track, and transcript metadata is declared for broader consumers such as video stimuli; it remains meaningless for a signing clip, where captions would duplicate the text already on screen."
+    },
+    "MediaKind": {
+      "type": "string",
+      "enum": [
+        "image",
+        "audio",
+        "video",
+        "other"
+      ]
+    },
+    "MediaSource": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "MIME type, e.g. \"video/mp4\"."
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "bitrate": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "description": "One playable encoding of a media asset."
+    },
+    "TextTrackRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "captions",
+            "subtitles",
+            "descriptions",
+            "chapters",
+            "metadata"
+          ]
+        },
+        "lang": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "src",
+        "kind",
+        "lang",
+        "label"
+      ],
+      "description": "One authored text track associated with an audio or video asset."
+    },
+    "TranscriptRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "plainText": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        }
+      },
+      "description": "Inline or externally hosted transcript content for a media asset."
+    },
+    "MediaFragmentRange": {
+      "type": "object",
+      "properties": {
+        "startSeconds": {
+          "type": "number"
+        },
+        "endSeconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "startSeconds"
+      ],
+      "description": "A time slice within a media asset, so one recording can serve several content nodes. Mirrors QTI 3's Media Fragments URI usage."
+    },
+    "SpokenAudioCardPayload": {
+      "type": "object",
+      "properties": {
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `spoken` catalog card that is a recording rather than a script.\n\nQTI 3 treats recorded audio and synthesized speech as the same support: both are `spoken`, so this is not a new accommodation, it is the other form the existing one can take. A node commonly carries both this and a `content` card in the same language — the script is both what the audio was generated from and the fallback for when the audio cannot play; pie-players resolves between them with `CatalogLookupOptions.form`.\n\nNo `kind` discriminant, for the same reason `SignLanguageCardPayload` has none: the card's `catalog` already says what this is."
+    },
+    "ImageClozeAssociationImage": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "The url of the image"
+        },
+        "width": {
+          "type": "number",
+          "description": "The width of the image"
+        },
+        "height": {
+          "type": "number",
+          "description": "The height of the image"
+        }
+      }
+    },
+    "ImageClozeAssociationResponseContainer": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "The x coordinate of the response container, as a percentage of the image width"
+        },
+        "y": {
+          "type": "number",
+          "description": "The y coordinate of the response container, as a percentage of the image height"
+        },
+        "width": {
+          "type": "string",
+          "description": "The width of the response container, as a percentage of the image width (e.g. `\"35.7%\"`)"
+        },
+        "height": {
+          "type": "string",
+          "description": "The height of the response container, as a percentage of the image height (e.g. `\"23.6%\"`)"
+        },
+        "ariaLabel": {
+          "type": "string",
+          "description": "Plain text that screen readers announce as the response container's name, in place of \"Response area {index} of {total}\", which an absent or blank label leaves"
+        },
+        "aria_label": {
+          "type": "string",
+          "description": "Snake-case form of `ariaLabel`, which imported content carries"
+        }
+      }
+    },
+    "ImageClozeAssociationValidation": {
+      "type": "object",
+      "properties": {
+        "validResponse": {
+          "$ref": "#/definitions/ImageClozeAssociationValidResponse",
+          "description": "The valid response"
+        },
+        "altResponses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ImageClozeAssociationValidResponse"
+          },
+          "description": "List of alternate responses"
+        },
+        "valid_response": {
+          "$ref": "#/definitions/ImageClozeAssociationValidResponse",
+          "description": "Snake-case form of `validResponse`, which the controller reads through camelizing every key; the instructor's correct-response session reads only this form"
+        },
+        "alt_responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ImageClozeAssociationValidResponse"
+          },
+          "description": "Snake-case form of `altResponses`, which the controller reads through camelizing every key"
+        }
+      }
+    },
+    "ImageClozeAssociationValidResponse": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "description": "The score of the response"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ImageClozeAssociationContainerResponse"
+          },
+          "description": "The correct images per response container, in response container order"
+        }
+      }
+    },
+    "ImageClozeAssociationContainerResponse": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "An array containing strings that are img tags"
+        }
+      },
+      "description": "The correct images of one response container"
+    },
+    "ImageClozeAssociationUiStyle": {
+      "type": "object",
+      "properties": {
+        "possibilityListPosition": {
+          "$ref": "#/definitions/ImageClozeAssociationChoicesPosition",
+          "description": "Position of the possible responses relative to the image",
+          "default": "bottom"
+        },
+        "fontsize": {
+          "type": "string",
+          "description": "Not read by the element"
+        }
+      }
+    },
+    "ImageClozeAssociationChoicesPosition": {
+      "type": "string",
+      "enum": [
+        "top",
+        "bottom",
+        "below",
+        "left",
+        "right"
+      ],
+      "description": "`below`, which imported content carries, renders as `bottom`."
+    },
+    "CustomAudioButton": {
+      "type": "object",
+      "properties": {
+        "playImage": {
+          "type": "string",
+          "description": "image url for the play state"
+        },
+        "pauseImage": {
+          "type": "string",
+          "description": "image url for the pause state"
+        }
+      },
+      "required": [
+        "playImage",
+        "pauseImage"
+      ],
+      "description": "Images that replace the default audio play button."
+    },
+    "ExtraCSSRules": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "string"
+        }
+      },
+      "description": "Host-supplied CSS scoped to the element: `rules` is a stylesheet whose class names are listed in `names`."
+    },
+    "ImageClozeAssociationSnakeCaseUiStyle": {
+      "type": "object",
+      "properties": {
+        "possibility_list_position": {
+          "$ref": "#/definitions/ImageClozeAssociationChoicesPosition",
+          "description": "Position of the possible responses relative to the image",
+          "default": "bottom"
+        },
+        "fontsize": {
+          "type": "string",
+          "description": "Not read by the element"
+        }
+      },
+      "description": "Snake-case form of the style options, which the controller reads through camelizing every key"
+    }
+  },
+  "additionalProperties": false
+}

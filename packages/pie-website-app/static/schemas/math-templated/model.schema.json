@@ -1,0 +1,474 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/math-templated@8.0.6/dist/schemas/model.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier to identify the Pie Element in html markup, Must be unique within a pie item config."
+    },
+    "element": {
+      "type": "string",
+      "description": "The html Element tag name: the key in the item config's `elements` map, e.g. \"multiple-choice\""
+    },
+    "accessibilityCatalogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityCatalog"
+      },
+      "description": "QTI-aligned accessibility catalogs whose cards dock to content nodes by `data-catalog-idref`"
+    },
+    "markup": {
+      "type": "string",
+      "description": "Indicates markup value; each `{{n}}` is response area `n`"
+    },
+    "slateMarkup": {
+      "type": "string",
+      "description": "The markup as the authoring editor holds it, with each response area as a `math_templated` span; the authoring view derives it from `markup` when it is not set"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Indicates prompt value"
+    },
+    "promptEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Prompt is enabled"
+    },
+    "teacherInstructions": {
+      "type": "string",
+      "description": "Indicates teacher instructions value"
+    },
+    "teacherInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Teacher Instructions are enabled"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Indicates rationale value"
+    },
+    "rationaleEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rationale is enabled"
+    },
+    "spellCheckEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Spell Check is enabled for the author"
+    },
+    "playerSpellCheckEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Player Spell Check is enabled. Not read by the element: the settings panel writes it, and delivery does not apply it"
+    },
+    "responses": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/MathTemplatedResponse"
+      },
+      "description": "Correct responses, keyed by response area index"
+    },
+    "equationEditor": {
+      "$ref": "#/definitions/EquationEditor",
+      "description": "Indicates what type of editor should be displayed for all the possible responses",
+      "default": "8"
+    },
+    "customKeys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Extra buttons defined by user"
+    },
+    "ignoreOrderDefault": {
+      "type": "boolean",
+      "description": "Indicates the default value for ignoreOrder, in case that it's not set",
+      "default": false
+    },
+    "allowTrailingZerosDefault": {
+      "type": "boolean",
+      "description": "Indicates the default value for allowTrailingZeros, in case that it's not set",
+      "default": false
+    },
+    "validationDefault": {
+      "type": "string",
+      "enum": [
+        "literal",
+        "symbolic"
+      ],
+      "description": "Indicates the default value for validation, in case that it's not set on a response",
+      "default": "literal"
+    },
+    "partialScoring": {
+      "type": "boolean",
+      "description": "Indicates if partial scoring is enabled; scoring is dichotomous only when it is false"
+    },
+    "toolbarEditorPosition": {
+      "type": "string",
+      "enum": [
+        "bottom",
+        "top"
+      ],
+      "description": "Indicates the editor's toolbar position which can be 'bottom' or 'top'",
+      "default": "bottom"
+    },
+    "note": {
+      "type": "string",
+      "description": "Indicates the note for the answer; a translated default note applies when it is not set"
+    },
+    "language": {
+      "type": "string",
+      "description": "Indicates the language of the component Supported options: en, es, en_US, en-US, es_ES, es-ES, es_MX, es-MX"
+    },
+    "extraCSSRules": {
+      "$ref": "#/definitions/ExtraCSSRules",
+      "description": "Host-supplied CSS scoped to the element"
+    },
+    "scoringType": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "rubric"
+      ],
+      "description": "Not read by the element: the demo models carry it"
+    },
+    "feedbackEnabled": {
+      "type": "boolean",
+      "description": "Not read by the element: the demo models carry it"
+    },
+    "studentInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Not read by the element: the demo models carry it"
+    }
+  },
+  "required": [
+    "element",
+    "id"
+  ],
+  "description": "Model for the `@pie-element/math-templated`",
+  "definitions": {
+    "AccessibilityCatalog": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatalogCard"
+          }
+        }
+      },
+      "required": [
+        "identifier",
+        "cards"
+      ]
+    },
+    "CatalogCard": {
+      "type": "object",
+      "properties": {
+        "catalog": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "payload": {
+          "$ref": "#/definitions/CatalogCardPayload"
+        }
+      },
+      "required": [
+        "catalog"
+      ],
+      "description": "QTI-aligned accessibility catalog entry: one alternate representation of a content node, docked to it by `data-catalog-idref`.\n\nMaps onto QTI 3's `qti-card`. `catalog` is QTI's `@support` and is the only discriminant — there is deliberately no second `kind` field. `language` is the card entry's `xml:lang`. QTI's single content slot is represented by exactly one of two fields, never both, with nothing mirrored between them:\n\n- `content` — the string form, for alternates a string can express: SSML for   `spoken`, plain text for `simplified-language`.\n- `payload` — the structured form, for what a string cannot express. Today   only a signing video.\n\nOne generic payload slot rather than a field per accommodation (`signLanguage`, `braille`, …), which is the shape pie-players canonicalises and the shape this repo now follows. A field per accommodation makes every new structured alternate a breaking widening of this type in every consumer that reads cards, and it gives the same fact two names across repos — which produced a real bug: a card carrying `signLanguage` rendered its video in the player and was simultaneously reported as carrying no payload by the player's \"what alternates exist\" path, because only one of the two read paths knew about the alias.\n\n`catalog` is a bare `string` because the vocabulary is open-ended and unknown tokens must be ignored rather than rejected. TypeScript therefore cannot express \"a `sign-language` card must carry a payload\", so a `{ catalog: 'sign-language', content: '<url>' }` object still satisfies this type. That legacy bare-URL form is not supported: runtime validation on the consuming side must reject it rather than render the URL as visible text. Narrow with `isSignLanguageCard`."
+    },
+    "CatalogCardPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/SignLanguageCardPayload"
+        },
+        {
+          "$ref": "#/definitions/SpokenAudioCardPayload"
+        }
+      ],
+      "description": "The structured forms a card's `payload` may take.\n\nWhich one applies is decided by the card's `catalog`, so this union carries no discriminant of its own — a second discriminant could contradict the first. Consumers select a card by catalog type and then validate the payload structurally, which they must do regardless: catalog data is authored, wire-facing and untrusted."
+    },
+    "SignLanguageCardPayload": {
+      "type": "object",
+      "properties": {
+        "signLang": {
+          "type": "string",
+          "description": "Language tag for the signed translation — BCP 47, which admits ISO 639-3 subtags for languages with no 639-1/2 code. \"ase\" is ASL, matching QTI 3 `xml:lang`.\n\nThis is the language of the *adaptation*, not the item's base content language (AfA/PNP's `languageOfAdaptation`). The distinction is load bearing: a Spanish item's signed alternate is LSM, not ASL, so `signLang` must never be inferred from the item or assessment content language.\n\nOptional, and redundant on almost every card. The card's `language` states the same code and is the only field pie-players resolves a card on — resolution runs before anything knows the card is a signing card, so it can only key on the generic field — and the player falls back to it when this is absent. Author it only where the two differ: a card tagged with the item's content language (`language: 'en-US'`, `signLang: 'ase'`) so resolution reaches it by the default-language rung. The pie-api-aws importer emits `language` alone."
+        },
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `sign-language` catalog card: a signed translation of the content node the card is docked to."
+    },
+    "MediaAssetRef": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/MediaKind"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MediaSource"
+          }
+        },
+        "poster": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "durationSeconds": {
+          "type": "number"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextTrackRef"
+          }
+        },
+        "transcript": {
+          "$ref": "#/definitions/TranscriptRef"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "description": "Language of the asset itself, as authored metadata. Sign-language cards leave it unset: the card's `language` already states the adaptation language, and a second copy is a second thing to keep in agreement."
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "kind",
+        "sources"
+      ],
+      "description": "Reference to a media asset and its playable encodings.\n\nStructurally mirrors the `MediaAssetRef` in the pie-players `media-asset-contract` PRD. The two definitions are deliberately kept as separate declarations rather than a shared package dependency: this repo owns the item-model side of the contract, pie-players owns the player side, and both read the same authored JSON, so structural typing is sufficient for interop. Fixture parity — not a package edge — is what pins them together.\n\nSign-language catalog cards were the first consumer and use only the core source fields. The optional presentation, track, and transcript metadata is declared for broader consumers such as video stimuli; it remains meaningless for a signing clip, where captions would duplicate the text already on screen."
+    },
+    "MediaKind": {
+      "type": "string",
+      "enum": [
+        "image",
+        "audio",
+        "video",
+        "other"
+      ]
+    },
+    "MediaSource": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "MIME type, e.g. \"video/mp4\"."
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "bitrate": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "description": "One playable encoding of a media asset."
+    },
+    "TextTrackRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "captions",
+            "subtitles",
+            "descriptions",
+            "chapters",
+            "metadata"
+          ]
+        },
+        "lang": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "src",
+        "kind",
+        "lang",
+        "label"
+      ],
+      "description": "One authored text track associated with an audio or video asset."
+    },
+    "TranscriptRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "plainText": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        }
+      },
+      "description": "Inline or externally hosted transcript content for a media asset."
+    },
+    "MediaFragmentRange": {
+      "type": "object",
+      "properties": {
+        "startSeconds": {
+          "type": "number"
+        },
+        "endSeconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "startSeconds"
+      ],
+      "description": "A time slice within a media asset, so one recording can serve several content nodes. Mirrors QTI 3's Media Fragments URI usage."
+    },
+    "SpokenAudioCardPayload": {
+      "type": "object",
+      "properties": {
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `spoken` catalog card that is a recording rather than a script.\n\nQTI 3 treats recorded audio and synthesized speech as the same support: both are `spoken`, so this is not a new accommodation, it is the other form the existing one can take. A node commonly carries both this and a `content` card in the same language — the script is both what the audio was generated from and the fallback for when the audio cannot play; pie-players resolves between them with `CatalogLookupOptions.form`.\n\nNo `kind` discriminant, for the same reason `SignLanguageCardPayload` has none: the card's `catalog` already says what this is."
+    },
+    "MathTemplatedResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id for the response; the authoring view creates responses without one"
+        },
+        "answer": {
+          "type": "string",
+          "description": "The value for the response's answer"
+        },
+        "validation": {
+          "type": "string",
+          "enum": [
+            "literal",
+            "symbolic"
+          ],
+          "description": "Indicates what type of validation should be applied on the response; the model's `validationDefault` applies when it is not set"
+        },
+        "allowTrailingZeros": {
+          "type": "boolean",
+          "description": "Indicates the allowance of trailing zeros in expressions; the model's `allowTrailingZerosDefault` applies when it is not set"
+        },
+        "ignoreOrder": {
+          "type": "boolean",
+          "description": "Indicates if the order of expression elements in literal validation can be ignore; the model's `ignoreOrderDefault` applies when it is not set"
+        },
+        "alternates": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "For validation type = literal, alternates represents an object with some alternatives for the correct answers, keyed by alternate id"
+        },
+        "allowSpaces": {
+          "type": "boolean",
+          "description": "Not read by the element: the authoring view sets it on the responses it creates"
+        }
+      },
+      "required": [
+        "answer"
+      ],
+      "description": "The correct response of one response area"
+    },
+    "EquationEditor": {
+      "type": [
+        "number",
+        "string"
+      ],
+      "enum": [
+        1,
+        3,
+        6,
+        8,
+        "1",
+        "3",
+        "6",
+        "8",
+        "non-negative-integers",
+        "integers",
+        "decimals",
+        "fractions",
+        "geometry",
+        "advanced-algebra",
+        "statistics",
+        "item-authoring"
+      ],
+      "description": "Keypad of an equation editor: a grade band, as a number or a numeric string (1 for Grade 1 - 2, 3 for Grade 3 - 5, 6 for Grade 6 - 7, 8 for Grade 8 - HS), or a named keypad"
+    },
+    "ExtraCSSRules": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "string"
+        }
+      },
+      "description": "Host-supplied CSS scoped to the element: `rules` is a stylesheet whose class names are listed in `names`."
+    }
+  },
+  "additionalProperties": false
+}

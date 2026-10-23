@@ -1,0 +1,686 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/mc-populated-blank@0.3.6/dist/schemas/model.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier to identify the Pie Element in html markup, Must be unique within a pie item config."
+    },
+    "element": {
+      "type": "string",
+      "description": "The html Element tag name: the key in the item config's `elements` map, e.g. \"multiple-choice\""
+    },
+    "accessibilityCatalogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityCatalog"
+      },
+      "description": "QTI-aligned accessibility catalogs whose cards dock to content nodes by `data-catalog-idref`"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The question prompt or item stem"
+    },
+    "promptEnabled": {
+      "type": "boolean",
+      "description": "Determines if prompt should show"
+    },
+    "interactionMode": {
+      "$ref": "#/definitions/McpbInteractionMode",
+      "description": "How the learner answers",
+      "default": "populate_blank"
+    },
+    "layoutProfile": {
+      "type": "string",
+      "description": "Selects the arrangement: `inline_sentence`, `audio_blank_only`, `token_sequence` or `stimulus_image_blank`; unset is block flow in DOM order. Lands on the root as `layout-<layoutProfile>`."
+    },
+    "choiceLayout": {
+      "type": "string",
+      "description": "The choices' direction, `horizontal` or `vertical`. Unset, choices are horizontal when the template is only `{{blank}}` or `interactionMode` is `audio_mc_only`, and vertical otherwise."
+    },
+    "layoutProfilePresets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "blankStandaloneWidthRem": {
+            "type": "number"
+          },
+          "blankWideWidthRem": {
+            "type": "number"
+          },
+          "blankUnderlineWidthPx": {
+            "type": "number"
+          },
+          "blankUnderlineWideWidthPx": {
+            "type": "number"
+          },
+          "horizontalChoiceWidthPx": {
+            "type": "number"
+          },
+          "horizontalChoiceWidthVw": {
+            "type": "number"
+          },
+          "horizontalChoiceTileMinHeightRem": {
+            "type": "number"
+          },
+          "horizontalChoiceContentMinHeightRem": {
+            "type": "number"
+          },
+          "choiceImageMaxHeightRem": {
+            "type": "number"
+          },
+          "choiceImageMaxWidthRem": {
+            "type": "number"
+          },
+          "listenButtonSizePx": {
+            "type": "number"
+          },
+          "stimulusMinColumnPx": {
+            "type": "number"
+          },
+          "textMinColumnPx": {
+            "type": "number"
+          },
+          "legendMaxChars": {
+            "type": "number"
+          },
+          "choiceGroupGapRem": {
+            "type": "number"
+          },
+          "choiceRowGapRem": {
+            "type": "number"
+          },
+          "toggleButtonGapRem": {
+            "type": "number"
+          },
+          "horizontalChoiceRadioTopMarginRem": {
+            "type": "number"
+          },
+          "audioBlankTemplateMarginTopRem": {
+            "type": "number"
+          },
+          "audioBlankTemplateMarginBottomRem": {
+            "type": "number"
+          },
+          "audioInstructionsMaxWidthPx": {
+            "type": "number"
+          },
+          "stimulusGridColumnGapRem": {
+            "type": "number"
+          },
+          "stimulusGridRowGapRem": {
+            "type": "number"
+          },
+          "stimulusSentenceMarginTopRem": {
+            "type": "number"
+          },
+          "stimulusChoicesMarginTopRem": {
+            "type": "number"
+          },
+          "tokenGridColumnGapRem": {
+            "type": "number"
+          },
+          "tokenGridRowGapRem": {
+            "type": "number"
+          },
+          "tokenTemplateMarginTopRem": {
+            "type": "number"
+          },
+          "tokenInlineTokenGapRem": {
+            "type": "number"
+          },
+          "tokenChoicesMarginTopRem": {
+            "type": "number"
+          },
+          "inlineGridColumnGapRem": {
+            "type": "number"
+          },
+          "inlineGridRowGapRem": {
+            "type": "number"
+          },
+          "inlineTemplateMarginTopRem": {
+            "type": "number"
+          },
+          "inlineChoicesMarginTopRem": {
+            "type": "number"
+          }
+        }
+      },
+      "description": "Layout limits keyed by `layoutProfile`, merged over the bundled preset of that name. Delivery applies the current profile's preset over `layoutLimits`."
+    },
+    "layoutLimits": {
+      "type": "object",
+      "properties": {
+        "blankStandaloneWidthRem": {
+          "type": "number"
+        },
+        "blankWideWidthRem": {
+          "type": "number"
+        },
+        "blankUnderlineWidthPx": {
+          "type": "number"
+        },
+        "blankUnderlineWideWidthPx": {
+          "type": "number"
+        },
+        "horizontalChoiceWidthPx": {
+          "type": "number"
+        },
+        "horizontalChoiceWidthVw": {
+          "type": "number"
+        },
+        "horizontalChoiceTileMinHeightRem": {
+          "type": "number"
+        },
+        "horizontalChoiceContentMinHeightRem": {
+          "type": "number"
+        },
+        "choiceImageMaxHeightRem": {
+          "type": "number"
+        },
+        "choiceImageMaxWidthRem": {
+          "type": "number"
+        },
+        "listenButtonSizePx": {
+          "type": "number"
+        },
+        "stimulusMinColumnPx": {
+          "type": "number"
+        },
+        "textMinColumnPx": {
+          "type": "number"
+        },
+        "legendMaxChars": {
+          "type": "number"
+        },
+        "choiceGroupGapRem": {
+          "type": "number"
+        },
+        "choiceRowGapRem": {
+          "type": "number"
+        },
+        "toggleButtonGapRem": {
+          "type": "number"
+        },
+        "horizontalChoiceRadioTopMarginRem": {
+          "type": "number"
+        },
+        "audioBlankTemplateMarginTopRem": {
+          "type": "number"
+        },
+        "audioBlankTemplateMarginBottomRem": {
+          "type": "number"
+        },
+        "audioInstructionsMaxWidthPx": {
+          "type": "number"
+        },
+        "stimulusGridColumnGapRem": {
+          "type": "number"
+        },
+        "stimulusGridRowGapRem": {
+          "type": "number"
+        },
+        "stimulusSentenceMarginTopRem": {
+          "type": "number"
+        },
+        "stimulusChoicesMarginTopRem": {
+          "type": "number"
+        },
+        "tokenGridColumnGapRem": {
+          "type": "number"
+        },
+        "tokenGridRowGapRem": {
+          "type": "number"
+        },
+        "tokenTemplateMarginTopRem": {
+          "type": "number"
+        },
+        "tokenInlineTokenGapRem": {
+          "type": "number"
+        },
+        "tokenChoicesMarginTopRem": {
+          "type": "number"
+        },
+        "inlineGridColumnGapRem": {
+          "type": "number"
+        },
+        "inlineGridRowGapRem": {
+          "type": "number"
+        },
+        "inlineTemplateMarginTopRem": {
+          "type": "number"
+        },
+        "inlineChoicesMarginTopRem": {
+          "type": "number"
+        }
+      },
+      "description": "Numeric visual constraints, each a positive number; a key left out takes the CQT-tuned default"
+    },
+    "audioButtonSkin": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/McpbAudioButtonSkin"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The listen button's images when `audioButtonSkinsByLocale` has none for the locale"
+    },
+    "audioButtonSkinsByLocale": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/McpbAudioButtonSkin"
+      },
+      "description": "The listen button's images keyed by lower-case `locale`, its two-letter language, or `default`, tried in that order"
+    },
+    "sentenceHtml": {
+      "type": "string",
+      "description": "A sentence or stimulus (HTML) rendered between the audio and the template"
+    },
+    "template": {
+      "type": "string",
+      "description": "The sentence (HTML); with `populate_blank` it holds exactly one `{{blank}}`"
+    },
+    "choiceMode": {
+      "$ref": "#/definitions/McpbChoiceMode",
+      "description": "Whether the choices are text or images",
+      "default": "text"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/McpbChoice"
+      },
+      "description": "The choice options for the question"
+    },
+    "choiceGroupLabel": {
+      "type": "string",
+      "description": "The choice group's accessible name when the item has no prompt to label it."
+    },
+    "correctChoiceId": {
+      "type": "string",
+      "description": "The `id` of the correct choice"
+    },
+    "hasAudio": {
+      "type": "boolean",
+      "description": "Indicates if the item plays `audioUrl`"
+    },
+    "autoplayAudioEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the audio plays when the item loads"
+    },
+    "autoplayAudioHeld": {
+      "type": "boolean",
+      "description": "Set by the player when the host holds autoplay; it outranks `autoplayAudioEnabled`"
+    },
+    "completeAudioEnabled": {
+      "type": "boolean",
+      "description": "Keeps the item incomplete until the audio has played to the end"
+    },
+    "audioUrl": {
+      "type": "string",
+      "description": "The audio prompt's URL; required when `hasAudio` is set"
+    },
+    "audioTranscript": {
+      "type": "string",
+      "description": "Transcript text for the audio prompt.\n\nNot rendered by delivery: on `pie-section-player` the toolkit renders it from the item's accessibility catalog, gated by the learner's profile (PIE-902). It stays on the model for the print view, which has no toolkit, and renders it unconditionally until print resolves catalogs itself (PIE-904), and as the source the pie-api-aws import writes the card from."
+    },
+    "useFeatureButtonAudio": {
+      "type": "boolean",
+      "description": "`true` plays the audio from the listen button, `false` from native audio controls. Unset, the `audio_blank_only`, `stimulus_image_blank` and `token_sequence` layouts use the listen button."
+    },
+    "locale": {
+      "type": "string",
+      "description": "Picks the audio button skin; also the learner-facing strings' language when `language` is unset."
+    },
+    "language": {
+      "type": "string",
+      "description": "The learner-facing strings' language, as `@pie-lib/translator` reads it (`en_US`, `es_ES`, …)."
+    },
+    "lockChoiceOrder": {
+      "type": "boolean",
+      "description": "`false` shuffles the choices for a student; unset or `true` keeps the authored order."
+    },
+    "shuffle": {
+      "type": "boolean",
+      "description": "The older spelling of `lockChoiceOrder: false`, read only when `lockChoiceOrder` is unset.\n\nDeprecated: Use `lockChoiceOrder`.",
+      "deprecated": true
+    },
+    "teacherInstructions": {
+      "type": "string",
+      "description": "Indicates teacher instructions"
+    },
+    "teacherInstructionsEnabled": {
+      "type": "boolean",
+      "description": "`false` hides `teacherInstructions`; unset shows them, as in multiple-choice."
+    },
+    "printAnswerKey": {
+      "type": "boolean",
+      "description": "`false` leaves the answer key out of an instructor's printout; a student's never has it."
+    },
+    "customType": {
+      "type": "string",
+      "description": "The CQT `custom_type` whose bundled variant stylesheet applies, e.g. `sel_r1-_plusggg`"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "csvQuestionTypeTag": {
+          "type": "string",
+          "description": "The CQT question type the item was imported as, with its version, e.g. `sel_vicv0.0.1`"
+        }
+      },
+      "description": "Provenance metadata from the content import; the element does not read it."
+    }
+  },
+  "required": [
+    "element",
+    "id"
+  ],
+  "description": "Model for the populated-blank multiple-choice interaction",
+  "definitions": {
+    "AccessibilityCatalog": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatalogCard"
+          }
+        }
+      },
+      "required": [
+        "identifier",
+        "cards"
+      ]
+    },
+    "CatalogCard": {
+      "type": "object",
+      "properties": {
+        "catalog": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "payload": {
+          "$ref": "#/definitions/CatalogCardPayload"
+        }
+      },
+      "required": [
+        "catalog"
+      ],
+      "description": "QTI-aligned accessibility catalog entry: one alternate representation of a content node, docked to it by `data-catalog-idref`.\n\nMaps onto QTI 3's `qti-card`. `catalog` is QTI's `@support` and is the only discriminant — there is deliberately no second `kind` field. `language` is the card entry's `xml:lang`. QTI's single content slot is represented by exactly one of two fields, never both, with nothing mirrored between them:\n\n- `content` — the string form, for alternates a string can express: SSML for   `spoken`, plain text for `simplified-language`.\n- `payload` — the structured form, for what a string cannot express. Today   only a signing video.\n\nOne generic payload slot rather than a field per accommodation (`signLanguage`, `braille`, …), which is the shape pie-players canonicalises and the shape this repo now follows. A field per accommodation makes every new structured alternate a breaking widening of this type in every consumer that reads cards, and it gives the same fact two names across repos — which produced a real bug: a card carrying `signLanguage` rendered its video in the player and was simultaneously reported as carrying no payload by the player's \"what alternates exist\" path, because only one of the two read paths knew about the alias.\n\n`catalog` is a bare `string` because the vocabulary is open-ended and unknown tokens must be ignored rather than rejected. TypeScript therefore cannot express \"a `sign-language` card must carry a payload\", so a `{ catalog: 'sign-language', content: '<url>' }` object still satisfies this type. That legacy bare-URL form is not supported: runtime validation on the consuming side must reject it rather than render the URL as visible text. Narrow with `isSignLanguageCard`."
+    },
+    "CatalogCardPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/SignLanguageCardPayload"
+        },
+        {
+          "$ref": "#/definitions/SpokenAudioCardPayload"
+        }
+      ],
+      "description": "The structured forms a card's `payload` may take.\n\nWhich one applies is decided by the card's `catalog`, so this union carries no discriminant of its own — a second discriminant could contradict the first. Consumers select a card by catalog type and then validate the payload structurally, which they must do regardless: catalog data is authored, wire-facing and untrusted."
+    },
+    "SignLanguageCardPayload": {
+      "type": "object",
+      "properties": {
+        "signLang": {
+          "type": "string",
+          "description": "Language tag for the signed translation — BCP 47, which admits ISO 639-3 subtags for languages with no 639-1/2 code. \"ase\" is ASL, matching QTI 3 `xml:lang`.\n\nThis is the language of the *adaptation*, not the item's base content language (AfA/PNP's `languageOfAdaptation`). The distinction is load bearing: a Spanish item's signed alternate is LSM, not ASL, so `signLang` must never be inferred from the item or assessment content language.\n\nOptional, and redundant on almost every card. The card's `language` states the same code and is the only field pie-players resolves a card on — resolution runs before anything knows the card is a signing card, so it can only key on the generic field — and the player falls back to it when this is absent. Author it only where the two differ: a card tagged with the item's content language (`language: 'en-US'`, `signLang: 'ase'`) so resolution reaches it by the default-language rung. The pie-api-aws importer emits `language` alone."
+        },
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `sign-language` catalog card: a signed translation of the content node the card is docked to."
+    },
+    "MediaAssetRef": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/MediaKind"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MediaSource"
+          }
+        },
+        "poster": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "durationSeconds": {
+          "type": "number"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextTrackRef"
+          }
+        },
+        "transcript": {
+          "$ref": "#/definitions/TranscriptRef"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "description": "Language of the asset itself, as authored metadata. Sign-language cards leave it unset: the card's `language` already states the adaptation language, and a second copy is a second thing to keep in agreement."
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "kind",
+        "sources"
+      ],
+      "description": "Reference to a media asset and its playable encodings.\n\nStructurally mirrors the `MediaAssetRef` in the pie-players `media-asset-contract` PRD. The two definitions are deliberately kept as separate declarations rather than a shared package dependency: this repo owns the item-model side of the contract, pie-players owns the player side, and both read the same authored JSON, so structural typing is sufficient for interop. Fixture parity — not a package edge — is what pins them together.\n\nSign-language catalog cards were the first consumer and use only the core source fields. The optional presentation, track, and transcript metadata is declared for broader consumers such as video stimuli; it remains meaningless for a signing clip, where captions would duplicate the text already on screen."
+    },
+    "MediaKind": {
+      "type": "string",
+      "enum": [
+        "image",
+        "audio",
+        "video",
+        "other"
+      ]
+    },
+    "MediaSource": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "MIME type, e.g. \"video/mp4\"."
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "bitrate": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "description": "One playable encoding of a media asset."
+    },
+    "TextTrackRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "captions",
+            "subtitles",
+            "descriptions",
+            "chapters",
+            "metadata"
+          ]
+        },
+        "lang": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "src",
+        "kind",
+        "lang",
+        "label"
+      ],
+      "description": "One authored text track associated with an audio or video asset."
+    },
+    "TranscriptRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "plainText": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        }
+      },
+      "description": "Inline or externally hosted transcript content for a media asset."
+    },
+    "MediaFragmentRange": {
+      "type": "object",
+      "properties": {
+        "startSeconds": {
+          "type": "number"
+        },
+        "endSeconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "startSeconds"
+      ],
+      "description": "A time slice within a media asset, so one recording can serve several content nodes. Mirrors QTI 3's Media Fragments URI usage."
+    },
+    "SpokenAudioCardPayload": {
+      "type": "object",
+      "properties": {
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `spoken` catalog card that is a recording rather than a script.\n\nQTI 3 treats recorded audio and synthesized speech as the same support: both are `spoken`, so this is not a new accommodation, it is the other form the existing one can take. A node commonly carries both this and a `content` card in the same language — the script is both what the audio was generated from and the fallback for when the audio cannot play; pie-players resolves between them with `CatalogLookupOptions.form`.\n\nNo `kind` discriminant, for the same reason `SignLanguageCardPayload` has none: the card's `catalog` already says what this is."
+    },
+    "McpbInteractionMode": {
+      "type": "string",
+      "enum": [
+        "populate_blank",
+        "audio_mc_only"
+      ],
+      "description": "`populate_blank` fills the template's one `{{blank}}` with the picked choice; `audio_mc_only` asks the question by audio and renders no blank."
+    },
+    "McpbAudioButtonSkin": {
+      "type": "object",
+      "properties": {
+        "silentUrl": {
+          "type": "string",
+          "description": "Image URL for the button while the audio is not playing"
+        },
+        "playingUrl": {
+          "type": "string",
+          "description": "Image URL for the button while the audio plays"
+        }
+      },
+      "required": [
+        "silentUrl",
+        "playingUrl"
+      ],
+      "description": "Image URLs for the listen button's two states."
+    },
+    "McpbChoiceMode": {
+      "type": "string",
+      "enum": [
+        "text",
+        "image"
+      ],
+      "description": "`text` choices show `labelHtml`; `image` choices show `imageUrl` with `imageAlt`."
+    },
+    "McpbChoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the choice, unique within the item; the session stores the picked one"
+        },
+        "labelHtml": {
+          "type": "string",
+          "description": "The choice's content (HTML), shown when `choiceMode` is `text`"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "The choice's image (URL), shown when `choiceMode` is `image`"
+        },
+        "imageAlt": {
+          "type": "string",
+          "description": "Text alternative for `imageUrl`"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "additionalProperties": false
+}
