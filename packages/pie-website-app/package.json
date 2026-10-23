@@ -27,7 +27,11 @@
 		"vite": "^7.3.1"
 	},
 	"dependencies": {
-		"@pie-players/pie-theme": "1.0.0-beta.5",
+		"@pie-players/pie-assessment-toolkit": "1.0.0-beta.6",
+		"@pie-players/pie-default-tool-loaders": "1.0.0-beta.6",
+		"@pie-players/pie-i18n-generated": "1.0.0-beta.6",
+		"@pie-players/pie-players-shared": "1.0.0-beta.6",
+		"@pie-players/pie-theme": "1.0.0-beta.6",
 		"@tiptap/core": "^3.17.1",
 		"@tiptap/extension-code-block-lowlight": "^3.17.1",
 		"@tiptap/pm": "^3.15.3",

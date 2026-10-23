@@ -152,7 +152,7 @@ base-uri 'none';`;
 						<code>style</code> and SVG <code>foreignObject</code>
 					</li>
 					<li>Event handler attributes, <code>formaction</code> and <code>xlink:href</code></li>
-					<li>URLs with protocols other than http(s)</li>
+					<li>URLs with protocols outside DOMPurify's safe list, which keeps http(s), ftp(s), <code>mailto:</code>, <code>tel:</code> and <code>sms:</code>, plus <code>data:</code> on images and media</li>
 					<li>
 						<code>url()</code>, <code>image-set()</code> and <code>src()</code> in style attributes, and
 						<code>position: fixed</code>

@@ -128,7 +128,7 @@ accessibility: {
 		</div>
 		<p class="guide-prose">
 			How a support combines with tool placement, district policy and test-administration overrides is
-			the toolkit's <a href="{base}/docs/toolkit/#policy" class="link link-primary">tool policy</a>.
+			the toolkit's <a href="{base}/docs/tool-policy/" class="link link-primary">tool policy</a>.
 			<ExternalLink href={PNP}>PNP configuration</ExternalLink>
 		</p>
 	</section>
