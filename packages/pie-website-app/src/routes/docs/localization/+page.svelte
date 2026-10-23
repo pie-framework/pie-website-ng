@@ -4,6 +4,7 @@
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Diagram from '$lib/components/Diagram.svelte';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import LocalizationDemo from '$lib/components/demos/LocalizationDemo.svelte';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const PE = 'https://github.com/pie-framework/pie-elements-ng/blob/develop/';
@@ -115,6 +116,17 @@ const i18n = createPieI18n({
 				</tbody>
 			</table>
 		</div>
+	</section>
+
+	<section class="mb-20 scroll-mt-24" id="demo">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Try it</h2>
+		<p class="text-base-content/80 mb-6 max-w-4xl">
+			A section player with the bundled catalogs and the generated tier as its provider. The interface locale
+			changes the toolbar, tool panels and accessible names in place; the content language loads a translated
+			section and sets its <code>lang</code>, <code>dir</code> and read-aloud voice. Mix them to see that
+			neither sets the other.
+		</p>
+		<LocalizationDemo />
 	</section>
 
 	<section class="mb-20 scroll-mt-24" id="interface-locale">
