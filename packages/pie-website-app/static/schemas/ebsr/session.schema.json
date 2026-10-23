@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/ebsr@15.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "partA": {
+          "$ref": "#/definitions/MultipleChoiceSession"
+        },
+        "partB": {
+          "$ref": "#/definitions/MultipleChoiceSession"
+        }
+      },
+      "description": "The session of each part"
+    },
+    "shuffledValues": {
+      "type": "object",
+      "properties": {
+        "partA": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "partB": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Choice values of each part in the order they were shuffled for this learner, when choice order is not locked"
+    }
+  },
+  "definitions": {
+    "MultipleChoiceSession": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the session"
+        },
+        "element": {
+          "type": "string",
+          "description": "The element the session belongs to"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Values of the selected choices"
+        },
+        "shuffledValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Choice values in the order they were shuffled for this learner, when choice order is not locked"
+        }
+      }
+    }
+  }
+}

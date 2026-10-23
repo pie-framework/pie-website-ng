@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/mc-populated-blank@0.3.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The picked choice id in a one-entry array, as multiple-choice stores it."
+    },
+    "choiceId": {
+      "type": "string",
+      "description": "Where older sessions hold the pick; read, never written.\n\nDeprecated: Sessions hold the pick in `value`.",
+      "deprecated": true
+    },
+    "audioStartTime": {
+      "type": "number",
+      "description": "When the first playback of the audio started (epoch milliseconds)"
+    },
+    "audioEndTime": {
+      "type": "number",
+      "description": "When the first playback of the audio ended (epoch milliseconds)"
+    },
+    "waitTime": {
+      "type": "number",
+      "description": "Milliseconds from `audioStartTime` to `audioEndTime`"
+    },
+    "shuffledValues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The choice ids in the order a student saw them when `lockChoiceOrder` is `false`"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "shuffledValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Where some sessions hold `shuffledValues`; read in preference to the root key"
+    }
+  },
+  "definitions": {}
+}

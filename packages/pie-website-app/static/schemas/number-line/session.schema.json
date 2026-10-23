@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/number-line@14.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answer": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NumberLineResponse"
+      },
+      "description": "The objects the student plotted"
+    }
+  },
+  "definitions": {
+    "NumberLineResponse": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/NumberLinePoint"
+        },
+        {
+          "$ref": "#/definitions/NumberLineLine"
+        },
+        {
+          "$ref": "#/definitions/NumberLineRay"
+        }
+      ],
+      "description": "An object plotted on the number line"
+    },
+    "NumberLinePoint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "point",
+          "description": "Indicates the response type"
+        },
+        "domainPosition": {
+          "type": "number",
+          "description": "Indicates response domain position"
+        },
+        "pointType": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates point type"
+        }
+      },
+      "required": [
+        "type",
+        "domainPosition",
+        "pointType"
+      ],
+      "description": "A point at `domainPosition`"
+    },
+    "NumberLinePointType": {
+      "type": "string",
+      "enum": [
+        "full",
+        "empty"
+      ],
+      "description": "Whether a point is drawn filled (included) or hollow (excluded)"
+    },
+    "NumberLineLine": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "line",
+          "description": "Indicates the response type"
+        },
+        "domainPosition": {
+          "type": "number",
+          "description": "Indicates response domain position: the left end of the line"
+        },
+        "size": {
+          "type": "number",
+          "description": "Indicates line size"
+        },
+        "leftPoint": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates left point (left limit for the line) type"
+        },
+        "rightPoint": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates right point (right limit for the line) type"
+        }
+      },
+      "required": [
+        "type",
+        "domainPosition",
+        "size",
+        "leftPoint",
+        "rightPoint"
+      ],
+      "description": "A segment from `domainPosition` to `domainPosition + size`"
+    },
+    "NumberLineRay": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "ray",
+          "description": "Indicates the response type"
+        },
+        "domainPosition": {
+          "type": "number",
+          "description": "Indicates response domain position"
+        },
+        "pointType": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates point type"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "negative",
+            "positive"
+          ],
+          "description": "Indicates ray direction"
+        }
+      },
+      "required": [
+        "type",
+        "domainPosition",
+        "pointType",
+        "direction"
+      ],
+      "description": "A ray starting at `domainPosition`"
+    }
+  }
+}

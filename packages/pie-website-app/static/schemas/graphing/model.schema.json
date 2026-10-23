@@ -1,0 +1,702 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/graphing@11.0.6/dist/schemas/model.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier to identify the Pie Element in html markup, Must be unique within a pie item config."
+    },
+    "element": {
+      "type": "string",
+      "description": "The html Element tag name: the key in the item config's `elements` map, e.g. \"multiple-choice\""
+    },
+    "accessibilityCatalogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityCatalog"
+      },
+      "description": "QTI-aligned accessibility catalogs whose cards dock to content nodes by `data-catalog-idref`"
+    },
+    "answers": {
+      "$ref": "#/definitions/GraphingAnswers",
+      "description": "Indicates marks that are set as answers; alternates are keyed `alternate<N>`"
+    },
+    "arrows": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Arrows"
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "description": "Indicates if arrows are enabled; a boolean sets all four arrows (older models)"
+    },
+    "backgroundMarks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Mark"
+      },
+      "description": "Indicates marks that have to be displayed in background"
+    },
+    "coordinatesOnHover": {
+      "type": "boolean",
+      "description": "Indicates if coordinates of a point are displayed on hover",
+      "default": false
+    },
+    "defaultGridConfiguration": {
+      "type": "number",
+      "description": "Indicates the default grid configuration: an index into the configuration's `gridConfigurations`",
+      "default": 0,
+      "minimum": 0
+    },
+    "defaultTool": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/MarkType"
+        },
+        {
+          "type": "string",
+          "const": ""
+        }
+      ],
+      "description": "Indicates the default selected tool for the graph; empty means the first toolbar tool"
+    },
+    "dimensionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the graph dimensions are displayed"
+    },
+    "domain": {
+      "$ref": "#/definitions/GraphSettings",
+      "description": "Indicates domain settings for the graph"
+    },
+    "extraCSSRules": {
+      "$ref": "#/definitions/ExtraCSSRules",
+      "description": "Host-supplied CSS scoped to the element"
+    },
+    "graph": {
+      "$ref": "#/definitions/Graph",
+      "description": "Indicates the graph line model"
+    },
+    "includeAxes": {
+      "type": "boolean",
+      "description": "Indicates if the graph axes and labels are enabled",
+      "default": true
+    },
+    "label": {
+      "type": "string",
+      "description": "Not read: the author copies it from the selected grid configuration."
+    },
+    "labels": {
+      "$ref": "#/definitions/Labels",
+      "description": "Indicates labels"
+    },
+    "labelsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the graph labels are displayed",
+      "default": true
+    },
+    "language": {
+      "type": "string",
+      "description": "Indicates the language of the component Supported options: en, es, en_US, en-US, es_ES, es-ES, es_MX, es-MX"
+    },
+    "padding": {
+      "type": "boolean",
+      "description": "Not read by this element; the author's padding toggle writes it."
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Indicates prompt value"
+    },
+    "promptEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the prompt is enabled",
+      "default": true
+    },
+    "range": {
+      "$ref": "#/definitions/GraphSettings",
+      "description": "Indicates range settings for the graph"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Indicates rationale for the answer"
+    },
+    "rationaleEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rationale are enabled",
+      "default": true
+    },
+    "rubricEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rubric is enabled"
+    },
+    "scoringType": {
+      "type": "string",
+      "enum": [
+        "dichotomous",
+        "partial scoring"
+      ],
+      "description": "Indicates scoring type"
+    },
+    "spellCheckEnabled": {
+      "type": "boolean",
+      "description": "Indicates if spellcheck is enabled for the author. Default value is true"
+    },
+    "standardGrid": {
+      "type": "boolean",
+      "description": "Indicates if some domain values will be synched to the range values",
+      "default": false
+    },
+    "studentInstructions": {
+      "type": "string",
+      "description": "Not read by this element."
+    },
+    "studentInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Student Instructions are enabled",
+      "default": true
+    },
+    "teacherInstructions": {
+      "type": "string",
+      "description": "Indicates teacher instructions"
+    },
+    "teacherInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Teacher Instructions are enabled",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "description": "Indicates graph title"
+    },
+    "titleEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the graph title is displayed",
+      "default": true
+    },
+    "toolbarTools": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GraphingTool"
+      },
+      "description": "Indicates the tools that have to be displayed in toolbar"
+    }
+  },
+  "required": [
+    "answers",
+    "element",
+    "id"
+  ],
+  "description": "Model for the Graphing Interaction",
+  "definitions": {
+    "AccessibilityCatalog": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatalogCard"
+          }
+        }
+      },
+      "required": [
+        "identifier",
+        "cards"
+      ]
+    },
+    "CatalogCard": {
+      "type": "object",
+      "properties": {
+        "catalog": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "payload": {
+          "$ref": "#/definitions/CatalogCardPayload"
+        }
+      },
+      "required": [
+        "catalog"
+      ],
+      "description": "QTI-aligned accessibility catalog entry: one alternate representation of a content node, docked to it by `data-catalog-idref`.\n\nMaps onto QTI 3's `qti-card`. `catalog` is QTI's `@support` and is the only discriminant — there is deliberately no second `kind` field. `language` is the card entry's `xml:lang`. QTI's single content slot is represented by exactly one of two fields, never both, with nothing mirrored between them:\n\n- `content` — the string form, for alternates a string can express: SSML for   `spoken`, plain text for `simplified-language`.\n- `payload` — the structured form, for what a string cannot express. Today   only a signing video.\n\nOne generic payload slot rather than a field per accommodation (`signLanguage`, `braille`, …), which is the shape pie-players canonicalises and the shape this repo now follows. A field per accommodation makes every new structured alternate a breaking widening of this type in every consumer that reads cards, and it gives the same fact two names across repos — which produced a real bug: a card carrying `signLanguage` rendered its video in the player and was simultaneously reported as carrying no payload by the player's \"what alternates exist\" path, because only one of the two read paths knew about the alias.\n\n`catalog` is a bare `string` because the vocabulary is open-ended and unknown tokens must be ignored rather than rejected. TypeScript therefore cannot express \"a `sign-language` card must carry a payload\", so a `{ catalog: 'sign-language', content: '<url>' }` object still satisfies this type. That legacy bare-URL form is not supported: runtime validation on the consuming side must reject it rather than render the URL as visible text. Narrow with `isSignLanguageCard`."
+    },
+    "CatalogCardPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/SignLanguageCardPayload"
+        },
+        {
+          "$ref": "#/definitions/SpokenAudioCardPayload"
+        }
+      ],
+      "description": "The structured forms a card's `payload` may take.\n\nWhich one applies is decided by the card's `catalog`, so this union carries no discriminant of its own — a second discriminant could contradict the first. Consumers select a card by catalog type and then validate the payload structurally, which they must do regardless: catalog data is authored, wire-facing and untrusted."
+    },
+    "SignLanguageCardPayload": {
+      "type": "object",
+      "properties": {
+        "signLang": {
+          "type": "string",
+          "description": "Language tag for the signed translation — BCP 47, which admits ISO 639-3 subtags for languages with no 639-1/2 code. \"ase\" is ASL, matching QTI 3 `xml:lang`.\n\nThis is the language of the *adaptation*, not the item's base content language (AfA/PNP's `languageOfAdaptation`). The distinction is load bearing: a Spanish item's signed alternate is LSM, not ASL, so `signLang` must never be inferred from the item or assessment content language.\n\nOptional, and redundant on almost every card. The card's `language` states the same code and is the only field pie-players resolves a card on — resolution runs before anything knows the card is a signing card, so it can only key on the generic field — and the player falls back to it when this is absent. Author it only where the two differ: a card tagged with the item's content language (`language: 'en-US'`, `signLang: 'ase'`) so resolution reaches it by the default-language rung. The pie-api-aws importer emits `language` alone."
+        },
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `sign-language` catalog card: a signed translation of the content node the card is docked to."
+    },
+    "MediaAssetRef": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/MediaKind"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MediaSource"
+          }
+        },
+        "poster": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "durationSeconds": {
+          "type": "number"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextTrackRef"
+          }
+        },
+        "transcript": {
+          "$ref": "#/definitions/TranscriptRef"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "description": "Language of the asset itself, as authored metadata. Sign-language cards leave it unset: the card's `language` already states the adaptation language, and a second copy is a second thing to keep in agreement."
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "kind",
+        "sources"
+      ],
+      "description": "Reference to a media asset and its playable encodings.\n\nStructurally mirrors the `MediaAssetRef` in the pie-players `media-asset-contract` PRD. The two definitions are deliberately kept as separate declarations rather than a shared package dependency: this repo owns the item-model side of the contract, pie-players owns the player side, and both read the same authored JSON, so structural typing is sufficient for interop. Fixture parity — not a package edge — is what pins them together.\n\nSign-language catalog cards were the first consumer and use only the core source fields. The optional presentation, track, and transcript metadata is declared for broader consumers such as video stimuli; it remains meaningless for a signing clip, where captions would duplicate the text already on screen."
+    },
+    "MediaKind": {
+      "type": "string",
+      "enum": [
+        "image",
+        "audio",
+        "video",
+        "other"
+      ]
+    },
+    "MediaSource": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "MIME type, e.g. \"video/mp4\"."
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "bitrate": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "description": "One playable encoding of a media asset."
+    },
+    "TextTrackRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "captions",
+            "subtitles",
+            "descriptions",
+            "chapters",
+            "metadata"
+          ]
+        },
+        "lang": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "src",
+        "kind",
+        "lang",
+        "label"
+      ],
+      "description": "One authored text track associated with an audio or video asset."
+    },
+    "TranscriptRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "plainText": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        }
+      },
+      "description": "Inline or externally hosted transcript content for a media asset."
+    },
+    "MediaFragmentRange": {
+      "type": "object",
+      "properties": {
+        "startSeconds": {
+          "type": "number"
+        },
+        "endSeconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "startSeconds"
+      ],
+      "description": "A time slice within a media asset, so one recording can serve several content nodes. Mirrors QTI 3's Media Fragments URI usage."
+    },
+    "SpokenAudioCardPayload": {
+      "type": "object",
+      "properties": {
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `spoken` catalog card that is a recording rather than a script.\n\nQTI 3 treats recorded audio and synthesized speech as the same support: both are `spoken`, so this is not a new accommodation, it is the other form the existing one can take. A node commonly carries both this and a `content` card in the same language — the script is both what the audio was generated from and the fallback for when the audio cannot play; pie-players resolves between them with `CatalogLookupOptions.form`.\n\nNo `kind` discriminant, for the same reason `SignLanguageCardPayload` has none: the card's `catalog` already says what this is."
+    },
+    "GraphingAnswers": {
+      "type": "object",
+      "properties": {
+        "correctAnswer": {
+          "$ref": "#/definitions/Answer",
+          "description": "The correct answer"
+        }
+      },
+      "required": [
+        "correctAnswer"
+      ],
+      "additionalProperties": {
+        "$ref": "#/definitions/Answer"
+      },
+      "description": "The correct answer, plus alternates keyed `alternate<N>`, e.g. `alternate1`."
+    },
+    "Answer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Indicates name of answer"
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mark"
+          },
+          "description": "Indicates marks for the answer"
+        }
+      },
+      "required": [
+        "name",
+        "marks"
+      ]
+    },
+    "Mark": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/MarkType",
+          "description": "Indicates type of mark"
+        },
+        "building": {
+          "type": "boolean",
+          "description": "Indicates if mark is in build process"
+        },
+        "x": {
+          "type": "number",
+          "description": "Indicates x coordinate if type is point"
+        },
+        "y": {
+          "type": "number",
+          "description": "Indicates y coordinate if type is point"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates label value for mark"
+        },
+        "showLabel": {
+          "type": "boolean",
+          "description": "Not read by this element or `@pie-lib/graphing`."
+        },
+        "from": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicates where starts the mark if type is line, segment, ray, vector"
+        },
+        "to": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicates where ends the mark if type is line, segment, ray, vector"
+        },
+        "middle": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Labelled midpoint of a line, ray, segment, vector, circle or polygon mark"
+        },
+        "root": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicated the root of mark if type is sine, parabola, absolute, exponential or circle"
+        },
+        "edge": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicated the edge of mark if type is sine, parabola, absolute, exponential or circle"
+        },
+        "closed": {
+          "type": "boolean",
+          "description": "Indicates if mark is closed if type is polygon, sine"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MarkPoint"
+          },
+          "description": "Indicates all mark's points if type is polygon"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "MarkType": {
+      "type": "string",
+      "enum": [
+        "point",
+        "segment",
+        "line",
+        "vector",
+        "circle",
+        "sine",
+        "polygon",
+        "ray",
+        "parabola",
+        "absolute",
+        "exponential"
+      ],
+      "description": "Kind of mark a graphing tool draws."
+    },
+    "MarkPoint": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "Indicates x coordinate"
+        },
+        "y": {
+          "type": "number",
+          "description": "Indicates y coordinate"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label shown next to the point"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "description": "A point of a mark, labelled with the label tool."
+    },
+    "Arrows": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "boolean",
+          "description": "Indicates if left arrow is enabled"
+        },
+        "right": {
+          "type": "boolean",
+          "description": "Indicates if right arrow is enabled"
+        },
+        "up": {
+          "type": "boolean",
+          "description": "Indicates if up arrow is enabled"
+        },
+        "down": {
+          "type": "boolean",
+          "description": "Indicates if down arrow is enabled"
+        }
+      },
+      "required": [
+        "left",
+        "right",
+        "up",
+        "down"
+      ]
+    },
+    "GraphSettings": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number",
+          "description": "Min value"
+        },
+        "max": {
+          "type": "number",
+          "description": "Max value"
+        },
+        "padding": {
+          "type": "number",
+          "description": "Padding value"
+        },
+        "step": {
+          "type": "number",
+          "description": "Step value"
+        },
+        "labelStep": {
+          "type": "number",
+          "description": "Label step value"
+        },
+        "axisLabel": {
+          "type": "string",
+          "description": "Axis Label"
+        }
+      },
+      "required": [
+        "min",
+        "max",
+        "step",
+        "labelStep",
+        "axisLabel"
+      ]
+    },
+    "ExtraCSSRules": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "string"
+        }
+      },
+      "description": "Host-supplied CSS scoped to the element: `rules` is a stylesheet whose class names are listed in `names`."
+    },
+    "Graph": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number",
+          "description": "Width for graph representation"
+        },
+        "height": {
+          "type": "number",
+          "description": "Height for graph representation"
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ]
+    },
+    "Labels": {
+      "type": "object",
+      "properties": {
+        "top": {
+          "type": "string",
+          "description": "Label for top side of the graph"
+        },
+        "bottom": {
+          "type": "string",
+          "description": "Label for bottom side of the graph"
+        },
+        "left": {
+          "type": "string",
+          "description": "Label for left side of the graph"
+        },
+        "right": {
+          "type": "string",
+          "description": "Label for right side of the graph"
+        }
+      }
+    },
+    "GraphingTool": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/MarkType"
+        },
+        {
+          "type": "string",
+          "const": "label"
+        }
+      ],
+      "description": "A toolbar tool: a mark type, or `label`, which labels existing points instead of drawing a mark."
+    }
+  },
+  "additionalProperties": false
+}

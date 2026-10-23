@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/extended-text-entry@16.1.1/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "value": {
+      "type": "string",
+      "description": "The student's response, as HTML"
+    },
+    "annotations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ExtendedTextEntryAnnotation"
+      },
+      "description": "The instructor's annotations on the response"
+    },
+    "comment": {
+      "type": "string",
+      "description": "The instructor's overall comment on the response"
+    }
+  },
+  "definitions": {
+    "ExtendedTextEntryAnnotation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the annotation"
+        },
+        "label": {
+          "type": "string",
+          "description": "The annotation text shown beside the response"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "positive",
+            "negative"
+          ],
+          "description": "Indicates the type of the annotation"
+        },
+        "quote": {
+          "type": "string",
+          "description": "The annotated text"
+        },
+        "start": {
+          "type": "number",
+          "description": "Start of the annotated text, as a character offset in the response's text content"
+        },
+        "end": {
+          "type": "number",
+          "description": "End of the annotated text, as a character offset in the response's text content"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "type",
+        "quote",
+        "start",
+        "end"
+      ],
+      "description": "An annotation an instructor placed on the student's response"
+    }
+  }
+}

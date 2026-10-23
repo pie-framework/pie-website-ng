@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Diagram from '$lib/components/Diagram.svelte';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
@@ -80,21 +81,15 @@ sectionPlayer.runtime = {
 	];
 </script>
 
-<svelte:head>
-	<title>Instrumentation and debugging - PIE Framework</title>
-	<meta
-		name="description"
-		content="Send PIE player and toolkit telemetry to your observability backend through instrumentation providers, and inspect events, policy and sessions with the debugger panels."
-	/>
-</svelte:head>
+<Seo title="Instrumentation and debugging - PIE Framework" description="Connect PIE telemetry to a provider and inspect events, tool policy and sessions with debugger panels." />
 
 <div>
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Instrumentation and debugging</h1>
 		<p class="text-xl text-base-content/70 max-w-4xl">
-			The players and toolkit report what they observe, such as load failures, retries, tool errors and
-			lifecycle events, to an instrumentation provider you choose. PIE owns no backend: your page owns
-			the agent, credentials, sampling and cost. Product analytics is outside this surface.
+			Players and the toolkit send load failures, retries, tool errors and lifecycle events to a provider
+			you choose. Your application sets up the telemetry agent, credentials and sampling. Product analytics
+			is handled separately.
 		</p>
 	</div>
 
@@ -217,7 +212,7 @@ sectionPlayer.runtime = {
 					<div class="card-body">
 						<h3 class="card-title text-primary">{panel.name}</h3>
 						<p class="text-sm">{panel.does}</p>
-						<code class="text-xs break-all text-base-content/60">{panel.pkg}</code>
+						<code class="text-xs break-all text-site-muted">{panel.pkg}</code>
 					</div>
 				</div>
 			{/each}

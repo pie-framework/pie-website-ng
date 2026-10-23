@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/math-inline@13.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/MathInlineAnswer"
+      },
+      "description": "Answers per response area of `expression`, keyed `r1`, `r2`, ... (advanced mode)"
+    },
+    "completeAnswer": {
+      "type": "string",
+      "description": "The whole expression with the learner's answers filled in, as LaTeX (advanced mode)"
+    },
+    "response": {
+      "type": "string",
+      "description": "The learner's answer, as LaTeX (simple mode)"
+    }
+  },
+  "definitions": {
+    "MathInlineAnswer": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "description": "The learner's answer to one response area"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/video-stimulus@0.1.5/dist/schemas/configuration.schema.json",
+  "type": "object",
+  "properties": {
+    "media": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Not read"
+    },
+    "presentation": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Not read"
+    },
+    "accessibilityProfile": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Not read"
+    }
+  },
+  "description": "Config Object for `@pie-element/video-stimulus`. The author view has no settings panel and reads none of it.",
+  "definitions": {
+    "ConfigureProp": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        }
+      },
+      "description": "Building blocks of an element's authoring configuration: the object a host passes to the `<tag>-config` custom element to decide which settings the author sees and how editors behave.\n\nEach element declares its own `<Name>Configuration` interface from these, and its JSON Schema is generated from that interface. Descriptions are carried over from the legacy `pie-elements` config schemas, so they appear in the generated schemas unchanged."
+    }
+  },
+  "additionalProperties": false
+}

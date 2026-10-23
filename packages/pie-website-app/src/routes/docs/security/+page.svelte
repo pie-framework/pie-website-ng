@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
 	import { base } from '$app/paths';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Diagram from '$lib/components/Diagram.svelte';
@@ -68,21 +69,14 @@ base-uri 'none';`;
 };`;
 </script>
 
-<svelte:head>
-	<title>Security & CSP - PIE Framework</title>
-	<meta
-		name="description"
-		content="PIE's trust boundary, the sanitizer, graded delivery with hosted players and redacted models, external stylesheets, element package policy, and the Content Security Policy each loading strategy needs."
-	/>
-</svelte:head>
+<Seo title="Security & CSP - PIE Framework" description="Secure PIE delivery: content sanitization, server scoring, package loading and Content Security Policy." />
 
 <div>
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Security & CSP</h1>
 		<p class="text-xl text-base-content/70 max-w-4xl">
-			The players sanitize authored content and leave the page, the transport and the learner record to
-			the host. Six things fall to the host because a player cannot enforce them from inside a page it
-			does not own.
+			Players sanitize authored content. Your application secures the page, network requests and learner
+			records, and configures the policies below.
 		</p>
 	</div>
 
@@ -430,7 +424,7 @@ base-uri 'none';`;
 	<section class="mb-20 scroll-mt-24" id="escape-hatches">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Escape hatches and package policy</h2>
 		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
-			Each of these moves a guarantee from PIE to the host that sets it.
+			These settings change sanitization and package-loading behavior. Check them against your content's trust level.
 		</p>
 		<div class="grid md:grid-cols-3 gap-6 mb-6">
 			<div class="card bg-base-100 shadow-lg border border-base-300">

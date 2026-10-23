@@ -4,20 +4,25 @@
 	let theme = $state('light');
 
 	onMount(() => {
-		theme = localStorage.getItem('theme') || 'light';
+		try { theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; } catch { /* Optional preference storage. */ }
 		document.documentElement.setAttribute('data-theme', theme);
+		const sync = () => { theme = document.documentElement.getAttribute('data-theme') || 'light'; };
+		window.addEventListener('pie-site-theme-changed', sync);
+		return () => window.removeEventListener('pie-site-theme-changed', sync);
 	});
 
 	function toggleTheme() {
-		theme = theme === 'dark' ? 'light' : 'dark';
+		theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
 		document.documentElement.setAttribute('data-theme', theme);
-		localStorage.setItem('theme', theme);
+		try { localStorage.setItem('theme', theme); } catch { /* The visual preference still applies. */ }
+		window.dispatchEvent(new Event('pie-site-theme-changed'));
 	}
 </script>
 
 <button
 	class="btn btn-ghost btn-circle"
-	aria-label="Toggle theme"
+	aria-label="Dark theme"
+	aria-pressed={theme === 'dark'}
 	onclick={toggleTheme}
 	type="button"
 >

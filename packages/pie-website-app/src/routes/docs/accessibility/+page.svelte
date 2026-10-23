@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
 	import { base } from '$app/paths';
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Diagram from '$lib/components/Diagram.svelte';
@@ -74,21 +75,14 @@ accessibility: {
 	];
 </script>
 
-<svelte:head>
-	<title>Accessibility - PIE Framework</title>
-	<meta
-		name="description"
-		content="Accessibility in PIE: WCAG 2.2 AA, personal needs profiles, read-aloud with Polly, Google and SchoolCity, accessibility catalogs, sign-language video, transcripts and dictation."
-	/>
-</svelte:head>
+<Seo title="Accessibility - PIE Framework" description="PIE accessibility, learner profiles, read-aloud and content alternatives, with WCAG test coverage and known issues." />
 
 <div>
 	<div class="mb-12">
 		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Accessibility</h1>
 		<p class="text-xl text-base-content/70 max-w-4xl">
-			PIE targets WCAG 2.2 AA across its elements and players, and delivers accommodations from a
-			learner's personal needs profile: read-aloud, authored alternates, signed video, transcripts,
-			color schemes and the assessment tools.
+			PIE targets WCAG 2.2 AA. Learner profiles control supports such as read-aloud, content alternatives,
+			color schemes and assessment tools.
 		</p>
 	</div>
 

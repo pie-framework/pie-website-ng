@@ -1,0 +1,571 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/charting@13.0.6/dist/schemas/configuration.schema.json",
+  "type": "object",
+  "properties": {
+    "baseInputConfiguration": {
+      "$ref": "#/definitions/EditableHtmlConfigureProp",
+      "description": "Base editable html input configuration regarding plugins that are enabled/disabled E.g. audio, video, image"
+    },
+    "prompt": {
+      "$ref": "#/definitions/EditableHtmlPluginConfigureRequired",
+      "description": "Prompt configuration"
+    },
+    "rationale": {
+      "$ref": "#/definitions/EditableHtmlPluginConfigureRequired",
+      "description": "Rationale configuration"
+    },
+    "spellCheck": {
+      "$ref": "#/definitions/ConfigurePropWithEnabled",
+      "description": "Configuration for the author's spellcheck"
+    },
+    "titlePlaceholder": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Configuration for the title's placeholder"
+    },
+    "labelsPlaceholders": {
+      "$ref": "#/definitions/ChartingLabelsPlaceholders",
+      "description": "Labels Placeholder configuration"
+    },
+    "scoringType": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Scoring Type configuration"
+    },
+    "settingsPanelDisabled": {
+      "type": "boolean",
+      "description": "Indicates if the settings panel is not available"
+    },
+    "studentInstructions": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Student Instructions configuration"
+    },
+    "teacherInstructions": {
+      "$ref": "#/definitions/EditableHtmlPluginConfigureRequired",
+      "description": "Teacher Instructions configuration"
+    },
+    "title": {
+      "$ref": "#/definitions/ConfigurePropWithEnabled",
+      "description": "Chart title configuration. Not read by this element: `titlePlaceholder` sets the title's placeholder."
+    },
+    "instruction": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Author instruction to build a new chart; `label` is the text shown above the form"
+    },
+    "authorNewCategoryDefaults": {
+      "$ref": "#/definitions/ChartingAuthorNewCategoryDefaults",
+      "description": "Configuration for new category in define chart"
+    },
+    "chartDimensions": {
+      "$ref": "#/definitions/ChartingDimensions",
+      "description": "Chart dimensions the author can set"
+    },
+    "studentNewCategoryDefaultLabel": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Not read by this element: the model's `studentNewCategoryDefaultLabel` labels the categories students add"
+    },
+    "mathMlOptions": {
+      "$ref": "#/definitions/ConfigureMathMLProp",
+      "description": "Configuration for editable-html"
+    },
+    "maxImageWidth": {
+      "$ref": "#/definitions/ConfigureMaxImageDimensionsProp",
+      "description": "Maximum image width for input fields"
+    },
+    "maxImageHeight": {
+      "$ref": "#/definitions/ConfigureMaxImageDimensionsProp",
+      "description": "Maximum image height for input fields"
+    },
+    "withRubric": {
+      "$ref": "#/definitions/ConfigureProp",
+      "description": "Rubric configuration - only relevant in environments that use pie-player-components"
+    },
+    "chartingOptions": {
+      "$ref": "#/definitions/ChartingOptions",
+      "description": "Authoring view settings for Charting"
+    },
+    "availableChartTypes": {
+      "$ref": "#/definitions/ChartingAvailableChartTypes",
+      "description": "Indicates the chart types that are available"
+    },
+    "chartTypeLabel": {
+      "type": "string",
+      "description": "Indicates the label for the chart type"
+    },
+    "language": {
+      "$ref": "#/definitions/ConfigurePropWithEnabled",
+      "description": "Language configuration"
+    },
+    "labelsCharactersLimit": {
+      "type": "number",
+      "description": "Indicates the maximum character limit for X and Y axis labels"
+    },
+    "languageChoices": {
+      "$ref": "#/definitions/ConfigureLanguageOptions",
+      "description": "Language choices configuration Only available if language is enabled"
+    },
+    "contentDimensions": {
+      "$ref": "#/definitions/ContentDimensions",
+      "description": "Dimensions of the authoring container"
+    },
+    "showPrompt": {
+      "type": "boolean",
+      "description": "Not read by this element: the model's `promptEnabled` shows the prompt"
+    },
+    "promptLabel": {
+      "type": "string",
+      "description": "Not read by this element: `prompt.label` labels the prompt"
+    },
+    "settingsPartialScoring": {
+      "type": "boolean",
+      "description": "Not read by this element: `scoringType.settings` shows the scoring control"
+    }
+  },
+  "description": "Config Object for `@pie-element/charting`",
+  "definitions": {
+    "EditableHtmlConfigureProp": {
+      "type": "object",
+      "properties": {
+        "math": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "audio": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "video": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "image": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "customPlugins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomPlugin"
+          },
+          "description": "An array of objects that determine custom plugins. A custom plugin is an object which determines how the button will look like (icon) and the event name that will be triggered when the button gets pressed (event)."
+        },
+        "blockquote": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "h3": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "characters": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "bold": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "html": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "italic": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "ol_list": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "redo": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "strikethrough": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "sub": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "sup": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "table": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "ul_list": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "underline": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "undo": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "showParagraphs": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "separateParagraphs": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "pasteFormatting": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "superscript": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "subscript": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "languageCharacters": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "responseArea": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        }
+      },
+      "description": "Toolbar plugins of an editable-html field, keyed by plugin name."
+    },
+    "EditableHtmlButtonConfigure": {
+      "type": "object",
+      "properties": {
+        "disabled": {
+          "type": "boolean",
+          "description": "Indicates if the plugin is disabled or not"
+        }
+      }
+    },
+    "CustomPlugin": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "type": "string",
+          "description": "The name of the custom event. It needs to be valid (only letters, numbers and \"_\" can be used). The event is emitted with the \"PIE-\" prefix."
+        },
+        "iconAlt": {
+          "type": "string",
+          "description": "The alt for the custom button icon"
+        },
+        "iconType": {
+          "type": "string",
+          "description": "The icon type. Currently, only \"SVG\" is supported."
+        },
+        "icon": {
+          "type": "string",
+          "description": "The icon string. Currently, only SVG is supported, so it needs to be a valid svg."
+        }
+      },
+      "required": [
+        "event",
+        "iconAlt",
+        "iconType",
+        "icon"
+      ]
+    },
+    "EditableHtmlPluginConfigureRequired": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "inputConfiguration": {
+          "$ref": "#/definitions/EditableHtmlConfigureProp",
+          "description": "Configuration for editable-html"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicates if the item is required and the value cannot be empty"
+        }
+      }
+    },
+    "ConfigurePropWithEnabled": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Indicates the value of the item if it affects config-ui (eg.: if item is a switch and displaying an input on the config-ui depends on the switch value: on/off)"
+        }
+      }
+    },
+    "ConfigureProp": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        }
+      },
+      "description": "Building blocks of an element's authoring configuration: the object a host passes to the `<tag>-config` custom element to decide which settings the author sees and how editors behave.\n\nEach element declares its own `<Name>Configuration` interface from these, and its JSON Schema is generated from that interface. Descriptions are carried over from the legacy `pie-elements` config schemas, so they appear in the generated schemas unchanged."
+    },
+    "ChartingLabelsPlaceholders": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Not read by this element"
+        },
+        "label": {
+          "type": "string",
+          "description": "Not read by this element"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Not read by this element"
+        },
+        "top": {
+          "type": "string",
+          "description": "This value is empty for charting. The property exist in order to be consistent with graphing configuration."
+        },
+        "right": {
+          "type": "string",
+          "description": "This value is empty for charting. The property exist in order to be consistent with graphing configuration."
+        },
+        "bottom": {
+          "type": "string",
+          "description": "Indicates the placeholder for the bottom label"
+        },
+        "left": {
+          "type": "string",
+          "description": "Indicates the placeholder for the left label"
+        }
+      }
+    },
+    "ChartingAuthorNewCategoryDefaults": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Not read by this element"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the new category"
+        },
+        "interactive": {
+          "type": "boolean",
+          "description": "Indicates if new category is interactive"
+        },
+        "editable": {
+          "type": "boolean",
+          "description": "Indicates if new category is editable"
+        }
+      }
+    },
+    "ChartingDimensions": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Not read by this element"
+        },
+        "label": {
+          "type": "string",
+          "description": "Not read by this element"
+        },
+        "showInConfigPanel": {
+          "type": "boolean",
+          "description": "Shows the chart width and height controls"
+        },
+        "width": {
+          "$ref": "#/definitions/ChartingDimensionConstraints",
+          "description": "Width the author can set: `min` at least 50, `max` at most 700, `step` at most 200; 50, 700 and 20 when absent"
+        },
+        "height": {
+          "$ref": "#/definitions/ChartingDimensionConstraints",
+          "description": "Height the author can set: `min` at least 400, `max` at most 700, `step` at most 200; 400, 700 and 20 when absent"
+        }
+      },
+      "description": "Chart dimensions the author can set"
+    },
+    "ChartingDimensionConstraints": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number",
+          "description": "Smallest value the author can set"
+        },
+        "max": {
+          "type": "number",
+          "description": "Largest value the author can set"
+        },
+        "step": {
+          "type": "number",
+          "description": "Step of the control; values under 1 count as 20"
+        }
+      },
+      "description": "Range of a chart dimension the author can set"
+    },
+    "ConfigureMathMLProp": {
+      "type": "object",
+      "properties": {
+        "mmlOutput": {
+          "type": "boolean",
+          "description": "Indicates if model should have mathML output instead of latex"
+        },
+        "mmlEditing": {
+          "type": "boolean",
+          "description": "Indicates if mathML that's already in model should be editable"
+        }
+      }
+    },
+    "ConfigureMaxImageDimensionsProp": {
+      "type": "object",
+      "properties": {
+        "teacherInstructions": {
+          "type": "number",
+          "description": "Indicates the max dimension for images in teacher instructions"
+        },
+        "prompt": {
+          "type": "number",
+          "description": "Indicates the max dimension for images in prompt - this is also the default dimension for all other input fields if it's not specified"
+        },
+        "rationale": {
+          "type": "number",
+          "description": "Indicates the max dimension for images in rationale"
+        }
+      },
+      "description": "Maximum image dimensions per editable field. Elements extend it with their own fields."
+    },
+    "ChartingOptions": {
+      "type": "object",
+      "properties": {
+        "changeInteractive": {
+          "$ref": "#/definitions/ChartingOption",
+          "description": "Indicates if teacher can enable/disable data[]:interactive"
+        },
+        "changeEditable": {
+          "$ref": "#/definitions/ChartingOption",
+          "description": "Indicates if teacher can enable/disable data[]:editable"
+        },
+        "addCategory": {
+          "$ref": "#/definitions/ChartingOption",
+          "description": "Indicates if teacher can enable/disable addCategoryEnabled"
+        },
+        "mathMlOptions": {
+          "$ref": "#/definitions/ConfigureMathMLProp",
+          "description": "Not read by this element: the configuration's top-level `mathMlOptions` applies"
+        }
+      }
+    },
+    "ChartingOption": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "authoringLabel": {
+          "type": "string",
+          "description": "Indicates the label for the option"
+        },
+        "settingsLabel": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        }
+      }
+    },
+    "ChartingAvailableChartTypes": {
+      "type": "object",
+      "properties": {
+        "bar": {
+          "type": "string",
+          "description": "Indicates if bar chart is available and the label used for it."
+        },
+        "histogram": {
+          "type": "string",
+          "description": "Indicates if histogram is available and the label used for it."
+        },
+        "lineDot": {
+          "type": "string",
+          "description": "Indicates if line chart with dots is available and the label used for it."
+        },
+        "lineCross": {
+          "type": "string",
+          "description": "Indicates if line chart with crosses is available and the label used for it."
+        },
+        "dotPlot": {
+          "type": "string",
+          "description": "Indicates if dot plot is available and the label used for it."
+        },
+        "linePlot": {
+          "type": "string",
+          "description": "Indicates if line plot is available and the label used for it."
+        }
+      },
+      "description": "Indicates the chart types that are available and the label used for each; a type without a label is not offered"
+    },
+    "ConfigureLanguageOptions": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfigureLanguageOptionsProp"
+          }
+        }
+      },
+      "required": [
+        "label",
+        "options"
+      ]
+    },
+    "ConfigureLanguageOptionsProp": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Value of the language option"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label of the language option"
+        }
+      },
+      "required": [
+        "value",
+        "label"
+      ]
+    },
+    "ContentDimensions": {
+      "type": "object",
+      "properties": {
+        "maxHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "maxWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        }
+      },
+      "description": "Indicates the dimensions configuration for the authoring container. Note: Some items have a default minimum width because of their content, but if a lower minWidth is provided, it will be used."
+    }
+  },
+  "additionalProperties": false
+}

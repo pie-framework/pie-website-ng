@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/graphing@11.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answer": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Mark"
+      },
+      "description": "The marks the student drew"
+    }
+  },
+  "description": "A student response",
+  "definitions": {
+    "Mark": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/MarkType",
+          "description": "Indicates type of mark"
+        },
+        "building": {
+          "type": "boolean",
+          "description": "Indicates if mark is in build process"
+        },
+        "x": {
+          "type": "number",
+          "description": "Indicates x coordinate if type is point"
+        },
+        "y": {
+          "type": "number",
+          "description": "Indicates y coordinate if type is point"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates label value for mark"
+        },
+        "showLabel": {
+          "type": "boolean",
+          "description": "Not read by this element or `@pie-lib/graphing`."
+        },
+        "from": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicates where starts the mark if type is line, segment, ray, vector"
+        },
+        "to": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicates where ends the mark if type is line, segment, ray, vector"
+        },
+        "middle": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Labelled midpoint of a line, ray, segment, vector, circle or polygon mark"
+        },
+        "root": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicated the root of mark if type is sine, parabola, absolute, exponential or circle"
+        },
+        "edge": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicated the edge of mark if type is sine, parabola, absolute, exponential or circle"
+        },
+        "closed": {
+          "type": "boolean",
+          "description": "Indicates if mark is closed if type is polygon, sine"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MarkPoint"
+          },
+          "description": "Indicates all mark's points if type is polygon"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "MarkType": {
+      "type": "string",
+      "enum": [
+        "point",
+        "segment",
+        "line",
+        "vector",
+        "circle",
+        "sine",
+        "polygon",
+        "ray",
+        "parabola",
+        "absolute",
+        "exponential"
+      ],
+      "description": "Kind of mark a graphing tool draws."
+    },
+    "MarkPoint": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "Indicates x coordinate"
+        },
+        "y": {
+          "type": "number",
+          "description": "Indicates y coordinate"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label shown next to the point"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "description": "A point of a mark, labelled with the label tool."
+    }
+  }
+}
