@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/fraction-model@7.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answers": {
+      "$ref": "#/definitions/FractionModelAnswers",
+      "description": "What the student entered; absent until the element first renders"
+    }
+  },
+  "definitions": {
+    "FractionModelAnswers": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FractionModelResponse"
+          },
+          "description": "The parts the student selected, one entry per model with a selection"
+        },
+        "noOfModel": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ],
+          "description": "The number of models the student chose; written only when the model's `allowedStudentConfig` is set, and empty until the student enters one"
+        },
+        "partsPerModel": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ],
+          "description": "The parts per model the student chose; written only when the model's `allowedStudentConfig` is set, and empty until the student enters one"
+        }
+      },
+      "required": [
+        "response"
+      ],
+      "description": "What the student entered"
+    },
+    "FractionModelResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Indicates the response id for bar or pie model: the model's 1-based position"
+        },
+        "value": {
+          "type": "number",
+          "description": "Indicates the selected response sector for model value: the number of parts selected in the model"
+        }
+      },
+      "required": [
+        "id",
+        "value"
+      ],
+      "description": "The selection in one model"
+    }
+  }
+}

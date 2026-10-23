@@ -1,0 +1,705 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/number-line@14.0.6/dist/schemas/model.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier to identify the Pie Element in html markup, Must be unique within a pie item config."
+    },
+    "element": {
+      "type": "string",
+      "description": "The html Element tag name: the key in the item config's `elements` map, e.g. \"multiple-choice\""
+    },
+    "accessibilityCatalogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityCatalog"
+      },
+      "description": "QTI-aligned accessibility catalogs whose cards dock to content nodes by `data-catalog-idref`"
+    },
+    "feedback": {
+      "$ref": "#/definitions/NumberLineFeedback",
+      "description": "Feedback for student responses"
+    },
+    "correctResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NumberLineResponse"
+      },
+      "description": "Array of responses; the controller defaults it to none"
+    },
+    "partialScoring": {
+      "type": "boolean",
+      "description": "Indicates if partial scoring is enabled"
+    },
+    "graph": {
+      "$ref": "#/definitions/NumberLineGraph",
+      "description": "Configuration for the domain; the default graph applies when absent"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The question prompt or item stem"
+    },
+    "promptEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the prompt is enabled"
+    },
+    "spellCheckEnabled": {
+      "type": "boolean",
+      "description": "Indicates if spellcheck is enabled for the author. Default value is true"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Indicates rationale for the answer"
+    },
+    "rationaleEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Rationale are enabled"
+    },
+    "teacherInstructions": {
+      "type": "string",
+      "description": "Indicates teacher instructions"
+    },
+    "teacherInstructionsEnabled": {
+      "type": "boolean",
+      "description": "Indicates if Teacher Instructions are enabled"
+    },
+    "titleEnabled": {
+      "type": "boolean",
+      "description": "Indicates if the graph title editor is shown; the configuration's `title.enabled` applies when absent"
+    },
+    "widthEnabled": {
+      "type": "boolean",
+      "description": "If enabled, allows user to set width for number line."
+    },
+    "toolbarEditorPosition": {
+      "type": "string",
+      "enum": [
+        "bottom",
+        "top"
+      ],
+      "description": "Indicates the editor's toolbar position which can be 'bottom' or 'top'",
+      "default": "bottom"
+    },
+    "language": {
+      "type": "string",
+      "description": "Indicates the language of the component Supported options: en, es, en_US, en-US, es_ES, es-ES, es_MX, es-MX"
+    },
+    "extraCSSRules": {
+      "$ref": "#/definitions/ExtraCSSRules",
+      "description": "Host-supplied CSS scoped to the element"
+    },
+    "colorContrast": {
+      "type": "string",
+      "description": "Not read by this element: the environment's `accessibility.colorContrast` sets the contrast. `createDefaultModel()` writes it."
+    }
+  },
+  "required": [
+    "element",
+    "id"
+  ],
+  "description": "Model Object for `@pie-element/number-line`",
+  "definitions": {
+    "AccessibilityCatalog": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatalogCard"
+          }
+        }
+      },
+      "required": [
+        "identifier",
+        "cards"
+      ]
+    },
+    "CatalogCard": {
+      "type": "object",
+      "properties": {
+        "catalog": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "payload": {
+          "$ref": "#/definitions/CatalogCardPayload"
+        }
+      },
+      "required": [
+        "catalog"
+      ],
+      "description": "QTI-aligned accessibility catalog entry: one alternate representation of a content node, docked to it by `data-catalog-idref`.\n\nMaps onto QTI 3's `qti-card`. `catalog` is QTI's `@support` and is the only discriminant — there is deliberately no second `kind` field. `language` is the card entry's `xml:lang`. QTI's single content slot is represented by exactly one of two fields, never both, with nothing mirrored between them:\n\n- `content` — the string form, for alternates a string can express: SSML for   `spoken`, plain text for `simplified-language`.\n- `payload` — the structured form, for what a string cannot express. Today   only a signing video.\n\nOne generic payload slot rather than a field per accommodation (`signLanguage`, `braille`, …), which is the shape pie-players canonicalises and the shape this repo now follows. A field per accommodation makes every new structured alternate a breaking widening of this type in every consumer that reads cards, and it gives the same fact two names across repos — which produced a real bug: a card carrying `signLanguage` rendered its video in the player and was simultaneously reported as carrying no payload by the player's \"what alternates exist\" path, because only one of the two read paths knew about the alias.\n\n`catalog` is a bare `string` because the vocabulary is open-ended and unknown tokens must be ignored rather than rejected. TypeScript therefore cannot express \"a `sign-language` card must carry a payload\", so a `{ catalog: 'sign-language', content: '<url>' }` object still satisfies this type. That legacy bare-URL form is not supported: runtime validation on the consuming side must reject it rather than render the URL as visible text. Narrow with `isSignLanguageCard`."
+    },
+    "CatalogCardPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/SignLanguageCardPayload"
+        },
+        {
+          "$ref": "#/definitions/SpokenAudioCardPayload"
+        }
+      ],
+      "description": "The structured forms a card's `payload` may take.\n\nWhich one applies is decided by the card's `catalog`, so this union carries no discriminant of its own — a second discriminant could contradict the first. Consumers select a card by catalog type and then validate the payload structurally, which they must do regardless: catalog data is authored, wire-facing and untrusted."
+    },
+    "SignLanguageCardPayload": {
+      "type": "object",
+      "properties": {
+        "signLang": {
+          "type": "string",
+          "description": "Language tag for the signed translation — BCP 47, which admits ISO 639-3 subtags for languages with no 639-1/2 code. \"ase\" is ASL, matching QTI 3 `xml:lang`.\n\nThis is the language of the *adaptation*, not the item's base content language (AfA/PNP's `languageOfAdaptation`). The distinction is load bearing: a Spanish item's signed alternate is LSM, not ASL, so `signLang` must never be inferred from the item or assessment content language.\n\nOptional, and redundant on almost every card. The card's `language` states the same code and is the only field pie-players resolves a card on — resolution runs before anything knows the card is a signing card, so it can only key on the generic field — and the player falls back to it when this is absent. Author it only where the two differ: a card tagged with the item's content language (`language: 'en-US'`, `signLang: 'ase'`) so resolution reaches it by the default-language rung. The pie-api-aws importer emits `language` alone."
+        },
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `sign-language` catalog card: a signed translation of the content node the card is docked to."
+    },
+    "MediaAssetRef": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/MediaKind"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MediaSource"
+          }
+        },
+        "poster": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "durationSeconds": {
+          "type": "number"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextTrackRef"
+          }
+        },
+        "transcript": {
+          "$ref": "#/definitions/TranscriptRef"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "description": "Language of the asset itself, as authored metadata. Sign-language cards leave it unset: the card's `language` already states the adaptation language, and a second copy is a second thing to keep in agreement."
+        }
+      },
+      "required": [
+        "version",
+        "id",
+        "kind",
+        "sources"
+      ],
+      "description": "Reference to a media asset and its playable encodings.\n\nStructurally mirrors the `MediaAssetRef` in the pie-players `media-asset-contract` PRD. The two definitions are deliberately kept as separate declarations rather than a shared package dependency: this repo owns the item-model side of the contract, pie-players owns the player side, and both read the same authored JSON, so structural typing is sufficient for interop. Fixture parity — not a package edge — is what pins them together.\n\nSign-language catalog cards were the first consumer and use only the core source fields. The optional presentation, track, and transcript metadata is declared for broader consumers such as video stimuli; it remains meaningless for a signing clip, where captions would duplicate the text already on screen."
+    },
+    "MediaKind": {
+      "type": "string",
+      "enum": [
+        "image",
+        "audio",
+        "video",
+        "other"
+      ]
+    },
+    "MediaSource": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "MIME type, e.g. \"video/mp4\"."
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "bitrate": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "src"
+      ],
+      "description": "One playable encoding of a media asset."
+    },
+    "TextTrackRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "captions",
+            "subtitles",
+            "descriptions",
+            "chapters",
+            "metadata"
+          ]
+        },
+        "lang": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "src",
+        "kind",
+        "lang",
+        "label"
+      ],
+      "description": "One authored text track associated with an audio or video asset."
+    },
+    "TranscriptRef": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "plainText": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        }
+      },
+      "description": "Inline or externally hosted transcript content for a media asset."
+    },
+    "MediaFragmentRange": {
+      "type": "object",
+      "properties": {
+        "startSeconds": {
+          "type": "number"
+        },
+        "endSeconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "startSeconds"
+      ],
+      "description": "A time slice within a media asset, so one recording can serve several content nodes. Mirrors QTI 3's Media Fragments URI usage."
+    },
+    "SpokenAudioCardPayload": {
+      "type": "object",
+      "properties": {
+        "media": {
+          "$ref": "#/definitions/MediaAssetRef"
+        },
+        "fragment": {
+          "$ref": "#/definitions/MediaFragmentRange"
+        }
+      },
+      "required": [
+        "media"
+      ],
+      "description": "Payload for a `spoken` catalog card that is a recording rather than a script.\n\nQTI 3 treats recorded audio and synthesized speech as the same support: both are `spoken`, so this is not a new accommodation, it is the other form the existing one can take. A node commonly carries both this and a `content` card in the same language — the script is both what the audio was generated from and the fallback for when the audio cannot play; pie-players resolves between them with `CatalogLookupOptions.form`.\n\nNo `kind` discriminant, for the same reason `SignLanguageCardPayload` has none: the card's `catalog` already says what this is."
+    },
+    "NumberLineFeedback": {
+      "type": "object",
+      "properties": {
+        "correct": {
+          "$ref": "#/definitions/NumberLineFeedbackLevel",
+          "description": "Indicates the configuration for feedback when answer is correct"
+        },
+        "incorrect": {
+          "$ref": "#/definitions/NumberLineFeedbackLevel",
+          "description": "Indicates the configuration for feedback when answer is incorrect"
+        },
+        "partial": {
+          "$ref": "#/definitions/NumberLineFeedbackLevel",
+          "description": "Indicates the configuration for feedback when answer is partially correct"
+        }
+      }
+    },
+    "NumberLineFeedbackLevel": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "custom",
+            "default",
+            "none"
+          ],
+          "description": "Indicates the feedback type: `none` shows nothing, `default` shows `default`, `custom` shows `custom`"
+        },
+        "default": {
+          "type": "string",
+          "description": "Indicates the feedback value"
+        },
+        "custom": {
+          "type": "string",
+          "description": "Indicates the feedback custom value"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "Feedback for one outcome"
+    },
+    "NumberLineResponse": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/NumberLinePoint"
+        },
+        {
+          "$ref": "#/definitions/NumberLineLine"
+        },
+        {
+          "$ref": "#/definitions/NumberLineRay"
+        }
+      ],
+      "description": "An object plotted on the number line"
+    },
+    "NumberLinePoint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "point",
+          "description": "Indicates the response type"
+        },
+        "domainPosition": {
+          "type": "number",
+          "description": "Indicates response domain position"
+        },
+        "pointType": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates point type"
+        }
+      },
+      "required": [
+        "type",
+        "domainPosition",
+        "pointType"
+      ],
+      "description": "A point at `domainPosition`"
+    },
+    "NumberLinePointType": {
+      "type": "string",
+      "enum": [
+        "full",
+        "empty"
+      ],
+      "description": "Whether a point is drawn filled (included) or hollow (excluded)"
+    },
+    "NumberLineLine": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "line",
+          "description": "Indicates the response type"
+        },
+        "domainPosition": {
+          "type": "number",
+          "description": "Indicates response domain position: the left end of the line"
+        },
+        "size": {
+          "type": "number",
+          "description": "Indicates line size"
+        },
+        "leftPoint": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates left point (left limit for the line) type"
+        },
+        "rightPoint": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates right point (right limit for the line) type"
+        }
+      },
+      "required": [
+        "type",
+        "domainPosition",
+        "size",
+        "leftPoint",
+        "rightPoint"
+      ],
+      "description": "A segment from `domainPosition` to `domainPosition + size`"
+    },
+    "NumberLineRay": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "ray",
+          "description": "Indicates the response type"
+        },
+        "domainPosition": {
+          "type": "number",
+          "description": "Indicates response domain position"
+        },
+        "pointType": {
+          "$ref": "#/definitions/NumberLinePointType",
+          "description": "Indicates point type"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "negative",
+            "positive"
+          ],
+          "description": "Indicates ray direction"
+        }
+      },
+      "required": [
+        "type",
+        "domainPosition",
+        "pointType",
+        "direction"
+      ],
+      "description": "A ray starting at `domainPosition`"
+    },
+    "NumberLineGraph": {
+      "type": "object",
+      "properties": {
+        "arrows": {
+          "$ref": "#/definitions/NumberLineArrows",
+          "description": "display arrows"
+        },
+        "width": {
+          "type": "number",
+          "description": "Indicates domain representation width"
+        },
+        "height": {
+          "type": "number",
+          "description": "Height of the plotting area; the author sets it from the available types and the maximum number of elements"
+        },
+        "domain": {
+          "$ref": "#/definitions/NumberLineDomain",
+          "description": "Domain limits"
+        },
+        "maxNumberOfPoints": {
+          "type": "number",
+          "description": "Indicates the maximum number of correct response values"
+        },
+        "ticks": {
+          "$ref": "#/definitions/NumberLineTicks",
+          "description": "tick configuration"
+        },
+        "title": {
+          "type": "string",
+          "description": "the title under the graph"
+        },
+        "exhibitOnly": {
+          "type": "boolean",
+          "description": "Indicates if the exhibit mode is enabled"
+        },
+        "initialType": {
+          "$ref": "#/definitions/NumberLineResponseType",
+          "description": "Indicates the initial type of response"
+        },
+        "availableTypes": {
+          "$ref": "#/definitions/NumberLineAvailableTypes",
+          "description": "Indicates the available types of responses"
+        },
+        "initialElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NumberLineResponse"
+          },
+          "description": "Array of initial responses"
+        },
+        "labelStep": {
+          "type": "string",
+          "description": "Indicates the fractional step between 2 labeled ticks, e.g. `1/4`; a fraction sets `fraction` and the major tick"
+        },
+        "fraction": {
+          "type": "boolean",
+          "description": "Labels ticks as fractions; set from `labelStep` and the tick interval type"
+        }
+      },
+      "required": [
+        "width",
+        "domain",
+        "ticks"
+      ],
+      "description": "Configuration for the domain"
+    },
+    "NumberLineArrows": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "boolean"
+        },
+        "right": {
+          "type": "boolean"
+        }
+      }
+    },
+    "NumberLineDomain": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ]
+    },
+    "NumberLineTicks": {
+      "type": "object",
+      "properties": {
+        "minor": {
+          "type": "number",
+          "description": "smallest tick - These ticks don't have labels."
+        },
+        "major": {
+          "type": "number",
+          "description": "larger tick - These ticks have labels."
+        },
+        "tickIntervalType": {
+          "type": "string",
+          "enum": [
+            "Integer",
+            "Fraction",
+            "Decimal"
+          ],
+          "description": "Tick interval type; derived from `minor` when absent"
+        },
+        "integerTick": {
+          "type": "number",
+          "description": "Integer representation of minor; computed from `minor`"
+        },
+        "decimalTick": {
+          "type": "number",
+          "description": "Decimal representation of minor; computed from `minor`"
+        },
+        "fractionTick": {
+          "type": "string",
+          "description": "Fraction representation of minor; computed from `minor`"
+        }
+      },
+      "required": [
+        "minor",
+        "major"
+      ]
+    },
+    "NumberLineResponseType": {
+      "type": "string",
+      "enum": [
+        "PF",
+        "LFF",
+        "LEF",
+        "LFE",
+        "LEE",
+        "RFN",
+        "RFP",
+        "REN",
+        "REP"
+      ],
+      "description": "A plotting tool: `P` point, `L` line, `R` ray, then the point types (`F` full, `E` empty) and, for rays, the direction (`N` negative, `P` positive)."
+    },
+    "NumberLineAvailableTypes": {
+      "type": "object",
+      "properties": {
+        "PF": {
+          "type": "boolean",
+          "description": "Indicates if full point is available"
+        },
+        "LFF": {
+          "type": "boolean",
+          "description": "Indicates if line with full left & right point is available"
+        },
+        "LEF": {
+          "type": "boolean",
+          "description": "Indicates if line with empty left & full right point is available"
+        },
+        "LFE": {
+          "type": "boolean",
+          "description": "Indicates if line with full left & empty right point is available"
+        },
+        "LEE": {
+          "type": "boolean",
+          "description": "Indicates if line with empty left & right point is available"
+        },
+        "RFN": {
+          "type": "boolean",
+          "description": "Indicates if ray with full point and negative direction is available"
+        },
+        "REN": {
+          "type": "boolean",
+          "description": "Indicates if ray with empty point and negative direction is available"
+        },
+        "RFP": {
+          "type": "boolean",
+          "description": "Indicates if ray with full point and positive direction is available"
+        },
+        "REP": {
+          "type": "boolean",
+          "description": "Indicates if ray with empty point and positive direction is available"
+        }
+      },
+      "description": "Indicates the available types of responses"
+    },
+    "ExtraCSSRules": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "string"
+        }
+      },
+      "description": "Host-supplied CSS scoped to the element: `rules` is a stylesheet whose class names are listed in `names`."
+    }
+  },
+  "additionalProperties": false
+}

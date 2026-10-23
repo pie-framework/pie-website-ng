@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/venn-classification@0.1.7/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "placements": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/Region"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "description": "Keyed by tile id; `null` = still in tray, `[]` = outside region."
+    },
+    "completed": {
+      "type": "boolean"
+    }
+  },
+  "definitions": {
+    "Region": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}

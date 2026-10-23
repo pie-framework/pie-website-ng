@@ -1,0 +1,405 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/number-line@14.0.6/dist/schemas/configuration.schema.json",
+  "type": "object",
+  "properties": {
+    "baseInputConfiguration": {
+      "$ref": "#/definitions/EditableHtmlConfigureProp",
+      "description": "Base editable html input configuration regarding plugins that are enabled/disabled E.g. audio, video, image"
+    },
+    "instruction": {
+      "$ref": "#/definitions/ConfigurePropWithEnabled",
+      "description": "Configuration for the instruction; `label` is the text shown above the form"
+    },
+    "prompt": {
+      "$ref": "#/definitions/EditableHtmlPluginConfigureRequired",
+      "description": "Configuration for the prompt"
+    },
+    "rationale": {
+      "$ref": "#/definitions/EditableHtmlPluginConfigureRequired",
+      "description": "Rationale configuration"
+    },
+    "teacherInstructions": {
+      "$ref": "#/definitions/EditableHtmlPluginConfigureRequired",
+      "description": "Configuration for the teacher instructions"
+    },
+    "title": {
+      "$ref": "#/definitions/NumberLineTitleConfiguration",
+      "description": "Configuration for the title"
+    },
+    "numberLineDimensions": {
+      "$ref": "#/definitions/NumberLineDimensions",
+      "description": "Hold default values for number line width like min, max and step."
+    },
+    "spellCheck": {
+      "$ref": "#/definitions/ConfigurePropWithEnabled",
+      "description": "Configuration for the author's spellcheck"
+    },
+    "settingsPanelDisabled": {
+      "type": "boolean",
+      "description": "Indicates if the settings panel is not available"
+    },
+    "maxMaxElements": {
+      "type": "number",
+      "description": "Holds numeric value for maximum number of elements allowed on number line.",
+      "default": 20
+    },
+    "hidePointConfigButtons": {
+      "type": "boolean",
+      "description": "Hide buttons in point configuration module (Select All / None)."
+    },
+    "availableTools": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NumberLineResponseType"
+      },
+      "description": "Array of available tools for author."
+    },
+    "mathMlOptions": {
+      "$ref": "#/definitions/ConfigureMathMLProp",
+      "description": "Configuration for editable-html"
+    },
+    "language": {
+      "$ref": "#/definitions/ConfigurePropWithEnabled",
+      "description": "Language configuration"
+    },
+    "languageChoices": {
+      "$ref": "#/definitions/ConfigureLanguageOptions",
+      "description": "Language choices configuration Only available if language is enabled"
+    },
+    "contentDimensions": {
+      "$ref": "#/definitions/ContentDimensions",
+      "description": "Dimensions of the authoring container"
+    },
+    "showPrompt": {
+      "type": "boolean",
+      "description": "Not read by this element: the model's `promptEnabled` shows the prompt"
+    },
+    "promptLabel": {
+      "type": "string",
+      "description": "Not read by this element: `prompt.label` labels the prompt"
+    },
+    "settingsPartialScoring": {
+      "type": "boolean",
+      "description": "Not read by this element: it has no partial scoring control"
+    }
+  },
+  "description": "Config Object for `@pie-element/number-line`",
+  "definitions": {
+    "EditableHtmlConfigureProp": {
+      "type": "object",
+      "properties": {
+        "math": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "audio": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "video": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "image": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "customPlugins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomPlugin"
+          },
+          "description": "An array of objects that determine custom plugins. A custom plugin is an object which determines how the button will look like (icon) and the event name that will be triggered when the button gets pressed (event)."
+        },
+        "blockquote": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "h3": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "characters": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "bold": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "html": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "italic": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "ol_list": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "redo": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "strikethrough": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "sub": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "sup": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "table": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "ul_list": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "underline": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "undo": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "showParagraphs": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "separateParagraphs": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "pasteFormatting": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "superscript": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "subscript": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "languageCharacters": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        },
+        "responseArea": {
+          "$ref": "#/definitions/EditableHtmlButtonConfigure"
+        }
+      },
+      "description": "Toolbar plugins of an editable-html field, keyed by plugin name."
+    },
+    "EditableHtmlButtonConfigure": {
+      "type": "object",
+      "properties": {
+        "disabled": {
+          "type": "boolean",
+          "description": "Indicates if the plugin is disabled or not"
+        }
+      }
+    },
+    "CustomPlugin": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "type": "string",
+          "description": "The name of the custom event. It needs to be valid (only letters, numbers and \"_\" can be used). The event is emitted with the \"PIE-\" prefix."
+        },
+        "iconAlt": {
+          "type": "string",
+          "description": "The alt for the custom button icon"
+        },
+        "iconType": {
+          "type": "string",
+          "description": "The icon type. Currently, only \"SVG\" is supported."
+        },
+        "icon": {
+          "type": "string",
+          "description": "The icon string. Currently, only SVG is supported, so it needs to be a valid svg."
+        }
+      },
+      "required": [
+        "event",
+        "iconAlt",
+        "iconType",
+        "icon"
+      ]
+    },
+    "ConfigurePropWithEnabled": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Indicates the value of the item if it affects config-ui (eg.: if item is a switch and displaying an input on the config-ui depends on the switch value: on/off)"
+        }
+      }
+    },
+    "EditableHtmlPluginConfigureRequired": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "inputConfiguration": {
+          "$ref": "#/definitions/EditableHtmlConfigureProp",
+          "description": "Configuration for editable-html"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicates if the item is required and the value cannot be empty"
+        }
+      }
+    },
+    "NumberLineTitleConfiguration": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "inputConfiguration": {
+          "$ref": "#/definitions/EditableHtmlConfigureProp",
+          "description": "Configuration for editable-html"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "The model's `titleEnabled` when the model does not set it"
+        }
+      }
+    },
+    "NumberLineDimensions": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Not read by this element"
+        },
+        "label": {
+          "type": "string",
+          "description": "Not read by this element"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Not read by this element: the model's `widthEnabled` shows the width control"
+        },
+        "min": {
+          "type": "number",
+          "description": "Minimum width the author can set",
+          "default": 200
+        },
+        "max": {
+          "type": "number",
+          "description": "Maximum width the author can set",
+          "default": 800
+        },
+        "step": {
+          "type": "number",
+          "description": "Step of the width control"
+        }
+      },
+      "description": "Hold default values for number line width like min, max and step."
+    },
+    "NumberLineResponseType": {
+      "type": "string",
+      "enum": [
+        "PF",
+        "LFF",
+        "LEF",
+        "LFE",
+        "LEE",
+        "RFN",
+        "RFP",
+        "REN",
+        "REP"
+      ],
+      "description": "A plotting tool: `P` point, `L` line, `R` ray, then the point types (`F` full, `E` empty) and, for rays, the direction (`N` negative, `P` positive)."
+    },
+    "ConfigureMathMLProp": {
+      "type": "object",
+      "properties": {
+        "mmlOutput": {
+          "type": "boolean",
+          "description": "Indicates if model should have mathML output instead of latex"
+        },
+        "mmlEditing": {
+          "type": "boolean",
+          "description": "Indicates if mathML that's already in model should be editable"
+        }
+      }
+    },
+    "ConfigureLanguageOptions": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfigureLanguageOptionsProp"
+          }
+        }
+      },
+      "required": [
+        "label",
+        "options"
+      ]
+    },
+    "ConfigureLanguageOptionsProp": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Value of the language option"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label of the language option"
+        }
+      },
+      "required": [
+        "value",
+        "label"
+      ]
+    },
+    "ContentDimensions": {
+      "type": "object",
+      "properties": {
+        "maxHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "maxWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        }
+      },
+      "description": "Indicates the dimensions configuration for the authoring container. Note: Some items have a default minimum width because of their content, but if a lower minWidth is provided, it will be used."
+    }
+  },
+  "additionalProperties": false
+}

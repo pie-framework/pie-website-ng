@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/math-templated@8.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/MathTemplatedAnswer"
+      },
+      "description": "Answers per response area, keyed `r0`, `r1`, ... by response area index"
+    }
+  },
+  "definitions": {
+    "MathTemplatedAnswer": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "description": "The learner's answer to one response area"
+    }
+  }
+}

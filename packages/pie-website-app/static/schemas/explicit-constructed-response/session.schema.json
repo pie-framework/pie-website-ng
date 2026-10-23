@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/explicit-constructed-response@12.1.1/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "value": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "The learner's answer in each response area, keyed by the area's index"
+    }
+  },
+  "definitions": {}
+}

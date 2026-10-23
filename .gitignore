@@ -20,5 +20,10 @@ node_modules/
 **/node_modules/
 **/dist/
 **/build/
+# The interaction-development section is source, not build output.
+!packages/pie-website-app/src/routes/build/
+!packages/pie-website-app/src/routes/build/**
+!packages/pie-website-app/src/lib/server/guides/build/
+!packages/pie-website-app/src/lib/server/guides/build/**
 **/.svelte-kit/
 bun.lockb

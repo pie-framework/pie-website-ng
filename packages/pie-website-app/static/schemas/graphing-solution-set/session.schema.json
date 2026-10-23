@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/graphing-solution-set@7.0.6/dist/schemas/session.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the session"
+    },
+    "element": {
+      "type": "string",
+      "description": "The element the session belongs to"
+    },
+    "answer": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Mark"
+      },
+      "description": "The lines the student drew and the section picked as the solution set"
+    }
+  },
+  "description": "A student response",
+  "definitions": {
+    "Mark": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/MarkType",
+          "description": "Indicates type of mark"
+        },
+        "building": {
+          "type": "boolean",
+          "description": "Indicates if mark is in build process"
+        },
+        "from": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicates where the line starts if type is line"
+        },
+        "to": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Indicates where the line ends if type is line"
+        },
+        "fill": {
+          "$ref": "#/definitions/LineType",
+          "description": "Line type of a line mark, copied from the line's `gssLineData` setting"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MarkPoint"
+          },
+          "description": "Indicates all mark's points if type is polygon"
+        },
+        "closed": {
+          "type": "boolean",
+          "description": "Indicates if mark is closed if type is polygon"
+        },
+        "isSolution": {
+          "type": "boolean",
+          "description": "Indicates if a polygon mark is the selected solution set"
+        },
+        "middle": {
+          "$ref": "#/definitions/MarkPoint",
+          "description": "Labelled midpoint of a line or polygon mark"
+        },
+        "x": {
+          "type": "number",
+          "description": "Not read by this element or `@pie-lib/graphing-solution-set`."
+        },
+        "y": {
+          "type": "number",
+          "description": "Not read by this element or `@pie-lib/graphing-solution-set`."
+        },
+        "label": {
+          "type": "string",
+          "description": "Not read by this element or `@pie-lib/graphing-solution-set`."
+        },
+        "showLabel": {
+          "type": "boolean",
+          "description": "Not read by this element or `@pie-lib/graphing-solution-set`."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "MarkType": {
+      "type": "string",
+      "enum": [
+        "line",
+        "polygon"
+      ],
+      "description": "Kind of mark: one of the item's lines, or a section of the graph picked as the solution set."
+    },
+    "MarkPoint": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "Indicates x coordinate"
+        },
+        "y": {
+          "type": "number",
+          "description": "Indicates y coordinate"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label shown next to the point"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "description": "A point of a mark, optionally labelled."
+    },
+    "LineType": {
+      "type": "string",
+      "enum": [
+        "Solid",
+        "Dashed"
+      ],
+      "description": "How a line is drawn: solid for an inclusive inequality, dashed for a strict one."
+    }
+  }
+}

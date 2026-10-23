@@ -4,6 +4,8 @@
 	import { ITEM_PLAYER_CDN_URL } from '$lib/versions';
 	import { EXAMPLE_ENV, EXAMPLE_SESSION, exampleConfig } from '$lib/data/host-example';
 	import { SITES } from '$lib/data/links';
+	import { demoEnvironment, type DemoView } from '$lib/data/demo-view';
+	import DemoViewSwitcher from './demos/DemoViewSwitcher.svelte';
 
 	/**
 	 * The canonical multiple-choice item in a live <pie-item-player>, loaded from
@@ -13,8 +15,7 @@
 	 */
 
 	type Mode = 'gather' | 'view' | 'evaluate';
-	type Role = 'student' | 'instructor';
-	type PlayerElement = HTMLElement & { config?: unknown; env?: unknown; session?: unknown };
+	type PlayerElement = HTMLElement & { config?: unknown; env?: unknown; session?: unknown; commitPendingElementSessions?(): void };
 	type ItemConfig = ReturnType<typeof exampleConfig>;
 	type ItemModel = ItemConfig['models'][number] & Record<string, unknown>;
 
@@ -26,15 +27,12 @@
 		{ value: 'view', label: 'View' },
 		{ value: 'evaluate', label: 'Evaluate' }
 	];
-	const ROLES: { value: Role; label: string }[] = [
-		{ value: 'student', label: 'Student' },
-		{ value: 'instructor', label: 'Instructor' }
-	];
 	const TABS = [
 		{ id: 'delivery', label: 'Delivery' },
 		{ id: 'authoring', label: 'Authoring' }
 	] as const;
 	type Tab = (typeof TABS)[number]['id'];
+	let { initialTab = 'delivery' }: { initialTab?: Tab } = $props();
 
 	// The demo adds a rationale to each choice so the instructor role has
 	// something to show in view and evaluate modes.
@@ -57,7 +55,7 @@
 	let activeTab = $state<Tab>('delivery');
 	let authoringOpened = $state(false);
 	let mode = $state<Mode>(EXAMPLE_ENV.mode);
-	let role = $state<Role>(EXAMPLE_ENV.role);
+	let role = $state<DemoView>(EXAMPLE_ENV.role);
 	let sessionJson = $state<string | null>(null);
 
 	let deliveryPlayer = $state<PlayerElement | null>(null);
@@ -69,11 +67,12 @@
 	let previewTimer: ReturnType<typeof setTimeout> | undefined;
 
 	function loadPlayer(): Promise<unknown> {
+		let timer: ReturnType<typeof setTimeout>;
 		const defined = customElements.whenDefined('pie-item-player');
 		const waits: Promise<unknown>[] = [
 			defined,
 			new Promise((_, reject) =>
-				setTimeout(() => reject(new Error('Timed out loading the item player')), LOAD_TIMEOUT_MS)
+				timer = setTimeout(() => reject(new Error('Timed out loading the item player')), LOAD_TIMEOUT_MS)
 			)
 		];
 		if (
@@ -92,10 +91,12 @@
 			);
 			document.head.append(script);
 		}
-		return Promise.race(waits);
+		return Promise.race(waits).finally(() => clearTimeout(timer));
 	}
 
 	onMount(() => {
+		activeTab = initialTab;
+		authoringOpened = initialTab === 'authoring';
 		let active = true;
 		loadPlayer().then(
 			() => {
@@ -165,12 +166,18 @@
 		activeTab = tab;
 		if (tab === 'authoring') authoringOpened = true;
 	}
+	function changeView(view: DemoView) {
+		deliveryPlayer?.commitPendingElementSessions?.();
+		const env = demoEnvironment(view);
+		mode = env.mode;
+		role = env.role;
+	}
 
 	function onTabKeydown(event: KeyboardEvent) {
-		if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+		if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
 		event.preventDefault();
 		const index = TABS.findIndex((tab) => tab.id === activeTab);
-		const next = TABS[(index + (event.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length];
+		const next = event.key === 'Home' ? TABS[0] : event.key === 'End' ? TABS[TABS.length - 1] : TABS[(index + (event.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length];
 		selectTab(next.id);
 		document.getElementById(`pie-demo-tab-${next.id}`)?.focus();
 	}
@@ -186,7 +193,7 @@
 				class="tab font-medium"
 				class:tab-active={activeTab === tab.id}
 				aria-selected={activeTab === tab.id}
-				aria-controls="pie-demo-panel-{tab.id}"
+				aria-controls={status === 'ready' ? 'pie-demo-panel-' + tab.id : undefined}
 				tabindex={activeTab === tab.id ? 0 : -1}
 				onclick={() => selectTab(tab.id)}
 				onkeydown={onTabKeydown}
@@ -216,7 +223,8 @@
 				aria-labelledby="pie-demo-tab-delivery"
 				hidden={activeTab !== 'delivery'}
 			>
-				<div class="flex flex-wrap gap-x-8 gap-y-3 mb-4">
+				<div class="flex flex-wrap items-end gap-x-8 gap-y-3 mb-4">
+					<DemoViewSwitcher value={role} onchange={changeView} />
 					<fieldset class="flex flex-wrap items-center gap-x-4 gap-y-2">
 						<legend class="text-sm font-semibold mb-1">Mode</legend>
 						{#each MODES as option (option.value)}
@@ -232,21 +240,6 @@
 							</label>
 						{/each}
 					</fieldset>
-					<fieldset class="flex flex-wrap items-center gap-x-4 gap-y-2">
-						<legend class="text-sm font-semibold mb-1">Role</legend>
-						{#each ROLES as option (option.value)}
-							<label class="flex items-center gap-2 cursor-pointer text-sm">
-								<input
-									type="radio"
-									name="pie-demo-role"
-									class="radio radio-sm radio-primary"
-									value={option.value}
-									bind:group={role}
-								/>
-								{option.label}
-							</label>
-						{/each}
-					</fieldset>
 				</div>
 
 				<div class="grid lg:grid-cols-5 gap-4">
@@ -257,12 +250,10 @@
 						<h3 class="text-sm font-semibold mb-2">Latest session</h3>
 						{#if sessionJson}
 							<pre
-								class="bg-base-200 rounded-lg text-xs overflow-x-auto"
-								aria-live="polite"><code>{sessionJson}</code></pre>
+								class="bg-base-200 rounded-lg text-xs overflow-x-auto"><code>{sessionJson}</code></pre>
 						{:else}
 							<p class="text-sm text-base-content/70" aria-live="polite">
-								Choose an answer in gather mode; the session the player reports in
-								<code>session-changed</code> appears here.
+								Answer the question in gather mode to see its session data.
 							</p>
 						{/if}
 					</div>
@@ -276,8 +267,7 @@
 				hidden={activeTab !== 'authoring'}
 			>
 				<p class="text-sm text-base-content/70 mb-4">
-					The same item with <code>mode="author"</code>. Each edit emits
-					<code>model-updated</code>, and the preview renders the updated model.
+					Edit the question on the left to update the preview.
 				</p>
 				{#if authoringOpened}
 					<div class="grid lg:grid-cols-2 gap-4">
@@ -302,6 +292,9 @@
 </div>
 
 <style>
+	.tab { color: var(--site-muted); opacity: 1; }
+	.tab-active { color: var(--color-primary); }
+	.tab:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
 	/* Elements render in light DOM with their own light palette, so the stage
 	   stays light in both site themes. */
 	.pie-demo-stage {

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cdn.jsdelivr.net/npm/@pie-element/mc-populated-blank@0.3.6/dist/schemas/configuration.schema.json",
+  "type": "object",
+  "properties": {
+    "prompt": {
+      "$ref": "#/definitions/McpbFieldConfigure",
+      "description": "Configuration for the prompt; `settings` and `label` are not read"
+    },
+    "teacherInstructions": {
+      "$ref": "#/definitions/McpbFieldConfigure",
+      "description": "Configuration for the teacher instructions; `settings` and `label` are not read"
+    },
+    "minAnswerChoices": {
+      "type": "number",
+      "description": "The fewest choices `validate()` accepts",
+      "default": 2
+    },
+    "maxAnswerChoices": {
+      "type": "number",
+      "description": "The most choices `validate()` accepts; unset allows any number"
+    }
+  },
+  "description": "Config Object for `@pie-element/mc-populated-blank`. The author view is a placeholder that reads none of it; `validate()` reads the choice counts and the `required` flags.",
+  "definitions": {
+    "McpbFieldConfigure": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "boolean",
+          "description": "Indicates if the item has to be displayed in the Settings Panel"
+        },
+        "label": {
+          "type": "string",
+          "description": "Indicates the label for the item that has to be displayed in the Settings Panel"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicates if the item is required and the value cannot be empty"
+        }
+      },
+      "description": "A Settings Panel control for an editable field."
+    }
+  },
+  "additionalProperties": false
+}
