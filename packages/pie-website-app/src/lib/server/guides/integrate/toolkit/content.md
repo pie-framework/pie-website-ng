@@ -34,7 +34,7 @@ Import the toolkit registration entries and the item player. Create a tool regis
 
 Place tools at the item, passage or section level. Policy then determines which are available to the learner. A profile grant keeps a placed tool available even when the content would otherwise filter it out. It cannot add a tool that has no placement.
 
-Host gates apply before the policy ladder. On the ladder the first matching rule wins: district block, administration withdrawal, item restriction, profile prohibition, administration grant, item requirement, district requirement, then profile support.
+Host gates apply before the policy ladder. On the ladder the first matching rule wins: district block, administration withdrawal, item restriction, profile prohibition or support conflict (an enabled screen reader withholds read-aloud and autoplay), administration grant, item requirement, district requirement, then profile activation at start or profile support.
 
 Item restrictions and requirements apply within that item's scope. See the [policy guide](/docs/tool-policy/) for scopes, diagnostics and tool parameters.
 
