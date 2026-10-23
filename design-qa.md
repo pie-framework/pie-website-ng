@@ -224,4 +224,25 @@ The raw reports in the artifact directory above are
 `upstream-authoring-checkbox-axe.json`, `upstream-authoring-radio-axe.json`, and
 `upstream-theme-menu-axe.json`. The website's dependency pins remain unchanged.
 
+The authoring follow-up also names 80 additional rich-text editor sites across
+22 more React elements, including styled wrappers and the inline-dropdown
+template's forwarded props. A source inventory accounts for all 83 authoring
+editor sites: 82 explicitly named and one named by its caller. Rendered-editor
+regressions cover passage labels, formatted rationale labels, response templates,
+match rows/columns and correct-answer controls, and repeated rubric scales.
+Shared settings dropdowns now reference their visible labels.
+
+The element dependency-integrity check and player resolution-boundary check now
+reject installed `workspace:` dependencies that resolve outside their declared
+workspace directories. Filesystem fixtures cover direct and hoisted links,
+forwarding directories, links into another checkout, missing or broken links,
+and packages without build output. The 19 video-stimulus failures traced to stale
+local forwarding modules; restoring normal workspace links fixed them without a
+video component change. These installation checks help prevent a recurrence.
+
+Draft source PRs: [element authoring names and workspace checks](https://github.com/pie-framework/pie-elements-ng/pull/539)
+and [player theme names and workspace checks](https://github.com/pie-framework/pie-players/pull/852).
+These source changes still require release, website dependency updates and
+verification of the published demos. They do not close the manual evidence gaps.
+
 final result: site-owned fixes verified; full WCAG 2.2 AA conformance remains open
