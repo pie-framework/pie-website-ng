@@ -23,7 +23,6 @@
 
 <figure class="site-diagram my-8 mx-auto w-full {className}" style="max-width: {width}px">
 	<div class="diagram-paper">
-		<a href="{base}/images/diagrams/{name}.{format}" target="_blank" rel="noopener noreferrer" aria-label="View full diagram in a new tab: {alt}" class="block cursor-zoom-in">
 		<img
 			src="{base}/images/diagrams/{name}.{format}"
 			class="diagram block w-full h-auto"
@@ -32,8 +31,7 @@
 			{width}
 			{height}
 		/>
-		<span class="diagram-zoom">View full diagram</span>
-		</a>
+		<a class="diagram-zoom" href="{base}/images/diagrams/{name}.{format}" target="_blank" rel="noopener noreferrer">View full diagram<span class="sr-only"> (opens in new tab)</span></a>
 	</div>
 	{#if caption}
 		<figcaption class="text-center text-sm text-site-muted mt-2">{caption}</figcaption>
@@ -43,6 +41,6 @@
 <style>
 	.diagram-zoom { display: none; }
 	@media (max-width: 640px) {
-		.diagram-zoom { display: grid; min-height: 2.75rem; place-items: center; padding: 0.5rem 0.75rem; border-top: 1px solid #dcded8; color: #cf3f20; font-size: 0.75rem; font-weight: 500; }
+		.diagram-zoom { display: grid; min-height: 2.75rem; place-items: center; padding: 0.5rem 0.75rem; border-top: 1px solid var(--color-base-300); color: var(--color-primary); font-size: 0.75rem; font-weight: 500; }
 	}
 </style>
