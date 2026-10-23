@@ -77,7 +77,7 @@ const i18n = createPieI18n({
 			name="localization-channels"
 			width={1028}
 			height={568}
-			alt="Three language channels. The host's locale attribute sets the interface locale for players, toolbars, tool panels and aria-labels, from the bundled en-US and nl-NL catalogs and the optional generated tier. The content language, from a lang attribute in the content, the item's env.locale, or the toolkit's content-language for read-aloud, sets lang and dir on the content and the read-aloud voice; the interface locale never sets it. In-item alternates are accessibility catalog cards in the item: keyword and item translations and sign language. Migrated elements follow the player's interface locale, then model.language; the rest use model.language with English and Spanish."
+			alt="Three language channels. The host's locale attribute sets the interface locale for players, toolbars, tool panels and aria-labels, from the bundled en-US and nl-NL catalogs and the optional generated tier. The content language, from a lang attribute in the content, the item's env.locale, or the toolkit's content-language for read-aloud, sets lang and dir on the content and the read-aloud voice; the interface locale never sets it. In-item alternates are accessibility catalog cards in the item, picked by language and then the default language: keyword and item translations and sign language. Element labels: migrated elements follow the interface locale the players publish, then model.language; the rest use model.language with English and Spanish."
 		/>
 
 		<div class="overflow-x-auto">
@@ -120,7 +120,8 @@ const i18n = createPieI18n({
 	<section class="mb-20 scroll-mt-24" id="interface-locale">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Interface locale</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			Set <code>locale</code> on the item player, each section player layout or the toolkit. Unset,
+			Set <code>locale</code> on the item player, each section player layout, the toolkit or the assessment
+			player, which passes it to the section it shows. Unset,
 			everything renders English. The players bundle two reviewed catalogs: <code>en-US</code>, the source,
 			and <code>nl-NL</code>. Every catalog other than English loads as a separate chunk, so English pages carry
 			no other catalog. Changing the attribute re-renders the interface in place, with no reload.
