@@ -31,6 +31,11 @@ export const SITES = {
 	slack: 'https://pieframework.slack.com'
 } as const;
 
+/** An element's page in the live sample library, which lists its demos and opens each view. */
+export function elementSamplesUrl(name: string): string {
+	return SITES.elementsDemo + name;
+}
+
 export const REPOS = {
 	piePlayers: 'https://github.com/pie-framework/pie-players',
 	pieElementsNg: 'https://github.com/pie-framework/pie-elements-ng',
