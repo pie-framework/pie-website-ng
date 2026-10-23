@@ -4,35 +4,59 @@
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Diagram from '$lib/components/Diagram.svelte';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import LocalizationDemo from '$lib/components/demos/LocalizationDemo.svelte';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
+	const PE = 'https://github.com/pie-framework/pie-elements-ng/blob/develop/';
 	const I18N_DESIGN = `${PP}docs/architecture/internationalization.md`;
 	const I18N_README = `${PP}packages/players-shared/src/i18n/README.md`;
+	const GENERATED_README = `${PP}packages/pie-i18n-generated/README.md`;
 	const SECTION_README = `${PP}packages/section-player/README.md`;
+	const ELEMENTS_I18N_README = `${PE}packages/shared/i18n/README.md`;
+	const ELEMENTS_I18N_PRD = `${PE}docs/prds/interface-i18n/PRD.md`;
 
 	const localeExample = `<pie-item-player locale="nl-NL"></pie-item-player>
 <pie-section-player-splitpane locale="nl-NL"></pie-section-player-splitpane>
 <pie-assessment-toolkit locale="nl-NL" content-language="en-US">…</pie-assessment-toolkit>`;
 
+	const generatedExample = `import {
+  BUNDLED_LOCALES,
+  createPieI18n,
+  loadBundledCatalog,
+} from '@pie-players/pie-players-shared/i18n';
+import { GENERATED_LOCALES, loadGeneratedCatalog } from '@pie-players/pie-i18n-generated';
+
+const i18n = createPieI18n({
+  availableLocales: [...BUNDLED_LOCALES, ...GENERATED_LOCALES],
+  // Bundled first, so a reviewed catalog wins over a generated one for the same tag.
+  loadCatalog: (locale) => loadBundledCatalog(locale).catch(() => loadGeneratedCatalog(locale)),
+});
+
+// The locale attribute still names the locale; the provider only supplies catalogs.
+document.querySelector('pie-section-player-splitpane').runtime = { i18n };`;
+
 	const customExample = `import { createPieI18n } from '@pie-players/pie-players-shared/i18n';
 
 // A locale PIE ships no catalog for is honored; missing keys fall back to English.
 const i18n = createPieI18n({
-  locale: 'cy-GB',
-  customMessages: { 'cy-GB': { common: { close: 'Cau' } } },
+  locale: 'de-DE',
+  customMessages: { 'de-DE': { common: { close: 'Schließen' } } },
 });`;
 
 	const tagRows = [
 		['nl-NL', 'nl-NL', 'exact match'],
 		['nl_NL', 'nl-NL', 'POSIX form normalized'],
 		['nl-BE', 'nl-NL', 'primary subtag widened'],
-		['nl', 'nl-NL', 'primary subtag widened'],
-		['cy-GB', 'cy-GB', 'honored; your messages, then English'],
+		['es-MX', 'es', 'primary subtag widened, with the generated tier'],
+		['en', 'en-US', 'en-GB and en-AU stay regional, so bare en keeps US English'],
+		['de-DE', 'de-DE', 'honored; your messages, then English'],
 		['(unset)', 'en-US', 'the browser locale is never read']
 	];
+
+	const generatedLocales = ['ar', 'cy', 'en-AU', 'en-GB', 'es', 'fr', 'ja', 'ko', 'pt', 'ro', 'sv', 'th-TH', 'zh'];
 </script>
 
-<Seo title="Localization - PIE Framework" description="Interface locale for PIE players and tools, content language for read-aloud and catalog cards, and in-item language alternates." />
+<Seo title="Localization - PIE Framework" description="Interface locale for PIE players, tools and elements, content language for the item and read-aloud, and in-item language alternates." />
 
 <div>
 	<div class="mb-12">
@@ -40,6 +64,10 @@ const i18n = createPieI18n({
 		<p class="text-xl text-base-content/70 max-w-4xl">
 			Set the interface language, content language and authored translations separately.
 			Changing the player's language does not translate question content.
+		</p>
+		<p class="text-base text-base-content/70 max-w-4xl mt-4">
+			This page describes the players' 1.0 prerelease, published under the <code>beta</code> npm tag; see
+			<a href="{base}/docs/versioning/" class="link link-primary">Versioning</a>.
 		</p>
 	</div>
 
@@ -50,7 +78,7 @@ const i18n = createPieI18n({
 			name="localization-channels"
 			width={1028}
 			height={568}
-			alt="Three language channels. The host's locale attribute sets the interface locale for players, toolbars, tool panels and aria-labels. The content language, from a lang attribute in the content or the toolkit's content-language, sets the read-aloud voice and picks catalog cards. In-item alternates are accessibility catalog cards in the item: keyword and item translations and sign language. Elements localize their own labels from model.language."
+			alt="Three language channels. The host's locale attribute sets the interface locale for players, toolbars, tool panels and aria-labels, from the bundled en-US and nl-NL catalogs and the optional generated tier. The content language, from a lang attribute in the content, the item's env.locale, or the toolkit's content-language for read-aloud, sets lang and dir on the content and the read-aloud voice; the interface locale never sets it. In-item alternates are accessibility catalog cards in the item, picked by language and then the default language: keyword and item translations and sign language. Element labels: migrated elements follow the interface locale the players publish, then model.language; the rest use model.language with English and Spanish."
 		/>
 
 		<div class="overflow-x-auto">
@@ -62,16 +90,19 @@ const i18n = createPieI18n({
 					<tr>
 						<td class="font-semibold">Interface locale</td>
 						<td>The <code>locale</code> attribute</td>
-						<td>Player status and errors, toolbar labels, tool panels, <code>aria-label</code>s, debug panels</td>
+						<td>
+							Player status and errors, toolbar labels, tool panels, <code>aria-label</code>s, debug panels, and
+							the labels of elements that follow it
+						</td>
 						<td><code>language-of-interface</code></td>
 					</tr>
 					<tr>
 						<td class="font-semibold">Content language</td>
 						<td>
-							<code>lang</code> in the content, else the toolkit's <code>content-language</code> or the section
-							player's <code>runtime.contentLanguage</code>
+							<code>lang</code> in the content or the item's <code>env.locale</code>; for read-aloud, also the
+							toolkit's <code>content-language</code> or the section player's <code>runtime.contentLanguage</code>
 						</td>
-						<td>The read-aloud voice and which catalog cards apply</td>
+						<td><code>lang</code> and <code>dir</code> on the item content, the read-aloud voice</td>
 						<td>Declared by the content</td>
 					</tr>
 					<tr>
@@ -87,21 +118,55 @@ const i18n = createPieI18n({
 		</div>
 	</section>
 
+	<section class="mb-20 scroll-mt-24" id="demo">
+		<h2 class="text-3xl font-bold text-secondary mb-6">Try it</h2>
+		<p class="text-base-content/80 mb-6 max-w-4xl">
+			A section player with the bundled catalogs and the generated tier as its provider. The interface locale
+			changes the toolbar, tool panels and accessible names in place; the content language loads a translated
+			section and sets its <code>lang</code>, <code>dir</code> and read-aloud voice. Mix them to see that
+			neither sets the other.
+		</p>
+		<LocalizationDemo />
+	</section>
+
 	<section class="mb-20 scroll-mt-24" id="interface-locale">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Interface locale</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			Set <code>locale</code> on the item player, each section player layout or the toolkit. Unset,
-			everything renders English. PIE ships <code>en-US</code>, the source catalog, and a complete
-			<code>nl-NL</code>; other locales load as separate chunks, so English pages carry no other catalog.
-			Changing the attribute re-renders the interface in place, with no reload.
+			Set <code>locale</code> on the item player, each section player layout, the toolkit or the assessment
+			player, which passes it to the section it shows. Unset,
+			everything renders English. The players bundle two reviewed catalogs: <code>en-US</code>, the source,
+			and <code>nl-NL</code>. Every catalog other than English loads as a separate chunk, so English pages carry
+			no other catalog. Changing the attribute re-renders the interface in place, with no reload.
 		</p>
 		<div class="mb-6">
 			<CodeEditor value={localeExample} language="html" readonly={true} height="90px" />
 		</div>
 
+		<h3 class="text-2xl font-bold text-primary mb-4" id="generated-locales">Generated locales</h3>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			<code>@pie-players/pie-i18n-generated</code> adds {generatedLocales.length} machine-generated catalogs:
+			{#each generatedLocales as tag, i (tag)}<code>{tag}</code>{i < generatedLocales.length - 2
+					? ', '
+					: i === generatedLocales.length - 2
+						? ' and '
+						: ''}{/each}. None has had a native review yet. CI checks their keys, placeholders, plural forms
+			and freshness against English, never the quality of the translation.
+		</p>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Installing the package loads nothing. A host opts in by composing its loaders after the bundled ones
+			and handing the provider to the player: the <code>i18n</code> property on the item player and the
+			toolkit, or <code>runtime.i18n</code> on a section player layout, which forwards it to the item players
+			it mounts. Arabic is the first right-to-left locale; its layout has not been audited.
+		</p>
+		<div class="mb-8">
+			<CodeEditor value={generatedExample} language="javascript" readonly={true} height="300px" />
+		</div>
+
 		<h3 class="text-2xl font-bold text-primary mb-4" id="tag-resolution">Tag resolution</h3>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			Tags resolve by RFC 4647 lookup, then by widening to the primary subtag.
+			Tags resolve by RFC 4647 lookup, then by widening to the primary subtag. The generated catalogs
+			register under bare tags such as <code>es</code> and <code>fr</code>, so regional requests widen onto
+			them.
 		</p>
 		<div class="overflow-x-auto mb-8">
 			<table class="table">
@@ -120,8 +185,9 @@ const i18n = createPieI18n({
 
 		<h3 class="text-2xl font-bold text-primary mb-4" id="custom-messages">Your own messages</h3>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			<code>customMessages</code> adds a locale or overrides shipped keys one at a time, so renaming a
-			label needs no fork. Plurals use <code>Intl.PluralRules</code> with the CLDR categories.
+			<code>customMessages</code> adds a locale or overrides shipped keys one at a time, generated catalogs
+			included, so renaming a label needs no fork. Plurals use <code>Intl.PluralRules</code> with the CLDR
+			categories.
 		</p>
 		<div class="mb-4">
 			<CodeEditor value={customExample} language="javascript" readonly={true} height="150px" />
@@ -130,12 +196,11 @@ const i18n = createPieI18n({
 			The players set <code>lang</code> and <code>dir</code> on their own interface subtree and leave the
 			document's alone. Tools registered by a host name their labels with <code>nameKey</code> and
 			<code>descriptionKey</code>, so they localize with the rest. A coverage check in CI keeps every
-			shipped catalog complete.
+			bundled catalog complete.
 		</p>
 		<div class="alert mt-4 max-w-4xl">
 			<span>
-				Three tools still render some English outside the catalog: the dictionary and picture
-				dictionary panels, and the answer eliminator's per-choice labels. Their toolbar buttons are
+				The answer eliminator's per-choice buttons are still labelled in English. Its toolbar button is
 				localized.
 			</span>
 		</div>
@@ -144,11 +209,21 @@ const i18n = createPieI18n({
 	<section class="mb-20 scroll-mt-24" id="content-language">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Content language</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			Content language decides what read-aloud speaks in and which catalog cards apply. A
-			<code>lang</code> attribute in the markup wins; content without one takes the toolkit's
-			<code>content-language</code> or the section player's <code>runtime.contentLanguage</code>, which
-			default to <code>en-US</code>. The interface locale never sets it, so a Dutch interface can read
-			English content in an English voice.
+			Content language is the language the item is written in. The interface locale never sets it, so a
+			Dutch interface can read English content in an English voice. Nothing invents one either: content that
+			declares no language stays undeclared.
+		</p>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			A host declares it on the item's <code>env</code> as <code>locale</code>. The item player reflects it
+			onto the item's content root as <code>lang</code> and <code>dir</code>, so a screen reader takes the
+			content's pronunciation and right-to-left content lays out right to left, whatever the interface
+			locale.
+		</p>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			Read-aloud resolves a language for every read. A <code>lang</code> attribute in the markup wins;
+			content without one takes the toolkit's <code>content-language</code>, which a section player host sets
+			through <code>runtime.contentLanguage</code>. A read that finds neither uses the TTS tool's configured
+			language, then <code>en-US</code>.
 		</p>
 		<div class="overflow-x-auto mb-4">
 			<table class="table table-zebra">
@@ -156,7 +231,7 @@ const i18n = createPieI18n({
 				<tbody>
 					<tr>
 						<td>Browser speech</td>
-						<td>The configured voice, else a voice for the content language, else the browser's language</td>
+						<td>The configured voice, else a voice for the content language, else the browser's default</td>
 					</tr>
 					<tr>
 						<td>PIE TTS service (Polly, Google)</td>
@@ -170,9 +245,10 @@ const i18n = createPieI18n({
 			</table>
 		</div>
 		<p class="text-base text-base-content/70 max-w-4xl">
-			Content language does not yet reach the elements themselves: they receive no locale through
-			<code>env</code>, and the players set no <code>lang</code> on the content subtree. Speech-to-text
-			language is also not built.
+			Browser speech is the one place the browser's language still shows through, and only when nothing
+			names a language. Elements receive <code>env.locale</code> but none reads it yet, so an element's own
+			text still follows its interface locale or <code>model.language</code>. Speech-to-text language is
+			not built.
 		</p>
 	</section>
 
@@ -180,10 +256,11 @@ const i18n = createPieI18n({
 		<h2 class="text-3xl font-bold text-secondary mb-6">In-item alternates</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
 			An item carries alternates as accessibility catalog cards, each tagged with its
-			<code>language</code>. The resolver tries the content language, widening <code>es-MX</code> to
-			<code>es</code>, then the default language, then any card of that type. A sign-language card is chosen by its card <code>language</code>;
-			PIE never infers a sign language from a spoken one and never substitutes one sign language for
-			another.
+			<code>language</code>. A lookup tries the language it asks for, widening <code>es-MX</code> to
+			<code>es</code>, then the toolkit's default language (<code>en-US</code> unless the host sets
+			<code>accessibility.language</code>), then any card of that type. Read-aloud asks in the language it
+			reads in. A sign-language card is chosen by its card <code>language</code>; PIE never infers a sign
+			language from a spoken one and never substitutes one sign language for another.
 		</p>
 		<p class="text-base text-base-content/70 max-w-4xl">
 			<a href="{base}/docs/accessibility/#catalogs" class="link link-primary">Accessibility catalogs</a> cover
@@ -194,15 +271,26 @@ const i18n = createPieI18n({
 	<section class="mb-20 scroll-mt-24" id="elements">
 		<h2 class="text-3xl font-bold text-secondary mb-6">Element labels</h2>
 		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
-			Elements render their own interface text, such as button labels and feedback, in the language
-			named by the authored <code>model.language</code>. The pie-elements-ng elements ship English and
-			Spanish (<code>en_US</code> and <code>es_ES</code>). That channel is per item and separate from
-			the players' <code>locale</code>.
+			Elements render their own interface text, such as button labels and feedback. Elements moved onto
+			<code>@pie-element/shared-i18n</code> follow the players' interface locale: the item player and the
+			toolkit publish it to the elements inside them, and such an element renders in it, else in the item's
+			authored <code>model.language</code>, else <code>en-US</code>. Multiple choice is the first, together
+			with the libraries it renders through. It ships English, a reviewed Spanish, and machine-generated
+			<code>nl-NL</code> and the same {generatedLocales.length} locales as the players; its IIFE build ships
+			English only. A host renames or adds element strings with <code>registerMessages</code>.
+		</p>
+		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+			The other pie-elements-ng elements still render in <code>model.language</code> and ship English and
+			Spanish (<code>en_US</code> and <code>es_ES</code>), independent of the players' <code>locale</code>.
+			Neither path reads the browser locale.
 		</p>
 		<p class="text-base text-base-content/70 max-w-4xl">
 			<ExternalLink href={I18N_DESIGN}>Internationalization design</ExternalLink> ·
 			<ExternalLink href={I18N_README}>Interface i18n</ExternalLink> ·
-			<ExternalLink href={SECTION_README}>Section player README</ExternalLink>
+			<ExternalLink href={GENERATED_README}>Generated locales</ExternalLink> ·
+			<ExternalLink href={SECTION_README}>Section player README</ExternalLink> ·
+			<ExternalLink href={ELEMENTS_I18N_README}>Element i18n</ExternalLink> ·
+			<ExternalLink href={ELEMENTS_I18N_PRD}>Element i18n PRD</ExternalLink>
 		</p>
 	</section>
 </div>

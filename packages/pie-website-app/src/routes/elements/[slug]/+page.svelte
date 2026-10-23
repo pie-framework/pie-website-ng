@@ -4,6 +4,7 @@
 	import ElementDemo from '$lib/components/demos/ElementDemo.svelte';
 	import SchemaFields from '$lib/components/SchemaFields.svelte';
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import { elementSamplesUrl } from '$lib/data/links';
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
 	const packagePath = $derived('https://github.com/pie-framework/pie-elements-ng/tree/develop/packages/' + (data.element.framework === 'React' ? 'elements-react/' : 'elements-svelte/') + data.element.name);
@@ -11,13 +12,12 @@
 <Seo title="{data.element.displayName} - PIE element library" description={data.capture.caption + ' Live example, authoring and print support, scoring notes and model/session reference.'} />
 <div class="site-container max-w-6xl">
 	<a class="link link-primary text-sm" href="{base}/elements/">← Element library</a>
-	<header class="mb-8 mt-6"><p class="eyebrow">{data.element.group}</p><h1 class="page-title">{data.element.displayName}</h1><p class="page-intro">{data.capture.caption}</p></header>
+	<header class="mb-8 mt-6"><p class="eyebrow">{data.element.group}</p><h1 class="page-title">{data.element.displayName}</h1><p class="page-intro">{data.capture.caption}</p><p class="mt-5"><ExternalLink class="btn btn-outline" href={elementSamplesUrl(data.element.name)}>All {data.element.displayName} samples</ExternalLink></p></header>
 	<div class="mb-8 grid gap-4 sm:grid-cols-3">
 		<div class="border-l-2 border-base-300 pl-4"><p class="font-semibold">Delivery</p><p class="mt-1 text-sm text-base-content/70">Respond, review and evaluate</p></div>
 		<div class="border-l-2 border-base-300 pl-4"><p class="font-semibold">Authoring</p><p class="mt-1 text-sm text-base-content/70">{data.element.views.authoring ? 'Visual editor available' : 'No authoring view in this package'}</p></div>
 		<div class="border-l-2 border-base-300 pl-4"><p class="font-semibold">Print</p><p class="mt-1 text-sm text-base-content/70">{data.element.views.print ? 'Print view available' : 'No print view in this package'}</p></div>
 	</div>
-	<figure class="mb-8 rounded-box border border-base-300 bg-white p-5"><img src="{base}/images/elements/{data.capture.file}" alt={data.capture.alt} width={data.capture.width} height={data.capture.height} class="mx-auto max-h-96 max-w-full object-contain" /><figcaption class="mt-3 text-center text-sm text-slate-600">{data.element.displayName} example</figcaption></figure>
 	<section id="try-it"><h2 class="section-title">Try the interaction</h2>{#key data.element.name}<ElementDemo element={data.element} example={data.example} />{/key}</section>
 	<section id="integration" class="mt-12">
 		<h2 class="section-title">Use it in an item</h2>
