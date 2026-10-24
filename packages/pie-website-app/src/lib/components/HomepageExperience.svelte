@@ -20,5 +20,5 @@
 
 <style>
  .homepage-experience { margin-bottom: 0.75rem; }
- .section-title { margin-bottom: 0.5rem; font-size: clamp(2.5rem, 5vw, 3rem); line-height: 1; }
+ .section-title { margin-bottom: 0.5rem; }
 </style>

@@ -304,3 +304,40 @@ First visual comparison: full and focused source/implementation composites inspe
 None required for this scoped change. Local verification is complete; production verification belongs to the deployment PR and workflow.
 
 final result: passed
+
+---
+
+## Compact type scale and spacing — October 24, 2026
+
+The approved follow-up reduces the site's display scale while retaining the
+existing Inter/Caveat families, colors, content, diagrams and learner typography.
+It supersedes the larger heading sizes in the proposal 4 record above.
+
+- Shared desktop scale: homepage 48–52px, page titles 36–40px at desktop widths,
+  landing section headings 26–30px, article section headings 26px, introductions
+  18px and article body 16px. Narrow-screen titles use 32px; the existing mobile
+  homepage introduction remains 16px.
+- Reduced page padding, header/section gaps, article heading and paragraph gaps,
+  link-row padding and footer spacing. Shared outer-page rules cover both the
+  authored pages and imported repository guides. Learner controls and their
+  interaction sizes retain the existing player styles.
+- At a matched 1280 × 900 viewport, the homepage title changed from 74.24px to
+  52px and “Try PIE” from 48px to 29.44px. The demo stage moved from y=601.17px
+  to y=511.56px, approximately 90px earlier.
+- Desktop browser checks covered the homepage, item-player guide, localization,
+  element library and About. Page titles measured 40px and guide section
+  headings 26px. The homepage, item-player guide and element library fit at
+  320px without document-level horizontal overflow. Dark-mode checks retained
+  the navy palette with the new scale. No warning/error console entries were
+  captured during the checked states. Temporary viewport overrides were reset.
+- Evidence is saved under
+  `/Users/eelco/.codex/visualizations/2026/10/22/01a1641b-0026-7d72-bca2-4939b7c858f7/pie-website-refresh/compact-type/`:
+  `home-before.png`, `home-after.png`, `home-final.png`, `home-dark.png`,
+  `guide-desktop.png`, `localization-desktop.png`, `elements-desktop.png`,
+  `about-desktop.png`, the three mobile captures and `measurements.json`.
+- Validation: Svelte check reports zero errors/warnings; the production build
+  passes and generates 91 sharing images; all 106 site checks pass with 3,239
+  assertions. This focused typography/reflow check does not replace the earlier
+  accessibility audit or close its manual assistive-technology evidence gaps.
+
+final result: passed
