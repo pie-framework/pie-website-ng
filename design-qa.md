@@ -341,3 +341,22 @@ It supersedes the larger heading sizes in the proposal 4 record above.
   accessibility audit or close its manual assistive-technology evidence gaps.
 
 final result: passed
+
+## Chillenious clog mark — October 24, 2026
+
+- Updated the shared homepage/About partner mark to pair the existing Chillenious
+  wordmark with the supplied clog artwork, matching the current branding at
+  `https://chillenious.com/`. The source is its `clogs-illustrated-v2.png` asset.
+- The local transparent PNG is a 96 × 96 delivery copy (5,014 bytes), displayed
+  at 22 × 22 beside the 145px wordmark on desktop. Both scale together on narrow
+  screens. The other logos retain their previous sizes and order.
+- The illustration has empty alternative text so the link retains the single
+  accessible name “Chillenious LLC (opens in new tab)”. The complete mark keeps
+  its transparent background in both site themes.
+- Browser checks verified both partner rows, the dark theme and 320px reflow.
+  All logo images load; no document-level horizontal overflow was observed.
+  Evidence: `chillenious-clogs/` in the existing website-refresh artifact folder.
+- Type checks: zero errors/warnings. Production build and all 106 site tests
+  pass (3,239 assertions).
+
+final result: passed
