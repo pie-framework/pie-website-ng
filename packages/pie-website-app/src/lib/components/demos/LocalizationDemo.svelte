@@ -341,13 +341,11 @@
 					<header><h4>3. Interface locale</h4>{@render basis('framework', 'createPieI18n')}</header>
 					<p class="sim-outcome">The interface renders in <code>{t.iface.resolved}</code>, {t.iface.direction === 'rtl' ? 'right to left' : 'left to right'}{#if t.iface.custom}, from the host's messages{/if}.</p>
 					<ol class="sim-chain">
-						<li><span class="sim-label">Requested</span><code>{t.iface.requested}</code></li>
-						<li><span class="sim-label">Canonical</span><code>{t.iface.canonical}</code></li>
-						<li><span class="sim-label">Lookup</span>{#each t.iface.lookup as tag, i (tag)}<code>{tag}</code>{i < t.iface.lookup.length - 1 ? ' → ' : ''}{:else}<code>en-US</code>{/each}</li>
-						<li><span class="sim-label">Catalog</span>
-							{#each t.iface.loads as load, i (i)}<span class="sim-load" data-ok={load.ok}>{load.tier} <code>{load.tag}</code> {load.ok ? 'loaded' : 'missing'}</span>{:else}{t.iface.resolved === 'en-US' ? 'en-US is in the players, nothing loads' : t.iface.custom ? 'none: the host supplies the messages' : 'none'}{/each}
-						</li>
-						<li><span class="sim-label">Resolved</span><code>{t.iface.resolved}</code> <span class="sim-hint">dir={t.iface.direction}</span></li>
+						<li><span class="sim-label">Requested</span><span class="sim-value"><code>{t.iface.requested}</code></span></li>
+						<li><span class="sim-label">Canonical</span><span class="sim-value"><code>{t.iface.canonical}</code></span></li>
+						<li><span class="sim-label">Lookup</span><span class="sim-value">{#each t.iface.lookup as tag, i (tag)}<code>{tag}</code>{i < t.iface.lookup.length - 1 ? ' → ' : ''}{:else}<code>en-US</code>{/each}</span></li>
+						<li><span class="sim-label">Catalog</span><span class="sim-value">{#each t.iface.loads as load, i (i)}<span class="sim-load" data-ok={load.ok}>{load.tier} <code>{load.tag}</code> {load.ok ? 'loaded' : 'missing'}</span>{:else}{t.iface.resolved === 'en-US' ? 'en-US is in the players, nothing loads' : t.iface.custom ? 'none: the host supplies the messages' : 'none'}{/each}</span></li>
+						<li><span class="sim-label">Resolved</span><span class="sim-value"><code>{t.iface.resolved}</code> <span class="sim-hint">dir={t.iface.direction}</span></span></li>
 					</ol>
 					{#if sim.languageOfInterface && sim.languageOfInterface !== t.iface.resolved.split('-')[0]}
 						<p class="sim-note">The profile asks for <code>{sim.languageOfInterface}</code>; the player follows the host's <code>locale</code> and shows <code>{t.iface.resolved}</code>.</p>
@@ -385,11 +383,11 @@
 					<header><h4>5. Element labels</h4>{@render basis('documented', 'multiple choice')}</header>
 					<p class="sim-outcome">Its region is named in <code>{t.element.region}</code>; its choices and toggles are labelled in <code>{t.element.labels}</code>.</p>
 					<ol class="sim-chain">
-						<li><span class="sim-label">Published to elements</span><code>{t.element.published.locale}</code> <span class="sim-hint">dir={t.element.published.direction}</span></li>
-						<li><span class="sim-label">Catalogs at runtime</span>{t.element.catalogs.length === 1 ? 'en-US only' : `${t.element.catalogs.length} catalogs`}</li>
-						<li><span class="sim-label">Region name</span><code>{t.element.region}</code>, {t.element.region.split('-')[0].toLowerCase() === t.element.published.locale.split('-')[0].toLowerCase() ? 'from the interface locale' : `since multiple choice has no ${t.element.published.locale} catalog in this build`}</li>
-						<li><span class="sim-label">Choices and toggles</span><code>{t.element.labels}</code>, from {t.element.labelsFrom}</li>
-						<li><span class="sim-label">Loading</span>{t.element.catalogLoad}</li>
+						<li><span class="sim-label">Published to elements</span><span class="sim-value"><code>{t.element.published.locale}</code> <span class="sim-hint">dir={t.element.published.direction}</span></span></li>
+						<li><span class="sim-label">Catalogs at runtime</span><span class="sim-value">{t.element.catalogs.length === 1 ? 'en-US only' : `${t.element.catalogs.length} catalogs`}</span></li>
+						<li><span class="sim-label">Region name</span><span class="sim-value"><code>{t.element.region}</code>, {t.element.region.split('-')[0].toLowerCase() === t.element.published.locale.split('-')[0].toLowerCase() ? 'from the interface locale' : `since multiple choice has no ${t.element.published.locale} catalog in this build`}</span></li>
+						<li><span class="sim-label">Choices and toggles</span><span class="sim-value"><code>{t.element.labels}</code>, from {t.element.labelsFrom}</span></li>
+						<li><span class="sim-label">Loading</span><span class="sim-value">{t.element.catalogLoad}</span></li>
 					</ol>
 					{#if sim.mcRelease === 'published' && t.element.labels !== t.element.region}
 						<p class="sim-note">14.0.7 still takes its other labels from <code>model.language</code>; the next release labels everything in the interface locale.</p>
@@ -413,10 +411,10 @@
 							<p class="sim-label">{label}{shown ? '' : ', read-aloud not shown'}</p>
 							<ol class="sim-chain">
 								{#each read.steps as step (step.source)}
-									<li data-winner={read.winner === step.source}><span class="sim-label">{step.source}</span>{#if step.value}<code>{step.value}</code>{:else}<span class="sim-hint">not set</span>{/if}</li>
+									<li data-winner={read.winner === step.source}><span class="sim-label">{step.source}</span><span class="sim-value">{#if step.value}<code>{step.value}</code>{:else}<span class="sim-hint">not set</span>{/if}</span></li>
 								{/each}
-								<li><span class="sim-label">Read locale</span><code>{read.readLocale}</code></li>
-								<li><span class="sim-label">Sent</span>{read.sent}</li>
+								<li><span class="sim-label">Read locale</span><span class="sim-value"><code>{read.readLocale}</code></span></li>
+								<li><span class="sim-label">Sent</span><span class="sim-value">{read.sent}</span></li>
 							</ol>
 						</div>
 					{/each}
@@ -434,10 +432,10 @@
 						{:else}No signed video: the passage has no <code>{t.alternates.requested}</code> card, and a card in another sign language is never shown.{/if}
 					</p>
 					<ol class="sim-chain">
-						<li><span class="sim-label">Policy</span>{t.alternates.granted ? 'granted' : 'not granted'}{t.alternates.rule && t.alternates.rule !== 'none' ? `, ${ruleLabel(t.alternates.rule)}` : ''}</li>
-						<li><span class="sim-label">Requested</span><code>{t.alternates.requested ?? 'none'}</code>{#if t.alternates.defaulted} <span class="sim-hint">the profile names none, so ASL</span>{/if}</li>
-						<li><span class="sim-label">Cards on the passage</span>{#each t.alternates.available as tag, i (tag)}<code>{tag}</code>{i < t.alternates.available.length - 1 ? ', ' : ''}{/each}</li>
-						<li><span class="sim-label">Pick</span>the requested sign language → a card naming none → nothing</li>
+						<li><span class="sim-label">Policy</span><span class="sim-value">{t.alternates.granted ? 'granted' : 'not granted'}{t.alternates.rule && t.alternates.rule !== 'none' ? `, ${ruleLabel(t.alternates.rule)}` : ''}</span></li>
+						<li><span class="sim-label">Requested</span><span class="sim-value"><code>{t.alternates.requested ?? 'none'}</code>{#if t.alternates.defaulted} <span class="sim-hint">the profile names none, so ASL</span>{/if}</span></li>
+						<li><span class="sim-label">Cards on the passage</span><span class="sim-value">{#each t.alternates.available as tag, i (tag)}<code>{tag}</code>{i < t.alternates.available.length - 1 ? ', ' : ''}{/each}</span></li>
+						<li><span class="sim-label">Pick</span><span class="sim-value">the requested sign language → a card naming none → nothing</span></li>
 					</ol>
 					{#if t.alternates.keyword}
 						<p class="sim-note">The profile carries <code>keywordTranslation</code>, but no tool is registered for it, so nothing changes in delivery: keyword and item translation are not shipped.</p>
@@ -493,6 +491,7 @@
 	.sim-chain { display: grid; gap: 0.25rem; margin-bottom: 0.75rem; font-size: 0.875rem; }
 	.sim-chain > li { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 0.75rem; align-items: baseline; }
 	.sim-chain > li[data-winner='true'] { font-weight: 600; }
+	.sim-value { min-width: 0; overflow-wrap: anywhere; }
 	.sim-chain > li[data-winner='true'] .sim-label::after { content: ' · wins'; color: var(--color-primary); }
 	.sim-load { margin-inline-end: 0.75rem; }
 	.sim-load[data-ok='false'] { color: var(--site-muted); text-decoration: line-through; }
