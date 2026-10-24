@@ -30,8 +30,8 @@ async function textImage(value: string, family: string, size: number, color: str
 	for (let points = size; points >= 12; points -= 2) {
 		const rendered = await sharp({ text: {
 			text: '<span foreground="' + color + '">' + xml(value) + '</span>',
-			font: (family === 'Newsreader' ? 'Newsreader 16pt' : family) + ' ' + points,
-			fontfile: resolve(fonts, family + '.ttf'),
+			font: family + ' ' + points,
+			fontfile: resolve(fonts, 'Inter.ttf'),
 			width: 1056, rgba: true, spacing: 6, wrap: 'word-char'
 		} }).png().toBuffer({ resolveWithObject: true });
 		if (rendered.info.height <= maxHeight) return rendered.data;
@@ -40,10 +40,10 @@ async function textImage(value: string, family: string, size: number, color: str
 }
 
 const logo = await sharp(resolve(app, 'src/lib/assets/favicon.svg')).resize(52, 52).png().toBuffer();
-const brand = await textImage(SITE_NAME, 'Inter', 28, '#bd3f23', 48);
+const brand = await textImage(SITE_NAME, 'Inter', 28, '#c43b1b', 48);
 const background = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">'
-	+ '<rect width="1200" height="630" fill="#fcfbf8"/>'
-	+ '<path d="M72 554H1128" stroke="#ddded7"/>'
+	+ '<rect width="1200" height="630" fill="#ffffff"/>'
+	+ '<path d="M72 554H1128" stroke="#dbe3e9"/>'
 	+ '<path d="M72 554H152" stroke="#ee4923" stroke-width="3"/>'
 	+ '</svg>');
 const entries: { path: string; title: string; description: string }[] = [];
@@ -65,10 +65,10 @@ async function renderCard(entry: (typeof entries)[number]) {
 	const parent = '/' + entry.path.split('/').filter(Boolean)[0] + '/';
 	const category = SITE_PAGES.find((page) => page.path === parent)?.label ?? 'Open-source assessment software';
 	const [eyebrow, title, description, address] = await Promise.all([
-		textImage(category.toUpperCase(), 'Inter', 18, '#626761', 32),
-		textImage(name, 'Newsreader', 76, '#252a27', 190),
-		textImage(entry.description, 'Inter', 26, '#626761', 118),
-		textImage(SITE_URL.replace('https://', '') + entry.path, 'Inter', 18, '#626761', 32)
+		textImage(category.toUpperCase(), 'Inter', 18, '#566a7d', 32),
+		textImage(name, 'Inter Bold', 76, '#172b3a', 190),
+		textImage(entry.description, 'Inter', 26, '#566a7d', 118),
+		textImage(SITE_URL.replace('https://', '') + entry.path, 'Inter', 18, '#566a7d', 32)
 	]);
 	const image = pageShareImage(entry.path, entry.title);
 	const destination = resolve(build, '.' + image.path);

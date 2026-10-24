@@ -87,7 +87,7 @@
 <style>
  .home-page { padding-top: 2rem; }
  .home-hero { display: grid; grid-template-columns: minmax(0, 1fr) 13rem; gap: 0.875rem 3rem; margin-bottom: 2.25rem; }
- .home-title { grid-column: 1; margin: 0; font-family: var(--font-editorial); font-size: clamp(3rem, 6.9vw, 5.5rem); font-weight: 500; line-height: 0.99; letter-spacing: -0.04em; }
+ .home-title { grid-column: 1; margin: 0; font-family: var(--font-heading); font-size: clamp(3rem, 5.8vw, 4.75rem); font-weight: 800; line-height: 1.06; letter-spacing: -0.045em; }
  .home-title span { display: block; }
  .hero-description { grid-column: 1; max-width: 35rem; font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.6; color: var(--site-muted); }
  .hero-actions { grid-column: 2; grid-row: 1 / span 2; align-self: end; display: flex; flex-direction: column; gap: 0.875rem; padding-bottom: 1rem; }
@@ -127,7 +127,7 @@
  .partners-section .section-title { font-size: 2rem; }
  @media (max-width: 900px) {
   .home-hero { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-  .home-title { font-size: clamp(3rem, 8.5vw, 4.75rem); }
+  .home-title { font-size: clamp(3rem, 7.5vw, 4.75rem); }
   .hero-actions { grid-column: 1; grid-row: auto; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; padding-bottom: 0; }
   .hero-actions .btn { min-width: 11rem; }
   .hero-actions :global(.site-icon) { margin-left: 0.5rem; }
@@ -143,7 +143,7 @@
  }
  @media (max-width: 600px) {
   .home-page { padding-top: 2rem; }
-  .home-title { font-size: clamp(2.2rem, 9.2vw, 3.5rem); line-height: 1.03; }
+  .home-title { font-size: clamp(2rem, 8.3vw, 3.25rem); line-height: 1.08; }
   .hero-description { font-size: 1rem; }
   .hero-actions { gap: 0.6rem; }
   .hero-actions .btn { min-width: 0; font-size: 0.875rem; padding-inline: 0.8rem; }
