@@ -72,16 +72,17 @@ base-uri 'none';`;
 <Seo title="Security & CSP - PIE Framework" description="Secure PIE delivery: content sanitization, server scoring, package loading and Content Security Policy." />
 
 <div>
-	<div class="mb-12">
-		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Security & CSP</h1>
-		<p class="text-xl text-base-content/70 max-w-4xl">
+	<header class="mb-10">
+		<p class="eyebrow">Guide and reference</p>
+		<h1 class="page-title">Security & CSP</h1>
+		<p class="page-intro">
 			Players sanitize authored content. Your application secures the page, network requests and learner
 			records, and configures the policies below.
 		</p>
-	</div>
+	</header>
 
-	<section class="mb-20 scroll-mt-24" id="checklist">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Host checklist</h2>
+	<section class="mb-12" id="checklist">
+		<h2 class="section-title">Host checklist</h2>
 		<ol class="grid md:grid-cols-2 gap-4">
 			{#each obligations as [title, detail, href], index (title)}
 				<li class="flex gap-4 p-5 bg-base-100 rounded-box border border-base-300">
@@ -98,21 +99,21 @@ base-uri 'none';`;
 		</ol>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="trust-boundary">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Trust boundary</h2>
+	<section class="mb-12" id="trust-boundary">
+		<h2 class="section-title">Trust boundary</h2>
 		<div class="grid md:grid-cols-3 gap-6">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-success">Host page: trusted</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-success">Host page: trusted</h3>
 					<p class="text-sm">
 						It supplies <code>config</code>, <code>env</code> and every attribute, and reaches into the
 						player's light DOM at will. Nothing in PIE defends against the embedding page.
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-error">Authored content: untrusted</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-error">Authored content: untrusted</h3>
 					<p class="text-sm">
 						Item and passage markup, their <code>style</code> attributes, stylesheet URLs and inline SVG
 						tool icons pass through sanitizers and validators. Models reach elements verbatim, and each
@@ -120,9 +121,9 @@ base-uri 'none';`;
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-warning">Element packages: trusted by default</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-warning">Element packages: trusted by default</h3>
 					<p class="text-sm">
 						<code>config.elements</code> names executable code, so by default authored data selects the
 						code that renders it. An <a href="#escape-hatches" class="link link-primary">ElementPackagePolicy</a>
@@ -133,9 +134,9 @@ base-uri 'none';`;
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="sanitizer">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Sanitizer</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="sanitizer">
+		<h2 class="section-title">Sanitizer</h2>
+		<p class="guide-prose mb-4">
 			<code>&lt;pie-item-player&gt;</code> renders in light DOM so theme tokens, color schemes and
 			font scaling reach authored markup. Authored CSS is therefore not contained, and the sanitizer
 			carries the containment. The section, assessment and print players render through the same
@@ -171,7 +172,7 @@ base-uri 'none';`;
 				</ul>
 			</div>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			An authored full-viewport absolute overlay can still cover the page. It can neither run script nor
 			send data, since scripts, forms, style elements and <code>url()</code> are gone. Setting
 			<code>position: relative</code> on <code>.pie-item-player</code> anchors such an overlay to the item,
@@ -179,9 +180,9 @@ base-uri 'none';`;
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="graded-delivery">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Graded delivery</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="graded-delivery">
+		<h2 class="section-title">Graded delivery</h2>
+		<p class="guide-prose mb-4">
 			By default the whole item config reaches the browser, answer keys included, and the element
 			controllers run there. That fits practice and formative delivery. <code>env.role</code>,
 			<code>env.mode</code> and <code>add-correct-response</code> are public attributes, so any page
@@ -197,9 +198,9 @@ base-uri 'none';`;
 		/>
 
 		<div class="grid md:grid-cols-3 gap-6 mb-8">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">1. Hosted players</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">1. Hosted players</h3>
 					<p class="text-sm">
 						Set <code>hosted</code> on <code>&lt;pie-item-player&gt;</code>, or enable
 						<code>runtime.player.backend.delivery</code> on the section player, which sets it on every
@@ -207,9 +208,9 @@ base-uri 'none';`;
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">2. Redacted models</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">2. Redacted models</h3>
 					<p class="text-sm">
 						The players pass models through as they receive them and redact nothing. With
 						<code>backend.delivery</code>, the PIE API service runs each controller's <code>model()</code>
@@ -218,9 +219,9 @@ base-uri 'none';`;
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">3. Server outcomes</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">3. Server outcomes</h3>
 					<p class="text-sm">
 						Your server runs <code>model()</code> and <code>outcome()</code>. A delivery backend answers
 						<code>load</code>, <code>saveSession</code>, <code>model</code> and <code>score</code>; the
@@ -233,7 +234,7 @@ base-uri 'none';`;
 		<div class="mb-6">
 			<CodeEditor value={deliveryExample} language="javascript" readonly={true} height="340px" />
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			The section player's <strong>Check answer</strong> control scores Tries in the browser, so it needs
 			an unhosted player. Server-scored practice renders its own control and records each Try through
 			<code>SectionController.recordFormativeTry</code>
@@ -242,9 +243,9 @@ base-uri 'none';`;
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="stylesheets">
-		<h2 class="text-3xl font-bold text-secondary mb-6">External stylesheets</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="stylesheets">
+		<h2 class="section-title">External stylesheets</h2>
+		<p class="guide-prose mb-4">
 			Items can name stylesheets in <code>config.resources.stylesheets</code>, and hosts add their own
 			through <code>external-style-urls</code>. With <code>allowed-style-origins</code> unset, only
 			same-origin http(s) URLs load; set, only the listed origins do, the page's own included only when
@@ -271,9 +272,9 @@ base-uri 'none';`;
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="csp">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Content Security Policy</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="csp">
+		<h2 class="section-title">Content Security Policy</h2>
+		<p class="guide-prose mb-4">
 			The players inject element bundles as <code>&lt;script&gt;</code> tags and the ESM strategy injects
 			an import map; neither carries a nonce. <code>'strict-dynamic'</code> admits script that trusted
 			script creates, so the nonce on your own player bundle covers every strategy.
@@ -286,11 +287,11 @@ base-uri 'none';`;
 			alt="Network origins under the base policy. The page's nonced module script admits the player through strict-dynamic. The iife strategy loads bundles from the bundle host and MathJax 3 fonts from unpkg and speech maps from jsDelivr; esm loads element modules, metadata and MathJax assets from the ESM CDN; preloaded loads from the host's own build. Tools add Desmos, GeoGebra, Font Awesome and Roboto; the deployment adds its TTS and scoring endpoints to connect-src."
 		/>
 
-		<h3 class="text-2xl font-bold text-primary mb-4" id="base-policy">Base policy</h3>
+		<h3 class="mb-3 text-xl font-semibold text-secondary" id="base-policy">Base policy</h3>
 		<div class="mb-4">
 			<CodeEditor value={basePolicy} language="bash" readonly={true} height="190px" />
 		</div>
-		<ul class="text-base text-base-content/70 max-w-4xl list-disc pl-5 space-y-1 mb-8">
+		<ul class="guide-prose list-disc pl-5 space-y-1 mb-8">
 			<li>
 				<code>'unsafe-inline'</code> in <code>style-src</code> is required: without it the browser blocks
 				authored <code>style</code> attributes and the scoped stylesheets the player appends, and both
@@ -308,9 +309,9 @@ base-uri 'none';`;
 			</li>
 		</ul>
 
-		<h3 class="text-2xl font-bold text-primary mb-4" id="strategy-origins">Origins per loading strategy</h3>
+		<h3 class="mb-3 text-xl font-semibold text-secondary" id="strategy-origins">Origins per loading strategy</h3>
 		<div class="overflow-x-auto mb-8">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead>
 					<tr><th>Strategy</th><th>Element code from</th><th>Add to the base policy</th></tr>
 				</thead>
@@ -346,9 +347,9 @@ base-uri 'none';`;
 			</table>
 		</div>
 
-		<h3 class="text-2xl font-bold text-primary mb-4" id="tool-origins">Tools and workers</h3>
+		<h3 class="mb-3 text-xl font-semibold text-secondary" id="tool-origins">Tools and workers</h3>
 		<div class="overflow-x-auto mb-8">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead>
 					<tr><th>Source</th><th>Needs</th></tr>
 				</thead>
@@ -387,8 +388,8 @@ base-uri 'none';`;
 			</table>
 		</div>
 
-		<h3 class="text-2xl font-bold text-primary mb-4" id="without-strict-dynamic">Without 'strict-dynamic'</h3>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+		<h3 class="mb-3 text-xl font-semibold text-secondary" id="without-strict-dynamic">Without 'strict-dynamic'</h3>
+		<p class="guide-prose mb-4">
 			Listing hosts instead admits IIFE bundles but refuses the injected import map, and ESM falls back to
 			es-module-shims. Measured in Chromium:
 		</p>
@@ -414,40 +415,40 @@ base-uri 'none';`;
 				</tbody>
 			</table>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			<ExternalLink href="{DOCS.security}#content-security-policy">CSP reference</ExternalLink> ·
 			<ExternalLink href={CDN_CSP}>Loading from a CDN</ExternalLink> ·
 			<ExternalLink href={MATH_ASSETS}>MathJax assets</ExternalLink>
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="escape-hatches">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Escape hatches and package policy</h2>
-		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
+	<section class="mb-12" id="escape-hatches">
+		<h2 class="section-title">Escape hatches and package policy</h2>
+		<p class="guide-prose mb-6">
 			These settings change sanitization and package-loading behavior. Check them against your content's trust level.
 		</p>
 		<div class="grid md:grid-cols-3 gap-6 mb-6">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary"><code>trust-markup</code></h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary"><code>trust-markup</code></h3>
 					<p class="text-sm">
 						Skips sanitization entirely. It is an observed attribute, so any page script can set it on a
 						live player; it belongs only where authored markup is host-trusted code.
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary"><code>sanitizeMarkup</code></h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary"><code>sanitizeMarkup</code></h3>
 					<p class="text-sm">
 						A property, with no attribute, that replaces the default sanitizer. The replacement owns the
 						forbid-lists, the custom-element contract and id preservation.
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary"><code>ElementPackagePolicy</code></h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary"><code>ElementPackagePolicy</code></h3>
 					<p class="text-sm">
 						Off by default. Passed as <code>loaderOptions.elementPackagePolicy</code>, it restricts
 						loading to exact package names or <code>name@version</code> specs, with exact versions enforced.
@@ -455,7 +456,7 @@ base-uri 'none';`;
 				</div>
 			</div>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			<a href="{base}/docs/integration/" class="link link-primary">Integration</a> ·
 			<ExternalLink href={DOCS.security}>Security reference</ExternalLink>
 		</p>

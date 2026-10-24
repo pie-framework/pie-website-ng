@@ -8,7 +8,7 @@
 </script>
 
 <Seo title="About and community - PIE Framework" description="Why PIE, its projects, sponsors and development partners, and how to contribute." />
-<div class="site-container max-w-5xl">
+<div class="site-container reading-page">
  <header class="mb-12">
   <p class="eyebrow">About and community</p>
   <h1 class="page-title">About PIE</h1>

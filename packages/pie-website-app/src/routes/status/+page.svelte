@@ -6,7 +6,7 @@
 	import ExternalLink from '$lib/components/ExternalLink.svelte';
 </script>
 <Seo title="Project status - PIE Framework" description="PIE release policy, supported components, accessibility testing and known limitations." />
-<div class="site-container max-w-5xl">
+<div class="site-container reading-page">
 	<header class="mb-10"><p class="eyebrow">Project status</p><h1 class="page-title">Releases and limitations</h1><p class="page-intro">Release policies, test coverage and things to check before integrating.</p></header>
 	<div class="guide-prose">
 		<h2 id="scope">Components and the reference assessment player</h2>
