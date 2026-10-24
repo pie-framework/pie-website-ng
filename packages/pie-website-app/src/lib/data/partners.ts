@@ -30,6 +30,7 @@ export const PARTNERS = [
 		logo: 'chillenious-wordmark.svg',
 		width: 145,
 		height: 24,
+		mark: { file: 'chillenious-clogs.png', width: 22, height: 22 },
 		transparentOnDark: true
 	}
 ] as const;
