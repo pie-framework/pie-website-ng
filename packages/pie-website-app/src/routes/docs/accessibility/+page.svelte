@@ -78,17 +78,18 @@ accessibility: {
 <Seo title="Accessibility - PIE Framework" description="PIE accessibility, learner profiles, read-aloud and content alternatives, with WCAG test coverage and known issues." />
 
 <div>
-	<div class="mb-12">
-		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Accessibility</h1>
-		<p class="text-xl text-base-content/70 max-w-4xl">
+	<header class="mb-10">
+		<p class="eyebrow">Guide and reference</p>
+		<h1 class="page-title">Accessibility</h1>
+		<p class="page-intro">
 			PIE targets WCAG 2.2 AA. Learner profiles control supports such as read-aloud, content alternatives,
 			color schemes and assessment tools.
 		</p>
-	</div>
+	</header>
 
-	<section class="mb-20 scroll-mt-24" id="standards">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Standards and status</h2>
-		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
+	<section class="mb-12" id="standards">
+		<h2 class="section-title">Standards and status</h2>
+		<p class="guide-prose mb-6">
 			The players and elements are reviewed against a WCAG 2.2 AA
 			<ExternalLink href={BASELINE}>baseline</ExternalLink>. Automated axe checks run against every
 			element and the item, section and assessment players. A full manual pass with VoiceOver, NVDA and
@@ -98,16 +99,16 @@ accessibility: {
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 			{#each checklist as [title, detail] (title)}
 				<div class="p-4 bg-base-100 rounded-lg border border-base-300">
-					<h3 class="font-semibold text-primary mb-1">{title}</h3>
-					<p class="text-sm text-base-content/80">{detail}</p>
+					<h3 class="mb-1 font-semibold text-secondary">{title}</h3>
+					<p class="text-sm text-base-content/75">{detail}</p>
 				</div>
 			{/each}
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="pnp">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Personal needs profile</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="pnp">
+		<h2 class="section-title">Personal needs profile</h2>
+		<p class="guide-prose mb-4">
 			A learner's accommodations arrive as an AfA PNP 3.0 profile on the assessment. The toolkit maps
 			each support to the tool that delivers it; an id it does not know raises a
 			<code>tool-policy.unknownSupportId</code> diagnostic.
@@ -115,7 +116,7 @@ accessibility: {
 		<div class="grid lg:grid-cols-2 gap-6 mb-4">
 			<CodeEditor value={pnpExample} language="javascript" readonly={true} height="190px" />
 			<div class="overflow-x-auto">
-				<table class="table table-zebra table-sm">
+				<table class="table table-sm">
 					<thead><tr><th>PNP support</th><th>Tool</th></tr></thead>
 					<tbody>
 						{#each supportRows as [support, tool] (support)}
@@ -125,23 +126,23 @@ accessibility: {
 				</table>
 			</div>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			How a support combines with tool placement, district policy and test-administration overrides is
 			the toolkit's <a href="{base}/docs/tool-policy/" class="link link-primary">tool policy</a>.
 			<ExternalLink href={PNP}>PNP configuration</ExternalLink>
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="read-aloud">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Read-aloud</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="read-aloud">
+		<h2 class="section-title">Read-aloud</h2>
+		<p class="guide-prose mb-4">
 			The text-to-speech tool reads the item's content region, highlighting as it speaks. Math is spoken
 			through speech-rule-engine, with ClearSpeak for English and MathSpeak otherwise. Mark anything that
 			must stay silent with <code>data-tts-suppress</code>; the QTI importers map
 			<code>data-qti-suppress-tts</code> onto it.
 		</p>
 		<div class="overflow-x-auto mb-6">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead><tr><th>Provider</th><th>Highlighting</th><th>Package</th></tr></thead>
 				<tbody>
 					{#each ttsRows as [provider, highlight, pkg] (provider)}
@@ -160,7 +161,7 @@ accessibility: {
 			height={850}
 			alt="TTS architecture: the inline TTS tool and annotation toolbar call the toolkit coordinator's TTSService, which takes spoken catalog cards from the catalog resolver and drives the active provider. BrowserTTSProvider uses the Web Speech API; ServerTTSProvider posts text to a host-run TTS server whose Polly, Google or SC adapter extends BaseTTSProvider and returns audio with speech marks. Word boundaries go to the HighlightCoordinator, which uses the CSS Custom Highlight API."
 		/>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			Server providers run on a route your backend hosts, <code>/api/tts</code> by default, so credentials
 			never reach the browser. If the server client cannot initialize, a <code>provider-init</code>
 			framework error is raised and read-aloud falls back to browser speech. Highlighting uses the CSS
@@ -169,9 +170,9 @@ accessibility: {
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="catalogs">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Accessibility catalogs</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="catalogs">
+		<h2 class="section-title">Accessibility catalogs</h2>
+		<p class="guide-prose mb-4">
 			A catalog holds authored alternates for one piece of content, in the QTI 3.0 model. Content points
 			at a catalog with <code>data-catalog-idref</code>; each card in it is one alternate of one type and
 			language.
@@ -180,9 +181,9 @@ accessibility: {
 			<CodeEditor value={catalogExample} language="javascript" readonly={true} height="400px" />
 		</div>
 		<div class="grid md:grid-cols-2 gap-6 mb-6">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Card types</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Card types</h3>
 					<p class="text-sm">
 						<code>spoken</code>, <code>sign-language</code>, <code>transcript</code>, <code>braille</code>,
 						<code>tactile</code>, <code>simplified-language</code>, <code>audio-description</code> and
@@ -192,9 +193,9 @@ accessibility: {
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Lookup</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Lookup</h3>
 					<p class="text-sm">
 						The resolver looks in the element that owns the reference, then the item, then the
 						assessment's <code>accessibility.catalogs</code>. Within a catalog it tries the content
@@ -204,18 +205,18 @@ accessibility: {
 				</div>
 			</div>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			Extracting embedded <code>&lt;speak&gt;</code> markup into catalogs is a step the host runs when it
 			stores content, not at delivery. <ExternalLink href={CATALOGS}>Catalogs integration guide</ExternalLink>
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="alternates">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Signed video, transcripts and dictation</h2>
+	<section class="mb-12" id="alternates">
+		<h2 class="section-title">Signed video, transcripts and dictation</h2>
 		<div class="grid md:grid-cols-3 gap-6">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Sign language</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Sign language</h3>
 					<p class="text-sm">
 						<code>@pie-players/pie-tool-sign-language</code> plays an item's or passage's
 						<code>sign-language</code> card, docked beside the content. It needs the
@@ -225,9 +226,9 @@ accessibility: {
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Transcripts</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Transcripts</h3>
 					<p class="text-sm">
 						A <code>transcript</code> card renders in a region before the content. With
 						<code>visibility: "always"</code> it shows to every learner; otherwise it needs the
@@ -236,9 +237,9 @@ accessibility: {
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Dictation</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Dictation</h3>
 					<p class="text-sm">
 						Operating-system and assistive-technology dictation works in text-entry elements and is
 						verified against extended text entry. Built-in speech-to-text is planned and not scheduled.
@@ -247,7 +248,7 @@ accessibility: {
 				</div>
 			</div>
 		</div>
-		<p class="text-base text-base-content/70 mt-6 max-w-4xl">
+		<p class="guide-prose mt-6">
 			The dictionary and picture dictionary tools call a lookup function or endpoint the host supplies;
 			PIE ships no dictionary service. Color schemes and font scaling are covered under
 			<a href="{base}/docs/theming/" class="link link-primary">Theming</a>, and the language of the
@@ -256,9 +257,9 @@ accessibility: {
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="reference">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Reference</h2>
-		<p class="text-base text-base-content/70 max-w-4xl">
+	<section class="mb-12" id="reference">
+		<h2 class="section-title">Reference</h2>
+		<p class="guide-prose">
 			<ExternalLink href={DOCS.accessibility}>Accessibility docs index</ExternalLink> ·
 			<ExternalLink href={BASELINE}>WCAG 2.2 AA baseline</ExternalLink> ·
 			<ExternalLink href={CATALOGS}>Catalogs guide</ExternalLink> ·

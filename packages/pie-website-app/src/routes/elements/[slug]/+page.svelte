@@ -10,7 +10,7 @@
 	const packagePath = $derived('https://github.com/pie-framework/pie-elements-ng/tree/develop/packages/' + (data.element.framework === 'React' ? 'elements-react/' : 'elements-svelte/') + data.element.name);
 </script>
 <Seo title="{data.element.displayName} - PIE element library" description={data.capture.caption + ' Live example, authoring and print support, scoring notes and model/session reference.'} />
-<div class="site-container max-w-6xl">
+<div class="site-container">
 	<a class="link link-primary text-sm" href="{base}/elements/">← Element library</a>
 	<header class="mb-8 mt-6"><p class="eyebrow">{data.element.group}</p><h1 class="page-title">{data.element.displayName}</h1><p class="page-intro">{data.capture.caption}</p><p class="mt-5"><ExternalLink class="btn btn-outline" href={elementSamplesUrl(data.element.name)}>All {data.element.displayName} samples</ExternalLink></p></header>
 	<div class="mb-8 grid gap-4 sm:grid-cols-3">

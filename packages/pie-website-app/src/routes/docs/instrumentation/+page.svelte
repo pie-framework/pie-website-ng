@@ -84,17 +84,18 @@ sectionPlayer.runtime = {
 <Seo title="Instrumentation and debugging - PIE Framework" description="Connect PIE telemetry to a provider and inspect events, tool policy and sessions with debugger panels." />
 
 <div>
-	<div class="mb-12">
-		<h1 class="text-4xl sm:text-5xl font-bold text-secondary mb-4">Instrumentation and debugging</h1>
-		<p class="text-xl text-base-content/70 max-w-4xl">
+	<header class="mb-10">
+		<p class="eyebrow">Guide and reference</p>
+		<h1 class="page-title">Instrumentation and debugging</h1>
+		<p class="page-intro">
 			Players and the toolkit send load failures, retries, tool errors and lifecycle events to a provider
 			you choose. Your application sets up the telemetry agent, credentials and sampling. Product analytics
 			is handled separately.
 		</p>
-	</div>
+	</header>
 
-	<section class="mb-20 scroll-mt-24" id="providers">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Providers</h2>
+	<section class="mb-12" id="providers">
+		<h2 class="section-title">Providers</h2>
 
 		<Diagram
 			name="instrumentation-flow"
@@ -104,9 +105,9 @@ sectionPlayer.runtime = {
 		/>
 
 		<div class="grid md:grid-cols-2 gap-6 mb-8">
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">The contract</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">The contract</h3>
 					<p class="text-sm">
 						An <code>InstrumentationProvider</code> carries string <code>providerId</code> and
 						<code>providerName</code> fields and implements <code>trackError</code>,
@@ -118,9 +119,9 @@ sectionPlayer.runtime = {
 					</p>
 				</div>
 			</div>
-			<div class="card bg-base-100 shadow-lg border border-base-300">
-				<div class="card-body">
-					<h3 class="card-title text-primary">Shipped adapters</h3>
+			<div class="rounded-box border border-base-300 bg-base-100">
+				<div class="flex flex-col gap-2 p-5">
+					<h3 class="font-semibold text-secondary">Shipped adapters</h3>
 					<p class="text-sm">
 						New Relic, console, debug panel and composite, which fans out to several. Adapters read the
 						vendor handle already on the page and import no vendor SDK; a provider sends only while
@@ -134,9 +135,9 @@ sectionPlayer.runtime = {
 		<CodeEditor value={providerExample} language="javascript" readonly={true} height="380px" />
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="resolution">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Provider resolution</h2>
-		<p class="text-lg text-base-content/70 mb-4 max-w-4xl">
+	<section class="mb-12" id="resolution">
+		<h2 class="section-title">Provider resolution</h2>
+		<p class="guide-prose mb-4">
 			Each player reads <code>instrumentationProvider</code> and <code>trackPageActions</code> from its
 			<code>loaderConfig</code>: section players from <code>runtime.player.loaderConfig</code>, the item
 			player from its own <code>loader-config</code>, the toolkit from the item-player configuration it
@@ -144,7 +145,7 @@ sectionPlayer.runtime = {
 			you opt in.
 		</p>
 		<div class="overflow-x-auto">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead><tr><th><code>instrumentationProvider</code></th><th>Resolves to</th></tr></thead>
 				<tbody>
 					{#each resolutionRows as [value, result] (value)}
@@ -155,10 +156,10 @@ sectionPlayer.runtime = {
 		</div>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="events">
-		<h2 class="text-3xl font-bold text-secondary mb-6">What is reported</h2>
+	<section class="mb-12" id="events">
+		<h2 class="section-title">What is reported</h2>
 		<div class="overflow-x-auto mb-4">
-			<table class="table table-zebra">
+			<table class="table">
 				<thead><tr><th>Stream</th><th>Events</th><th>Notes</th></tr></thead>
 				<tbody>
 					<tr>
@@ -194,15 +195,15 @@ sectionPlayer.runtime = {
 				</tbody>
 			</table>
 		</div>
-		<p class="text-base text-base-content/70 max-w-4xl">
+		<p class="guide-prose">
 			Metrics are sent as events with a <code>metric:</code> prefix. Attribute names are not yet
 			centrally namespaced, and nothing is buffered before a provider is ready.
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="debugger-panels">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Debugger panels</h2>
-		<p class="text-lg text-base-content/70 mb-6 max-w-4xl">
+	<section class="mb-12" id="debugger-panels">
+		<h2 class="section-title">Debugger panels</h2>
+		<p class="guide-prose mb-6">
 			Six published packages give a section player integration floating inspection panels. They are
 			development aids for your own test pages; keep them out of learner delivery. Every panel except the
 			instrumentation debugger reads the <code>ToolkitCoordinator</code> you set as its
@@ -210,9 +211,9 @@ sectionPlayer.runtime = {
 		</p>
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 			{#each panels as panel (panel.pkg)}
-				<div class="card bg-base-100 shadow-lg border border-base-300">
-					<div class="card-body">
-						<h3 class="card-title text-primary">{panel.name}</h3>
+				<div class="rounded-box border border-base-300 bg-base-100">
+					<div class="flex flex-col gap-2 p-5">
+						<h3 class="font-semibold text-secondary">{panel.name}</h3>
 						<p class="text-sm">{panel.does}</p>
 						<code class="text-xs break-all text-site-muted">{panel.pkg}</code>
 					</div>
@@ -220,16 +221,16 @@ sectionPlayer.runtime = {
 			{/each}
 		</div>
 		<CodeEditor value={panelsExample} language="html" readonly={true} height="250px" />
-		<p class="text-base text-base-content/70 mt-4 max-w-4xl">
+		<p class="guide-prose mt-4">
 			The instrumentation debugger shows only what reaches a <code>DebugPanelInstrumentationProvider</code>,
 			so run one beside your production provider in a composite, as above. Set
 			<code>persistence-scope</code> to keep each panel's position and size across reloads.
 		</p>
 	</section>
 
-	<section class="mb-20 scroll-mt-24" id="reference">
-		<h2 class="text-3xl font-bold text-secondary mb-6">Reference</h2>
-		<p class="text-base text-base-content/70 max-w-4xl">
+	<section class="mb-12" id="reference">
+		<h2 class="section-title">Reference</h2>
+		<p class="guide-prose">
 			<ExternalLink href={DESIGN}>Instrumentation providers design</ExternalLink> ·
 			<ExternalLink href={SECTION_README}>Section player instrumentation</ExternalLink> ·
 			<ExternalLink href={SHARED_README}>players-shared README</ExternalLink>
