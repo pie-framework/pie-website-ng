@@ -1,3 +1,5 @@
+> Historical QA record. The typography and palette below describe the earlier release. The current, scoped proposal 4 verification is appended at the end of this file.
+
 # Warm Editorial implementation QA
 
 **Findings**
@@ -246,3 +248,59 @@ These source changes still require release, website dependency updates and
 verification of the published demos. They do not close the manual evidence gaps.
 
 final result: site-owned fixes verified; full WCAG 2.2 AA conformance remains open
+
+---
+
+# Proposal 4 typography and palette
+
+Date: October 24, 2026
+
+Scope: apply proposal 4's typography and colors to the existing website. Keep the current layout, copy, diagrams, logos and interactions. The proposal's split hero and different section arrangement are outside this change.
+
+## Evidence
+
+- Source visual: `/var/folders/fx/9l2pldb54hgcl6qr5wcny4c80000gn/T/codex-clipboard-3fe218b2-51fc-4670-abaa-d9494791b12b.png`
+- Proposal metadata: `Technical Clarity`, proposal 4; white, navy `#172b3a`, cool gray `#f5f7f8`, PIE orange `#ee4923`; humanist technical sans.
+- Implementation: `http://127.0.0.1:5176/`, light theme, default reading example, Student view, no answers selected.
+- Artifact directory: `/Users/eelco/.codex/visualizations/2026/10/22/01a1641b-0026-7d72-bca2-4939b7c858f7/pie-website-refresh/proposal-four/`.
+- Full comparison: `comparison.png`, source on the left and implementation on the right.
+- Focused comparison: `typography-comparison.png`, header and hero typography, source on the left.
+- Source pixels: 1003 × 1568. Browser viewport requested at 1003 × 1568; native content capture was 1003 × 1546. Compared at 1:1 pixel scale, with 22 blank pixels below the implementation; no stretching or density rescaling.
+- Additional captures: `home-dark.png`, `home-mobile.png`, `guide-mobile.png`, `guide-desktop.png`, `preview.png`.
+- Responsive evidence: 1280px, 1003px, 998px and 320px widths; no document horizontal overflow observed on the checked homepage and guide states. Temporary viewport overrides were reset.
+
+## Findings
+
+No actionable P0/P1/P2 findings within the requested scope.
+
+- **Fonts and typography:** Inter replaces Newsreader on page, section, guide and homepage headings. The hero uses weight 800; other display headings use 700. Inter was confirmed loaded in the browser. The two-line desktop headline and three-line narrow headline fit their existing containers. Body text remains Inter. Caveat and the supplied hand-drawn diagrams retain their existing handwritten character. The reference is a generated mockup, without an exact font specification; Inter is the matching sans-serif implementation.
+- **Spacing and layout rhythm:** existing grids, section order, control spacing and responsive navigation remain in place. Heading size, tracking and line height were adjusted for the wider sans-serif letterforms. Differences from the reference's split hero are intentional under the user's typography-and-colors scope.
+- **Colors and tokens:** white surfaces, navy text, cool gray panels and slate controls replace cream, green-gray and sage UI colors. The dark theme uses navy surfaces. PIE brand orange remains `#ee4923`; small links and white-label buttons use `#c43b1b` for contrast. Measured token ratios: primary/white 5.27:1, muted/cool panel 5.21:1, navy/white 14.55:1, control border/white 3.50:1, dark muted/panel 7.05:1. Brand orange/white is 3.74:1 and remains limited to the large bold desktop hero action. Selected learner accessibility schemes retain their own colors.
+- **Images and assets:** existing hand-drawn diagrams, partner logos, element previews and icons are preserved. Their illustration palettes are not recolored. Sharing images now use the same white/navy palette and bold sans-serif headings; the generated homepage card was visually inspected at 1200 × 630.
+- **Copy and content:** unchanged. Current integration and documentation content from develop is retained.
+
+## Verification
+
+- `bun run check`: zero errors and zero warnings.
+- `bun run build`: passed; 91 sharing images generated.
+- `bun run verify:site`: 106 passed, zero failed, 3,239 assertions.
+- Browser: homepage demo loaded; Instructor enabled answer-review controls and disabled learner inputs; returning to Student restored learner input. Site light/dark switch changed the surrounding palette. Mobile menu opened and a guide link navigated correctly. No warning/error console entries were captured on the checked pages.
+- This is a focused style check, not a new full accessibility conformance audit.
+
+## Comparison history
+
+First visual comparison: full and focused source/implementation composites inspected. No P0/P1/P2 fixes were required after that comparison. Narrow-screen, dark-theme, guide and interaction checks then confirmed the same result.
+
+## Implementation checklist
+
+- [x] Apply fonts and palette through shared tokens.
+- [x] Update the default embedded-demo palette without replacing learner schemes.
+- [x] Update social previews.
+- [x] Check reference-sized, narrow and dark views and primary interactions.
+- [x] Run existing checks and reset temporary browser viewport overrides.
+
+## Follow-up polish
+
+None required for this scoped change. Local verification is complete; production verification belongs to the deployment PR and workflow.
+
+final result: passed

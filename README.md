@@ -105,9 +105,9 @@ registries. `/robots.txt` advertises it. The build then runs
 `scripts/build-social-images.ts` to create a 1200×630 PNG for each page from its
 rendered title and description. These files are written to `build/social/`;
 they are available in the production build and preview, rather than the Vite
-development server. Sharp is a build dependency. The checked-in Newsreader and
-Inter fonts under `scripts/assets/social-fonts/` include their OFL licenses and
-are used only by the image generator.
+development server. Sharp is a build dependency. The image generator uses the
+checked-in Inter font under `scripts/assets/social-fonts/`, with its OFL license,
+for both headings and body copy.
 
 The existing deployment workflow targets **GitHub Pages**, which serves the
 static output and does not run custom HTTP redirect rules. Legacy URLs therefore

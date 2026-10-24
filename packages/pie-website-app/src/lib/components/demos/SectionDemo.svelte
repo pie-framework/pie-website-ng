@@ -251,7 +251,7 @@
 	.editorial .section-demo-stage { height: 29rem; padding: 0 1.25rem 1.25rem; background: transparent; }
 	/* Brand only the default learner palette. Selected accessibility schemes
 	   keep the complete set of colors supplied by pie-theme. */
-	.editorial .section-demo-stage:global([theme='light']:is(:not([scheme]), [scheme='default'])) > div { --pie-background-dark: #f1f1ed; --pie-surface: #f1f1ed; --pie-primary: #5d6858; --pie-primary-dark: #414d3d; --pie-primary-light: #dce3d7; }
+	.editorial .section-demo-stage:global([theme='light']:is(:not([scheme]), [scheme='default'])) > div { --pie-background-dark: #f5f7f8; --pie-surface: #f5f7f8; --pie-primary: #405d73; --pie-primary-dark: #28475d; --pie-primary-light: #dce6ee; }
 	.editorial .demo-inspector { padding: 0.5rem 0; margin-top: 0; background: var(--site-page); border-top: 0; font-size: 0.75rem; }
 	.editorial .demo-version { margin-top: 0.5rem; font-size: 0.7rem; }
 	@media (max-width: 640px) { .section-demo-stage { height: 34rem; padding: 0.5rem; } }
