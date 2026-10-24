@@ -12,8 +12,8 @@
   ]}
  ];
 </script>
-<footer class="site-footer mt-12 border-t border-base-300">
- <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
+<footer class="site-footer mt-8 border-t border-base-300">
+ <div class="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
   <div><a href="{base}/" class="mb-4 inline-flex items-center gap-2 text-lg font-semibold text-primary"><img src="{base}/pie-logo.svg" alt="" width="32" height="32" />PIE Framework</a><p class="max-w-xs text-sm leading-relaxed text-base-content/70">Portable Interactions and Elements.<br />Open-source assessment software.</p></div>
   {#each groups as group (group.title)}
    <nav aria-label={group.title}><h2 class="mb-4 text-base font-semibold">{group.title}</h2><ul class="space-y-3 text-sm">

@@ -43,9 +43,9 @@
 
 <div class="guide-layout mx-auto max-w-[90rem] px-5 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12 2xl:grid-cols-[13rem_minmax(0,1fr)_11rem]">
 	<aside class="hidden lg:block">
-		<nav class="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto py-8" aria-label={area + ' navigation'}>{@render menu()}</nav>
+		<nav class="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto py-6" aria-label={area + ' navigation'}>{@render menu()}</nav>
 	</aside>
-	<div id="guide-content" tabindex="-1" class="min-w-0 py-8 lg:py-10" bind:this={content}>
+	<div id="guide-content" tabindex="-1" class="min-w-0 py-6 lg:py-8" bind:this={content}>
 		<details class="mb-6 rounded-box border border-base-300 lg:hidden">
 			<summary class="px-4 py-3 cursor-pointer">{area === 'docs' ? 'Guides and reference' : area === 'build' ? 'Build interactions' : 'Integrate PIE'}{#if current}: {current.label}{/if}</summary>
 			<nav class="px-2 pb-3" aria-label={area + ' navigation'}>{@render menu()}</nav>
@@ -54,7 +54,7 @@
 	</div>
 	{#if headings.length > 1}
 		<aside class="hidden 2xl:block">
-			<nav class="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto py-10 text-sm" aria-label="On this page">
+			<nav class="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto py-8 text-sm" aria-label="On this page">
 				<p class="mb-3 font-semibold">On this page</p>
 				<ul class="space-y-3 border-l border-base-300 pl-3">
 					{#each headings as heading (heading.id)}
