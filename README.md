@@ -37,9 +37,8 @@ reference. QTI has a small related-project destination.
 - `src/lib/data/legacy-routes.ts` preserves the previous documentation entry
   points and important fragments. Keep these routes when moving content.
 
-The existing theme lives in `src/app.css`. Diagrams remain in
-`static/images/diagrams/`; `DiagramPlaceholder.svelte` marks new illustrations
-for the separate diagram/style pass.
+The theme lives in `src/app.css`. Diagrams live in `static/images/diagrams/` as
+Excalidraw SVG or PNG files; `Diagram.svelte` renders one by name.
 
 ## Refresh repository documentation and examples
 
