@@ -14,14 +14,12 @@
 
 ## Technology Stack
 
-- **Runtime**: Bun (Node.js 20+ also supported)
-- **Framework**: SvelteKit 2.49+ with Svelte 5.46+
-- **Build**: Vite 7.3+ (static site generation)
-- **Styling**: TailwindCSS 4.1+ with DaisyUI 5.5+
-- **Markdown**: mdsvex 0.12+ for documentation pages
-- **Rich Text**: TipTap 3.15+ with code highlighting (lowlight)
-- **Code Editor**: Monaco Editor 0.55+ for playground
-- **Type Checking**: TypeScript 5.9+ strict mode + svelte-check
+- **Runtime**: Bun for installs and scripts; Vite runs on Node.js 22.17+
+- **Framework**: SvelteKit 3.2+ with Svelte 5.57+
+- **Build**: Vite 8.3+ (static site generation)
+- **Styling**: TailwindCSS 4.3+ with DaisyUI 5.8+
+- **Code examples**: TipTap 3.34+ with code highlighting (lowlight)
+- **Type Checking**: TypeScript 6 strict mode + svelte-check
 
 ## Monorepo Structure
 
