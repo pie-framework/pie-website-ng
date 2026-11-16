@@ -17,7 +17,7 @@ import {
 import { GENERATED_LOCALES, loadGeneratedCatalog } from '@pie-players/pie-i18n-generated';
 import { ToolPolicyEngine } from '@pie-players/pie-assessment-toolkit/policy/engine';
 import { createPackagedToolRegistry, createPersonalNeedsProfileFromAfa } from '@pie-players/pie-default-tool-loaders';
-import { localizedSection } from '$lib/data/localization-demo';
+import { localizedSection } from '#lib/data/localization-demo.ts';
 import { CUSTOM_MESSAGES, MC_LOCALES, PLACEMENT, itemIds, type SimulatorState } from './localization-state';
 
 export * from './localization-state';

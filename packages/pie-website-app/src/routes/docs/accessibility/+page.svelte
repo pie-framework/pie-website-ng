@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import { DOCS } from '$lib/data/links';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import { DOCS } from '#lib/data/links.ts';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const BASELINE = `${PP}docs/wcag/wcag-2.2-aa-baseline.md`;
@@ -128,7 +127,7 @@ accessibility: {
 		</div>
 		<p class="guide-prose">
 			How a support combines with tool placement, district policy and test-administration overrides is
-			the toolkit's <a href="{base}/docs/tool-policy/" class="link link-primary">tool policy</a>.
+			the toolkit's <a href="/docs/tool-policy/" class="link link-primary">tool policy</a>.
 			<ExternalLink href={PNP}>PNP configuration</ExternalLink>
 		</p>
 	</section>
@@ -251,9 +250,9 @@ accessibility: {
 		<p class="guide-prose mt-6">
 			The dictionary and picture dictionary tools call a lookup function or endpoint the host supplies;
 			PIE ships no dictionary service. Color schemes and font scaling are covered under
-			<a href="{base}/docs/theming/" class="link link-primary">Theming</a>, and the language of the
+			<a href="/docs/theming/" class="link link-primary">Theming</a>, and the language of the
 			interface and of read-aloud under
-			<a href="{base}/docs/localization/" class="link link-primary">Localization</a>.
+			<a href="/docs/localization/" class="link link-primary">Localization</a>.
 		</p>
 	</section>
 

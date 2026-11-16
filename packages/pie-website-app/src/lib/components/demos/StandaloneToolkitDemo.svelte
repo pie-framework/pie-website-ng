@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import { exampleConfig, EXAMPLE_SESSION } from '$lib/data/host-example';
+	import { exampleConfig, EXAMPLE_SESSION } from '#lib/data/host-example.ts';
 	import { loadSectionRuntime, demoToolRegistry } from './section-runtime';
-	import { demoEnvironment, type DemoView } from '$lib/data/demo-view';
+	import { demoEnvironment, type DemoView } from '#lib/data/demo-view.ts';
 	import DemoViewSwitcher from './DemoViewSwitcher.svelte';
 	let started = $state(false);
 	let status = $state('ready');

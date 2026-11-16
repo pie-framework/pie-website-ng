@@ -1,7 +1,7 @@
-import { SITE_URL } from '$lib/seo';
-import { SITE_PAGES } from '$lib/data/site';
-import { ELEMENTS } from '$lib/data/elements';
-import { EXPERIENCES } from '$lib/data/examples';
+import { SITE_URL } from '#lib/seo.ts';
+import { SITE_PAGES } from '#lib/data/site.ts';
+import { ELEMENTS } from '#lib/data/elements.ts';
+import { EXPERIENCES } from '#lib/data/examples.ts';
 
 export const prerender = true;
 

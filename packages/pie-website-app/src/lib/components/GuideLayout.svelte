@@ -1,16 +1,15 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	import { tick, type Snippet } from 'svelte';
-	import { BUILD_PAGES, GUIDE_PAGES, INTEGRATE_PAGES, sitePageFor, type Area } from '$lib/data/site';
+	import { BUILD_PAGES, GUIDE_PAGES, INTEGRATE_PAGES, sitePageFor, type Area } from '#lib/data/site.ts';
 	let { area = 'docs', children }: { area?: Area; children: Snippet } = $props();
 	const groups = $derived(area === 'integrate'
 		? [{ title: 'Integrate PIE', pages: INTEGRATE_PAGES }]
 		: area === 'build'
 			? [{ title: 'Build interactions', pages: BUILD_PAGES }]
 			: [...new Set(GUIDE_PAGES.map((entry) => entry.group!))].map((title) => ({ title, pages: GUIDE_PAGES.filter((entry) => entry.group === title) })));
-	const path = $derived(base && page.url.pathname.startsWith(base) ? page.url.pathname.slice(base.length) : page.url.pathname);
+	const path = $derived(page.url.pathname);
 	const current = $derived(sitePageFor(path));
 	let content: HTMLElement | undefined = $state();
 	let headings = $state<{ id: string; label: string }[]>([]);
@@ -25,18 +24,18 @@
 
 {#snippet menu()}
 	<ul class="menu menu-sm w-full p-0">
-		<li><a href="{base}/{area}/" aria-current={path === '/' + area + '/' ? 'page' : undefined}>{area === 'integrate' ? 'Choose your integration' : area === 'build' ? 'Start building' : 'Documentation overview'}</a></li>
+		<li><a href="/{area}/" aria-current={path === '/' + area + '/' ? 'page' : undefined}>{area === 'integrate' ? 'Choose your integration' : area === 'build' ? 'Start building' : 'Documentation overview'}</a></li>
 		{#each groups as group (group.title)}
 			<li class="menu-title mt-5 text-site-muted">{group.title}</li>
 			{#each group.pages as entry (entry.path)}
-				<li><a href="{base}{entry.path}" class:menu-active={current?.path === entry.path} aria-current={current?.path === entry.path ? 'page' : undefined}>{entry.label}</a></li>
+				<li><a href="{entry.path}" class:menu-active={current?.path === entry.path} aria-current={current?.path === entry.path ? 'page' : undefined}>{entry.label}</a></li>
 			{/each}
 		{/each}
 		{#if area !== 'docs'}
 			<li class="menu-title mt-5 text-site-muted">Go deeper</li>
-			<li><a href="{base}/elements/">Element library</a></li>
-			<li><a href="{base}/docs/">Guides and reference</a></li>
-			<li><a href="{base}/explore/">Working examples</a></li>
+			<li><a href="/elements/">Element library</a></li>
+			<li><a href="/docs/">Guides and reference</a></li>
+			<li><a href="/explore/">Working examples</a></li>
 		{/if}
 	</ul>
 {/snippet}

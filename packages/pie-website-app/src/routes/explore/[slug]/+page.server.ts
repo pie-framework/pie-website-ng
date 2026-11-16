@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { EXPERIENCES } from '$lib/data/examples';
+import { EXPERIENCES } from '#lib/data/examples.ts';
 import type { EntryGenerator, PageServerLoad } from './$types';
 export const entries: EntryGenerator = () => EXPERIENCES.map((entry) => ({ slug: entry.slug }));
 export const load: PageServerLoad = ({ params }) => {

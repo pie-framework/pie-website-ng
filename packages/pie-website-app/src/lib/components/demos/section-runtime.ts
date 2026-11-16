@@ -1,4 +1,4 @@
-import { CALCULATOR_CDN_URL, SECTION_PLAYER_CDN_URL } from '$lib/versions';
+import { CALCULATOR_CDN_URL, SECTION_PLAYER_CDN_URL } from '#lib/versions.ts';
 
 interface SectionModule {
 	createPackagedToolRegistry(options?: Record<string, unknown>): unknown;

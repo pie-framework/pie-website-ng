@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import type { SitePage } from '$lib/data/site';
+	import type { SitePage } from '#lib/data/site.ts';
 	import SiteIcon from './SiteIcon.svelte';
 	let { pages }: { pages: Pick<SitePage, 'path' | 'label' | 'summary'>[] } = $props();
 </script>
 <div class="page-links">
 	{#each pages as entry (entry.path)}
-		<a href="{base}{entry.path}" class="page-link">
+		<a href="{entry.path}" class="page-link">
 			<h3 class="mb-2 text-lg font-semibold">{entry.label} <SiteIcon name="arrow-right" /></h3>
 			<p class="text-sm leading-relaxed text-base-content/75">{entry.summary}</p>
 		</a>

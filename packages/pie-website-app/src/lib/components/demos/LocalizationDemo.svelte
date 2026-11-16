@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { CONTENT_LANGUAGES } from '$lib/data/localization-demo';
+	import { CONTENT_LANGUAGES } from '#lib/data/localization-demo.ts';
 	import { DEFAULT_STATE, afaRecord, type Grant, type SimulatorState } from './localization-state';
 	import type { LocalizationTrace } from './localization-trace';
 	import LocalizationPlayer, { type Observed } from './LocalizationPlayer.svelte';

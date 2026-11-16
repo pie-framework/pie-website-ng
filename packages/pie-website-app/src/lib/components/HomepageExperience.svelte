@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { EXPERIENCES } from '$lib/data/examples';
+	import { EXPERIENCES } from '#lib/data/examples.ts';
 	import DemoExperience from './demos/DemoExperience.svelte';
 	const scenarios = EXPERIENCES.filter((entry) => ['reading-section', 'learner-tools', 'author-and-preview'].includes(entry.slug));
 	let selected = $state('reading-section');

@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import LocalizationDemo from '$lib/components/demos/LocalizationDemo.svelte';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import LocalizationDemo from '#lib/components/demos/LocalizationDemo.svelte';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const PE = 'https://github.com/pie-framework/pie-elements-ng/blob/develop/';
@@ -68,7 +67,7 @@ const i18n = createPieI18n({
 		</p>
 		<p class="guide-prose mt-4">
 			This page describes the players' 1.0 prerelease, published under the <code>beta</code> npm tag; see
-			<a href="{base}/docs/versioning/" class="link link-primary">Versioning</a>.
+			<a href="/docs/versioning/" class="link link-primary">Versioning</a>.
 		</p>
 	</header>
 
@@ -286,7 +285,7 @@ const i18n = createPieI18n({
 			changes nothing in delivery.
 		</p>
 		<p class="guide-prose">
-			<a href="{base}/docs/accessibility/#catalogs" class="link link-primary">Accessibility catalogs</a> cover
+			<a href="/docs/accessibility/#catalogs" class="link link-primary">Accessibility catalogs</a> cover
 			authoring and resolution.
 		</p>
 	</section>

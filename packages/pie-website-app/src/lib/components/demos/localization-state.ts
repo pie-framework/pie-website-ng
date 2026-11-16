@@ -1,7 +1,7 @@
 // The simulator's state and the AfA record it builds. Kept apart from the
 // trace so the page renders without loading the toolkit.
 
-import type { ContentLanguage } from '$lib/data/localization-demo';
+import type { ContentLanguage } from '#lib/data/localization-demo.ts';
 
 export type Grant = 'off' | 'granted' | 'init' | 'prohibited';
 export type Basis = 'framework' | 'documented';

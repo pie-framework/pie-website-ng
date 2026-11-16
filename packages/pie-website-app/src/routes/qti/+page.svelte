@@ -1,9 +1,8 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import { SITES } from '$lib/data/links';
+	import Seo from '#lib/components/Seo.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import { SITES } from '#lib/data/links.ts';
 </script>
 <Seo title="QTI and PIE - Independent players and interoperability" description="PIE-QTI provides standalone QTI item and assessment players independently of PIE, plus packages for optional conversion between QTI and PIE." />
 <div class="site-container reading-page">
@@ -22,7 +21,7 @@
 	<section id="standards" class="mb-10">
 		<h2 class="section-title">Standards in PIE</h2>
 		<p class="leading-relaxed text-base-content/75">PIE's assessment structure and accessibility catalogs draw on QTI concepts. Learner profiles follow AfA PNP 3.0. QTI conversion is optional.</p>
-		<p class="mt-4"><a class="link link-primary" href="{base}/integrate/">Integrate PIE players</a> · <a class="link link-primary" href="{base}/docs/tool-policy/">Learner profiles</a> · <a class="link link-primary" href="{base}/docs/accessibility-catalogs/">Accessibility catalogs</a></p>
+		<p class="mt-4"><a class="link link-primary" href="/integrate/">Integrate PIE players</a> · <a class="link link-primary" href="/docs/tool-policy/">Learner profiles</a> · <a class="link link-primary" href="/docs/accessibility-catalogs/">Accessibility catalogs</a></p>
 	</section>
 	<p class="border-t border-base-300 pt-6 text-sm text-site-muted"><ExternalLink href="https://github.com/pie-framework/pie-qti/blob/master/STATUS.md">PIE-QTI current status</ExternalLink> · <ExternalLink href="https://github.com/pie-framework/pie-qti">Source repository</ExternalLink></p>
 </div>

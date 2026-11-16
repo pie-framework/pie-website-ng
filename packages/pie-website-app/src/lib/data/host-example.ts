@@ -3,7 +3,7 @@
  * one multiple-choice item rendered by <pie-item-player>, with its response
  * saved from `session-changed`. Every page and the live demo use this item.
  */
-import { ITEM_PLAYER_CDN_URL, elementSpec } from '$lib/versions';
+import { ITEM_PLAYER_CDN_URL, elementSpec } from '#lib/versions.ts';
 
 export const EXAMPLE_MODEL = {
 	id: 'q1',

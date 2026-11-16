@@ -1,23 +1,17 @@
 <script lang="ts">
 	import '../app.css';
-	import Navigation from '$lib/components/Navigation.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import StatusBanner from '$lib/components/StatusBanner.svelte';
-	import favicon from '$lib/assets/favicon.svg';
+	import Navigation from '#lib/components/Navigation.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import StatusBanner from '#lib/components/StatusBanner.svelte';
+	import favicon from '#lib/assets/favicon.svg';
 	import { onMount } from 'svelte';
-	import { base } from '$app/paths';
 	import { page } from '$app/state';
-	import { accessibleScrollRegions } from '$lib/accessible-scroll-regions';
+	import { accessibleScrollRegions } from '#lib/accessible-scroll-regions.ts';
 
 	let { children } = $props();
 
-	const sitePath = $derived(
-		base && page.url.pathname.startsWith(base)
-			? page.url.pathname.slice(base.length) || '/'
-			: page.url.pathname
-	);
-	const showStatusBanner = $derived(sitePath === '/qti/');
-	const skipTarget = $derived(/^\/(docs|integrate|build)\//.test(sitePath) ? '#guide-content' : '#main-content');
+	const showStatusBanner = $derived(page.url.pathname === '/qti/');
+	const skipTarget = $derived(/^\/(docs|integrate|build)\//.test(page.url.pathname) ? '#guide-content' : '#main-content');
 
 	// Set initial theme on HTML element
 	onMount(() => {

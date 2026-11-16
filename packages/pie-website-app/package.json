@@ -3,6 +3,9 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"imports": {
+		"#lib/*": "./src/lib/*"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && bun ../../scripts/build-social-images.ts",
@@ -12,19 +15,17 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.49.3",
-		"@sveltejs/vite-plugin-svelte": "^6.2.3",
-		"@tailwindcss/typography": "^0.5.19",
-		"@tailwindcss/vite": "^4.1.18",
-		"autoprefixer": "^10.4.23",
-		"daisyui": "^5.5.14",
-		"postcss": "^8.5.6",
-		"svelte": "^5.46.1",
-		"svelte-check": "^4.3.5",
-		"tailwindcss": "^4.1.18",
-		"typescript": "^5.9.3",
-		"vite": "^7.3.1"
+		"@sveltejs/adapter-static": "^4.0.1",
+		"@sveltejs/kit": "^3.2.0",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
+		"@tailwindcss/typography": "^0.5.20",
+		"@tailwindcss/vite": "^4.3.5",
+		"daisyui": "^5.8.1",
+		"svelte": "^5.57.3",
+		"svelte-check": "^4.7.8",
+		"tailwindcss": "^4.3.5",
+		"typescript": "^6.0.3",
+		"vite": "^8.3.8"
 	},
 	"dependencies": {
 		"@pie-players/pie-assessment-toolkit": "1.0.0-beta.6",
@@ -32,11 +33,11 @@
 		"@pie-players/pie-i18n-generated": "1.0.0-beta.6",
 		"@pie-players/pie-players-shared": "1.0.0-beta.6",
 		"@pie-players/pie-theme": "1.0.0-beta.6",
-		"@tiptap/core": "^3.17.1",
-		"@tiptap/extension-code-block-lowlight": "^3.17.1",
-		"@tiptap/pm": "^3.15.3",
-		"@tiptap/starter-kit": "^3.17.1",
+		"@tiptap/core": "^3.34.0",
+		"@tiptap/extension-code-block-lowlight": "^3.34.0",
+		"@tiptap/pm": "^3.34.0",
+		"@tiptap/starter-kit": "^3.34.0",
 		"lowlight": "^3.3.0",
-		"marked": "^18.1.1"
+		"marked": "^18.2.0"
 	}
 }

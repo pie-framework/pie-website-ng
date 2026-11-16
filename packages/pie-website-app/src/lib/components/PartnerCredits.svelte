@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import { PARTNERS } from '$lib/data/partners';
+	import { PARTNERS } from '#lib/data/partners.ts';
 </script>
 
 <ul class="partner-credits">
@@ -9,8 +8,8 @@
 		<li>
 			<a class="partner-identity" class:transparent-mark={partner.transparentOnDark} href={partner.href} target="_blank" rel="noopener noreferrer">
 				<span class="partner-logo" style:width="{partner.width + (mark ? mark.width + 4 : 0)}px" style:grid-template-columns={mark ? `${partner.width}fr ${mark.width}fr` : undefined}>
-					<img src="{base}/{partner.logo}" alt={partner.name} width={partner.width} height={partner.height} loading="lazy" />
-					{#if mark}<img src="{base}/{mark.file}" alt="" width={mark.width} height={mark.height} loading="lazy" />{/if}
+					<img src="/{partner.logo}" alt={partner.name} width={partner.width} height={partner.height} loading="lazy" />
+					{#if mark}<img src="/{mark.file}" alt="" width={mark.width} height={mark.height} loading="lazy" />{/if}
 				</span>
 				<span class="sr-only"> (opens in new tab)</span>
 			</a>

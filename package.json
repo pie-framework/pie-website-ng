@@ -18,7 +18,7 @@
     "sync:examples": "bun scripts/sync-element-demos.ts"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.65.1",
     "@types/bun": "latest",
     "axe-core": "^4.14.0",
     "sharp": "^0.35.5"

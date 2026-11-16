@@ -1,7 +1,6 @@
 import { Marked, Renderer } from 'marked';
 import { posix } from 'node:path';
-import { base } from '$app/paths';
-import { SITE_PAGES, sourceUrl, type SitePage } from '$lib/data/site';
+import { SITE_PAGES, sourceUrl, type SitePage } from '#lib/data/site.ts';
 import assets from './guide-assets.json';
 import sources from './guide-sources.json';
 
@@ -27,17 +26,17 @@ function resolveUrl(page: SitePage, href: string, image = false): string {
 		// An excerpt may refer to a heading elsewhere in the complete source.
 		const reference = page.source?.section && SITE_PAGES.find((candidate) =>
 			candidate.source?.repo === page.source?.repo && candidate.source?.file === page.source?.file && !candidate.source?.section);
-		return reference ? base + reference.path + href : href;
+		return reference ? reference.path + href : href;
 	}
-	if (href.startsWith('/')) return base + href;
+	if (href.startsWith('/')) return href;
 	if (!page.source) return href;
 	const [file, fragment] = href.split('#');
 	const target = posix.normalize(posix.join(posix.dirname(page.source.file), file));
 	const key = page.source.repo + '/' + target;
-	if (image && assetMap[key]) return base + assetMap[key];
+	if (image && assetMap[key]) return assetMap[key];
 	const candidates = SITE_PAGES.filter((candidate) => candidate.source?.repo === page.source?.repo && candidate.source?.file === target);
 	const destination = candidates.find((candidate) => !candidate.source?.section) ?? candidates[0];
-	if (destination && !image) return base + destination.path + (fragment ? '#' + fragment : '');
+	if (destination && !image) return destination.path + (fragment ? '#' + fragment : '');
 	return sourceUrl({ ...page.source, file: target }) + (fragment ? '#' + fragment : '');
 }
 

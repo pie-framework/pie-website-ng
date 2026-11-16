@@ -1,8 +1,8 @@
-import { SITE_PAGES } from '$lib/data/site';
-import { ELEMENTS } from '$lib/data/elements';
-import { EXPERIENCES } from '$lib/data/examples';
-import { deliveryCapture } from '$lib/data/element-captures';
-import { guideSearchText } from '$lib/server/guides';
+import { SITE_PAGES } from '#lib/data/site.ts';
+import { ELEMENTS } from '#lib/data/elements.ts';
+import { EXPERIENCES } from '#lib/data/examples.ts';
+import { deliveryCapture } from '#lib/data/element-captures.ts';
+import { guideSearchText } from '#lib/server/guides.ts';
 
 export const load = () => ({
 	entries: [

@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import type { renderGuide } from '$lib/server/guides';
-	import { sourceUrl } from '$lib/data/site';
+	import Seo from '#lib/components/Seo.svelte';
+	import type { renderGuide } from '#lib/server/guides.ts';
+	import { sourceUrl } from '#lib/data/site.ts';
 	import ExternalLink from './ExternalLink.svelte';
 	import DemoExperience from './demos/DemoExperience.svelte';
 	import Diagram from './Diagram.svelte';
@@ -44,9 +43,9 @@
 			<p>Documentation snapshot: <code>{guide.provenance.repository}@{guide.provenance.commit.slice(0, 8)}</code>. See the source for later changes.</p>
 		{/if}
 		<p class="mt-3">
-			<a class="link link-primary" href="{base}/get-started/">Get started</a> ·
-			<a class="link link-primary" href="{base}/docs/reference/">Package reference</a> ·
-			<a class="link link-primary" href="{base}/docs/troubleshooting/">Troubleshooting</a>
+			<a class="link link-primary" href="/get-started/">Get started</a> ·
+			<a class="link link-primary" href="/docs/reference/">Package reference</a> ·
+			<a class="link link-primary" href="/docs/troubleshooting/">Troubleshooting</a>
 		</p>
 	</aside>
 </article>

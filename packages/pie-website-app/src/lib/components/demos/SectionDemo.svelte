@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import { base } from '$app/paths';
-	import { ITEM_PLAYER_VERSION } from '$lib/versions';
-	import { readingSection, timedMediaSection } from '$lib/data/section-demo';
-	import { demoEnvironment, type DemoView } from '$lib/data/demo-view';
+	import { ITEM_PLAYER_VERSION } from '#lib/versions.ts';
+	import { readingSection, timedMediaSection } from '#lib/data/section-demo.ts';
+	import { demoEnvironment, type DemoView } from '#lib/data/demo-view.ts';
 	import DemoViewSwitcher from './DemoViewSwitcher.svelte';
 	import { loadSectionRuntime, demoToolRegistry, type DemoSectionElement } from './section-runtime';
 
@@ -223,7 +222,7 @@
 		{#if status === 'loading'}<p role="status" class="px-4 pt-3 text-sm text-base-content/70">Loading the section…</p>{/if}
 		{#if status === 'error'}
 			<div role="alert" class="m-4 rounded-box border border-warning p-4 text-sm">
-				<p>{message}</p><p class="mt-2"><a class="link" href="{base}/integrate/section-player/">Read the integration guide</a> or try the <a class="link" href="https://elements.pie-framework.org/">element demos</a>.</p>
+				<p>{message}</p><p class="mt-2"><a class="link" href="/integrate/section-player/">Read the integration guide</a> or try the <a class="link" href="https://elements.pie-framework.org/">element demos</a>.</p>
 			</div>
 		{/if}
 		{#if notice}<p class="px-4 py-3 text-sm" role="status">{notice}</p>{/if}

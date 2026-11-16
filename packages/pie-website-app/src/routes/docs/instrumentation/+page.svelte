@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const DESIGN = `${PP}docs/architecture/instrumentation-providers.md`;

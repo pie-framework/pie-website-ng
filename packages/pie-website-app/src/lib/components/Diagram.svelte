@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 
 	/** Existing Excalidraw sources and the matching raster illustrations share a white paper surface. */
 	let {
@@ -24,14 +23,14 @@
 <figure class="site-diagram my-8 mx-auto w-full {className}" style="max-width: {width}px">
 	<div class="diagram-paper">
 		<img
-			src="{base}/images/diagrams/{name}.{format}"
+			src="/images/diagrams/{name}.{format}"
 			class="diagram block w-full h-auto"
 			{alt}
 			loading="lazy"
 			{width}
 			{height}
 		/>
-		<a class="diagram-zoom" href="{base}/images/diagrams/{name}.{format}" target="_blank" rel="noopener noreferrer">View full diagram<span class="sr-only"> (opens in new tab)</span></a>
+		<a class="diagram-zoom" href="/images/diagrams/{name}.{format}" target="_blank" rel="noopener noreferrer">View full diagram<span class="sr-only"> (opens in new tab)</span></a>
 	</div>
 	{#if caption}
 		<figcaption class="text-center text-sm text-site-muted mt-2">{caption}</figcaption>

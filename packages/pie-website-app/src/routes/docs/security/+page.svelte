@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import { DOCS } from '$lib/data/links';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import { DOCS } from '#lib/data/links.ts';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const CDN_CSP = `${PP}docs/install/cdn.md#content-security-policy`;
@@ -457,7 +456,7 @@ base-uri 'none';`;
 			</div>
 		</div>
 		<p class="guide-prose">
-			<a href="{base}/docs/integration/" class="link link-primary">Integration</a> ·
+			<a href="/docs/integration/" class="link link-primary">Integration</a> ·
 			<ExternalLink href={DOCS.security}>Security reference</ExternalLink>
 		</p>
 	</section>

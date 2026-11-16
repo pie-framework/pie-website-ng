@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { page } from '$app/state';
-	import { LEGACY_ROUTES } from '$lib/data/legacy-routes';
-	import { SITE_NAME, SITE_URL, canonicalUrl, normalizePath, pageShareImage, pageStructuredData, jsonForHtml } from '$lib/seo';
+	import { LEGACY_ROUTES } from '#lib/data/legacy-routes.ts';
+	import { SITE_NAME, SITE_URL, canonicalUrl, normalizePath, pageShareImage, pageStructuredData, jsonForHtml } from '#lib/seo.ts';
 
 	let { title, description, noindex = false }: {
 		title: string;
@@ -10,8 +9,7 @@
 		noindex?: boolean;
 	} = $props();
 
-	const path = $derived(normalizePath(base && page.url.pathname.startsWith(base)
-		? page.url.pathname.slice(base.length) || '/' : page.url.pathname));
+	const path = $derived(normalizePath(page.url.pathname));
 	const canonical = $derived(canonicalUrl(path));
 	const image = $derived(pageShareImage(path, title));
 	const structuredData = $derived(noindex || LEGACY_ROUTES[path] ? ''

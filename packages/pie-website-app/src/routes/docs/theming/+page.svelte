@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import { DOCS } from '$lib/data/links';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import { DOCS } from '#lib/data/links.ts';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const THEME_README = `${PP}packages/theme/README.md`;
@@ -224,7 +223,7 @@ const registration = registerPieColorSchemes([
 			<ExternalLink href={DOCS.theming}>How theming works</ExternalLink> ·
 			<ExternalLink href={THEME_README}>Theme README</ExternalLink> ·
 			<ExternalLink href={WCAG_MATRIX}>Theming WCAG matrix</ExternalLink> ·
-			<a href="{base}/docs/accessibility/" class="link link-primary">Accessibility</a>
+			<a href="/docs/accessibility/" class="link link-primary">Accessibility</a>
 		</p>
 	</section>
 </div>

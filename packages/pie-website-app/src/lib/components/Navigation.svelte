@@ -1,16 +1,15 @@
 <script lang="ts">
- import { base } from '$app/paths';
  import { page } from '$app/state';
  import { afterNavigate } from '$app/navigation';
- import { PRIMARY_NAV } from '$lib/data/site';
- import { SITES } from '$lib/data/links';
+ import { PRIMARY_NAV } from '#lib/data/site.ts';
+ import { SITES } from '#lib/data/links.ts';
  import ThemeSwitcher from './ThemeSwitcher.svelte';
  import SiteIcon from './SiteIcon.svelte';
  import { onMount } from 'svelte';
  let mobileOpen = $state(false);
  let menuButton: HTMLButtonElement;
  let nav: HTMLElement;
- const currentPath = $derived(base && page.url.pathname.startsWith(base) ? page.url.pathname.slice(base.length) : page.url.pathname);
+ const currentPath = $derived(page.url.pathname);
  afterNavigate(() => { mobileOpen = false; });
  onMount(() => {
   const observer = new ResizeObserver(() => {
@@ -26,39 +25,39 @@
  if (mobileOpen && event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) mobileOpen = false;
 }}>
  <nav class="main-nav" aria-label="Main navigation" bind:this={nav}>
-  <a href="{base}/" class="site-brand">
-   <img src="{base}/pie-logo.svg" alt="" width="40" height="40" />
+  <a href="/" class="site-brand">
+   <img src="/pie-logo.svg" alt="" width="40" height="40" />
    <span><span class="brand-name">PIE Framework</span><span class="brand-caption">Open-source assessment software</span></span>
   </a>
   <div class="desktop-nav nav-links">
    {#each PRIMARY_NAV as entry (entry.path)}
-    <a href="{base}{entry.path}" aria-current={currentPath.startsWith(entry.path) ? 'page' : undefined}>{entry.label}</a>
+    <a href="{entry.path}" aria-current={currentPath.startsWith(entry.path) ? 'page' : undefined}>{entry.label}</a>
    {/each}
   </div>
-  <form action="{base}/search/" method="get" role="search" aria-label="Header search" class="desktop-nav header-search">
+  <form action="/search/" method="get" role="search" aria-label="Header search" class="desktop-nav header-search">
    <label class="sr-only" for="header-search">Search the site</label>
    <SiteIcon name="magnifying-glass" /><input id="header-search" name="q" type="search" placeholder="Search PIE" />
   </form>
   <div class="desktop-nav nav-actions">
    <ThemeSwitcher />
    <a class="btn btn-ghost btn-sm" href={SITES.githubOrg} target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in new tab)</span></a>
-   <a class="btn btn-primary btn-sm" href="{base}/get-started/">Get started</a>
+   <a class="btn btn-primary btn-sm" href="/get-started/">Get started</a>
   </div>
   <button bind:this={menuButton} class="mobile-menu-button btn btn-ghost btn-sm" aria-expanded={mobileOpen} aria-controls="mobile-navigation" onclick={() => mobileOpen = !mobileOpen}>{mobileOpen ? 'Close menu' : 'Menu'}</button>
  </nav>
  <div id="mobile-navigation" hidden={!mobileOpen} class="mobile-navigation border-t border-base-300 px-5 py-4">
   <nav aria-label="Mobile navigation" class="flex flex-col gap-2">
    {#each PRIMARY_NAV as entry (entry.path)}
-    <a class="py-2 font-medium" href="{base}{entry.path}" aria-current={currentPath.startsWith(entry.path) ? 'page' : undefined}>{entry.label}</a>
+    <a class="py-2 font-medium" href="{entry.path}" aria-current={currentPath.startsWith(entry.path) ? 'page' : undefined}>{entry.label}</a>
    {/each}
-   <a class="py-2" href="{base}/elements/">Element library</a>
-   <a class="py-2" href="{base}/get-started/">Get started</a>
+   <a class="py-2" href="/elements/">Element library</a>
+   <a class="py-2" href="/get-started/">Get started</a>
   </nav>
-  <form action="{base}/search/" method="get" role="search" aria-label="Mobile search" class="mt-4">
+  <form action="/search/" method="get" role="search" aria-label="Mobile search" class="mt-4">
    <label for="mobile-search" class="label">Search the site</label>
    <div class="flex gap-2"><input id="mobile-search" class="input site-input min-w-0 w-full" type="search" name="q" placeholder="Search guides, elements and examples" /><button class="btn btn-primary" type="submit">Search</button></div>
   </form>
-  <div class="mt-4 flex items-center gap-3"><ThemeSwitcher /><a href={SITES.githubOrg} class="link">GitHub</a><a href="{base}/about/" class="link">About and community</a></div>
+  <div class="mt-4 flex items-center gap-3"><ThemeSwitcher /><a href={SITES.githubOrg} class="link">GitHub</a><a href="/about/" class="link">About and community</a></div>
  </div>
 </header>
 
