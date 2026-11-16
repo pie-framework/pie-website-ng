@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DemoKind } from '$lib/data/site';
+	import type { DemoKind } from '#lib/data/site.ts';
 	import ItemDemo from './ItemDemo.svelte';
 	import SectionDemo from './SectionDemo.svelte';
 	import StandaloneToolkitDemo from './StandaloneToolkitDemo.svelte';

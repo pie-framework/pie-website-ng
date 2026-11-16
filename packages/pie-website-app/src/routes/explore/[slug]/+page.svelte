@@ -1,17 +1,16 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import DemoExperience from '$lib/components/demos/DemoExperience.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import PageCards from '$lib/components/PageCards.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import { sitePageFor } from '$lib/data/site';
+	import Seo from '#lib/components/Seo.svelte';
+	import DemoExperience from '#lib/components/demos/DemoExperience.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import PageCards from '#lib/components/PageCards.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import { sitePageFor } from '#lib/data/site.ts';
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
 </script>
 <Seo title="{data.experience.title} - Explore PIE" description={data.experience.summary} />
 <div class="site-container">
-	<a class="link link-primary text-sm" href="{base}/explore/">← All examples</a>
+	<a class="link link-primary text-sm" href="/explore/">← All examples</a>
 	<header class="mb-8 mt-6"><p class="eyebrow">{data.experience.category}</p><h1 class="page-title">{data.experience.title}</h1><p class="page-intro">{data.experience.summary}</p></header>
 	<section aria-labelledby="live-example"><h2 id="live-example" class="sr-only">Live example</h2><DemoExperience kind={data.experience.kind} /></section>
 	<section class="mt-12" id="learn"><h2 class="section-title">What to look for</h2><ul class="list-disc space-y-3 pl-6 text-base-content/80">{#each data.experience.learn as point}<li>{point}</li>{/each}</ul></section>

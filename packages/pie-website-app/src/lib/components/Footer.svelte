@@ -1,8 +1,7 @@
 <script lang="ts">
- import { base } from '$app/paths';
- import { INTEGRATE_PAGES, BUILD_PAGES } from '$lib/data/site';
- import { SITES } from '$lib/data/links';
- import { PARTNERS } from '$lib/data/partners';
+ import { INTEGRATE_PAGES, BUILD_PAGES } from '#lib/data/site.ts';
+ import { SITES } from '#lib/data/links.ts';
+ import { PARTNERS } from '#lib/data/partners.ts';
  const groups = [
   { title: 'Integrate PIE', pages: INTEGRATE_PAGES.slice(0, 5) },
   { title: 'Build interactions', pages: [{ path: '/elements/', label: 'Element library' }, ...BUILD_PAGES] },
@@ -14,10 +13,10 @@
 </script>
 <footer class="site-footer mt-8 border-t border-base-300">
  <div class="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
-  <div><a href="{base}/" class="mb-4 inline-flex items-center gap-2 text-lg font-semibold text-primary"><img src="{base}/pie-logo.svg" alt="" width="32" height="32" />PIE Framework</a><p class="max-w-xs text-sm leading-relaxed text-base-content/70">Portable Interactions and Elements.<br />Open-source assessment software.</p></div>
+  <div><a href="/" class="mb-4 inline-flex items-center gap-2 text-lg font-semibold text-primary"><img src="/pie-logo.svg" alt="" width="32" height="32" />PIE Framework</a><p class="max-w-xs text-sm leading-relaxed text-base-content/70">Portable Interactions and Elements.<br />Open-source assessment software.</p></div>
   {#each groups as group (group.title)}
    <nav aria-label={group.title}><h2 class="mb-4 text-base font-semibold">{group.title}</h2><ul class="space-y-3 text-sm">
-    {#each group.pages as entry (entry.path)}<li><a href="{base}{entry.path}" class="link link-hover">{entry.label}</a></li>{/each}
+    {#each group.pages as entry (entry.path)}<li><a href="{entry.path}" class="link link-hover">{entry.label}</a></li>{/each}
    </ul></nav>
   {/each}
   <div class="flex flex-wrap gap-5 border-t border-base-300 pt-6 text-xs text-base-content/70 sm:col-span-2 lg:col-span-4">

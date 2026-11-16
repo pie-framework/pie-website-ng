@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { SchemaField } from '$lib/data/element-example';
+	import type { SchemaField } from '#lib/data/element-example.ts';
 	let { fields }: { fields: SchemaField[] } = $props();
 </script>
 <div class="guide-table"><table>

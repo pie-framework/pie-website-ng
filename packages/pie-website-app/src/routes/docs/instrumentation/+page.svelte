@@ -1,44 +1,14 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import { providerExample, panelsExample } from '#lib/data/instrumentation-examples.ts';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const DESIGN = `${PP}docs/architecture/instrumentation-providers.md`;
 	const SHARED_README = `${PP}packages/players-shared/README.md`;
 	const SECTION_README = `${PP}packages/section-player/README.md#instrumentation`;
-
-	const providerExample = `import {
-  CompositeInstrumentationProvider,
-  DebugPanelInstrumentationProvider,
-  NewRelicInstrumentationProvider,
-} from '@pie-players/pie-players-shared';
-
-// Production telemetry plus a copy for the instrumentation debugger panel.
-const instrumentationProvider = new CompositeInstrumentationProvider([
-  new NewRelicInstrumentationProvider(),
-  new DebugPanelInstrumentationProvider(),
-]);
-await instrumentationProvider.initialize();
-
-sectionPlayer.runtime = {
-  player: {
-    loaderConfig: { trackPageActions: true, instrumentationProvider },
-  },
-};`;
-
-	const panelsExample = `<pie-section-player-tools-event-debugger section-id="s1" attempt-id="a1">
-</pie-section-player-tools-event-debugger>
-<pie-section-player-tools-instrumentation-debugger max-records="250">
-</pie-section-player-tools-instrumentation-debugger>
-
-<script type="module">
-  import '@pie-players/pie-section-player-tools-event-debugger';
-  import '@pie-players/pie-section-player-tools-instrumentation-debugger';
-
-  document.querySelector('pie-section-player-tools-event-debugger').toolkitCoordinator = coordinator;
-<\/script>`;
 
 	const resolutionRows = [
 		['unset', 'The shared New Relic default when trackPageActions is true; otherwise none'],

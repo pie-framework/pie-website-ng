@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import LocalizationDemo from '$lib/components/demos/LocalizationDemo.svelte';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import LocalizationDemo from '#lib/components/demos/LocalizationDemo.svelte';
+	import { localeExample, generatedExample, customExample } from '#lib/data/localization-examples.ts';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const PE = 'https://github.com/pie-framework/pie-elements-ng/blob/develop/';
@@ -14,34 +14,6 @@
 	const SECTION_README = `${PP}packages/section-player/README.md`;
 	const ELEMENTS_I18N_README = `${PE}packages/shared/i18n/README.md`;
 	const ELEMENTS_I18N_PRD = `${PE}docs/prds/interface-i18n/PRD.md`;
-
-	const localeExample = `<pie-item-player locale="nl-NL"></pie-item-player>
-<pie-section-player-splitpane locale="nl-NL"></pie-section-player-splitpane>
-<pie-assessment-toolkit locale="nl-NL" content-language="en-US">…</pie-assessment-toolkit>`;
-
-	const generatedExample = `import {
-  BUNDLED_LOCALES,
-  createPieI18n,
-  loadBundledCatalog,
-} from '@pie-players/pie-players-shared/i18n';
-import { GENERATED_LOCALES, loadGeneratedCatalog } from '@pie-players/pie-i18n-generated';
-
-const i18n = createPieI18n({
-  availableLocales: [...BUNDLED_LOCALES, ...GENERATED_LOCALES],
-  // Bundled first, so a reviewed catalog wins over a generated one for the same tag.
-  loadCatalog: (locale) => loadBundledCatalog(locale).catch(() => loadGeneratedCatalog(locale)),
-});
-
-// The locale attribute still names the locale; the provider only supplies catalogs.
-document.querySelector('pie-section-player-splitpane').runtime = { i18n };`;
-
-	const customExample = `import { createPieI18n } from '@pie-players/pie-players-shared/i18n';
-
-// A locale PIE ships no catalog for is honored; missing keys fall back to English.
-const i18n = createPieI18n({
-  locale: 'de-DE',
-  customMessages: { 'de-DE': { common: { close: 'Schließen' } } },
-});`;
 
 	const tagRows = [
 		['nl-NL', 'nl-NL', 'exact match'],
@@ -68,7 +40,7 @@ const i18n = createPieI18n({
 		</p>
 		<p class="guide-prose mt-4">
 			This page describes the players' 1.0 prerelease, published under the <code>beta</code> npm tag; see
-			<a href="{base}/docs/versioning/" class="link link-primary">Versioning</a>.
+			<a href="/docs/versioning/" class="link link-primary">Versioning</a>.
 		</p>
 	</header>
 
@@ -286,7 +258,7 @@ const i18n = createPieI18n({
 			changes nothing in delivery.
 		</p>
 		<p class="guide-prose">
-			<a href="{base}/docs/accessibility/#catalogs" class="link link-primary">Accessibility catalogs</a> cover
+			<a href="/docs/accessibility/#catalogs" class="link link-primary">Accessibility catalogs</a> cover
 			authoring and resolution.
 		</p>
 	</section>

@@ -1,16 +1,15 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
- import { base } from '$app/paths';
- import HomepageExperience from '$lib/components/HomepageExperience.svelte';
- import PageCards from '$lib/components/PageCards.svelte';
- import Diagram from '$lib/components/Diagram.svelte';
- import SiteIcon from '$lib/components/SiteIcon.svelte';
- import PartnerCredits from '$lib/components/PartnerCredits.svelte';
- import ExternalLink from '$lib/components/ExternalLink.svelte';
- import { ELEMENTS } from '$lib/data/elements';
- import { SITES } from '$lib/data/links';
- import { deliveryCapture } from '$lib/data/element-captures';
- import { INTEGRATE_PAGES } from '$lib/data/site';
+	import Seo from '#lib/components/Seo.svelte';
+ import HomepageExperience from '#lib/components/HomepageExperience.svelte';
+ import PageCards from '#lib/components/PageCards.svelte';
+ import Diagram from '#lib/components/Diagram.svelte';
+ import SiteIcon from '#lib/components/SiteIcon.svelte';
+ import PartnerCredits from '#lib/components/PartnerCredits.svelte';
+ import ExternalLink from '#lib/components/ExternalLink.svelte';
+ import { ELEMENTS } from '#lib/data/elements.ts';
+ import { SITES } from '#lib/data/links.ts';
+ import { deliveryCapture } from '#lib/data/element-captures.ts';
+ import { INTEGRATE_PAGES } from '#lib/data/site.ts';
  const featured = ELEMENTS.filter((element) => ['multiple-choice', 'fraction-model', 'categorize', 'graphing'].includes(element.name));
 </script>
 <Seo title="PIE Framework - Portable Interactions and Elements" description="Open-source assessment players, learner tools and item editors. Use PIE's interaction library or build your own question types." />
@@ -20,8 +19,8 @@
   <h1 class="home-title"><span>Portable Interactions</span> <span>and Elements</span></h1>
   <p class="hero-description">Open-source players, learner tools and item editors for assessment applications. Use the interaction library or build your own question types.</p>
   <div class="hero-actions">
-   <a class="btn btn-primary" href="{base}/integrate/">Integrate PIE <SiteIcon name="arrow-right" /></a>
-   <a class="btn btn-outline" href="{base}/build/">Build interactions</a>
+   <a class="btn btn-primary" href="/integrate/">Integrate PIE <SiteIcon name="arrow-right" /></a>
+   <a class="btn btn-outline" href="/build/">Build interactions</a>
   </div>
  </header>
 
@@ -32,35 +31,35 @@
    <h2 class="section-title">How PIE<br class="hidden lg:block" /> fits</h2>
    <p>PIE renders and edits items, arranges sections, provides learner tools and reports responses and scores.</p>
    <p>Your application manages content, learner accounts, storage, assessment navigation and submission.</p>
-   <a class="text-link" href="{base}/integrate/assessment-shell/">Assessment integration guide <SiteIcon name="arrow-right" /></a>
+   <a class="text-link" href="/integrate/assessment-shell/">Assessment integration guide <SiteIcon name="arrow-right" /></a>
   </div>
   <Diagram name="home-browser-backend" width={1008} height={648} alt="The host application embeds PIE players and the toolkit in the browser. The host's servers own content, learner sessions, scores, identity and infrastructure." class="ownership-diagram" />
  </section>
 
  <nav class="discovery-links" aria-label="Explore PIE">
-  <a class="fraction-link" href="{base}/elements/fraction-model/"><img src="{base}/images/editorial/fraction-preview.png" width="64" height="64" alt="" loading="lazy" /><span>Try a fraction</span></a>
-  <a href="{base}/elements/"><SiteIcon name="book-open" /><span><strong>Explore the element library <SiteIcon name="arrow-right" /></strong><small>Browse interaction types and examples.</small></span></a>
-  <a href="{base}/docs/"><SiteIcon name="file-text" /><span><strong>Read the integration guides <SiteIcon name="arrow-right" /></strong><small>Add PIE to your application.</small></span></a>
+  <a class="fraction-link" href="/elements/fraction-model/"><img src="/images/editorial/fraction-preview.png" width="64" height="64" alt="" loading="lazy" /><span>Try a fraction</span></a>
+  <a href="/elements/"><SiteIcon name="book-open" /><span><strong>Explore the element library <SiteIcon name="arrow-right" /></strong><small>Browse interaction types and examples.</small></span></a>
+  <a href="/docs/"><SiteIcon name="file-text" /><span><strong>Read the integration guides <SiteIcon name="arrow-right" /></strong><small>Add PIE to your application.</small></span></a>
  </nav>
 
  <section id="integrate" class="home-section">
-  <div class="section-heading"><h2 class="section-title">Players, tools and authoring</h2><a class="text-link" href="{base}/integrate/">All integrations <SiteIcon name="arrow-right" /></a></div>
+  <div class="section-heading"><h2 class="section-title">Players, tools and authoring</h2><a class="text-link" href="/integrate/">All integrations <SiteIcon name="arrow-right" /></a></div>
   <PageCards pages={[INTEGRATE_PAGES[0], INTEGRATE_PAGES[1], INTEGRATE_PAGES[2], INTEGRATE_PAGES[4]]} />
  </section>
 
  <section id="elements" class="home-section">
-  <div class="section-heading"><h2 class="section-title">Questions, content and rubrics</h2><a class="text-link" href="{base}/elements/">Element library <SiteIcon name="arrow-right" /></a></div>
+  <div class="section-heading"><h2 class="section-title">Questions, content and rubrics</h2><a class="text-link" href="/elements/">Element library <SiteIcon name="arrow-right" /></a></div>
   <p class="section-description">Questions in choice, text, math and other formats, plus passages, video and rubrics. Try every sample in the <ExternalLink href={SITES.elementsDemo}>live sample library</ExternalLink>.</p>
   <div class="element-previews">
    {#each featured as element (element.name)}
     {@const capture = deliveryCapture(element.name)}
-    <a href="{base}/elements/{element.name}/" class="element-preview">
-     <div class="preview-image"><img src="{base}/images/elements/{capture.file}" alt={capture.alt} width={capture.width} height={capture.height} loading="lazy" /></div>
+    <a href="/elements/{element.name}/" class="element-preview">
+     <div class="preview-image"><img src="/images/elements/{capture.file}" alt={capture.alt} width={capture.width} height={capture.height} loading="lazy" /></div>
      <h3>{element.displayName} <SiteIcon name="arrow-right" /></h3><p>{capture.caption}</p>
     </a>
    {/each}
   </div>
-  <a class="text-link mt-6" href="{base}/build/how-elements-work/">How elements work <SiteIcon name="arrow-right" /></a>
+  <a class="text-link mt-6" href="/build/how-elements-work/">How elements work <SiteIcon name="arrow-right" /></a>
  </section>
 
  <section id="adoption" class="home-section">
@@ -76,10 +75,10 @@
  <aside class="qti-note">
   <h2 class="section-title">Already have QTI content?</h2>
   <div><p>PIE-QTI has full-featured QTI item and assessment players that work independently of PIE. It also includes QTI ↔ PIE conversion tools.</p>
-  <a class="text-link mt-4" href="{base}/qti/">About PIE-QTI <SiteIcon name="arrow-right" /></a></div>
+  <a class="text-link mt-4" href="/qti/">About PIE-QTI <SiteIcon name="arrow-right" /></a></div>
  </aside>
  <section class="partners-section" aria-labelledby="partners-heading">
-  <div class="section-heading"><h2 id="partners-heading" class="section-title">Supported by</h2><a class="text-link" href="{base}/about/#partners">Sponsors and partners <SiteIcon name="arrow-right" /></a></div>
+  <div class="section-heading"><h2 id="partners-heading" class="section-title">Supported by</h2><a class="text-link" href="/about/#partners">Sponsors and partners <SiteIcon name="arrow-right" /></a></div>
   <PartnerCredits />
  </section>
 </div>

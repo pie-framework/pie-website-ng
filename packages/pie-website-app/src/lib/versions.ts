@@ -2,7 +2,7 @@
  * Pinned versions for every code sample and the live demo. Exact pins only:
  * caret ranges and `@latest` resolve differently over time.
  */
-import { findElement } from '$lib/data/elements';
+import { findElement } from '#lib/data/elements.ts';
 import packageJson from '../../package.json';
 
 /** All lockstep @pie-players/* packages release together under this version. */

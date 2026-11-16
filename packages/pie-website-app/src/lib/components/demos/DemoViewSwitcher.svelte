@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DemoView } from '$lib/data/demo-view';
+	import type { DemoView } from '#lib/data/demo-view.ts';
 	let { value, onchange, disabled = false }: {
 		value: DemoView;
 		onchange: (view: DemoView) => void;

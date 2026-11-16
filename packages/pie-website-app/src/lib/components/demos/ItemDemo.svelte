@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import PiePlayerDemo from '$lib/components/PiePlayerDemo.svelte';
+	import PiePlayerDemo from '#lib/components/PiePlayerDemo.svelte';
 	let { authoring = false, autoStart = false }: { authoring?: boolean; autoStart?: boolean } = $props();
 	let started = $state(false);
 	let content: HTMLDivElement;

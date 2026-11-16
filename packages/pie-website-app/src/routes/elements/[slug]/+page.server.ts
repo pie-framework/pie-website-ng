@@ -1,9 +1,9 @@
 import { error } from '@sveltejs/kit';
-import { ELEMENTS } from '$lib/data/elements';
-import { deliveryCapture } from '$lib/data/element-captures';
-import type { ElementExample, ElementReference } from '$lib/data/element-example';
-import examples from '$lib/server/element-demos.json';
-import references from '$lib/server/element-references.json';
+import { ELEMENTS } from '#lib/data/elements.ts';
+import { deliveryCapture } from '#lib/data/element-captures.ts';
+import type { ElementExample, ElementReference } from '#lib/data/element-example.ts';
+import examples from '#lib/server/element-demos.json';
+import references from '#lib/server/element-references.json';
 import type { EntryGenerator, PageServerLoad } from './$types';
 export const entries: EntryGenerator = () => ELEMENTS.map((element) => ({ slug: element.name }));
 export const load: PageServerLoad = ({ params }) => {

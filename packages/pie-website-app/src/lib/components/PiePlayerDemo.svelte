@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import ExternalLink from './ExternalLink.svelte';
-	import { ITEM_PLAYER_CDN_URL } from '$lib/versions';
-	import { EXAMPLE_ENV, EXAMPLE_SESSION, exampleConfig } from '$lib/data/host-example';
-	import { SITES } from '$lib/data/links';
-	import { demoEnvironment, type DemoView } from '$lib/data/demo-view';
+	import { ITEM_PLAYER_CDN_URL } from '#lib/versions.ts';
+	import { EXAMPLE_ENV, EXAMPLE_SESSION, exampleConfig } from '#lib/data/host-example.ts';
+	import { SITES } from '#lib/data/links.ts';
+	import { demoEnvironment, type DemoView } from '#lib/data/demo-view.ts';
 	import DemoViewSwitcher from './demos/DemoViewSwitcher.svelte';
 
 	/**

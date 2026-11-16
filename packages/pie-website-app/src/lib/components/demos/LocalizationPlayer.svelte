@@ -9,8 +9,7 @@
 
 <script lang="ts">
 	import { onMount, untrack } from 'svelte';
-	import { base } from '$app/paths';
-	import { ITEM_PLAYER_VERSION } from '$lib/versions';
+	import { ITEM_PLAYER_VERSION } from '#lib/versions.ts';
 	import { loadSectionRuntime, demoToolRegistry, type DemoSectionElement } from './section-runtime';
 	import type { SimulatorState } from './localization-trace';
 
@@ -162,7 +161,7 @@
 	{:else}
 		{#if status === 'error'}
 			<div role="alert" class="m-4 rounded-box border border-warning p-4 text-sm">
-				<p>{message}</p><p class="mt-2"><a class="link" href="{base}/integrate/section-player/">Read the integration guide</a>.</p>
+				<p>{message}</p><p class="mt-2"><a class="link" href="/integrate/section-player/">Read the integration guide</a>.</p>
 			</div>
 		{/if}
 		<pie-theme class="localization-player-stage" style="display: block" theme="light" provider="none">

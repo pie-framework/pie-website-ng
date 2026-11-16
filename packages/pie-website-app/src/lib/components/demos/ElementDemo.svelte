@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import type { ElementExample } from '$lib/data/element-example';
-	import type { PieElementInfo } from '$lib/data/elements';
-	import { ITEM_PLAYER_CDN_URL, ITEM_PLAYER_VERSION } from '$lib/versions';
-	import { demoEnvironment, type DemoView } from '$lib/data/demo-view';
+	import type { ElementExample } from '#lib/data/element-example.ts';
+	import type { PieElementInfo } from '#lib/data/elements.ts';
+	import { ITEM_PLAYER_CDN_URL, ITEM_PLAYER_VERSION } from '#lib/versions.ts';
+	import { demoEnvironment, type DemoView } from '#lib/data/demo-view.ts';
 	import DemoViewSwitcher from './DemoViewSwitcher.svelte';
 	let { element, example }: { element: PieElementInfo; example: ElementExample } = $props();
 	let mount = $state<HTMLDivElement>();

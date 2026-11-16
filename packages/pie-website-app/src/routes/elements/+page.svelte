@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
- import ExternalLink from '$lib/components/ExternalLink.svelte';
- import { base } from '$app/paths';
- import { ELEMENTS, ELEMENT_GROUPS, groupAnchor } from '$lib/data/elements';
- import { SITES } from '$lib/data/links';
- import { deliveryCapture } from '$lib/data/element-captures';
+	import Seo from '#lib/components/Seo.svelte';
+ import ExternalLink from '#lib/components/ExternalLink.svelte';
+ import { ELEMENTS, ELEMENT_GROUPS, groupAnchor } from '#lib/data/elements.ts';
+ import { SITES } from '#lib/data/links.ts';
+ import { deliveryCapture } from '#lib/data/element-captures.ts';
  let query = $state('');
  let group = $state('All');
  let view = $state('all');
@@ -32,8 +31,8 @@
  <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
   {#each items as element (element.name)}
    {@const capture = deliveryCapture(element.name)}
-   <a href="{base}/elements/{element.name}/" class="overflow-hidden rounded-box border border-base-300 hover:border-primary">
-    <div class="flex h-52 items-center bg-white p-4"><img src="{base}/images/elements/{capture.file}" alt={capture.alt} width={capture.width} height={capture.height} loading="lazy" class="max-h-full w-full object-contain" /></div>
+   <a href="/elements/{element.name}/" class="overflow-hidden rounded-box border border-base-300 hover:border-primary">
+    <div class="flex h-52 items-center bg-white p-4"><img src="/images/elements/{capture.file}" alt={capture.alt} width={capture.width} height={capture.height} loading="lazy" class="max-h-full w-full object-contain" /></div>
     <div class="p-5"><p class="mb-2 text-xs text-site-muted">{element.group} · {element.kind === 'question' ? 'Interaction' : element.kind === 'content' ? 'Content' : 'Rubric'}</p><h3 class="mb-2 text-xl font-semibold text-primary">{element.displayName}</h3><p class="text-sm text-base-content/75">{capture.caption}</p><p class="mt-4 text-xs text-site-muted">Authoring: {element.views.authoring ? 'yes' : 'no'} · Print: {element.views.print ? 'yes' : 'no'}</p></div>
    </a>
   {/each}
@@ -41,5 +40,5 @@
  {/if}
  {/each}
  {#if visible.length === 0}<p class="py-10">No elements match these filters. <button class="btn btn-ghost" onclick={reset}>Show all elements</button></p>{/if}
- <section class="mt-12 border-t border-base-300 pt-8"><h2 class="section-title">Custom interactions</h2><p class="text-base-content/75">Adapt an existing element, combine several in an item, or build a new type.</p><a class="btn btn-outline mt-4" href="{base}/build/">Build interactions</a></section>
+ <section class="mt-12 border-t border-base-300 pt-8"><h2 class="section-title">Custom interactions</h2><p class="text-base-content/75">Adapt an existing element, combine several in an item, or build a new type.</p><a class="btn btn-outline mt-4" href="/build/">Build interactions</a></section>
 </div>

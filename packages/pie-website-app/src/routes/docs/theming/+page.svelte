@@ -1,48 +1,16 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { base } from '$app/paths';
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
-	import Diagram from '$lib/components/Diagram.svelte';
-	import ExternalLink from '$lib/components/ExternalLink.svelte';
-	import { DOCS } from '$lib/data/links';
+	import Seo from '#lib/components/Seo.svelte';
+	import CodeEditor from '#lib/components/CodeEditor.svelte';
+	import Diagram from '#lib/components/Diagram.svelte';
+	import ExternalLink from '#lib/components/ExternalLink.svelte';
+	import { DOCS } from '#lib/data/links.ts';
+	import { setupExample, schemeExample, aliasExample } from '#lib/data/theming-examples.ts';
 
 	const PP = 'https://github.com/pie-framework/pie-players/blob/develop/';
 	const THEME_README = `${PP}packages/theme/README.md`;
 	const TOKEN_REGISTRY = `${PP}packages/theme/README.md#token-registry`;
 	const WCAG_MATRIX = `${PP}docs/architecture/pie-727-theming-wcag-matrix.md`;
 	const THEME_TOOL = `${PP}packages/tool-color-scheme/README.md`;
-
-	const setupExample = `<script type="module">
-  import '@pie-players/pie-theme';
-<\/script>
-
-<pie-theme theme="auto" scope="document" scheme="default">
-  <pie-section-player-splitpane></pie-section-player-splitpane>
-</pie-theme>`;
-
-	const schemeExample = `import { registerPieColorSchemes } from '@pie-players/pie-theme';
-
-const registration = registerPieColorSchemes([
-  {
-    id: 'district-high-contrast',
-    name: 'District High Contrast',
-    description: 'District accessibility palette',
-    variables: {
-      '--pie-background': '#000000',
-      '--pie-text': '#ffffff',
-      '--pie-primary': '#00ffff',
-    },
-  },
-]);
-// <pie-theme scheme="district-high-contrast"> now resolves it.
-// registration.unregister() removes only this registration.`;
-
-	const aliasExample = `/* Host stylesheet: let your own chrome follow an active accommodation. */
-[data-color-scheme] {
-  --color-base-100: var(--pie-background);
-  --color-base-content: var(--pie-text);
-  --color-primary: var(--pie-primary);
-}`;
 
 	const attributeRows = [
 		['theme', 'light, dark or auto', 'light'],
@@ -224,7 +192,7 @@ const registration = registerPieColorSchemes([
 			<ExternalLink href={DOCS.theming}>How theming works</ExternalLink> ·
 			<ExternalLink href={THEME_README}>Theme README</ExternalLink> ·
 			<ExternalLink href={WCAG_MATRIX}>Theming WCAG matrix</ExternalLink> ·
-			<a href="{base}/docs/accessibility/" class="link link-primary">Accessibility</a>
+			<a href="/docs/accessibility/" class="link link-primary">Accessibility</a>
 		</p>
 	</section>
 </div>

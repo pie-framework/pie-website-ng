@@ -1,5 +1,4 @@
-import { base } from '$app/paths';
-import { elementSpec } from '$lib/versions';
+import { elementSpec } from '#lib/versions.ts';
 
 // Adapted from pie-players/docs/getting-started-section.md and the formative
 // and timed-media section demos. Exact element versions come from the catalog.
@@ -72,7 +71,7 @@ export function timedMediaSection() {
 				id: 'water-cycle', name: 'The water cycle',
 				config: {
 					elements: {}, models: [],
-					markup: '<video controls playsinline preload="metadata" style="width:100%;aspect-ratio:427/240"><source src="' + base + '/demo-assets/water-cycle-lesson.webm" type="video/webm"></video><p><strong>Text alternative:</strong> This silent slide lesson shows evaporation: the sun heats water and it rises as water vapour. Higher in the colder air it condenses into clouds. The cycle continues with precipitation.</p>'
+					markup: '<video controls playsinline preload="metadata" style="width:100%;aspect-ratio:427/240"><source src="/demo-assets/water-cycle-lesson.webm" type="video/webm"></video><p><strong>Text alternative:</strong> This silent slide lesson shows evaporation: the sun heats water and it rises as water vapour. Higher in the colder air it condenses into clouds. The cycle continues with precipitation.</p>'
 				}
 			}
 		}],
